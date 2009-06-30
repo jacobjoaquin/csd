@@ -244,20 +244,5 @@ def swap_pfields(event, pfield_a, pfield_b):
     event = set_pfield(event, pfield_b, a)
     return event
         
-        
-# NOTES
-'''        
-event_list = []
-event_list = to_list_form('  /*a*/i1 0 1')
-['i', '1', '0', '1'], [['/*a*/', 1], ['  ', 0]]  
-['i', '1', '0', '1'], [[1, '/*a*/'], [0, '  ']]  
-
-['i', '1', '0', '1'], [{1:'/*a*/'}, {0:'  '}]  
-
-['event', ['i', '1', '0', '1'], [{1:'/*a*/'}, {0:'  '}]]
-
-
-Class this?
-'''
 
 
