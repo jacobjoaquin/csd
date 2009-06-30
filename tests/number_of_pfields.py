@@ -9,7 +9,7 @@ def test(n, line, expect):
     result = s.number_of_pfields(line)
     did_pass = result == expect
 
-    return did_pass, n, 'token_type()', str(expect), str(result)
+    return did_pass, n, 'number_of_pfields()', str(expect), str(result)
 
 print test(0, 'i', 1)
 print test(1, 'i\n', 1)

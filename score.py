@@ -235,69 +235,29 @@ def token_type(t):
 
         return type_            
 
-def swap_pfields(ievent, pfield_a, pfield_b):
-    temp = get_pfield(ievent, pfield_a)
-    ievent = set_pfield(ievent, pfield_a, get_pfield(ievent, pfield_b))
-    ievent = set_pfield(ievent, pfield_b, temp)
-    return ievent
-
-
+def swap_pfields(event, pfield_a, pfield_b):
+    '''Swaps pfields of an event at the two specified indexes'''
+    
+    a = get_pfield(event, pfield_a)
+    b = get_pfield(event, pfield_b)
+    event = set_pfield(event, pfield_a, b)
+    event = set_pfield(event, pfield_b, a)
+    return event
+        
+        
+# NOTES
 '''        
-i 0 /*A*/ 1 ;D_comment
-i 0 /*B*/ 1 ;E_comment
-i 0 /*C*/ 1 ;F_comment
-
-useless_bits{(0), ((0, 8, ';D_comment'))}
-useless_bits{(1), ((0, 4, '/*A*/'))}
-useless_bits{(2), ((1, 8, ';E_comment'))}
-useless_bits{(3), ((1, 4, '/*B*/'))}
-useless_bits{(4), ((2, 8, ';F_comment'))}
-useless_bits{(5), ((2, 4, '/*C*/'))}
-
-
-key{(n), ((row_index, field, 'content_of_field'))}
-
-key{(n), ((score_block_instance, row_index, field, 'content_of_field'))}
-       
-Extract starting from the right
-Reinsertion starting from the left
-
-  i1 0 1.0/*comment*/ 440 ;comment
-[row,
-['ievent',
-['i', '1', '0', '1.0', '440'],
-[';comment', 11]
-]
-]
-
-[row_index, ['ievent', ['i', '1', '0', '1.0', '440'],
-[[';comment', 11], [' ', 10], [' ', 8], ['/*comment*/, 7],
- [' ', 5], [' ', 3], ['  ', 0]]]]
-
- 
-list_form
-[['i', '1', '0', '1.0', '440'],
-[';comment', 11], [' ', 10], [' ', 8], ['/*comment*/, 7], [' ', 5], [' ', 3], ['  ', 0]]
-
-
-
 event_list = []
 event_list = to_list_form('  /*a*/i1 0 1')
 ['i', '1', '0', '1'], [['/*a*/', 1], ['  ', 0]]  
 ['i', '1', '0', '1'], [[1, '/*a*/'], [0, '  ']]  
 
+['i', '1', '0', '1'], [{1:'/*a*/'}, {0:'  '}]  
+
+['event', ['i', '1', '0', '1'], [{1:'/*a*/'}, {0:'  '}]]
 
 
-class event_list_form:
-    # potential benefit, custom iterator?
-    
-    def __init__(self, event):
-        self.pfields[];
-        self.extras[];   # use dictionary?
-
-        self.pfields, self.extras[] = parse_event(event)
-        
-
+Class this?
 '''
 
 
