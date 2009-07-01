@@ -2,6 +2,12 @@
 
 import re
 
+
+class tokens:
+    def __init__(cls):
+    
+        pass
+        
 RE_STATEMENT = re.compile('[abefimnqrstvx]')
 RE_NUMERIC = re.compile('\d+.\d+|\d+.|.\d+|\d+')
 RE_STRING = re.compile('\".+\"|\{\{.+\}\}')
@@ -198,6 +204,8 @@ def set_pfield(event, pfield, value):
 
     return ''.join(tokens)
 
+    
+
 def token_type(t):
         '''Analyses the input and returns the t type of a Csound
         score.'''
@@ -243,6 +251,10 @@ def swap_pfields(event, pfield_a, pfield_b):
     event = set_pfield(event, pfield_a, b)
     event = set_pfield(event, pfield_b, a)
     return event
-        
 
-
+def operate_pfield(event, pfield, func):
+    '''Process a given pfield in a event with a supplied function'''
+    
+    pass
+    
+    
