@@ -33,6 +33,10 @@ print test(17, '/* intro comment */ i 1/* middle */ 0 1 /* End comment */ ', 'i 
 print test(18, 'i  [~]  0  [~]', 'i [~] 0 [~]')
 print test(19, 'i  {{foo}}  0  {{foo }}', 'i {{foo}} 0 {{foo }}')
 print test(20, 'i  "foo"  0  "foo "', 'i "foo" 0 "foo "')
+print test(24, 'i 1 0/*foo*/4 0.5 440 ;comment', 'i 1 0 4 0.5 440')
+
+
+
 
 
 

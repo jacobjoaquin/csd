@@ -46,5 +46,8 @@ print test(31, 'i  "foo"  0  "foo "', 4)
 print test(32, 'f 1 0 8192 19 1', 6)
 print test(33, 'f1 0 8192 19 1', 6)
 print test(34, 'z1 0 8192 19 1', 5)  # 'z' is non-statement
+print test(35, 'i 1 0/*foo*/4 0.5 440 ;comment', 6)
+print test(36, 'i 1 0/*foo*/ 4 0.5 440 ;comment', 6)
+print test(37, 'i 1 0 /*foo*/4 0.5 440 ;comment', 6)
 
 

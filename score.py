@@ -79,7 +79,7 @@ def sanitize_event(event):
     m = p.search(event)
     
     if m:
-        event = p.sub('', event)
+        event = p.sub(' ', event)
     
     event = event.strip()
 
@@ -142,6 +142,7 @@ def tokenize_event(event):
     but the results are not to be trusted.
     '''
     
+    print '--- tokenize_event called'
     tokens = []
 
     # Get leading white space and /* comments */
@@ -176,6 +177,7 @@ def tokenize_event(event):
     for t in p.findall(event):
         tokens.append(t)
     
+    print '--- tokenize_event', tokens
     return tokens
     
 def get_pfield(event, pfield):
@@ -188,12 +190,14 @@ def get_pfield(event, pfield):
     
     event = sanitize_event(event)
     event_list = split_event(event)
-    
+
+    print 'event_list', event_list    
     if pfield in range(len(event_list)):
         value = event_list[pfield]
     else:
         value = None
 
+    print 'get value', value
     return value
 
 def set_pfield(event, pfield, value):
@@ -202,10 +206,13 @@ def set_pfield(event, pfield, value):
 
     # Skip if pfield is out of range
     if pfield not in range(number_of_pfields(event)):
+        '%%% set_pfield not in range'
         return event
     
+    print '*** event', event
     tokens = tokenize_event(event)
-
+    print '*** tokens', tokens
+    
     pf_index = -1
     for i, t in enumerate(tokens):
         if pf_index == -1:
@@ -236,7 +243,7 @@ def swap_pfields(event, pfield_a, pfield_b):
 
 def insert_pfield(event, pfield, fill='.'):
     '''Inserts a pfield.'''
-
+    
     if pfield in range(number_of_pfields(event)):
         pf = get_pfield(event, pfield)
         new = [fill, ' ', pf]
@@ -248,10 +255,26 @@ def insert_pfield(event, pfield, fill='.'):
     
     return event
 
+def push_pfield(event, fill='.'):
+    '''Appends a pfield after the last pfields.'''
+
+    return insert_pfield(event, number_of_pfields(event), fill)
 
 def remove_pfield(event, pfield):
-    '''Eliminates a pfield.'''
-    pass
+    '''Eliminates a pfield and returns a tuple: (new event,
+    pfield removed)
+    
+    Leaves surrounding white space. Use other functions to clean
+    white if that is what you wish.
+    '''
+    
+    pf = ''
+    
+    if pfield in range(number_of_pfields(event)):
+        pf = get_pfield(event, pfield)
+        event = set_pfield(event, pfield, '')
+    
+    return event, pf
     
 def pop_pfield(event):
     '''NOT IMPLEMENTED.
@@ -259,14 +282,8 @@ def pop_pfield(event):
     Grabs the last pfield, and removes from event. Perhaps this
     should return new_string, popped_pfield?
     '''
-    pass
     
-def push_pfield(event):
-    '''NOT IMPLEMENTED.
-    
-    Appends a pfield after the last pfields.
-    '''
-    pass
+    return remove_pfield(event, number_of_pfields(event) - 1)
 
 def swap_columns(score, statement, identifier, a, b):
     '''NOT IMPLEMENTED.
