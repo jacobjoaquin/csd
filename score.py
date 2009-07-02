@@ -85,7 +85,6 @@ def sanitize_event(event):
 
     # Compress whitespace between fields
     p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
-    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
     event = ' '.join(p.findall(event))
 
     return event
@@ -235,6 +234,25 @@ def swap_pfields(event, pfield_a, pfield_b):
 
     return event
 
+def remove_pfield(event, pfield):
+    '''Elimantes a pfields.'''
+    pass
+    
+def insert_pfield(event, pfield):
+    '''Inserts a pfields.'''
+    pass
+
+def pop_pfield(event):
+    '''Grabs the last pfield, and removes from event.
+    
+    Perhaps this should return new_string, popped_pfield
+    '''
+    pass
+    
+def push_pfield(event):
+    '''Appends a pfield after the last pfields.'''
+    pass
+
 def swap_columns(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
     identifier.
@@ -261,26 +279,7 @@ def swap_columns(score, statement, identifier, a, b):
             score_output.append(row)
             
     return ''.join(score_output)
-
-def remove_pfield(event, pfield):
-    '''Elimantes a pfields.'''
-    pass
     
-def insert_pfield(event, pfield):
-    '''Inserts a pfields.'''
-    pass
-
-def pop_pfield(event):
-    '''Grabs the last pfield, and removes from event.
-    
-    Perhaps this should return new_string, popped_pfield
-    '''
-    pass
-    
-def push_pfield(event):
-    '''Appends a pfield after the last pfields.'''
-    pass
-
 def shift_column(score, statement, identifier, move):
     '''Shifts a columns pfield position.
     
