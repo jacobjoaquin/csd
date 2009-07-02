@@ -234,27 +234,44 @@ def swap_pfields(event, pfield_a, pfield_b):
 
     return event
 
-def remove_pfield(event, pfield):
-    '''Elimantes a pfields.'''
-    pass
-    
-def insert_pfield(event, pfield):
-    '''Inserts a pfields.'''
-    pass
+def insert_pfield(event, pfield, fill='.'):
+    '''Inserts a pfield.'''
 
-def pop_pfield(event):
-    '''Grabs the last pfield, and removes from event.
+    if pfield in range(number_of_pfields(event)):
+        pf = get_pfield(event, pfield)
+        new = [fill, ' ', pf]
+        event = set_pfield(event, pfield, ''.join(new))  
+    elif pfield == number_of_pfields(event):
+        pf = get_pfield(event, pfield - 1)
+        new = [pf, ' ', fill]
+        event = set_pfield(event, pfield - 1, ''.join(new))  
     
-    Perhaps this should return new_string, popped_pfield
+    return event
+
+
+def remove_pfield(event, pfield):
+    '''Eliminates a pfield.'''
+    pass
+    
+def pop_pfield(event):
+    '''NOT IMPLEMENTED.
+    
+    Grabs the last pfield, and removes from event. Perhaps this
+    should return new_string, popped_pfield?
     '''
     pass
     
 def push_pfield(event):
-    '''Appends a pfield after the last pfields.'''
+    '''NOT IMPLEMENTED.
+    
+    Appends a pfield after the last pfields.
+    '''
     pass
 
 def swap_columns(score, statement, identifier, a, b):
-    '''Exchanges all score columns for a specified statement and
+    '''NOT IMPLEMENTED.
+    
+    Exchanges all score columns for a specified statement and
     identifier.
     
     Returns a new string.
@@ -281,7 +298,9 @@ def swap_columns(score, statement, identifier, a, b):
     return ''.join(score_output)
     
 def shift_column(score, statement, identifier, move):
-    '''Shifts a columns pfield position.
+    '''NOT IMPLEMENTED.
+    
+    Shifts a columns pfield position.
     
     The move parameter specifies how many columns to shift, with a
     positive number indicating moving to the right, and a negative
