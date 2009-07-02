@@ -84,7 +84,8 @@ def sanitize_event(event):
     event = event.strip()
 
     # Compress whitespace between fields
-    p = re.compile('\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+')
+    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
+    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
     event = ' '.join(p.findall(event))
 
     return event
@@ -93,21 +94,13 @@ def number_of_pfields(event):
     '''Counts the pfields present in an i-event string, returning
     an integer.'''
     
-    # To do:
-    #     check for valid statement
-     
+    return len(get_pfield_list(event))
+
+def get_pfield_list(event):
+    '''Creates a list of only pfield elements'''
+
     event = sanitize_event(event)
-
-    # Prep event by reming white space, and separating i from p1 if necessary.
-    p = re.compile('([abefimnqrstvx])\S')
-    m = p.match(event)
-
-    if m:
-        event = event.replace(m.group(1), m.group(1) + ' ', 1)
-
-    # Pattern for pfields
-    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
-    return len(p.findall(event))
+    return split_event(event)    
 
 def split_event(event):
     '''Breaks a score event into a list.
@@ -120,7 +113,7 @@ def split_event(event):
     the function tokenize_event()
     '''
 
-    # Prep ievent by reming white space, and separating i from p1 if necessary.
+    # Separate statement from p1 if necessary.
     p = re.compile('([abefimnqrstvx])\S')
     m = p.match(event)
 
@@ -129,8 +122,8 @@ def split_event(event):
     
     # Pattern for pfields
     pattern = '''(\".+?\"     |
-                  \{\{.+\}\}  |
-                  \[.+\]      |
+                  \{\{.+?\}\} |
+                  \[.+?\]     |
                   \;.+        |
                   \/\*.+?\*\/ |
                   \S+(?=\/\*) |
@@ -269,7 +262,43 @@ def swap_columns(score, statement, identifier, a, b):
             
     return ''.join(score_output)
 
-def move_columns(score, statement, identifiers, move):
+def remove_pfield(event, pfield):
+    '''Elimantes a pfields.'''
     pass
     
-   
+def insert_pfield(event, pfield):
+    '''Inserts a pfields.'''
+    pass
+
+def pop_pfield(event):
+    '''Grabs the last pfield, and removes from event.
+    
+    Perhaps this should return new_string, popped_pfield
+    '''
+    pass
+    
+def push_pfield(event):
+    '''Appends a pfield after the last pfields.'''
+    pass
+
+def shift_column(score, statement, identifier, move):
+    '''Shifts a columns pfield position.
+    
+    The move parameter specifies how many columns to shift, with a
+    positive number indicating moving to the right, and a negative
+    number indicating a move to the left.
+    '''
+    
+    pass
+
+def insert_column(score, statement, identifier, index, fill='.'):
+    pass
+
+def remove_column(score, statement, identifier, index):
+    pass
+    
+def pop_column(score, statement, identifier):
+    pass
+    
+def push_column(score, statement, identifier, fill='.'):
+    pass

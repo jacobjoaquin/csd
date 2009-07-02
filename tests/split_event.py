@@ -42,5 +42,9 @@ print test(20, 'f 0 3; my comment', ['f', '0', '3', '; my comment'])
 print test(21, 'f0 3; my comment', ['f', '0', '3', '; my comment'])
 # z is a non-statement
 print test(22, 'z0 3; my comment', ['z0', '3', '; my comment'])  
+print test(23, 'z0 3; my comment', ['z0', '3', '; my comment'])  
+print test(24, 'i  {{foo}}  0  {{foo }}', ['i', '{{foo}}', '0', '{{foo }}'])
+print test(25, 'i  "foo"  0  "foo "', ['i', '"foo"', '0', '"foo "'])
+print test(26, 'i  [~]  0  [~]', ['i', '[~]', '0', '[~]'])
 
 
