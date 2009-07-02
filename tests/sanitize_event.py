@@ -30,6 +30,9 @@ print test(14, 'i  "{{   }}"  0  1', 'i "{{   }}" 0 1')
 print test(15, 'i 1 0 1 /* End comment */ ', 'i 1 0 1')
 print test(16, '/* intro comment */ i 1 0 1 /* End comment */ ', 'i 1 0 1')
 print test(17, '/* intro comment */ i 1/* middle */ 0 1 /* End comment */ ', 'i 1 0 1')
+print test(18, 'i  [~]  0  [~]', 'i [~] 0 [~]')
+print test(19, 'i  {{foo}}  0  {{foo }}', 'i {{foo}} 0 {{foo }}')
+print test(20, 'i  "foo"  0  "foo "', 'i "foo" 0 "foo "')
 
 
 

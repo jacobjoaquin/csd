@@ -40,5 +40,11 @@ print test(25, 'i1 + . " " 1', 6)
 print test(26, 'i1 + . {{ }} 1', 6)
 print test(27, 'i1 + . {{" "}} 1', 6)
 print test(28, 'i1 + . "{{ }}" 1', 6)
+print test(29, 'i  [~]  0  [~]', 4)
+print test(30, 'i  {{foo}}  0  {{foo }}', 4)
+print test(31, 'i  "foo"  0  "foo "', 4)
+print test(32, 'f 1 0 8192 19 1', 6)
+print test(33, 'f1 0 8192 19 1', 6)
+print test(34, 'z1 0 8192 19 1', 5)  # 'z' is non-statement
 
 

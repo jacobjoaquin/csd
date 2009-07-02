@@ -39,8 +39,36 @@ score = '''i 1 2 3 4 5 6'''
 expect = '''i 1 6 3 4 5 2'''
 print test(5, score, 'i', 1, 2, 6, expect)
 
-print
 score = '''i 1 2 $three 4 5 "six"'''
 expect = '''i 1 2 "six" 4 5 $three'''
 print test(6, score, 'i', 1, 3, 6, expect)
+
+score = '''
+i 1 0 1 440 1.0
+f 1 0 8192 10 1 1 1 1'''
+expect = '''
+i 1 0 1 1.0 440
+f 1 0 8192 10 1 1 1 1'''
+print test(7, score, 'i', 1, 4, 5, expect)
+
+score = '''
+i 1 0 1 440 1.0
+f 1 0 8192 10 1 1 1 1'''
+expect = '''
+i 1 0 1 440 1.0
+f 1 0 8192 1 10 1 1 1'''
+print test(8, score, 'f', 1, 4, 5, expect)
+
+score = '''
+i 1 0 1 440 1.0
+f 1 0 8192 10 1 1 1 1'''
+expect = '''
+i 1 0 1 440 1.0
+f 1 0 8192 1 10 1 1 1'''
+print test(9, score, 'f', 1, 4, 5, expect)
+
+score = '''i1 0 1 440 1.0'''
+expect = '''i1 0 1 1.0 440'''
+print test(10, score, 'i', 1, 4, 5, expect)
+
 

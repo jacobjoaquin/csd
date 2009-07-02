@@ -36,7 +36,11 @@ print test(15, 'i 0 1 /* my comment */1 /* my comment */', ['i', '0', '1',
                '/* my comment */', '1', '/* my comment */'])
 print test(16, 'i {{ }} 1', ['i', '{{ }}', '1'])               
 print test(17, 'i {{  }} 1', ['i', '{{  }}', '1'])               
-print test(17, 'i "  " 1', ['i', '"  "', '1'])               
+print test(18, 'i "  " 1', ['i', '"  "', '1'])               
 print test(19, 'i 0 3; my comment', ['i', '0', '3', '; my comment'])
+print test(20, 'f 0 3; my comment', ['f', '0', '3', '; my comment'])
+print test(21, 'f0 3; my comment', ['f', '0', '3', '; my comment'])
+# z is a non-statement
+print test(22, 'z0 3; my comment', ['z0', '3', '; my comment'])  
 
 

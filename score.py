@@ -5,7 +5,7 @@ import re
 RE_STATEMENT = re.compile('[abefimnqrstvx]')
 RE_NUMERIC = re.compile('\d+.\d+|\d+.|.\d+|\d+')
 RE_STRING = re.compile('\".+?\"|\{\{.+?\}\}')
-RE_EXPRESSION = re.compile('\[.+\]')
+RE_EXPRESSION = re.compile('\[.+?\]')
 RE_MACRO = re.compile('\$\S+')
 RE_CARRY = re.compile('\.')
 RE_NO_CARRY = re.compile('\!')
@@ -16,7 +16,7 @@ RE_EXPONENTIAL_RAMP = re.compile('[\(\)]')
 RE_RANDOM = re.compile('\~')
 RE_CARRY_PLUS = re.compile('\+|\^\+\d+|\^\-\d+')
 
-# Class constants?
+# Class this?
 STATEMENT = 1
 NUMERIC = 2
 STRING = 3
@@ -84,30 +84,30 @@ def sanitize_event(event):
     event = event.strip()
 
     # Compress whitespace between fields
-    p = re.compile('\".+?\"|\{\{.+\}\}|\[.+\]|\S+')
+    p = re.compile('\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+')
     event = ' '.join(p.findall(event))
 
     return event
 
-def number_of_pfields(ievent):
+def number_of_pfields(event):
     '''Counts the pfields present in an i-event string, returning
     an integer.'''
     
     # To do:
     #     check for valid statement
      
-    ievent = sanitize_event(ievent)
+    event = sanitize_event(event)
 
-    # Prep ievent by reming white space, and separating i from p1 if necessary.
-    p = re.compile('(i)\S')
-    m = p.match(ievent)
+    # Prep event by reming white space, and separating i from p1 if necessary.
+    p = re.compile('([abefimnqrstvx])\S')
+    m = p.match(event)
 
     if m:
-        ievent = ievent.replace('i', 'i ', 1)
+        event = event.replace(m.group(1), m.group(1) + ' ', 1)
 
     # Pattern for pfields
-    p = re.compile('(\".+?\"|\{\{.+\}\}|\[.+\]|\S+)')
-    return len(p.findall(ievent))
+    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
+    return len(p.findall(event))
 
 def split_event(event):
     '''Breaks a score event into a list.
@@ -121,14 +121,14 @@ def split_event(event):
     '''
 
     # Prep ievent by reming white space, and separating i from p1 if necessary.
-    p = re.compile('(i)\S')
+    p = re.compile('([abefimnqrstvx])\S')
     m = p.match(event)
 
     if m:
-        event = event.replace('i', 'i ', 1)
+        event = event.replace(m.group(1), m.group(1) + ' ', 1)
     
     # Pattern for pfields
-    pattern = '''(\".+?\"      |
+    pattern = '''(\".+?\"     |
                   \{\{.+\}\}  |
                   \[.+\]      |
                   \;.+        |
@@ -169,7 +169,7 @@ def tokenize_event(event):
         
     # Token the rest of the event
     pattern = '''(\s+         |
-                  \".+?\"      |
+                  \".+?\"     |
                   \{\{.+\}\}  |
                   \[.+\]      |
                   \;.+        |
@@ -233,7 +233,7 @@ def set_pfield(event, pfield, value):
 
 def swap_pfields(event, pfield_a, pfield_b):
     '''Swaps pfields of an event at the two specified indexes'''
-    
+
     a = get_pfield(event, pfield_a)
     b = get_pfield(event, pfield_b)
 
@@ -249,26 +249,27 @@ def swap_columns(score, statement, identifier, a, b):
     Returns a new string.
     '''
     
-    print 'score', score
-    
     score_output = []
     score_list = score.splitlines(True)
     
     for row in score_list:
-        # Check that pfields a and b are in range, return original if True.
-        for pf in (a, b):
-            if pf not in range(number_of_pfields(row)):
-                return score
-                
-        # Swap columns
+        # Test statement type and statement identifier.
         if get_pfield(row, 0) is statement\
                 and get_pfield(row, 1) == str(identifier):
+                    
+            # Check that pfields a and b are in range, return original if True.
+            for pf in (a, b):
+                if pf not in range(number_of_pfields(row)):
+                    return score
+                    
+            # Swap pfields
             score_output.append(swap_pfields(row, a, b))
-            print 'swap_pfields', swap_pfields(row, a, b)
         else:
             score_output.append(row)
             
     return ''.join(score_output)
 
-
-
+def move_columns(score, statement, identifiers, move):
+    pass
+    
+   
