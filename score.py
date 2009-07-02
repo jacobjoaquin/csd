@@ -162,8 +162,8 @@ def tokenize_event(event):
     # Token the rest of the event
     pattern = '''(\s+         |
                   \".+?\"     |
-                  \{\{.+\}\}  |
-                  \[.+\]      |
+                  \{\{.+?\}\} |
+                  \[.+?\]     |
                   \;.+        |
                   \/\*.+?\*\/ |
                   \S+(?=\/\*) |
