@@ -47,10 +47,8 @@ print test(21, 'i 1 0 pp14', 3, 'np5', 'i 1 0 np5')
 print test(22, 'i 1 2 $three 4 5 "six"', 3, '"six"', 'i 1 2 "six" 4 5 "six"')
 print test(23, 'i 1 2 $three 4 5 "six"', 6, '$three',
            'i 1 2 $three 4 5 $three')
-
 print test(24, 'i 1 0/*foo*/4 0.5 440 ;comment', 5, '',
            'i 1 0/*foo*/4 0.5  ;comment')
-
 print test(25, 'i 1 0 4 0.5 440 ;comment', 5, '',
            'i 1 0 4 0.5  ;comment')
 

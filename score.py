@@ -142,7 +142,6 @@ def tokenize_event(event):
     but the results are not to be trusted.
     '''
     
-    print '--- tokenize_event called'
     tokens = []
 
     # Get leading white space and /* comments */
@@ -177,7 +176,6 @@ def tokenize_event(event):
     for t in p.findall(event):
         tokens.append(t)
     
-    print '--- tokenize_event', tokens
     return tokens
     
 def get_pfield(event, pfield):
@@ -191,13 +189,11 @@ def get_pfield(event, pfield):
     event = sanitize_event(event)
     event_list = split_event(event)
 
-    print 'event_list', event_list    
     if pfield in range(len(event_list)):
         value = event_list[pfield]
     else:
         value = None
 
-    print 'get value', value
     return value
 
 def set_pfield(event, pfield, value):
@@ -209,9 +205,7 @@ def set_pfield(event, pfield, value):
         '%%% set_pfield not in range'
         return event
     
-    print '*** event', event
     tokens = tokenize_event(event)
-    print '*** tokens', tokens
     
     pf_index = -1
     for i, t in enumerate(tokens):
@@ -277,18 +271,14 @@ def remove_pfield(event, pfield):
     return event, pf
     
 def pop_pfield(event):
-    '''NOT IMPLEMENTED.
-    
-    Grabs the last pfield, and removes from event. Perhaps this
+    '''Grabs the last pfield, and removes from event. Perhaps this
     should return new_string, popped_pfield?
     '''
     
     return remove_pfield(event, number_of_pfields(event) - 1)
 
 def swap_columns(score, statement, identifier, a, b):
-    '''NOT IMPLEMENTED.
-    
-    Exchanges all score columns for a specified statement and
+    '''Exchanges all score columns for a specified statement and
     identifier.
     
     Returns a new string.
@@ -327,13 +317,17 @@ def shift_column(score, statement, identifier, move):
     pass
 
 def insert_column(score, statement, identifier, index, fill='.'):
+    '''NOT IMPLEMENTED.'''
     pass
 
 def remove_column(score, statement, identifier, index):
+    '''NOT IMPLEMENTED.'''
     pass
     
 def pop_column(score, statement, identifier):
+    '''NOT IMPLEMENTED.'''
     pass
     
 def push_column(score, statement, identifier, fill='.'):
+    '''NOT IMPLEMENTED.'''
     pass
