@@ -7,16 +7,19 @@ sys.path.append('../')  # Fix this.
 import score
 from optparse import OptionParser
 
-def arpeggiator(s, statement, identifier, pfield, v):
+def sum_(s, statement, identifier, pfield, v):
     output = []
     
-    i = 0  # Cycle index of looping arp list
-
     for row in s:
         if score.get_pfield(row, 0) is statement\
                 and score.get_pfield(row, 1) == identifier:
-            output.append(score.set_pfield(row, int(options.pfield), v[i]))
-            i = (i + 1) % len(arp)
+            
+            # Sum values, or ignore if original pfield is not NUMERIC
+            pf = score.get_pfield(row, int(options.pfield))
+            if score.token_type(pf) is score.NUMERIC:
+                pf = float(pf) + float(v)
+
+            output.append(score.set_pfield(row, int(options.pfield), pf))
         else:
             output.append(row)
 
@@ -26,22 +29,19 @@ if __name__ == '__main__':
     # Get command-line flags
     u = ['usage: <stdout> |']
     u.append('python arpeggiator.py -i(statement) -n(identifier)')
-    u.append('-p(pfield) -v("value1 value2 etc..")')
+    u.append('-p(pfield) -v(number)')
     usage = ' '.join(u)
     parser = OptionParser(usage)
     parser.add_option("-s", dest="statement", help="statement")
     parser.add_option("-i", dest="identifier", help="identifier")
     parser.add_option("-p", dest="pfield", help="pfield")
-    parser.add_option("-v", dest="values", help="values")
+    parser.add_option("-v", dest="value", help="value")
     (options, args) = parser.parse_args()
 
     # Get input
     stdin = sys.stdin.readlines()
     sco = ''.join(stdin).splitlines(True)
 
-    # Convert vales into list
-    arp = options.values.split()
-
-    print arpeggiator(sco, options.statement, options.identifier,\
-                      options.pfield, arp), 
+    print sum_(sco, options.statement, options.identifier,\
+                      options.pfield, options.value), 
 

@@ -219,7 +219,9 @@ def set_pfield(event, pfield, value):
                 pf_index += 1
 
         if pf_index == pfield:
-            tokens[i] = value
+            
+            # Create test case for str(value)
+            tokens[i] = str(value)
             break
 
     return ''.join(tokens)
