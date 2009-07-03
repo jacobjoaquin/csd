@@ -1,68 +1,48 @@
 #!/usr/bin/env python
-'''Swaps two pfields for all rows that match a specified statement
-and identifier.
-
-i.e. 'i 7' where the 'i' is a i-event statement and '7' is the
-instrument number.
-
-    example: $ cat swap.sco | ./swap_pfields.py -si -i7 -a4 -b5
-    
-The previous command-line will swap pfields 4 and 5 for all instrument
-7 events.
-'''
+'''Arpeggiates a supplied list of values for a specific i statement
+and identifier'''
 
 import sys
 sys.path.append('../')  # Fix this.
 import score
 from optparse import OptionParser
 
-if __name__ == '__main__':
-    # Get command-line flags
-#    usage = 'usage: <stdout> | python swap_columns.py -i(statement) -n(instr) -a(int) -b(int)'
-#    parser = OptionParser(usage)
-#    parser.add_option("-s", dest="statement", help="statement")
-#    parser.add_option("-i", dest="instr", help="instr")
-#    parser.add_option("-a", dest="pfield_a", help="pfield a")
-#    parser.add_option("-b", dest="pfield_b", help="pfield b")
-#    (options, args) = parser.parse_args()
-
-    # Get stdin
-#    stdin = sys.stdin.readlines()
-#    s = ''.join(stdin)
-
-    statement = 'i'
-    identifier = '2'
-    pf = 5
-    
-    sco = '''
-i 1 0 1    1.0 440
-i 2 0 0.25 1.0 7.00
-i 2 + .    1.0 7.00
-i 2 + .    1.0 7.00
-i 2 + .    1.0 7.00
-i 2 + .    1.0 7.00
-i 2 + .    1.0 7.00
-i 2 + .    1.0 7.00
-i 3 4 14   0.3 1000
-'''
-    
-    arp_input = "7.00 7.03 7.07 7.11"
-    arp = []
-    arp = arp_input.split()
-
-    s = sco.splitlines(True)
-    
+def arpeggiator(sco, statement, identifier, pfield, v):
     output = []
     
     i = 0  # Cycle index of looping arp list
     
-    for row in s:
+    for row in sco:
         if score.get_pfield(row, 0) is statement\
-                and score.get_pfield(row, 1) == str(identifier):
-            output.append(score.set_pfield(row, pf, arp[i]))
+                and score.get_pfield(row, 1) == identifier:
+            output.append(score.set_pfield(row, int(options.pfield), v[i]))
             i = (i + 1) % len(arp)
         else:
             output.append(row)
+
+    return ''.join(output)
+
+
+if __name__ == '__main__':
+    # Get command-line flags
+    u = ['usage: <stdout> |']
+    u.append('python arpeggiator.py -i(statement) -n(identifier)')
+    u.append('-p(pfield) -v("value1 value2 etc..")')
+    usage = ' '.join(u)
+    parser = OptionParser(usage)
+    parser.add_option("-s", dest="statement", help="statement")
+    parser.add_option("-i", dest="identifier", help="identifier")
+    parser.add_option("-p", dest="pfield", help="pfield")
+    parser.add_option("-v", dest="values", help="values")
+    (options, args) = parser.parse_args()
+
+    # Get input
+    stdin = sys.stdin.readlines()
+    sco = ''.join(stdin).splitlines(True)
+
+    # Convert vales into list
+    arp = options.values.split()
     
-    print ''.join(output)
+    print arpeggiator(sco, options.statement, options.identifier,\
+                      options.pfield, arp), 
     

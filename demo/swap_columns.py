@@ -18,7 +18,9 @@ from optparse import OptionParser
 
 if __name__ == '__main__':
     # Get command-line flags
-    usage = 'usage: <stdout> | python swap_columns.py -i(statement) -n(instr) -a(int) -b(int)'
+    u = ['usage: <stdout> |']
+    u.append('python swap_columns.py -i(statement) -n(instr) -a(int) -b(int)')
+    usage = ' '.join(u)
     parser = OptionParser(usage)
     parser.add_option("-s", dest="statement", help="statement")
     parser.add_option("-i", dest="instr", help="instr")
