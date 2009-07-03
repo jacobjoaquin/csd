@@ -4,7 +4,6 @@
 import sys
 sys.path.append('../')  # Fix this.
 import score
-from optparse import OptionParser
 
 def carry_replace(s):
     output = []
@@ -39,17 +38,6 @@ def carry_replace(s):
     return ''.join(output)
 
 if __name__ == '__main__':
-    # Get command-line flags
-#    u = ['usage: <stdout> |']
-#    u.append('python arpeggiator.py -i(statement) -n(identifier)')
-#    u.append('-p(pfield) -v(number)')
-#    usage = ' '.join(u)
-#    parser = OptionParser(usage)
-#    parser.add_option("-s", dest="statement", help="statement")
-#    parser.add_option("-i", dest="identifier", help="identifier")
-#    parser.add_option("-p", dest="pfield", help="pfield")
-#    parser.add_option("-v", dest="value", help="value")
-#    (options, args) = parser.parse_args()
 
     # Get input
     stdin = sys.stdin.readlines()
