@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-'''Arpeggiates a supplied list of values for a specific i statement
-and identifier'''
+'''Sums all values for a columns pfield with a supplied value.'''
 
 import sys
 sys.path.append('../')  # Fix this.

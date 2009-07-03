@@ -75,7 +75,7 @@ def sanitize_event(event):
     '''
 
     # Remove comments
-    p = re.compile('\;.+|\/\*.+?\*\/')
+    p = re.compile('\;.*|\/\*.*?\*\/')
     m = p.search(event)
     
     if m:
@@ -123,8 +123,8 @@ def split_event(event):
     pattern = '''(\".+?\"     |
                   \{\{.+?\}\} |
                   \[.+?\]     |
-                  \;.+        |
-                  \/\*.+?\*\/ |
+                  \;.*        |
+                  \/\*.*?\*\/ |
                   \S+(?=\/\*) |
                   \S+(?=;)    |
                   \S+)
@@ -164,8 +164,8 @@ def tokenize_event(event):
                   \".+?\"     |
                   \{\{.+?\}\} |
                   \[.+?\]     |
-                  \;.+        |
-                  \/\*.+?\*\/ |
+                  \;.*        |
+                  \/\*.*?\*\/ |
                   \S+(?=\/\*) |
                   \S+(?=;)    |
                   \S+)
@@ -200,6 +200,9 @@ def set_pfield(event, pfield, value):
     '''Replaces a pfield with the supplied value in an i-event
     string, and returns a new string.'''
 
+    # Ensure pfield type is number, as string versions do seep in.
+    pfield = int(pfield)
+    
     # Skip if pfield is out of range
     if pfield not in range(number_of_pfields(event)):
         '%%% set_pfield not in range'

@@ -52,5 +52,5 @@ print test(24, 'i 1 0/*foo*/4 0.5 440 ;comment', 5, '',
 print test(25, 'i 1 0 4 0.5 440 ;comment', 5, '',
            'i 1 0 4 0.5  ;comment')
 print test(26, 'i 1 0 4 0.5 440 ;comment', '5', '',
-           'i 1 0 4 0.5  ;comment')
+               'i 1 0 4 0.5  ;comment')
 

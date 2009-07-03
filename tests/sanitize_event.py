@@ -10,7 +10,7 @@ def test(n, line, expect):
     result = s.sanitize_event(line)
     did_pass = result == expect
 
-    return did_pass, n, 'token_type()', str(expect), str(result)
+    return did_pass, n, 'sanitize_event()', str(expect), str(result)
 
 print test(0, 'i', 'i')
 print test(1, ' i', 'i')
@@ -34,6 +34,9 @@ print test(18, 'i  [~]  0  [~]', 'i [~] 0 [~]')
 print test(19, 'i  {{foo}}  0  {{foo }}', 'i {{foo}} 0 {{foo }}')
 print test(20, 'i  "foo"  0  "foo "', 'i "foo" 0 "foo "')
 print test(24, 'i 1 0/*foo*/4 0.5 440 ;comment', 'i 1 0 4 0.5 440')
+print test(25, 'i /**/ 1', 'i 1')
+print test(26, 'i 1;', 'i 1')
+
 
 
 
