@@ -25,7 +25,7 @@ def arpeggiator(s, statement, identifier, pfield, v):
 if __name__ == '__main__':
     # Get command-line flags
     u = ['usage: <stdout> |']
-    u.append('python arpeggiator.py -i(statement) -n(identifier)')
+    u.append('python arpeggiator.py -s(statement) -i(identifier)')
     u.append('-p(pfield) -v("value1 value2 etc..")')
     usage = ' '.join(u)
     parser = OptionParser(usage)
