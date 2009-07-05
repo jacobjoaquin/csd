@@ -73,7 +73,6 @@ def sanitize_event(event):
     
         >>> score.sanitize_event('i 1 0 4    1.0 440  ; A440 for 4 seconds')
         'i 1 0 4 1.0 440'
-        >>>
         
     .. note:: A statement and identifier will stay conjoined if there
         is no whitespace between them. This will most likey not be the
@@ -103,11 +102,10 @@ def number_of_pfields(event):
 def get_pfield_list(event):
     '''Returns a list of all the pfield elements in a list.
     
-    Example:
+    Example::
         
         >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440 for 4 seconds')
         ['i', '1', '0', '4', '1.0', '440']
-        >>> 
     '''
 
     event = sanitize_event(event)
@@ -152,10 +150,10 @@ def tokenize_event(event):
     In addition to pfield elements, whitespace and comments are also
     included.
 
-    Example:
+    Example::
+        
         >>> score.tokenize_event('i 1 0 4 1.0 440  ; A440')
         ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
-        >>> 
     
     .. note:: This function will attempt to tokenize invalid elements.
     '''
@@ -197,11 +195,15 @@ def tokenize_event(event):
     return tokens
     
 def get_pfield(event, pfield):
-    '''Searches an i-event string for a pfield specified by the
-    the caller by index, and returns the content.
+    '''Returns the value of a pfield for an event.
     
     The pfield maybe a number, string, expression, or a statement.
     Comments are right out.
+    
+    Example::
+        
+        >>> score.get_pfield('i 1 0 4 1.0 440  ; A440', 5)
+        '440'
     '''
     
     event = sanitize_event(event)
@@ -215,8 +217,14 @@ def get_pfield(event, pfield):
     return value
 
 def set_pfield(event, pfield, value):
-    '''Replaces a pfield with the supplied value in an i-event
-    string, and returns a new string.'''
+    '''Returns a new event string with the specified pfield set with
+    a new value.
+    
+    Example::
+        
+        >>> score.set_pfield('i 1 0 4 1.0 440  ; A440', 5, 1138)
+        'i 1 0 4 1.0 1138  ; A440'
+    '''
 
     # Ensure pfield type is number, as string versions do seep in.
     pfield = int(pfield)
@@ -248,7 +256,13 @@ def set_pfield(event, pfield, value):
     return ''.join(tokens)
 
 def swap_pfields(event, pfield_a, pfield_b):
-    '''Swaps pfields of an event at the two specified indexes'''
+    '''Returns a new event with the two specified pfields swapped.
+    
+    Example::
+        
+        >>> score.swap_pfields('i 1 0 4 1.0 440 ; A440', 4, 5)
+        'i 1 0 4 440 1.0 ; A440'
+    '''
 
     a = get_pfield(event, pfield_a)
     b = get_pfield(event, pfield_b)
@@ -259,7 +273,16 @@ def swap_pfields(event, pfield_a, pfield_b):
     return event
 
 def insert_pfield(event, pfield, fill='.'):
-    '''Inserts a pfield.'''
+    '''Returns a new event with a pfield inserted.
+    
+    Example::
+        
+        >>> score.insert_pfield('i 1 0 4 1.0 440', 5, '1138')
+        'i 1 0 4 1.0 1138 440'
+    
+    .. note:: The parameter fill must be a string. Future versions will
+        automatically re-type numbers to strings.
+    '''
     
     if pfield in range(number_of_pfields(event)):
         pf = get_pfield(event, pfield)
@@ -273,16 +296,27 @@ def insert_pfield(event, pfield, fill='.'):
     return event
 
 def push_pfield(event, fill='.'):
-    '''Appends a pfield after the last pfields.'''
+    '''Appends a pfield after the last pfield and returns a new
+    event
+    
+    Example::
+
+        >>> score.push_pfield('i 1 0 4 1.0 440', '1138')
+        'i 1 0 4 1.0 440 1138'
+    '''
 
     return insert_pfield(event, number_of_pfields(event), fill)
 
 def remove_pfield(event, pfield):
-    '''Eliminates a pfield and returns a tuple: (new event,
-    pfield removed)
+    '''Removes a pfield and returns a tuple containing a new event
+    and the removed item.
+
+    Example::
+        
+        >>> score.remove_pfield('i 1 0 4 1.0 440', 4)
+        ('i 1 0 4  440', '1.0')
     
-    Leaves surrounding white space. Use other functions to clean
-    white if that is what you wish.
+    This function preserves whitespace.    
     '''
     
     pf = ''
@@ -294,8 +328,15 @@ def remove_pfield(event, pfield):
     return event, pf
     
 def pop_pfield(event):
-    '''Grabs the last pfield, and removes from event. Perhaps this
-    should return new_string, popped_pfield?
+    '''Removes the last pfield and returns a tuple containing a new
+    event and the removed item.
+
+    Example::
+        
+        >>> score.pop_pfield('i 1 0 4 1.0 440')
+        ('i 1 0 4 1.0 ', '440')
+    
+    This function preserves whitespace.    
     '''
     
     return remove_pfield(event, number_of_pfields(event) - 1)
