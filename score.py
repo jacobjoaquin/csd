@@ -31,169 +31,6 @@ EXPONENTIAL_RAMP = 11
 RANDOM = 12
 CARRY_PLUS = 13
 
-def token_type(t):
-    '''Returns the Csound score token type.'''
-
-    type_ = None
-
-    if RE_NEXT_PFIELD.match(t):
-        type_ = NEXT_PFIELD
-    elif RE_PREVIOUS_PFIELD.match(t):
-        type_ = PREVIOUS_PFIELD
-    elif RE_STATEMENT.match(t):
-        type_ = STATEMENT
-    elif RE_NUMERIC.match(t):
-        type_ = NUMERIC
-    elif RE_STRING.match(t):
-        type_ = STRING
-    elif RE_EXPRESSION.match(t):
-        type_ = EXPRESSION
-    elif RE_MACRO.match(t):
-        type_ = MACRO
-    elif RE_CARRY.match(t):
-        type_ = CARRY
-    elif RE_NO_CARRY.match(t):
-        type_ = NO_CARRY
-    elif RE_RAMP.match(t):
-        type_ = RAMP
-    elif RE_EXPONENTIAL_RAMP.match(t):
-        type_ = EXPONENTIAL_RAMP
-    elif RE_RANDOM.match(t):
-        type_ = RANDOM
-    elif RE_CARRY_PLUS.match(t):
-        type_ = CARRY_PLUS
-    else:
-        type_ = None
-
-    return type_            
-
-def sanitize_event(event):
-    '''Returns a copy of the score event with extra white space and
-    comments removed::
-    
-        >>> score.sanitize_event('i 1 0 4    1.0 440  ; A440 for 4 seconds')
-        'i 1 0 4 1.0 440'
-        
-    .. note:: A statement and identifier will stay conjoined if there
-        is no whitespace between them. This will most likey not be the
-        case in the future.
-    '''
-
-    # Remove comments
-    p = re.compile('\;.*|\/\*.*?\*\/')
-    m = p.search(event)
-    
-    if m:
-        event = p.sub(' ', event)
-    
-    event = event.strip()
-
-    # Compress whitespace between fields
-    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
-    event = ' '.join(p.findall(event))
-
-    return event
-
-def number_of_pfields(event):
-    '''Returns an integer of the amounts of pfields an event.'''
-    
-    return len(get_pfield_list(event))
-
-def get_pfield_list(event):
-    '''Returns a list of all the pfield elements in a list.
-    
-    Example::
-        
-        >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440 for 4 seconds')
-        ['i', '1', '0', '4', '1.0', '440']
-    '''
-
-    event = sanitize_event(event)
-    return split_event(event)    
-
-def split_event(event):
-    '''Breaks a score event into a list.
-    
-    The process is ignorant of comments, and will include these as
-    list items. Use santize_event() prior to using this function if
-    your plans are to process the event further.
-    
-    If you require that white space and comments be preserved, use
-    the function tokenize_event()
-    '''
-
-    # Separate statement from p1 if necessary.
-    p = re.compile('([abefimnqrstvx])\S')
-    m = p.match(event)
-
-    if m:
-        event = event.replace(m.group(1), m.group(1) + ' ', 1)
-    
-    # Pattern for pfields
-    pattern = '''(\".+?\"     |
-                  \{\{.+?\}\} |
-                  \[.+?\]     |
-                  \;.*        |
-                  \/\*.*?\*\/ |
-                  \S+(?=\/\*) |
-                  \S+(?=;)    |
-                  \S+)
-                  '''
-                  
-    p = re.compile(pattern, re.VERBOSE)
-
-    return p.findall(event)
-
-def tokenize_event(event):
-    '''Returns a list of all elements in an event.
-    
-    In addition to pfield elements, whitespace and comments are also
-    included.
-
-    Example::
-        
-        >>> score.tokenize_event('i 1 0 4 1.0 440  ; A440')
-        ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
-    
-    .. note:: This function will attempt to tokenize invalid elements.
-    '''
-    
-    tokens = []
-
-    # Get leading white space and /* comments */
-    p = re.compile('\s+|\/\*.+?\*\/')
-    
-    while p.match(event):
-        m = p.match(event)
-        tokens.append(m.group())
-        event = p.sub('', event, 1)
-        
-    # Get statement
-    m = RE_STATEMENT.match(event)
-    
-    if m:
-        tokens.append(m.group())
-        event = RE_STATEMENT.sub('', event, 1)
-        
-    # Token the rest of the event
-    pattern = '''(\s+         |
-                  \".+?\"     |
-                  \{\{.+?\}\} |
-                  \[.+?\]     |
-                  \;.*        |
-                  \/\*.*?\*\/ |
-                  \S+(?=\/\*) |
-                  \S+(?=;)    |
-                  \S+)
-                  '''
-    
-    p = re.compile(pattern, re.VERBOSE)
-    
-    for t in p.findall(event):
-        tokens.append(t)
-    
-    return tokens
-    
 def get_pfield(event, pfield):
     '''Returns the value of a pfield for an event.
     
@@ -215,6 +52,127 @@ def get_pfield(event, pfield):
         value = None
 
     return value
+
+def get_pfield_list(event):
+    '''Returns a list of all the pfield elements in a list.
+    
+    Example::
+        
+        >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440')
+        ['i', '1', '0', '4', '1.0', '440']
+    '''
+
+    event = sanitize_event(event)
+    return split_event(event)    
+
+def insert_pfield(event, pfield, fill='.'):
+    '''Returns a new event with a pfield inserted.
+    
+    Example::
+        
+        >>> score.insert_pfield('i 1 0 4 1.0 440  ; A440', 5, '1138')
+        'i 1 0 4 1.0 1138 440  ; A440'
+    
+    .. note:: The parameter fill must be a string. Future versions
+        will automatically re-type numbers to strings.
+    '''
+    
+    if pfield in range(number_of_pfields(event)):
+        pf = get_pfield(event, pfield)
+        new = [fill, ' ', pf]
+        event = set_pfield(event, pfield, ''.join(new))  
+    elif pfield == number_of_pfields(event):
+        pf = get_pfield(event, pfield - 1)
+        new = [pf, ' ', fill]
+        event = set_pfield(event, pfield - 1, ''.join(new))  
+    
+    return event
+
+def number_of_pfields(event):
+    '''Returns an integer of the amounts of pfields an event.
+    
+    The statement (pfield 0) is also counted.
+
+    Example::
+
+        >>> score.number_of_pfields('i 1 0 4 1.0 440  ; A440')
+        6
+    '''
+    
+    return len(get_pfield_list(event))
+
+def pop_pfield(event):
+    '''Removes the last pfield and returns a tuple containing a new
+    event and the removed item.
+
+    Example::
+        
+        >>> score.pop_pfield('i 1 0 4 1.0 440  ; A440')
+        ('i 1 0 4 1.0   ; A440', '440')
+    
+    This function preserves whitespace.    
+    '''
+    
+    return remove_pfield(event, number_of_pfields(event) - 1)
+
+def push_pfield(event, fill='.'):
+    '''Appends a pfield after the last pfield and returns a new
+    event
+    
+    Example::
+
+        >>> score.push_pfield('i 1 0 4 1.0 440  ; A440', '1138')
+        'i 1 0 4 1.0 440 1138  ; A440'
+    '''
+
+    return insert_pfield(event, number_of_pfields(event), fill)
+
+def remove_pfield(event, pfield):
+    '''Removes a pfield and returns a tuple containing a new event
+    and the removed item.
+
+    Example::
+        
+        >>> score.remove_pfield('i 1 0 4 1.0 440  ; A440', 4)
+        ('i 1 0 4  440  ; A440', '1.0')
+    
+    This function preserves whitespace.    
+    '''
+    
+    pf = ''
+    
+    if pfield in range(number_of_pfields(event)):
+        pf = get_pfield(event, pfield)
+        event = set_pfield(event, pfield, '')
+    
+    return event, pf
+    
+def sanitize_event(event):
+    '''Returns a copy of the score event with extra whitespace and
+    comments removed::
+    
+        >>> score.sanitize_event('i 1 0 4    1.0 440  ; A440')
+        'i 1 0 4 1.0 440'
+        
+    .. note:: A statement and identifier will stay conjoined if there
+        is no whitespace between them. This will most likey not be the
+        case in the future.
+    '''
+
+    # Remove comments
+    p = re.compile('\;.*|\/\*.*?\*\/')
+    m = p.search(event)
+    
+    if m:
+        event = p.sub(' ', event)
+    
+    event = event.strip()
+
+    # Compress whitespace between fields
+    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
+    event = ' '.join(p.findall(event))
+
+    return event
 
 def set_pfield(event, pfield, value):
     '''Returns a new event string with the specified pfield set with
@@ -255,91 +213,36 @@ def set_pfield(event, pfield, value):
 
     return ''.join(tokens)
 
-def swap_pfields(event, pfield_a, pfield_b):
-    '''Returns a new event with the two specified pfields swapped.
-    
-    Example::
-        
-        >>> score.swap_pfields('i 1 0 4 1.0 440 ; A440', 4, 5)
-        'i 1 0 4 440 1.0 ; A440'
-    '''
-
-    a = get_pfield(event, pfield_a)
-    b = get_pfield(event, pfield_b)
-
-    event = set_pfield(event, pfield_a, b)
-    event = set_pfield(event, pfield_b, a)
-
-    return event
-
-def insert_pfield(event, pfield, fill='.'):
-    '''Returns a new event with a pfield inserted.
-    
-    Example::
-        
-        >>> score.insert_pfield('i 1 0 4 1.0 440', 5, '1138')
-        'i 1 0 4 1.0 1138 440'
-    
-    .. note:: The parameter fill must be a string. Future versions will
-        automatically re-type numbers to strings.
-    '''
-    
-    if pfield in range(number_of_pfields(event)):
-        pf = get_pfield(event, pfield)
-        new = [fill, ' ', pf]
-        event = set_pfield(event, pfield, ''.join(new))  
-    elif pfield == number_of_pfields(event):
-        pf = get_pfield(event, pfield - 1)
-        new = [pf, ' ', fill]
-        event = set_pfield(event, pfield - 1, ''.join(new))  
-    
-    return event
-
-def push_pfield(event, fill='.'):
-    '''Appends a pfield after the last pfield and returns a new
-    event
-    
-    Example::
-
-        >>> score.push_pfield('i 1 0 4 1.0 440', '1138')
-        'i 1 0 4 1.0 440 1138'
-    '''
-
-    return insert_pfield(event, number_of_pfields(event), fill)
-
-def remove_pfield(event, pfield):
-    '''Removes a pfield and returns a tuple containing a new event
-    and the removed item.
+def split_event(event):
+    '''Returns a list that includes all event pfields and comments.
 
     Example::
         
-        >>> score.remove_pfield('i 1 0 4 1.0 440', 4)
-        ('i 1 0 4  440', '1.0')
-    
-    This function preserves whitespace.    
+        >>> score.split_event('i 1 0 4 1.0 440  ; A440')
+        ['i', '1', '0', '4', '1.0', '440', '; A440']
     '''
-    
-    pf = ''
-    
-    if pfield in range(number_of_pfields(event)):
-        pf = get_pfield(event, pfield)
-        event = set_pfield(event, pfield, '')
-    
-    return event, pf
-    
-def pop_pfield(event):
-    '''Removes the last pfield and returns a tuple containing a new
-    event and the removed item.
 
-    Example::
-        
-        >>> score.pop_pfield('i 1 0 4 1.0 440')
-        ('i 1 0 4 1.0 ', '440')
+    # Separate statement from p1 if necessary.
+    p = re.compile('([abefimnqrstvx])\S')
+    m = p.match(event)
+
+    if m:
+        event = event.replace(m.group(1), m.group(1) + ' ', 1)
     
-    This function preserves whitespace.    
-    '''
-    
-    return remove_pfield(event, number_of_pfields(event) - 1)
+    # Pattern for pfields
+    pattern = '''(\".+?\"     |
+                  \{\{.+?\}\} |
+                  \[.+?\]     |
+                  \;.*        |
+                  \/\*.*?\*\/ |
+                  \S+(?=\/\*) |
+                  \S+(?=;)    |
+                  \S+)
+                  '''
+                  
+    p = re.compile(pattern, re.VERBOSE)
+
+    return p.findall(event)
 
 def swap_columns(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
@@ -368,30 +271,133 @@ def swap_columns(score, statement, identifier, a, b):
             
     return ''.join(score_output)
     
-def shift_column(score, statement, identifier, move):
-    '''NOT IMPLEMENTED.
+def swap_pfields(event, pfield_a, pfield_b):
+    '''Returns a new event with the two specified pfields swapped.
     
-    Shifts a columns pfield position.
+    Example::
+        
+        >>> score.swap_pfields('i 1 0 4 1.0 440 ; A440', 4, 5)
+        'i 1 0 4 440 1.0 ; A440'
+    '''
+
+    a = get_pfield(event, pfield_a)
+    b = get_pfield(event, pfield_b)
+
+    event = set_pfield(event, pfield_a, b)
+    event = set_pfield(event, pfield_b, a)
+
+    return event
+
+def token_type(element):
+    '''Returns the Csound score token type.
+        
+    Example::
+        
+        >>> score.token_type('[~ * 440 + 440]') == score.EXPRESSION
+        True
+        >>> score.token_type('i') == score.EXPRESSION
+        False
     
-    The move parameter specifies how many columns to shift, with a
-    positive number indicating moving to the right, and a negative
-    number indicating a move to the left.
+    .. note:: The mechanisms handling tokens will change in the
+        future. For the mean time, tokens are treated as faux-
+        enums, and should be compared directly with the token
+        constants.
+    '''
+
+    type_ = None
+
+    if RE_NEXT_PFIELD.match(element):
+        type_ = NEXT_PFIELD
+    elif RE_PREVIOUS_PFIELD.match(element):
+        type_ = PREVIOUS_PFIELD
+    elif RE_STATEMENT.match(element):
+        type_ = STATEMENT
+    elif RE_NUMERIC.match(element):
+        type_ = NUMERIC
+    elif RE_STRING.match(element):
+        type_ = STRING
+    elif RE_EXPRESSION.match(element):
+        type_ = EXPRESSION
+    elif RE_MACRO.match(element):
+        type_ = MACRO
+    elif RE_CARRY.match(element):
+        type_ = CARRY
+    elif RE_NO_CARRY.match(element):
+        type_ = NO_CARRY
+    elif RE_RAMP.match(element):
+        type_ = RAMP
+    elif RE_EXPONENTIAL_RAMP.match(element):
+        type_ = EXPONENTIAL_RAMP
+    elif RE_RANDOM.match(element):
+        type_ = RANDOM
+    elif RE_CARRY_PLUS.match(element):
+        type_ = CARRY_PLUS
+    else:
+        type_ = None
+
+    return type_            
+
+def tokenize_event(event):
+    '''Returns a list of all elements in an event.
+    
+    In addition to pfield elements, whitespace and comments are also
+    included.
+
+    Example::
+        
+        >>> score.tokenize_event('i 1 0 4 1.0 440  ; A440')
+        ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
+    
+    .. note:: This function will attempt to tokenize invalid elements.
     '''
     
+    tokens = []
+
+    # Get leading whitespace and /* comments */
+    p = re.compile('\s+|\/\*.+?\*\/')
+    
+    while p.match(event):
+        m = p.match(event)
+        tokens.append(m.group())
+        event = p.sub('', event, 1)
+        
+    # Get statement
+    m = RE_STATEMENT.match(event)
+    
+    if m:
+        tokens.append(m.group())
+        event = RE_STATEMENT.sub('', event, 1)
+        
+    # Token the rest of the event
+    pattern = '''(\s+         |
+                  \".+?\"     |
+                  \{\{.+?\}\} |
+                  \[.+?\]     |
+                  \;.*        |
+                  \/\*.*?\*\/ |
+                  \S+(?=\/\*) |
+                  \S+(?=;)    |
+                  \S+)
+                  '''
+    
+    p = re.compile(pattern, re.VERBOSE)
+    
+    for t in p.findall(event):
+        tokens.append(t)
+    
+    return tokens
+    
+def shift_column(score, statement, identifier, move):
     pass
 
 def insert_column(score, statement, identifier, index, fill='.'):
-    '''NOT IMPLEMENTED.'''
     pass
 
 def remove_column(score, statement, identifier, index):
-    '''NOT IMPLEMENTED.'''
     pass
     
 def pop_column(score, statement, identifier):
-    '''NOT IMPLEMENTED.'''
     pass
     
 def push_column(score, statement, identifier, fill='.'):
-    '''NOT IMPLEMENTED.'''
     pass

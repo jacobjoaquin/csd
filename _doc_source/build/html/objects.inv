@@ -4,7 +4,6 @@
 score mod index.html
 score.sanitize_event function index.html
 score.swap_columns function index.html
-score.shift_column function index.html
 score.remove_pfield function index.html
 score.swap_pfields function index.html
 score.tokenize_event function index.html
@@ -13,11 +12,7 @@ score.split_event function index.html
 score.pop_pfield function index.html
 score.push_pfield function index.html
 score.get_pfield function index.html
-score.push_column function index.html
-score.remove_column function index.html
 score.set_pfield function index.html
 score.number_of_pfields function index.html
-score.pop_column function index.html
-score.insert_column function index.html
 score.insert_pfield function index.html
 score.token_type function index.html

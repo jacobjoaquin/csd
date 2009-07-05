@@ -1,27 +1,62 @@
 .. scoparse documentation master file, created by
    sphinx-quickstart on Sat Jul  4 19:12:56 2009.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 scoparse - Csound Score Parse Module
 ====================================
 
-Contents:
 
 .. toctree::
    :maxdepth: 2
 
-=================
-Heading 1
-=================
-   
-   
+Introduction
+------------
+
+This is an early release of the score module for processing Csound
+score code.
+
+This python module along with the command-line demos accepts Csound
+score code at the standard input and processes them.
+
+This package is currently a rough draft, and development will
+definitely continue for the near future.  There are some definite
+quirks, which will eventually be ironed out.
+
+score.py contains the core functions that can be used to create
+custom python scripts.  Everything is in a state of flux, so do
+expect things to chage.
+
+In the demo folder, you'll find five demo scripts: align.py,
+arpeggiator.py, carry.py and swap_columns.py.  There are descriptions
+beloew.  These scripts aren't thoroughly test, but you still may
+find them useful.  align.py is probably the most reliable at the
+moment.
+
+In the test folder, there are many py scripts used to test the
+functions defined in score.py.
+
+
+
+.. warning::  These scripts are still experimental.  Back up any
+        Csound work you plan on running through these scripts.
+
+    
+    
+Score Module
+------------
+
 .. automodule:: score
    :members:
-   :undoc-members:
-
-
    
+Demos
+-----
+
+    Demos are located in the *demo* directory.
+ 
+Test Cases
+----------
+
+    About test cases.
+
 Indices and tables
 ==================
 
