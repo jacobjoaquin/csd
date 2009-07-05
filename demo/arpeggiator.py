@@ -1,6 +1,50 @@
 #!/usr/bin/env python
-'''Arpeggiates a supplied list of values for a specific i statement
-and identifier'''
+'''Arpeggiates values in for a selected pfield column for a specific
+event.
+
+This script can be used as command-line script as well as a
+module.
+
+.. program:: arpeggiator
+.. cmdoption:: -s  Statement (required)
+.. cmdoption:: -i  Identifier (required)
+.. cmdoption:: -p  Pfield (required)
+.. cmdoption:: -v  Values (required)
+
+Example::
+
+    $ cat arp.sco | ./arpeggiator.py -si -i2 -p5 -v"7.00 7.03 7.07 7.10"
+    
+Before::
+    
+    i 1 0 4    1.0 9.07
+    i 2 0 0.25 0.3 7.00
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 2 + .    .   .
+    i 1 0 4    1.0 9.11
+
+After::
+    
+    i 1 0 4    1.0 9.07
+    i 2 0 0.25 0.3 7.00
+    i 2 + .    .   7.03
+    i 2 + .    .   7.07
+    i 2 + .    .   7.10
+    i 2 + .    .   7.00
+    i 2 + .    .   7.03
+    i 2 + .    .   7.07
+    i 2 + .    .   7.10
+    i 2 + .    .   7.00
+    i 2 + .    .   7.03
+    i 1 0 4    1.0 9.11
+'''
 
 import sys
 sys.path.append('../')  # Fix this.
@@ -8,6 +52,9 @@ import score
 from optparse import OptionParser
 
 def arpeggiator(s, statement, identifier, pfield, v):
+    '''Arpeggiates values in for a selected pfield column for a specific
+event.'''
+    
     output = []
     
     i = 0  # Cycle index of looping arp list

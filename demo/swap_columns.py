@@ -1,14 +1,50 @@
 #!/usr/bin/env python
-'''Swaps two pfields for all rows that match a specified statement
-and identifier.
+'''Exchanges all score columns for a specified statement and
+identifier.
 
-i.e. 'i 7' where the 'i' is a i-event statement and '7' is the
-instrument number.
 
-    example: $ cat swap.sco | ./swap_pfields.py -si -i7 -a4 -b5
+.. program:: swap_columns
+.. cmdoption:: -s  Statement (required)
+.. cmdoption:: -i  Identifier (required)
+.. cmdoption:: -a  Pfield A (required)
+.. cmdoption:: -b  Pfield B (required)
+
+The following command-line swaps pfields 4 and 5 for all instrument
+1 events::
+
+    $ cat swap.sco | ./swap_columns.py -si -i1 -a4 -b5
+
+Before::
+   
+    i 1 0 4 6.04 15000 2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 6.02 5000  2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 6.01 8000  2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 6.09 11000 2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
     
-The previous command-line will swap pfields 4 and 5 for all instrument
-7 events.
+    i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1
+    i 7 19.3 6.4 8000 5.041 .   0.9 1   3 2 0.1
+    i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1
+    i 7 19.3 6.4 8000 5.041 .   0.9 1   3 2 0.1
+
+After::
+   
+    i 1 0 4 15000 6.04 2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 5000 6.02  2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 8000 6.01  2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    i 1 + . 11000 6.09 2 100 81 50 56 20 1
+    i 1 + . .    .     . 101 .  .  .  .  .
+    
+    i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1
+    i 7 19.3 6.4 8000 5.041 .   0.9 1   3 2 0.1
+    i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1
+    i 7 19.3 6.4 8000 5.041 .   0.9 1   3 2 0.1
 '''
 
 import sys

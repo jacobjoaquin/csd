@@ -1,6 +1,5 @@
-Csound Score Parse Module
-=========================
-
+Csound Score Parsing Python Module
+==================================
 
 .. toctree::
    :maxdepth: 2
@@ -38,11 +37,33 @@ functions defined in score.py.
 
 .. warning::  These scripts are still experimental.  Back up any
         Csound work you plan on running through these scripts.
-   
-Test Cases
-----------
 
-    About test cases.
+
+
+Info
+----
+Csound Score Parsing Python Module
+
+By Jacob Joaquin
+
+jacobjoaquin@gmail.com
+
+http://www.thumbuki.com/
+
+http://jacobjoaquin.tumblr.com/
+
+http://twitter.com/JacobJoaquin
+
+copyright (c) Jacob Joaquin 2009
+
+
+License
+-------
+GNU Lesser General Public License
+
+Version 3, 29 June 2007
+
+http://http://www.gnu.org/licenses/lgpl.html
 
 Indices and tables
 ==================

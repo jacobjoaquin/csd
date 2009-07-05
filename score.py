@@ -248,7 +248,7 @@ def swap_columns(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
     identifier.
     
-    Returns a new string.
+    DEPRECATED
     '''
     
     score_output = []
