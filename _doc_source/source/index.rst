@@ -1,0 +1,25 @@
+.. scoparse documentation master file, created by
+   sphinx-quickstart on Sat Jul  4 19:12:56 2009.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+scoparse - Csound Score Parse Module
+====================================
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+
+.. automodule:: score
+   :members:
+   :undoc-members:
+
+   
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+

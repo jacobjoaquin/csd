@@ -32,8 +32,7 @@ RANDOM = 12
 CARRY_PLUS = 13
 
 def token_type(t):
-    '''Analyses the input and returns the t type of a Csound
-    score.'''
+    '''Returns the Csound score token type.'''
 
     type_ = None
 
@@ -69,9 +68,16 @@ def token_type(t):
     return type_            
 
 def sanitize_event(event):
-    '''Removes everything unnecessary to a score event.
-    
-    Unnecessary includes extra white space and comments.
+    '''Returns a copy of the score event with extra white space and
+    comments removed.
+
+    An input of::
+        
+        i  1  0  4  1.0   440  ; A440 playes for 4 seconds
+        
+    will return::
+        
+        i 1 0 4 1.0  440
     '''
 
     # Remove comments

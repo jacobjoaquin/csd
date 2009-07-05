@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>scoparse - Csound Score Parse Module &mdash; scoparse v0.0.1a documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1a',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="scoparse v0.0.1a documentation" href="" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li><a href="">scoparse v0.0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-score">
+<h1>scoparse - Csound Score Parse Module<a class="headerlink" href="#module-score" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<ul class="simple">
+</ul>
+<dl class="function">
+<dt id="score.get_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">get_pfield</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.get_pfield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches an i-event string for a pfield specified by the
+the caller by index, and returns the content.</p>
+<p>The pfield maybe a number, string, expression, or a statement.
+Comments are right out.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.get_pfield_list">
+<tt class="descclassname">score.</tt><tt class="descname">get_pfield_list</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.get_pfield_list" title="Permalink to this definition">¶</a></dt>
+<dd>Creates a list of only pfield elements</dd></dl>
+
+<dl class="function">
+<dt id="score.insert_column">
+<tt class="descclassname">score.</tt><tt class="descname">insert_column</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>index</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.insert_column" title="Permalink to this definition">¶</a></dt>
+<dd>NOT IMPLEMENTED.</dd></dl>
+
+<dl class="function">
+<dt id="score.insert_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">insert_pfield</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.insert_pfield" title="Permalink to this definition">¶</a></dt>
+<dd>Inserts a pfield.</dd></dl>
+
+<dl class="function">
+<dt id="score.number_of_pfields">
+<tt class="descclassname">score.</tt><tt class="descname">number_of_pfields</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.number_of_pfields" title="Permalink to this definition">¶</a></dt>
+<dd>Counts the pfields present in an i-event string, returning
+an integer.</dd></dl>
+
+<dl class="function">
+<dt id="score.pop_column">
+<tt class="descclassname">score.</tt><tt class="descname">pop_column</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em><big>)</big><a class="headerlink" href="#score.pop_column" title="Permalink to this definition">¶</a></dt>
+<dd>NOT IMPLEMENTED.</dd></dl>
+
+<dl class="function">
+<dt id="score.pop_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">pop_pfield</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.pop_pfield" title="Permalink to this definition">¶</a></dt>
+<dd>Grabs the last pfield, and removes from event. Perhaps this
+should return new_string, popped_pfield?</dd></dl>
+
+<dl class="function">
+<dt id="score.push_column">
+<tt class="descclassname">score.</tt><tt class="descname">push_column</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.push_column" title="Permalink to this definition">¶</a></dt>
+<dd>NOT IMPLEMENTED.</dd></dl>
+
+<dl class="function">
+<dt id="score.push_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">push_pfield</tt><big>(</big><em>event</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.push_pfield" title="Permalink to this definition">¶</a></dt>
+<dd>Appends a pfield after the last pfields.</dd></dl>
+
+<dl class="function">
+<dt id="score.remove_column">
+<tt class="descclassname">score.</tt><tt class="descname">remove_column</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>index</em><big>)</big><a class="headerlink" href="#score.remove_column" title="Permalink to this definition">¶</a></dt>
+<dd>NOT IMPLEMENTED.</dd></dl>
+
+<dl class="function">
+<dt id="score.remove_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">remove_pfield</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.remove_pfield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Eliminates a pfield and returns a tuple: (new event,
+pfield removed)</p>
+<p>Leaves surrounding white space. Use other functions to clean
+white if that is what you wish.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.sanitize_event">
+<tt class="descclassname">score.</tt><tt class="descname">sanitize_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.sanitize_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the score event with extra white space and
+comments removed.</p>
+<p>An input of:</p>
+<div class="highlight-python"><pre>i  1  0  4  1.0   440  ; A440 playes for 4 seconds</pre>
+</div>
+<p>will return:</p>
+<div class="highlight-python"><pre>i 1 0 4 1.0  440</pre>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.set_pfield">
+<tt class="descclassname">score.</tt><tt class="descname">set_pfield</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>value</em><big>)</big><a class="headerlink" href="#score.set_pfield" title="Permalink to this definition">¶</a></dt>
+<dd>Replaces a pfield with the supplied value in an i-event
+string, and returns a new string.</dd></dl>
+
+<dl class="function">
+<dt id="score.shift_column">
+<tt class="descclassname">score.</tt><tt class="descname">shift_column</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>move</em><big>)</big><a class="headerlink" href="#score.shift_column" title="Permalink to this definition">¶</a></dt>
+<dd><p>NOT IMPLEMENTED.</p>
+<p>Shifts a columns pfield position.</p>
+<p>The move parameter specifies how many columns to shift, with a
+positive number indicating moving to the right, and a negative
+number indicating a move to the left.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.split_event">
+<tt class="descclassname">score.</tt><tt class="descname">split_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.split_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breaks a score event into a list.</p>
+<p>The process is ignorant of comments, and will include these as
+list items. Use santize_event() prior to using this function if
+your plans are to process the event further.</p>
+<p>If you require that white space and comments be preserved, use
+the function tokenize_event()</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.swap_columns">
+<tt class="descclassname">score.</tt><tt class="descname">swap_columns</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#score.swap_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exchanges all score columns for a specified statement and
+identifier.</p>
+<p>Returns a new string.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.swap_pfields">
+<tt class="descclassname">score.</tt><tt class="descname">swap_pfields</tt><big>(</big><em>event</em>, <em>pfield_a</em>, <em>pfield_b</em><big>)</big><a class="headerlink" href="#score.swap_pfields" title="Permalink to this definition">¶</a></dt>
+<dd>Swaps pfields of an event at the two specified indexes</dd></dl>
+
+<dl class="function">
+<dt id="score.token_type">
+<tt class="descclassname">score.</tt><tt class="descname">token_type</tt><big>(</big><em>t</em><big>)</big><a class="headerlink" href="#score.token_type" title="Permalink to this definition">¶</a></dt>
+<dd>Returns the Csound score token type.</dd></dl>
+
+<dl class="function">
+<dt id="score.tokenize_event">
+<tt class="descclassname">score.</tt><tt class="descname">tokenize_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.tokenize_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Breaks a score event into a list similar to split_event,
+except elements of white space are preserved, and returns a list.</p>
+<p>Beware that this function will attempt to token non-valid events,
+but the results are not to be trusted.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference external" href="genindex.html"><em>Index</em></a></li>
+<li><a class="reference external" href="modindex.html"><em>Module Index</em></a></li>
+<li><a class="reference external" href="search.html"><em>Search Page</em></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">scoparse - Csound Score Parse Module</a><ul>
+</ul>
+</li>
+<li><a class="reference external" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li><a href="">scoparse v0.0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Jacob Joaquin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>
