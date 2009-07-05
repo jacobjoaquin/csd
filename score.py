@@ -69,15 +69,15 @@ def token_type(t):
 
 def sanitize_event(event):
     '''Returns a copy of the score event with extra white space and
-    comments removed.
-
-    An input of::
+    comments removed::
+    
+        >>> score.sanitize_event('i 1 0 4    1.0 440  ; A440 for 4 seconds')
+        'i 1 0 4 1.0 440'
+        >>>
         
-        i  1  0  4  1.0   440  ; A440 playes for 4 seconds
-        
-    will return::
-        
-        i 1 0 4 1.0  440
+    .. note:: A statement and identifier will stay conjoined if there
+        is no whitespace between them. This will most likey not be the
+        case in the future.
     '''
 
     # Remove comments
@@ -96,13 +96,19 @@ def sanitize_event(event):
     return event
 
 def number_of_pfields(event):
-    '''Counts the pfields present in an i-event string, returning
-    an integer.'''
+    '''Returns an integer of the amounts of pfields an event.'''
     
     return len(get_pfield_list(event))
 
 def get_pfield_list(event):
-    '''Creates a list of only pfield elements'''
+    '''Returns a list of all the pfield elements in a list.
+    
+    Example:
+        
+        >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440 for 4 seconds')
+        ['i', '1', '0', '4', '1.0', '440']
+        >>> 
+    '''
 
     event = sanitize_event(event)
     return split_event(event)    
@@ -141,11 +147,17 @@ def split_event(event):
     return p.findall(event)
 
 def tokenize_event(event):
-    '''Breaks a score event into a list similar to split_event,
-    except elements of white space are preserved, and returns a list.
+    '''Returns a list of all elements in an event.
     
-    Beware that this function will attempt to token non-valid events,
-    but the results are not to be trusted.
+    In addition to pfield elements, whitespace and comments are also
+    included.
+
+    Example:
+        >>> score.tokenize_event('i 1 0 4 1.0 440  ; A440')
+        ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
+        >>> 
+    
+    .. note:: This function will attempt to tokenize invalid elements.
     '''
     
     tokens = []

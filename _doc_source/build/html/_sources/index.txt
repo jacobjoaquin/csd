@@ -11,9 +11,15 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+=================
+Heading 1
+=================
+   
+   
 .. automodule:: score
    :members:
    :undoc-members:
+
 
    
 Indices and tables
