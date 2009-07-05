@@ -1,13 +1,13 @@
-.. scoparse documentation master file, created by
-   sphinx-quickstart on Sat Jul  4 19:12:56 2009.
-
-scoparse - Csound Score Parse Module
-====================================
+Csound Score Parse Module
+=========================
 
 
 .. toctree::
    :maxdepth: 2
 
+   score_module
+   demo
+   
 Introduction
 ------------
 
@@ -38,20 +38,7 @@ functions defined in score.py.
 
 .. warning::  These scripts are still experimental.  Back up any
         Csound work you plan on running through these scripts.
-
-    
-    
-Score Module
-------------
-
-.. automodule:: score
-   :members:
    
-Demos
------
-
-    Demos are located in the *demo* directory.
- 
 Test Cases
 ----------
 
