@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-'''Tests for set_pfield()'''
+'''Tests for set()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, line, pf, v, expect):
-    result = s.set_pfield(line, pf, v)
+    result = s.set(line, pf, v)
     did_pass = result == expect
 
-    return did_pass, n, 'set_pfield()', str(expect), str(result)
+    return did_pass, n, 'set()', str(expect), str(result)
 
 print test(0, ' ', 0, '', ' ')
 print test(1, '/* */', 0, '', '/* */')

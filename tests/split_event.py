@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-'''Tests for split_event()'''
+'''Tests for split()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, line, expect):
-    result = s.split_event(line)
+    result = s.split(line)
     did_pass = result == expect
 
-    return did_pass, n, 'split_event()', str(expect), str(result)
+    return did_pass, n, 'split()', str(expect), str(result)
 
 print test(0, '', [])
 print test(1, 'i', ['i'])

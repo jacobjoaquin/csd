@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''Tests for sanitize_event()'''
+'''Tests for sanitize()'''
 
 import sys
 sys.path.append('../')
@@ -7,10 +7,10 @@ import score as s
 
 
 def test(n, line, expect):
-    result = s.sanitize_event(line)
+    result = s.sanitize(line)
     did_pass = result == expect
 
-    return did_pass, n, 'sanitize_event()', str(expect), str(result)
+    return did_pass, n, 'sanitize()', str(expect), str(result)
 
 print test(0, 'i', 'i')
 print test(1, ' i', 'i')

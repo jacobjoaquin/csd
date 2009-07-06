@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-'''Tests for push_pfield()'''
+'''Tests for push()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, event, fill, expect):
-    result = s.push_pfield(event, fill)
+    result = s.push(event, fill)
     did_pass = result == expect
 
-    return did_pass, n, 'push_pfield()', str(expect), str(result)
+    return did_pass, n, 'push()', str(expect), str(result)
 
 print test(0, 'i', '.', 'i .')
 print test(1, 'i 1', '[~]', 'i 1 [~]')

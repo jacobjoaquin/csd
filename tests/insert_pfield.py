@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-'''Tests for insert_pfield()'''
+'''Tests for insert()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, event, pfield, fill, expect):
-    result = s.insert_pfield(event, pfield, fill)
+    result = s.insert(event, pfield, fill)
     did_pass = result == expect
 
-    return did_pass, n, 'insert_pfield()', str(expect), str(result)
+    return did_pass, n, 'insert()', str(expect), str(result)
 
 print test(0, 'i', 0, '.', '. i')
 print test(1, 'i', 1, '.', 'i .')

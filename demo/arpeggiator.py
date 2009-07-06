@@ -60,9 +60,9 @@ event.'''
     i = 0  # Cycle index of looping arp list
 
     for row in s:
-        if score.get_pfield(row, 0) is statement\
-                and score.get_pfield(row, 1) == identifier:
-            output.append(score.set_pfield(row, int(options.pfield), v[i]))
+        if score.get(row, 0) is statement\
+                and score.get(row, 1) == identifier:
+            output.append(score.set(row, int(options.pfield), v[i]))
             i = (i + 1) % len(arp)
         else:
             output.append(row)
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     sco = ''.join(stdin).splitlines(True)
 
-    # Convert vales into list
+    # Convert values into list
     arp = options.values.split()
 
     print arpeggiator(sco, options.statement, options.identifier,\

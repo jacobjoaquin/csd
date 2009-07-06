@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-'''Tests tokenize_event()'''
+'''Tests tokenize()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, line, expect):
-    result = s.tokenize_event(line)
+    result = s.tokenize(line)
     did_pass = result == expect
 
     return did_pass, n, 'token_type()', str(expect), str(result)

@@ -54,15 +54,15 @@ def sum_(s, statement, identifier, pfield, v):
     output = []
     
     for row in s:
-        if score.get_pfield(row, 0) is statement\
-                and score.get_pfield(row, 1) == identifier:
+        if score.get(row, 0) is statement\
+                and score.get(row, 1) == identifier:
             
             # Sum values, or ignore if original pfield is not NUMERIC
-            pf = score.get_pfield(row, int(options.pfield))
+            pf = score.get(row, int(options.pfield))
             if score.token_type(pf) is score.NUMERIC:
                 pf = float(pf) + float(v)
 
-            output.append(score.set_pfield(row, int(options.pfield), pf))
+            output.append(score.set(row, int(options.pfield), pf))
         else:
             output.append(row)
 

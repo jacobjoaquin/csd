@@ -31,7 +31,7 @@ EXPONENTIAL_RAMP = 11
 RANDOM = 12
 CARRY_PLUS = 13
 
-def get_pfield(event, pfield):
+def get(event, pfield):
     '''Returns the value of a pfield for an event.
     
     The pfield maybe a number, string, expression, or a statement.
@@ -39,12 +39,12 @@ def get_pfield(event, pfield):
     
     Example::
         
-        >>> score.get_pfield('i 1 0 4 1.0 440  ; A440', 5)
+        >>> score.get('i 1 0 4 1.0 440  ; A440', 5)
         '440'
     '''
     
-    event = sanitize_event(event)
-    event_list = split_event(event)
+    event = sanitize(event)
+    event_list = split(event)
 
     if pfield in range(len(event_list)):
         value = event_list[pfield]
@@ -62,15 +62,15 @@ def get_pfield_list(event):
         ['i', '1', '0', '4', '1.0', '440']
     '''
 
-    event = sanitize_event(event)
-    return split_event(event)    
+    event = sanitize(event)
+    return split(event)    
 
-def insert_pfield(event, pfield, fill='.'):
+def insert(event, pfield, fill='.'):
     '''Returns a new event with a pfield inserted.
     
     Example::
         
-        >>> score.insert_pfield('i 1 0 4 1.0 440  ; A440', 5, '1138')
+        >>> score.insert('i 1 0 4 1.0 440  ; A440', 5, '1138')
         'i 1 0 4 1.0 1138 440  ; A440'
     
     .. note:: The parameter fill must be a string. Future versions
@@ -78,13 +78,13 @@ def insert_pfield(event, pfield, fill='.'):
     '''
     
     if pfield in range(number_of_pfields(event)):
-        pf = get_pfield(event, pfield)
+        pf = get(event, pfield)
         new = [fill, ' ', pf]
-        event = set_pfield(event, pfield, ''.join(new))  
+        event = set(event, pfield, ''.join(new))  
     elif pfield == number_of_pfields(event):
-        pf = get_pfield(event, pfield - 1)
+        pf = get(event, pfield - 1)
         new = [pf, ' ', fill]
-        event = set_pfield(event, pfield - 1, ''.join(new))  
+        event = set(event, pfield - 1, ''.join(new))  
     
     return event
 
@@ -101,39 +101,39 @@ def number_of_pfields(event):
     
     return len(get_pfield_list(event))
 
-def pop_pfield(event):
+def pop(event):
     '''Removes the last pfield and returns a tuple containing a new
     event and the removed item.
 
     Example::
         
-        >>> score.pop_pfield('i 1 0 4 1.0 440  ; A440')
+        >>> score.pop('i 1 0 4 1.0 440  ; A440')
         ('i 1 0 4 1.0   ; A440', '440')
     
     This function preserves whitespace.    
     '''
     
-    return remove_pfield(event, number_of_pfields(event) - 1)
+    return remove(event, number_of_pfields(event) - 1)
 
-def push_pfield(event, fill='.'):
+def push(event, fill='.'):
     '''Appends a pfield after the last pfield and returns a new
     event
     
     Example::
 
-        >>> score.push_pfield('i 1 0 4 1.0 440  ; A440', '1138')
+        >>> score.push('i 1 0 4 1.0 440  ; A440', '1138')
         'i 1 0 4 1.0 440 1138  ; A440'
     '''
 
-    return insert_pfield(event, number_of_pfields(event), fill)
+    return insert(event, number_of_pfields(event), fill)
 
-def remove_pfield(event, pfield):
+def remove(event, pfield):
     '''Removes a pfield and returns a tuple containing a new event
     and the removed item.
 
     Example::
         
-        >>> score.remove_pfield('i 1 0 4 1.0 440  ; A440', 4)
+        >>> score.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
     
     This function preserves whitespace.    
@@ -142,16 +142,16 @@ def remove_pfield(event, pfield):
     pf = ''
     
     if pfield in range(number_of_pfields(event)):
-        pf = get_pfield(event, pfield)
-        event = set_pfield(event, pfield, '')
+        pf = get(event, pfield)
+        event = set(event, pfield, '')
     
     return event, pf
     
-def sanitize_event(event):
+def sanitize(event):
     '''Returns a copy of the score event with extra whitespace and
     comments removed::
     
-        >>> score.sanitize_event('i 1 0 4    1.0 440  ; A440')
+        >>> score.sanitize('i 1 0 4    1.0 440  ; A440')
         'i 1 0 4 1.0 440'
         
     .. note:: A statement and identifier will stay conjoined if there
@@ -174,13 +174,13 @@ def sanitize_event(event):
 
     return event
 
-def set_pfield(event, pfield, value):
+def set(event, pfield, value):
     '''Returns a new event string with the specified pfield set with
     a new value.
     
     Example::
         
-        >>> score.set_pfield('i 1 0 4 1.0 440  ; A440', 5, 1138)
+        >>> score.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
         'i 1 0 4 1.0 1138  ; A440'
     '''
 
@@ -189,10 +189,10 @@ def set_pfield(event, pfield, value):
     
     # Skip if pfield is out of range
     if pfield not in range(number_of_pfields(event)):
-        '%%% set_pfield not in range'
+        '%%% set not in range'
         return event
     
-    tokens = tokenize_event(event)
+    tokens = tokenize(event)
     
     pf_index = -1
     for i, t in enumerate(tokens):
@@ -213,12 +213,12 @@ def set_pfield(event, pfield, value):
 
     return ''.join(tokens)
 
-def split_event(event):
+def split(event):
     '''Returns a list that includes all event pfields and comments.
 
     Example::
         
-        >>> score.split_event('i 1 0 4 1.0 440  ; A440')
+        >>> score.split('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440', '; A440']
     '''
 
@@ -256,8 +256,8 @@ def swap_columns(score, statement, identifier, a, b):
     
     for row in score_list:
         # Test statement type and statement identifier.
-        if get_pfield(row, 0) is statement\
-                and get_pfield(row, 1) == str(identifier):
+        if get(row, 0) is statement\
+                and get(row, 1) == str(identifier):
                     
             # Check that pfields a and b are in range, return original if True.
             for pf in (a, b):
@@ -265,26 +265,26 @@ def swap_columns(score, statement, identifier, a, b):
                     return score
                     
             # Swap pfields
-            score_output.append(swap_pfields(row, a, b))
+            score_output.append(swap(row, a, b))
         else:
             score_output.append(row)
             
     return ''.join(score_output)
     
-def swap_pfields(event, pfield_a, pfield_b):
+def swap(event, pfield_a, pfield_b):
     '''Returns a new event with the two specified pfields swapped.
     
     Example::
         
-        >>> score.swap_pfields('i 1 0 4 1.0 440 ; A440', 4, 5)
+        >>> score.swap('i 1 0 4 1.0 440 ; A440', 4, 5)
         'i 1 0 4 440 1.0 ; A440'
     '''
 
-    a = get_pfield(event, pfield_a)
-    b = get_pfield(event, pfield_b)
+    a = get(event, pfield_a)
+    b = get(event, pfield_b)
 
-    event = set_pfield(event, pfield_a, b)
-    event = set_pfield(event, pfield_b, a)
+    event = set(event, pfield_a, b)
+    event = set(event, pfield_b, a)
 
     return event
 
@@ -337,7 +337,7 @@ def token_type(element):
 
     return type_            
 
-def tokenize_event(event):
+def tokenize(event):
     '''Returns a list of all elements in an event.
     
     In addition to pfield elements, whitespace and comments are also
@@ -345,7 +345,7 @@ def tokenize_event(event):
 
     Example::
         
-        >>> score.tokenize_event('i 1 0 4 1.0 440  ; A440')
+        >>> score.tokenize('i 1 0 4 1.0 440  ; A440')
         ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
     
     .. note:: This function will attempt to tokenize invalid elements.
@@ -386,18 +386,4 @@ def tokenize_event(event):
         tokens.append(t)
     
     return tokens
-    
-def shift_column(score, statement, identifier, move):
-    pass
 
-def insert_column(score, statement, identifier, index, fill='.'):
-    pass
-
-def remove_column(score, statement, identifier, index):
-    pass
-    
-def pop_column(score, statement, identifier):
-    pass
-    
-def push_column(score, statement, identifier, fill='.'):
-    pass

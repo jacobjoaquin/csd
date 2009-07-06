@@ -41,7 +41,7 @@ import sys
 sys.path.append('../')  # Fix this.
 import score
 
-def carry_replace(s):
+def replace(s):
     '''Replaces subsequent repeated values with a carry (.)'''
     
     output = []
@@ -49,28 +49,28 @@ def carry_replace(s):
     last_id = None
     
     for row in s:
-        if score.get_pfield(row, 0) is 'i'\
-                and score.get_pfield(row, 1) == last_id:
+        if score.get(row, 0) is 'i'\
+                and score.get(row, 1) == last_id:
             for i in range(3, len(values)):
                 v = values[i]
                 
-                if v == score.get_pfield(row, i):
+                if v == score.get(row, i):
                     glyph = '.'
-                    row = score.set_pfield(row, i, glyph)
+                    row = score.set(row, i, glyph)
                 else:
-                    glyph = score.get_pfield(row, i)
-                    values[i] = score.get_pfield(row, i)
-                    row = score.set_pfield(row, i, glyph)
+                    glyph = score.get(row, i)
+                    values[i] = score.get(row, i)
+                    row = score.set(row, i, glyph)
             output.append(row)
             
-        elif score.get_pfield(row, 0) == None:
+        elif score.get(row, 0) == None:
             output.append(row)
 
         else:
             values = []
             last_id = ''
             values = score.get_pfield_list(row)
-            last_id = score.get_pfield(row, 1)
+            last_id = score.get(row, 1)
             output.append(row)
         
     return ''.join(output)
@@ -81,5 +81,5 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     s = ''.join(stdin).splitlines(True)
 
-    print carry_replace(s),
+    print replace(s),
 

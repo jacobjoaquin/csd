@@ -1,15 +1,15 @@
 #!/usr/bin/env python
-'''Tests for get_pfield()'''
+'''Tests for get()'''
 
 import sys
 sys.path.append('../')
 import score as s
 
 def test(n, line, pf, expect):
-    result = s.get_pfield(line, pf)
+    result = s.get(line, pf)
     did_pass = result == expect
 
-    return did_pass, n, 'token_type()', str(expect), str(result)
+    return did_pass, n, 'get()', str(expect), str(result)
 
 print test(0, 'i', 0, 'i')
 print test(1, 'i 0', 0, 'i')
