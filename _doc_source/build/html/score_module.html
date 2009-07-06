@@ -63,6 +63,23 @@ an instrument event (i-event) while an <tt class="docutils literal"><span class=
 instrument or f-table, and immediately proceeds a <em>statement</em>. For
 example, <tt class="docutils literal"><span class="pre">33</span></tt> is the identifier in <tt class="docutils literal"><span class="pre">i</span> <span class="pre">33</span> <span class="pre">0</span> <span class="pre">11</span></tt>.</p>
 <dl class="function">
+<dt id="score.extract">
+<tt class="descclassname">score.</tt><tt class="descname">extract</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#score.extract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulls score data from inbetween the &lt;CsScore&gt; markup tags in a
+Csound csd.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This should really reside somewhere else, such as a
+csdparse module.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is an issue with an extra leading and extra
+trailing newline being introduced.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="score.get">
 <tt class="descclassname">score.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a pfield element for an event.</p>

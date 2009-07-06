@@ -10,6 +10,7 @@ sum mod demo.html
 score.pop function score_module.html
 score.remove function score_module.html
 arpeggiator.arpeggiator function demo.html
+score.set function score_module.html
 carry.replace function demo.html
 score.swap_columns function score_module.html
 sum.sum_ function demo.html
@@ -19,8 +20,8 @@ score.swap function score_module.html
 score.insert function score_module.html
 score.number_of_pfields function score_module.html
 score.get function score_module.html
-score.push function score_module.html
+score.extract function score_module.html
 score.split function score_module.html
-score.set function score_module.html
+score.push function score_module.html
 score.token_type function score_module.html
 score.sanitize function score_module.html
