@@ -21,7 +21,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
     <link rel="next" title="Demos" href="demo.html" />
-    <link rel="prev" title="Csound Score Parse Module" href="index.html" /> 
+    <link rel="prev" title="Csound Score Parsing Python Module" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="demo.html" title="Demos"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound Score Parse Module"
+          <a href="index.html" title="Csound Score Parsing Python Module"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
       </ul>
@@ -52,14 +52,24 @@
 <h1>The Score Module<a class="headerlink" href="#the-score-module" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-score">
 <h2>score.py<a class="headerlink" href="#module-score" title="Permalink to this headline">¶</a></h2>
+<p>This module is designed to parse Csound score events.</p>
+<p>An <em>element</em> refers to pfield data, a comment, a continuous block of
+whitespace.</p>
+<p>An <em>event</em> is a score event. For example, <tt class="docutils literal"><span class="pre">i</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">4</span> <span class="pre">1.0</span> <span class="pre">440</span>&nbsp; <span class="pre">;</span> <span class="pre">A440</span></tt>
+is an event.</p>
+<p>A <em>statement</em> is the type of Csound of event. For example, an <tt class="docutils literal"><span class="pre">i</span></tt> is
+an instrument event (i-event) while an <tt class="docutils literal"><span class="pre">f</span></tt> is a function table event.</p>
+<p>An <em>identifier</em> is the unique name of index that indicates a specific
+instrument or f-table, and immediately proceeds a <em>statement</em>. For
+example, <tt class="docutils literal"><span class="pre">33</span></tt> is the identifier in <tt class="docutils literal"><span class="pre">i</span> <span class="pre">33</span> <span class="pre">0</span> <span class="pre">11</span></tt>.</p>
 <dl class="function">
-<dt id="score.get_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">get_pfield</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.get_pfield" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the value of a pfield for an event.</p>
+<dt id="score.get">
+<tt class="descclassname">score.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pfield element for an event.</p>
 <p>The pfield maybe a number, string, expression, or a statement.
 Comments are right out.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">get_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
 <span class="go">&#39;440&#39;</span>
 </pre></div>
 </div>
@@ -77,11 +87,11 @@ Comments are right out.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.insert_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">insert_pfield</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.insert_pfield" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a new event with a pfield inserted.</p>
+<dt id="score.insert">
+<tt class="descclassname">score.</tt><tt class="descname">insert</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new event with an inserted pfield element.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">insert_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 1138 440  ; A440&#39;</span>
 </pre></div>
 </div>
@@ -95,8 +105,10 @@ will automatically re-type numbers to strings.</p>
 <dl class="function">
 <dt id="score.number_of_pfields">
 <tt class="descclassname">score.</tt><tt class="descname">number_of_pfields</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.number_of_pfields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an integer of the amounts of pfields an event.</p>
-<p>The statement (pfield 0) is also counted.</p>
+<dd><p>Returns an integer of the amounts of pfield elements in an
+event.</p>
+<p>The statement (pfield 0) is also counted.  Comments and whitespace
+are omitted from the tally.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">number_of_pfields</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">6</span>
@@ -105,49 +117,49 @@ will automatically re-type numbers to strings.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.pop_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">pop_pfield</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.pop_pfield" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the last pfield and returns a tuple containing a new
-event and the removed item.</p>
+<dt id="score.pop">
+<tt class="descclassname">score.</tt><tt class="descname">pop</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the last pfield element from an event and returns a
+tuple containing a new event and the removed element.</p>
+<p>This function preserves whitespace.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">pop_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">(&#39;i 1 0 4 1.0   ; A440&#39;, &#39;440&#39;)</span>
 </pre></div>
 </div>
-<p>This function preserves whitespace.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.push_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">push_pfield</tt><big>(</big><em>event</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.push_pfield" title="Permalink to this definition">¶</a></dt>
-<dd><p>Appends a pfield after the last pfield and returns a new
-event</p>
+<dt id="score.push">
+<tt class="descclassname">score.</tt><tt class="descname">push</tt><big>(</big><em>event</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#score.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends a pfield element to the last pfield and returns the new
+event.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">push_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 440 1138  ; A440&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.remove_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">remove_pfield</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.remove_pfield" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a pfield and returns a tuple containing a new event
-and the removed item.</p>
+<dt id="score.remove">
+<tt class="descclassname">score.</tt><tt class="descname">remove</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#score.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a pfield and returns a tuple containing the new event
+and the removed element.</p>
+<p>This function preserves whitespace.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">remove_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">)</span>
 <span class="go">(&#39;i 1 0 4  440  ; A440&#39;, &#39;1.0&#39;)</span>
 </pre></div>
 </div>
-<p>This function preserves whitespace.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.sanitize_event">
-<tt class="descclassname">score.</tt><tt class="descname">sanitize_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.sanitize_event" title="Permalink to this definition">¶</a></dt>
+<dt id="score.sanitize">
+<tt class="descclassname">score.</tt><tt class="descname">sanitize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.sanitize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of the score event with extra whitespace and
 comments removed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">sanitize_event</span><span class="p">(</span><span class="s">&#39;i 1 0 4    1.0 440  ; A440&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="s">&#39;i 1 0 4    1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
 </pre></div>
 </div>
@@ -160,24 +172,36 @@ case in the future.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.set_pfield">
-<tt class="descclassname">score.</tt><tt class="descname">set_pfield</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>value</em><big>)</big><a class="headerlink" href="#score.set_pfield" title="Permalink to this definition">¶</a></dt>
+<dt id="score.set">
+<tt class="descclassname">score.</tt><tt class="descname">set</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>value</em><big>)</big><a class="headerlink" href="#score.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new event string with the specified pfield set with
-a new value.</p>
+a new element.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">set_pfield</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1138</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1138</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 1138  ; A440&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.split_event">
-<tt class="descclassname">score.</tt><tt class="descname">split_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.split_event" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a list that includes all event pfields and comments.</p>
+<dt id="score.split">
+<tt class="descclassname">score.</tt><tt class="descname">split</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list that includes all event pfield and comments
+elements.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">split_event</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">[&#39;i&#39;, &#39;1&#39;, &#39;0&#39;, &#39;4&#39;, &#39;1.0&#39;, &#39;440&#39;, &#39;; A440&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="score.swap">
+<tt class="descclassname">score.</tt><tt class="descname">swap</tt><big>(</big><em>event</em>, <em>pfield_a</em>, <em>pfield_b</em><big>)</big><a class="headerlink" href="#score.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new event string after swapping two pfield elements.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440 ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 440 1.0 ; A440&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -191,20 +215,9 @@ identifier.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.swap_pfields">
-<tt class="descclassname">score.</tt><tt class="descname">swap_pfields</tt><big>(</big><em>event</em>, <em>pfield_a</em>, <em>pfield_b</em><big>)</big><a class="headerlink" href="#score.swap_pfields" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a new event with the two specified pfields swapped.</p>
-<p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap_pfields</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440 ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
-<span class="go">&#39;i 1 0 4 440 1.0 ; A440&#39;</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
 <dt id="score.token_type">
 <tt class="descclassname">score.</tt><tt class="descname">token_type</tt><big>(</big><em>element</em><big>)</big><a class="headerlink" href="#score.token_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the Csound score token type.</p>
+<dd><p>Returns the Csound score token type of an element.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">token_type</span><span class="p">(</span><span class="s">&#39;[~ * 440 + 440]&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="n">score</span><span class="o">.</span><span class="n">EXPRESSION</span>
 <span class="go">True</span>
@@ -222,13 +235,12 @@ constants.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="score.tokenize_event">
-<tt class="descclassname">score.</tt><tt class="descname">tokenize_event</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.tokenize_event" title="Permalink to this definition">¶</a></dt>
+<dt id="score.tokenize">
+<tt class="descclassname">score.</tt><tt class="descname">tokenize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#score.tokenize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of all elements in an event.</p>
-<p>In addition to pfield elements, whitespace and comments are also
-included.</p>
+<p>Elements include pfield data, comments and whitespace.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">tokenize_event</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">[&#39;i&#39;, &#39; &#39;, &#39;1&#39;, &#39; &#39;, &#39;0&#39;, &#39; &#39;, &#39;4&#39;, &#39; &#39;, &#39;1.0&#39;, &#39; &#39;, &#39;440&#39;, &#39;  &#39;, &#39;; A440&#39;]</span>
 </pre></div>
 </div>
@@ -236,6 +248,7 @@ included.</p>
 <p class="first admonition-title">Note</p>
 <p class="last">This function will attempt to tokenize invalid elements.</p>
 </div>
+<p>Be sure that the event you provide is syntactically correct.</p>
 </dd></dl>
 
 </div>
@@ -246,8 +259,6 @@ included.</p>
 scoreparse.  This will help open a way to an orcparse module
 in the future.  The main package may become something like
 csoundparse.</p>
-<p>Function names will change to eliminate redundancy.  For example,
-<tt class="docutils literal"><span class="pre">score.get_pfield()</span></tt> will become <tt class="docutils literal"><span class="pre">score.get()</span></tt></p>
 <p>Functions may support returning single events as strings and
 multiple events as lists.  This might negate the need for column
 functions like <tt class="docutils literal"><span class="pre">score.swap_column()</span></tt>.</p>
@@ -279,7 +290,7 @@ functions like <tt class="docutils literal"><span class="pre">score.swap_column(
 
             <h4>Previous topic</h4>
             <p class="topless"><a href="index.html"
-                                  title="previous chapter">Csound Score Parse Module</a></p>
+                                  title="previous chapter">Csound Score Parsing Python Module</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="demo.html"
                                   title="next chapter">Demos</a></p>
@@ -318,7 +329,7 @@ functions like <tt class="docutils literal"><span class="pre">score.swap_column(
           <a href="demo.html" title="Demos"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound Score Parse Module"
+          <a href="index.html" title="Csound Score Parsing Python Module"
              >previous</a> |</li>
         <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
       </ul>

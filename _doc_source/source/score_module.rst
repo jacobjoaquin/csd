@@ -17,9 +17,6 @@ scoreparse.  This will help open a way to an orcparse module
 in the future.  The main package may become something like
 csoundparse.
 
-Function names will change to eliminate redundancy.  For example,
-``score.get_pfield()`` will become ``score.get()``
-
 Functions may support returning single events as strings and
 multiple events as lists.  This might negate the need for column
 functions like ``score.swap_column()``.

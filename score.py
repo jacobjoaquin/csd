@@ -1,4 +1,19 @@
 #!/usr/bin/env python
+'''This module is designed to parse Csound score events.
+
+An *element* refers to pfield data, a comment, a continuous block of
+whitespace.
+
+An *event* is a score event. For example, ``i 1 0 4 1.0 440  ; A440``
+is an event.
+
+A *statement* is the type of Csound of event. For example, an ``i`` is
+an instrument event (i-event) while an ``f`` is a function table event.
+
+An *identifier* is the unique name of index that indicates a specific
+instrument or f-table, and immediately proceeds a *statement*. For
+example, ``33`` is the identifier in ``i 33 0 11``.
+'''
 
 import re
 
@@ -32,7 +47,7 @@ RANDOM = 12
 CARRY_PLUS = 13
 
 def get(event, pfield):
-    '''Returns the value of a pfield for an event.
+    '''Returns a pfield element for an event.
     
     The pfield maybe a number, string, expression, or a statement.
     Comments are right out.
@@ -42,7 +57,7 @@ def get(event, pfield):
         >>> score.get('i 1 0 4 1.0 440  ; A440', 5)
         '440'
     '''
-    
+
     event = sanitize(event)
     event_list = split(event)
 
@@ -66,7 +81,7 @@ def get_pfield_list(event):
     return split(event)    
 
 def insert(event, pfield, fill='.'):
-    '''Returns a new event with a pfield inserted.
+    '''Returns a new event with an inserted pfield element.
     
     Example::
         
@@ -89,9 +104,11 @@ def insert(event, pfield, fill='.'):
     return event
 
 def number_of_pfields(event):
-    '''Returns an integer of the amounts of pfields an event.
+    '''Returns an integer of the amounts of pfield elements in an
+    event.
     
-    The statement (pfield 0) is also counted.
+    The statement (pfield 0) is also counted.  Comments and whitespace
+    are omitted from the tally.
 
     Example::
 
@@ -102,22 +119,22 @@ def number_of_pfields(event):
     return len(get_pfield_list(event))
 
 def pop(event):
-    '''Removes the last pfield and returns a tuple containing a new
-    event and the removed item.
+    '''Removes the last pfield element from an event and returns a
+    tuple containing a new event and the removed element.
+
+    This function preserves whitespace.    
 
     Example::
         
         >>> score.pop('i 1 0 4 1.0 440  ; A440')
         ('i 1 0 4 1.0   ; A440', '440')
-    
-    This function preserves whitespace.    
     '''
     
     return remove(event, number_of_pfields(event) - 1)
 
 def push(event, fill='.'):
-    '''Appends a pfield after the last pfield and returns a new
-    event
+    '''Appends a pfield element to the last pfield and returns the new
+    event.
     
     Example::
 
@@ -128,15 +145,15 @@ def push(event, fill='.'):
     return insert(event, number_of_pfields(event), fill)
 
 def remove(event, pfield):
-    '''Removes a pfield and returns a tuple containing a new event
-    and the removed item.
+    '''Removes a pfield and returns a tuple containing the new event
+    and the removed element.
+
+    This function preserves whitespace.    
 
     Example::
         
         >>> score.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
-    
-    This function preserves whitespace.    
     '''
     
     pf = ''
@@ -176,7 +193,7 @@ def sanitize(event):
 
 def set(event, pfield, value):
     '''Returns a new event string with the specified pfield set with
-    a new value.
+    a new element.
     
     Example::
         
@@ -214,7 +231,8 @@ def set(event, pfield, value):
     return ''.join(tokens)
 
 def split(event):
-    '''Returns a list that includes all event pfields and comments.
+    '''Returns a list that includes all event pfield and comments
+    elements.
 
     Example::
         
@@ -272,7 +290,7 @@ def swap_columns(score, statement, identifier, a, b):
     return ''.join(score_output)
     
 def swap(event, pfield_a, pfield_b):
-    '''Returns a new event with the two specified pfields swapped.
+    '''Returns a new event string after swapping two pfield elements.
     
     Example::
         
@@ -289,7 +307,7 @@ def swap(event, pfield_a, pfield_b):
     return event
 
 def token_type(element):
-    '''Returns the Csound score token type.
+    '''Returns the Csound score token type of an element.
         
     Example::
         
@@ -340,8 +358,7 @@ def token_type(element):
 def tokenize(event):
     '''Returns a list of all elements in an event.
     
-    In addition to pfield elements, whitespace and comments are also
-    included.
+    Elements include pfield data, comments and whitespace.
 
     Example::
         
@@ -349,6 +366,7 @@ def tokenize(event):
         ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
     
     .. note:: This function will attempt to tokenize invalid elements.
+    Be sure that the event you provide is syntactically correct.
     '''
     
     tokens = []
