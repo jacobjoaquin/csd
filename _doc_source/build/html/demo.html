@@ -20,6 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
+    <link rel="next" title="Bugs" href="bugs.html" />
     <link rel="prev" title="The Score Module" href="score_module.html" /> 
   </head>
   <body>
@@ -32,6 +33,9 @@
         <li class="right" >
           <a href="modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="bugs.html" title="Bugs"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="score_module.html" title="The Score Module"
              accesskey="P">previous</a> |</li>
@@ -95,10 +99,11 @@ i1 + . . . . 101 . . . . .
 i1 + . 5.04 . . 100 . . . . . 
 i1 + . . . . 101 . . . . . 
 
+
 i1 0 1 0.1 8.00 0.5 0.333333  ; Begin new section
-i1 + . .   .    .   .
-i1 + . .   .    .   .
-i1 + . .   .    0.75   .
+i1 + . .   .    .   .  ; Comment
+i1 + . .   .    .   .  ; Another comment
+i1 + . .   .    0.75   .  ; And one more
 i1 10 0.44 0.99 5.05 0 1  ; Swap mix-rates of last 2 pfields
 i1 + 0.44 0.99 5.02 &lt; &lt;
 i1 + 0.44 [~ * 0.5 + 0.5] 5.01 &lt; &lt;  ; Expressions work
@@ -106,10 +111,7 @@ i 1 + 0.44 [~ * 0.8 + 0.2] 5.00 &lt; &lt;
 i 1  + 0.44 . 5.00 &lt; &lt;
 i 1 + 0.6333 0.88 6.04 1 0
 
-; This script only refactors i-events that
-; are grouped sequentially.  Notice the following
-; code does not share the same alignment as the
-; previous block.
+
 i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1 ; Mangled snippet from Trapped
 i 7 19.3 6.4 8000 5.041 . 0.9 1 3 2 0.1
 i 9 26.7 1.9 "file.wav" 4.114 . 0.1 5.9 300
@@ -117,10 +119,9 @@ i 9 29.1 2.1 0.1 5.013 . 0.2 4.2 390
 i 99 32 6.2 0.28 ; Comments are aligned
 i 9 32 9.1 0.34 5.051 2300 0.5 3.8 420
 
+
 i "foo" 0 $macro 0 3 ; Strings and macros work
-i"bar" 0 1 2 3
-i 'yuh' 0 $macro 7 8
-i'nin' 0 1 2 3.5</pre>
+i $bar 0 1 2 3  ; See.</pre>
 </div>
 <p>After:</p>
 <div class="highlight-python"><pre>i 1    0    4    6.04 15000 2    100  81   50   56   20   1  ; No alignment
@@ -132,10 +133,11 @@ i 1    +    .    .    .     .    101  .    .    .    .    .
 i 1    +    .    5.04 .     .    100  .    .    .    .    .
 i 1    +    .    .    .     .    101  .    .    .    .    .
 
+
 i 1    0    1      0.1             8.00 0.5  0.333333  ; Begin new section
-i 1    +    .      .               .    .    .
-i 1    +    .      .               .    .    .
-i 1    +    .      .               .    0.75 .
+i 1    +    .      .               .    .    .         ; Comment
+i 1    +    .      .               .    .    .         ; Another comment
+i 1    +    .      .               .    0.75 .         ; And one more
 i 1    10   0.44   0.99            5.05 0    1         ; Swap mix-rates of last 2 pfields
 i 1    +    0.44   0.99            5.02 &lt;    &lt;
 i 1    +    0.44   [~ * 0.5 + 0.5] 5.01 &lt;    &lt;         ; Expressions work
@@ -143,10 +145,7 @@ i 1    +    0.44   [~ * 0.8 + 0.2] 5.00 &lt;    &lt;
 i 1    +    0.44   .               5.00 &lt;    &lt;
 i 1    +    0.6333 0.88            6.04 1    0
 
-; This script only refactors i-events that
-; are grouped sequentially.  Notice the following
-; code does not share the same alignment as the
-; previous block.
+
 i 7    16.4 3.5  8000       5.019 0.2  0.7  0.5  2    3    0.1  ; Mangled snippet from Trapped
 i 7    19.3 6.4  8000       5.041 .    0.9  1    3    2    0.1
 i 9    26.7 1.9  "file.wav" 4.114 .    0.1  5.9  300
@@ -154,10 +153,9 @@ i 9    29.1 2.1  0.1        5.013 .    0.2  4.2  390
 i 99   32   6.2  0.28                                           ; Comments are aligned
 i 9    32   9.1  0.34       5.051 2300 0.5  3.8  420
 
-i "foo" 0    $macro 0    3    ; Strings and macros work
-i "bar" 0    1      2    3
-i 'yuh' 0    $macro 7    8
-i 'nin' 0    1      2    3.5</pre>
+
+i "foo" 0    $macro 0    3  ; Strings and macros work
+i $bar  0    1      2    3  ; See.</pre>
 </div>
 </div>
 <div class="section" id="module-arpeggiator">
@@ -324,6 +322,46 @@ i 1 1 0.25 0.5 7.00</pre>
 <dd>Sums each pfield in a column with a user-specified value.</dd></dl>
 
 </div>
+<div class="section" id="module-space_statement">
+<h2>space_statement<a class="headerlink" href="#module-space_statement" title="Permalink to this headline">¶</a></h2>
+<p>Sets space between a statement and the first active element.</p>
+<dl class="cmdoption">
+<dt id="cmdoption-space_statement-p">
+<tt class="descname">-p</tt><tt class="descclassname">  Pad amount between statement and identifier</tt><a class="headerlink" href="#cmdoption-space_statement-p" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Example:</p>
+<div class="highlight-python"><pre>$ cat unfactored.sco | ./space_statement.py -p1</pre>
+</div>
+<p>Before:</p>
+<div class="highlight-python"><pre>i 1 0 4    1.0 9.07
+i 2 0 0.25 0.3 7.00
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 2 + .    .   .
+i 1 0 4    1.0 9.11</pre>
+</div>
+<p>After:</p>
+<div class="highlight-python"><pre>i1 0 4    1.0 9.07
+i2 0 0.25 0.3 7.00
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i2 + .    .   .
+i1 0 4    1.0 9.11</pre>
+</div>
+</div>
 <div class="section" id="module-swap_columns">
 <h2>swap_columns<a class="headerlink" href="#module-swap_columns" title="Permalink to this headline">¶</a></h2>
 <p>Exchanges all score columns for a specified statement and
@@ -450,6 +488,7 @@ i 1 1 0.25 0.5     7.00
 <li><a class="reference external" href="#module-arpeggiator">arpeggiator</a></li>
 <li><a class="reference external" href="#module-carry">carry</a></li>
 <li><a class="reference external" href="#module-sum">sum</a></li>
+<li><a class="reference external" href="#module-space_statement">space_statement</a></li>
 <li><a class="reference external" href="#module-swap_columns">swap_columns</a></li>
 <li><a class="reference external" href="#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
 <li><a class="reference external" href="#pipe-chain-trick">Pipe Chain Trick</a></li>
@@ -460,6 +499,9 @@ i 1 1 0.25 0.5     7.00
             <h4>Previous topic</h4>
             <p class="topless"><a href="score_module.html"
                                   title="previous chapter">The Score Module</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="bugs.html"
+                                  title="next chapter">Bugs</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/demo.txt"
@@ -491,6 +533,9 @@ i 1 1 0.25 0.5     7.00
         <li class="right" >
           <a href="modindex.html" title="Global Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="bugs.html" title="Bugs"
+             >next</a> |</li>
         <li class="right" >
           <a href="score_module.html" title="The Score Module"
              >previous</a> |</li>

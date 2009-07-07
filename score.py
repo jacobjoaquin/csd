@@ -221,7 +221,6 @@ def set(event, pfield, value):
     
     # Skip if pfield is out of range
     if pfield not in range(number_of_pfields(event)):
-        '%%% set not in range'
         return event
     
     tokens = tokenize(event)

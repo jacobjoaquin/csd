@@ -36,7 +36,13 @@ sum
 
 .. automodule:: sum
    :members:
-    
+ 
+space_statement
+---------------
+
+.. automodule:: space_statement
+   :members:
+   
 swap_columns
 ------------
 
