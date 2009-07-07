@@ -6,6 +6,7 @@ Csound Score Parsing Python Module
 
    score_module
    demo
+   commandline
    bugs
    
 Introduction

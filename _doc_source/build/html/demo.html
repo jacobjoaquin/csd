@@ -20,7 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
-    <link rel="next" title="Bugs" href="bugs.html" />
+    <link rel="next" title="Command-line Operations" href="commandline.html" />
     <link rel="prev" title="The Score Module" href="score_module.html" /> 
   </head>
   <body>
@@ -34,7 +34,7 @@
           <a href="modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="bugs.html" title="Bugs"
+          <a href="commandline.html" title="Command-line Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="score_module.html" title="The Score Module"
@@ -331,7 +331,7 @@ i 1 1 0.25 0.5 7.00</pre>
 <dd></dd></dl>
 
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat unfactored.sco | ./space_statement.py -p1</pre>
+<div class="highlight-python"><pre>$ cat unfactored.sco | ./space_statement.py -p0</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i 1 0 4    1.0 9.07
@@ -421,58 +421,6 @@ i 7 16.4 3.5 8000 5.019 0.2 0.7 0.5 2 3 0.1
 i 7 19.3 6.4 8000 5.041 .   0.9 1   3 2 0.1</pre>
 </div>
 </div>
-<div class="section" id="pasteboard-trick-for-os-x">
-<h2>Pasteboard Trick (for OS X)<a class="headerlink" href="#pasteboard-trick-for-os-x" title="Permalink to this headline">¶</a></h2>
-<p>OS X comes with two commands that can easily aid in the process of
-using these demo scripts in your work flow: <tt class="docutils literal"><span class="pre">pbpaste</span></tt> and <tt class="docutils literal"><span class="pre">pbcopy</span></tt>.
-These paste and copy the contents of the pasteboard in the OS X
-Terminal.</p>
-<p>To use in a workflow, highlight a section of score you want to process,
-copy the selection, type the following into the Terminal:</p>
-<div class="highlight-python"><pre>$ pbpaste | ./align.py | pbcopy</pre>
-</div>
-<p>Go back to your text editor, and with the section of score code still
-highlighted, paste.  The highlighted test will be replaced with your
-newly processed score.</p>
-</div>
-<div class="section" id="pipe-chain-trick">
-<h2>Pipe Chain Trick<a class="headerlink" href="#pipe-chain-trick" title="Permalink to this headline">¶</a></h2>
-<p>It is possible to chain pipes in series to process scores with
-multiple scripts in one swoop.  The following command does two things.
-First, it sums the values of pfields 4 in instrument 2 events with
-0.99999 with sum.py.  The output is then piped into align.py, making
-the columns tidy and neat:</p>
-<div class="highlight-python"><pre>$ cat carry.sco | ./sum.py -si -i2 -p4 -v0.99999 | ./align.py</pre>
-</div>
-<p>Before:</p>
-<div class="highlight-none"><div class="highlight"><pre>i 2 0 0.25 0.3 7.00
-i 2 + 0.25 0.3 7.00
-i 2 + 0.25 0.3 7.00
-/**/
-i 2 + 0.25 0.5 7.00
-i 2 + 0.25 0.3 7.00
-i 2 + 0.25 0.5 7.00
-i 1 0 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-</pre></div>
-</div>
-<p>After:</p>
-<div class="highlight-none"><div class="highlight"><pre>i 2 0 0.25 1.29999 7.00
-i 2 + 0.25 1.29999 7.00
-i 2 + 0.25 1.29999 7.00
-/**/
-i 2 + 0.25 1.49999 7.00
-i 2 + 0.25 1.29999 7.00
-i 2 + 0.25 1.49999 7.00
-i 1 0 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -490,8 +438,6 @@ i 1 1 0.25 0.5     7.00
 <li><a class="reference external" href="#module-sum">sum</a></li>
 <li><a class="reference external" href="#module-space_statement">space_statement</a></li>
 <li><a class="reference external" href="#module-swap_columns">swap_columns</a></li>
-<li><a class="reference external" href="#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
-<li><a class="reference external" href="#pipe-chain-trick">Pipe Chain Trick</a></li>
 </ul>
 </li>
 </ul>
@@ -500,8 +446,8 @@ i 1 1 0.25 0.5     7.00
             <p class="topless"><a href="score_module.html"
                                   title="previous chapter">The Score Module</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="bugs.html"
-                                  title="next chapter">Bugs</a></p>
+            <p class="topless"><a href="commandline.html"
+                                  title="next chapter">Command-line Operations</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/demo.txt"
@@ -534,7 +480,7 @@ i 1 1 0.25 0.5     7.00
           <a href="modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="bugs.html" title="Bugs"
+          <a href="commandline.html" title="Command-line Operations"
              >next</a> |</li>
         <li class="right" >
           <a href="score_module.html" title="The Score Module"
