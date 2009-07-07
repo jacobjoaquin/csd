@@ -263,9 +263,9 @@ constants.</p>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This function will attempt to tokenize invalid elements.</p>
+<p class="last">This function will attempt to tokenize invalid elements.
+Be sure that the event you provide is syntactically correct.</p>
 </div>
-<p>Be sure that the event you provide is syntactically correct.</p>
 </dd></dl>
 
 </div>
@@ -287,6 +287,25 @@ functions like <tt class="docutils literal"><span class="pre">score.swap_column(
 </div>
 <p>Error checking, exceptions, and warnings - <em>Oh my!!</em></p>
 <p>Eliminate redundant functions, add new ones as required.</p>
+<p>Package Outline:</p>
+<div class="highlight-python"><pre>package:
+
+    csdparse/
+        __init__py
+        orc/
+        sco/
+            __init__.py
+            element.py
+            event.py
+            block.py
+
+imports look like:
+
+    import csdparse
+    import csdparse.orc
+    import csdparse.sco
+    from csdparse.sco import event</pre>
+</div>
 </div>
 </div>
 

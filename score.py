@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 '''This module is designed to parse Csound score events.
 
 An *element* refers to pfield data, a comment, a continuous block of
@@ -46,6 +47,7 @@ EXPONENTIAL_RAMP = 11
 RANDOM = 12
 CARRY_PLUS = 13
 
+# comment
 def extract(csd):
     '''Pulls score data from inbetween the <CsScore> markup tags in a
     Csound csd.
@@ -90,7 +92,6 @@ def get_pfield_list(event):
         >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440']
     '''
-
     event = sanitize(event)
     return split(event)    
 
@@ -380,7 +381,7 @@ def tokenize(event):
         ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
     
     .. note:: This function will attempt to tokenize invalid elements.
-    Be sure that the event you provide is syntactically correct.
+        Be sure that the event you provide is syntactically correct.
     '''
     
     tokens = []
@@ -418,5 +419,4 @@ def tokenize(event):
         tokens.append(t)
     
     return tokens
-
 

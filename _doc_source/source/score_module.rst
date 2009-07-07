@@ -30,4 +30,24 @@ Error checking, exceptions, and warnings - *Oh my!!*
 
 Eliminate redundant functions, add new ones as required.
 
+Package Outline::
+    
+    package: 
+    
+        csdparse/
+            __init__py
+            orc/
+            sco/
+                __init__.py
+                element.py
+                event.py
+                block.py
 
+    imports look like:
+        
+        import csdparse
+        import csdparse.orc
+        import csdparse.sco
+        from csdparse.sco import event
+    
+    
