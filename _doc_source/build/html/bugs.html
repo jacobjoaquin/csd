@@ -20,7 +20,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
-    <link rel="prev" title="Demos" href="demo.html" /> 
+    <link rel="prev" title="Command-line Operations" href="commandline.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +33,7 @@
           <a href="modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="demo.html" title="Demos"
+          <a href="commandline.html" title="Command-line Operations"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
       </ul>
@@ -51,6 +51,21 @@
 single quotes.  Single quotes are not supported by the score.</li>
 </ul>
 </div>
+<div class="section" id="planned-changes">
+<h1>Planned Changes<a class="headerlink" href="#planned-changes" title="Permalink to this headline">¶</a></h1>
+<p>Major revisions are planned for this module.</p>
+<p>Functions may support returning single events as strings and
+multiple events as lists.  This might negate the need for column
+functions like <tt class="docutils literal"><span class="pre">score.swap_column()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440</span><span class="se">\n</span><span class="s">i 1 4 8 0.5 770&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">[&#39;i 1 0 4 440 1.0&#39;, &#39;i 1 4 8 770 0.5&#39;]</span>
+</pre></div>
+</div>
+<p>Error checking, exceptions, and warnings - <em>Oh my!!</em></p>
+<p>Eliminate redundant functions, add new ones as required.</p>
+</div>
 
 
           </div>
@@ -58,9 +73,15 @@ single quotes.  Single quotes are not supported by the score.</li>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Bugs</a></li>
+<li><a class="reference external" href="#planned-changes">Planned Changes</a></li>
+</ul>
+
             <h4>Previous topic</h4>
-            <p class="topless"><a href="demo.html"
-                                  title="previous chapter">Demos</a></p>
+            <p class="topless"><a href="commandline.html"
+                                  title="previous chapter">Command-line Operations</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/bugs.txt"
@@ -93,7 +114,7 @@ single quotes.  Single quotes are not supported by the score.</li>
           <a href="modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="demo.html" title="Demos"
+          <a href="commandline.html" title="Command-line Operations"
              >previous</a> |</li>
         <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
       </ul>

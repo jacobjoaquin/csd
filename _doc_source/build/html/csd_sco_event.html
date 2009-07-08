@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The csd Package &mdash; scoparse v0.0.1a documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1a',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
+    <link rel="next" title="Demos" href="demo.html" />
+    <link rel="prev" title="Csound Score Parsing Python Module" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             accesskey="M">modules</a> |</li>
+        <li class="right" >
+          <a href="demo.html" title="Demos"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Csound Score Parsing Python Module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-csd-package">
+<h1>The csd Package<a class="headerlink" href="#the-csd-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-csd">
+<h2>csd<a class="headerlink" href="#module-csd" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="csd.get_score">
+<tt class="descclassname">csd.</tt><tt class="descname">get_score</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pulls score data from inbetween the &lt;CsScore&gt; markup tags in a
+Csound csd.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This should really reside somewhere else, such as a
+csdparse module.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There is an issue with an extra leading and extra
+trailing newline being introduced.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-csd.sco">
+<h2>sco<a class="headerlink" href="#module-csd.sco" title="Permalink to this headline">¶</a></h2>
+<p>These methods operate on multiple score events at a time. Generally
+speaking, these methods specifically deal with columns, where
+csd.sco.event deals with rows.</p>
+<dl class="function">
+<dt id="csd.sco.swap">
+<tt class="descclassname">csd.sco.</tt><tt class="descname">swap</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#csd.sco.swap" title="Permalink to this definition">¶</a></dt>
+<dd>Exchanges all score columns for a specified statement and
+identifier.</dd></dl>
+
+<p>Does nothing.</p>
+</div>
+<div class="section" id="module-csd.sco.event">
+<h2>event<a class="headerlink" href="#module-csd.sco.event" title="Permalink to this headline">¶</a></h2>
+<p>The event module parses single score events.  In almost all cases,
+when you are parsing an event, you are dealing with score elements,
+such as pfield data, comments and whitespace.</p>
+<p>This module is designed to parse Csound score events.</p>
+<p>An <em>element</em> refers to pfield data, a comment, a continuous block of
+whitespace.</p>
+<p>An <em>event</em> is a score event. For example, <tt class="docutils literal"><span class="pre">i</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">4</span> <span class="pre">1.0</span> <span class="pre">440</span>&nbsp; <span class="pre">;</span> <span class="pre">A440</span></tt>
+is an event.</p>
+<p>A <em>statement</em> is the type of Csound of event. For example, an <tt class="docutils literal"><span class="pre">i</span></tt> is
+an instrument event (i-event) while an <tt class="docutils literal"><span class="pre">f</span></tt> is a function table event.</p>
+<p>An <em>identifier</em> is the unique name of index that indicates a specific
+instrument or f-table, and immediately proceeds a <em>statement</em>. For
+example, <tt class="docutils literal"><span class="pre">33</span></tt> is the identifier in <tt class="docutils literal"><span class="pre">i</span> <span class="pre">33</span> <span class="pre">0</span> <span class="pre">11</span></tt>.</p>
+<dl class="function">
+<dt id="csd.sco.event.get">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#csd.sco.event.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a pfield element for an event.</p>
+<p>The pfield maybe a number, string, expression, or a statement.
+Comments are right out.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">&#39;440&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.get_pfield_list">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">get_pfield_list</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.get_pfield_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all the pfield elements in a list.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">get_pfield_list</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">[&#39;i&#39;, &#39;1&#39;, &#39;0&#39;, &#39;4&#39;, &#39;1.0&#39;, &#39;440&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.insert">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">insert</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#csd.sco.event.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new event with an inserted pfield element.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 1138 440  ; A440&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The parameter fill must be a string. Future versions
+will automatically re-type numbers to strings.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.number_of_pfields">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">number_of_pfields</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.number_of_pfields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an integer of the amounts of pfield elements in an
+event.</p>
+<p>The statement (pfield 0) is also counted.  Comments and whitespace
+are omitted from the tally.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">number_of_pfields</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.pop">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">pop</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the last pfield element from an event and returns a
+tuple containing a new event and the removed element.</p>
+<p>This function preserves whitespace.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">(&#39;i 1 0 4 1.0   ; A440&#39;, &#39;440&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.push">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">push</tt><big>(</big><em>event</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#csd.sco.event.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Appends a pfield element to the last pfield and returns the new
+event.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 440 1138  ; A440&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.remove">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">remove</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#csd.sco.event.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a pfield and returns a tuple containing the new event
+and the removed element.</p>
+<p>This function preserves whitespace.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">)</span>
+<span class="go">(&#39;i 1 0 4  440  ; A440&#39;, &#39;1.0&#39;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.sanitize">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">sanitize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.sanitize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the score event with extra whitespace and
+comments removed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="s">&#39;i 1 0 4    1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">A statement and identifier will stay conjoined if there
+is no whitespace between them. This will most likey not be the
+case in the future.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.set">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">set</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>value</em><big>)</big><a class="headerlink" href="#csd.sco.event.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new event string with the specified pfield set with
+a new element.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">1138</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 1138  ; A440&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.split">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">split</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list that includes all event pfield and comments
+elements.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">[&#39;i&#39;, &#39;1&#39;, &#39;0&#39;, &#39;4&#39;, &#39;1.0&#39;, &#39;440&#39;, &#39;; A440&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.swap">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">swap</tt><big>(</big><em>event</em>, <em>pfield_a</em>, <em>pfield_b</em><big>)</big><a class="headerlink" href="#csd.sco.event.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new event string after swapping two pfield elements.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440 ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 440 1.0 ; A440&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.tokenize">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">tokenize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.tokenize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of all elements in an event.</p>
+<p>Elements include pfield data, comments and whitespace.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
+<span class="go">[&#39;i&#39;, &#39; &#39;, &#39;1&#39;, &#39; &#39;, &#39;0&#39;, &#39; &#39;, &#39;4&#39;, &#39; &#39;, &#39;1.0&#39;, &#39; &#39;, &#39;440&#39;, &#39;  &#39;, &#39;; A440&#39;]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This function will attempt to tokenize invalid elements.
+Be sure that the event you provide is syntactically correct.</p>
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">The csd Package</a><ul>
+<li><a class="reference external" href="#module-csd">csd</a></li>
+<li><a class="reference external" href="#module-csd.sco">sco</a></li>
+<li><a class="reference external" href="#module-csd.sco.event">event</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Csound Score Parsing Python Module</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="demo.html"
+                                  title="next chapter">Demos</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/csd_sco_event.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="modindex.html" title="Global Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="demo.html" title="Demos"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Csound Score Parsing Python Module"
+             >previous</a> |</li>
+        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2009, Jacob Joaquin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+    </div>
+  </body>
+</html>

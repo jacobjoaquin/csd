@@ -4,7 +4,7 @@ Csound Score Parsing Python Module
 .. toctree::
    :maxdepth: 2
 
-   score_module
+   csd_sco_event
    demo
    commandline
    bugs

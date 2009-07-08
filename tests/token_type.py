@@ -3,7 +3,7 @@
 
 import sys
 sys.path.append('../')
-from csd.sco import event as s
+from csd.sco import element as s
 
 def test(n, line, expect):
     result = s.token_type(line)

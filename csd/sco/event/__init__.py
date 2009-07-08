@@ -17,55 +17,7 @@ example, ``33`` is the identifier in ``i 33 0 11``.
 '''
 
 import re
-
-RE_STATEMENT = re.compile('[abefimnqrstvx]')
-RE_NUMERIC = re.compile('\d+.\d+|\d+.|.\d+|\d+')
-RE_STRING = re.compile('\".+?\"|\{\{.+?\}\}')
-RE_EXPRESSION = re.compile('\[.+?\]')
-RE_MACRO = re.compile('\$\S+')
-RE_CARRY = re.compile('\.')
-RE_NO_CARRY = re.compile('\!')
-RE_NEXT_PFIELD = re.compile('np\d+')
-RE_PREVIOUS_PFIELD = re.compile('pp\d+')
-RE_RAMP = re.compile('\<')
-RE_EXPONENTIAL_RAMP = re.compile('[\(\)]')
-RE_RANDOM = re.compile('\~')
-RE_CARRY_PLUS = re.compile('\+|\^\+\d+|\^\-\d+')
-
-# Class this?
-STATEMENT = 1
-NUMERIC = 2
-STRING = 3
-EXPRESSION = 4
-MACRO = 5
-CARRY = 6
-NO_CARRY = 7
-NEXT_PFIELD = 8
-PREVIOUS_PFIELD = 9
-RAMP = 10
-EXPONENTIAL_RAMP = 11
-RANDOM = 12
-CARRY_PLUS = 13
-
-def check():
-    print 'check()', __file__
-
-
-
-# comment
-def extract(csd):
-    '''Pulls score data from inbetween the <CsScore> markup tags in a
-    Csound csd.
-    
-    .. note:: This should really reside somewhere else, such as a
-        csdparse module.
-    
-    .. note:: There is an issue with an extra leading and extra
-        trailing newline being introduced.
-    '''
-    
-    p = re.compile('<CsScore>(.*)<\/CsScore>', re.DOTALL)
-    return ''.join(p.findall(csd))
+from .. import element
 
 def get(event, pfield):
     '''Returns a pfield element for an event.
@@ -230,15 +182,19 @@ def set(event, pfield, value):
     
     tokens = tokenize(event)
     
+    valid_pfields = [element.NUMERIC, element.MACRO, element.EXPRESSION,
+                     element.STRING, element.CARRY, element.RAMP,
+                     element.EXPONENTIAL_RAMP, element.RANDOM,
+                     element.CARRY_PLUS, element.NO_CARRY, element.NEXT_PFIELD,
+                     element.PREVIOUS_PFIELD]
+    
     pf_index = -1
     for i, t in enumerate(tokens):
         if pf_index == -1:
-            if token_type(t) == STATEMENT:
+            if element.token_type(t) == element.STATEMENT:
                 pf_index += 1
         else:
-            if token_type(t) in [NUMERIC, MACRO, EXPRESSION, STRING, CARRY,
-                                 RAMP, EXPONENTIAL_RAMP, RANDOM, CARRY_PLUS,
-                                 NO_CARRY, NEXT_PFIELD, PREVIOUS_PFIELD]:
+            if element.token_type(t) in valid_pfields:
                 pf_index += 1
 
         if pf_index == pfield:
@@ -281,33 +237,6 @@ def split(event):
 
     return p.findall(event)
 
-def swap_columns(score, statement, identifier, a, b):
-    '''Exchanges all score columns for a specified statement and
-    identifier.
-    
-    DEPRECATED
-    '''
-    
-    score_output = []
-    score_list = score.splitlines(True)
-    
-    for row in score_list:
-        # Test statement type and statement identifier.
-        if get(row, 0) is statement\
-                and get(row, 1) == str(identifier):
-                    
-            # Check that pfields a and b are in range, return original if True.
-            for pf in (a, b):
-                if pf not in range(number_of_pfields(row)):
-                    return score
-                    
-            # Swap pfields
-            score_output.append(swap(row, a, b))
-        else:
-            score_output.append(row)
-            
-    return ''.join(score_output)
-    
 def swap(event, pfield_a, pfield_b):
     '''Returns a new event string after swapping two pfield elements.
     
@@ -324,55 +253,6 @@ def swap(event, pfield_a, pfield_b):
     event = set(event, pfield_b, a)
 
     return event
-
-def token_type(element):
-    '''Returns the Csound score token type of an element.
-        
-    Example::
-        
-        >>> score.token_type('[~ * 440 + 440]') == score.EXPRESSION
-        True
-        >>> score.token_type('i') == score.EXPRESSION
-        False
-    
-    .. note:: The mechanisms handling tokens will change in the
-        future. For the mean time, tokens are treated as faux-
-        enums, and should be compared directly with the token
-        constants.
-    '''
-
-    type_ = None
-
-    if RE_NEXT_PFIELD.match(element):
-        type_ = NEXT_PFIELD
-    elif RE_PREVIOUS_PFIELD.match(element):
-        type_ = PREVIOUS_PFIELD
-    elif RE_STATEMENT.match(element):
-        type_ = STATEMENT
-    elif RE_NUMERIC.match(element):
-        type_ = NUMERIC
-    elif RE_STRING.match(element):
-        type_ = STRING
-    elif RE_EXPRESSION.match(element):
-        type_ = EXPRESSION
-    elif RE_MACRO.match(element):
-        type_ = MACRO
-    elif RE_CARRY.match(element):
-        type_ = CARRY
-    elif RE_NO_CARRY.match(element):
-        type_ = NO_CARRY
-    elif RE_RAMP.match(element):
-        type_ = RAMP
-    elif RE_EXPONENTIAL_RAMP.match(element):
-        type_ = EXPONENTIAL_RAMP
-    elif RE_RANDOM.match(element):
-        type_ = RANDOM
-    elif RE_CARRY_PLUS.match(element):
-        type_ = CARRY_PLUS
-    else:
-        type_ = None
-
-    return type_            
 
 def tokenize(event):
     '''Returns a list of all elements in an event.
@@ -399,11 +279,11 @@ def tokenize(event):
         event = p.sub('', event, 1)
         
     # Get statement
-    m = RE_STATEMENT.match(event)
+    m = element.RE_STATEMENT.match(event)
     
     if m:
         tokens.append(m.group())
-        event = RE_STATEMENT.sub('', event, 1)
+        event = element.RE_STATEMENT.sub('', event, 1)
         
     # Token the rest of the event
     pattern = '''(\s+         |
