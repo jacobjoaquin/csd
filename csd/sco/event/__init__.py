@@ -47,6 +47,11 @@ EXPONENTIAL_RAMP = 11
 RANDOM = 12
 CARRY_PLUS = 13
 
+def check():
+    print 'check()', __file__
+
+
+
 # comment
 def extract(csd):
     '''Pulls score data from inbetween the <CsScore> markup tags in a

@@ -1,4 +1,107 @@
+
+csd/
+    __init__py
+    orc/
+    sco/
+        __init__.py  # block.py
+        event.py
+        element.py
+
+
+csd.get_score(csd_file)
+csd.get_orchestra(csd_file) 
+csd.get_orchestra_flags(csd_file)
+csd.get_lead(csd_text)       # Before <cs>
+csd.get_trail(csd_text)      # after </cs>
+
+csd.sco.align(score)
+csd.sco.swap(score, a, b)
+csd.sco.sort(score)
+
+csd.sco.event.get()
+csd.sco.event.get_pfield_list()
+csd.sco.event.insert()
+csd.sco.event.number_of_pfields()
+csd.sco.event.push()
+csd.sco.event.pop()
+csd.sco.event.remove()
+csd.sco.event.sanitize()
+csd.sco.event.set()
+csd.sco.event.split()
+csd.sco.event.tokenize()
+
+csd.sco.element.type_(token)
+
+
+readme.txt
+_doc_source/
+tests/
+demo/
+csd/
+    __init__py
+        get_score(csd_file)
+        get_orchestra(csd_file) 
+        get_orchestra_flags(csd_file)
+        get_lead(csd_text)       # Before <cs>
+        get_trail(csd_text)      # after </cs>
+    orc/
+    sco/
+        __init__.py
+            align(score, statement=1, pfields=1, comments=2, min_width=1,
+                  set_other_field_widths[(pfield, pad_amount), (...)])
+            swap(score, a, b)
+            insert()
+            remove()
+            push()
+            pop()
+            sort(score)
+        event/
+            __init__.py
+                get()
+                get_pfield_list()
+                insert()
+                number_of_pfields()
+                push()
+                pop()
+                remove()
+                sanitize()
+                set()
+                split()
+                swap()
+                tokenize()
+        element/
+            __init__.py
+                type_(token)
+                evaluate(expression)
+        expression/
+            __init__.py
+                evaluate(expression)
+                
+                
+
+
+
+csd.sco
+    pop().  Does it refer to the last event, or the last pfield in each
+    event?  Would we really need a pop?  Considering it can already be done
+    somewhat easily with regular python.
+    
+        score_list = score.splitlines()
+        score = '\n'.join(score_list[0, len(score_list) - 1)
         
+    First conclusion, should refer to the pfields.  Though what would regular
+    python look like applied to pfields?
+    
+        score_list = score.splitlines()
+        new_score = []
+        for event in score_list:
+            new_score.append(csd.sco.event.pop(event)[0])
+        score = '\n'.join(new_score)    
+        
+    Note: The above code should be considered pseudo-code.
+
+    
+    
 # NOTES
 '''        
 event_list = []
