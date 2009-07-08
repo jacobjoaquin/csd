@@ -39,7 +39,7 @@ After::
 
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd.sco.event as event
 
 def replace(s):
     '''Replaces subsequent repeated values with a carry (.)'''
@@ -49,28 +49,28 @@ def replace(s):
     last_id = None
     
     for row in s:
-        if score.get(row, 0) is 'i'\
-                and score.get(row, 1) == last_id:
+        if event.get(row, 0) is 'i'\
+                and event.get(row, 1) == last_id:
             for i in range(3, len(values)):
                 v = values[i]
                 
-                if v == score.get(row, i):
+                if v == event.get(row, i):
                     glyph = '.'
-                    row = score.set(row, i, glyph)
+                    row = event.set(row, i, glyph)
                 else:
-                    glyph = score.get(row, i)
-                    values[i] = score.get(row, i)
-                    row = score.set(row, i, glyph)
+                    glyph = event.get(row, i)
+                    values[i] = event.get(row, i)
+                    row = event.set(row, i, glyph)
             output.append(row)
             
-        elif score.get(row, 0) == None:
+        elif event.get(row, 0) == None:
             output.append(row)
 
         else:
             values = []
             last_id = ''
-            values = score.get_pfield_list(row)
-            last_id = score.get(row, 1)
+            values = event.get_pfield_list(row)
+            last_id = event.get(row, 1)
             output.append(row)
         
     return ''.join(output)

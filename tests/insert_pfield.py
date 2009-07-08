@@ -3,7 +3,7 @@
 
 import sys
 sys.path.append('../')
-import score as s
+from csd.sco import event as s
 
 def test(n, event, pfield, fill, expect):
     result = s.insert(event, pfield, fill)

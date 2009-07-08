@@ -42,12 +42,12 @@ After::
 import re
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd.sco.event as event
 
 from optparse import OptionParser
 
-def pad(event, pad):
-    elements = score.tokenize(event)
+def pad(event_, pad):
+    elements = event.tokenize(event_)
     statement_index = None
     identifier_index = None
     statement_found = False
@@ -55,18 +55,18 @@ def pad(event, pad):
     # Get index for the statement and identifier    
     for i, e in enumerate(elements):
         if not statement_found:
-            if score.token_type(e) == score.STATEMENT:
+            if event.token_type(e) == event.STATEMENT:
                 statement_index = i
                 statement_found = True
         else:
-            if score.token_type(e) in [score.NUMERIC, score.MACRO,
-                                       score.STRING]:
+            if event.token_type(e) in [event.NUMERIC, event.MACRO,
+                                       event.STRING]:
                 identifier_index = i
                 break
 
-    # If no statement or identifier exists, return unaltered event
+    # If no statement or identifier exists, return unaltered event_
     if None in [statement_index, identifier_index]:
-        return event
+        return event_
     
     # Create a new list of elements, replacing any potential whitespace or
     # comments that exists between the statement and the identifier
@@ -79,7 +79,7 @@ def pad(event, pad):
     # Append whitespace
     new_elements.append(' ' * pad)
     
-    # Append everything between the identifier and the end of the event
+    # Append everything between the identifier and the end of the event_
     for i in range(identifier_index, len(elements)):
         new_elements.append(elements[i])
         
@@ -98,8 +98,8 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()   # Get data from stdin
     sco = []                        # Stores each new score line as list items
 
-    for event in stdin:
-        sco.append(pad(event, options.pad))
+    for event_ in stdin:
+        sco.append(pad(event_, options.pad))
 
     print ''.join(sco)
 

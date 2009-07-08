@@ -49,7 +49,7 @@ After::
 
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd.sco.event as event
 from optparse import OptionParser
 
 if __name__ == '__main__':
@@ -80,7 +80,7 @@ if __name__ == '__main__':
         print >> sys.stderr, ''.join(error)
     else:
         # Swap columns
-        output = score.swap_columns(s, options.statement, options.instr,
+        output = event.swap_columns(s, options.statement, options.instr,
                  int(options.pfield_a), int(options.pfield_b))
         print output
 

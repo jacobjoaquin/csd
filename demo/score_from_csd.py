@@ -3,7 +3,7 @@
 
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd
 
 if __name__ == '__main__':
 
@@ -11,5 +11,5 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
-    print score.extract(s),
+    print csd.get_score(s),
 

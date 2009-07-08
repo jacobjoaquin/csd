@@ -3,7 +3,7 @@
 
 import sys
 sys.path.append('../')
-import score as s
+from csd.sco import event as s
 
 def test(n, score, statement, identifier, a, b, expect):
     result = s.swap_columns(score, statement, identifier, a, b)

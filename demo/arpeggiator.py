@@ -48,7 +48,7 @@ After::
 
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd.sco.event as event
 from optparse import OptionParser
 
 def arpeggiator(s, statement, identifier, pfield, v):
@@ -60,9 +60,9 @@ event.'''
     i = 0  # Cycle index of looping arp list
 
     for row in s:
-        if score.get(row, 0) is statement\
-                and score.get(row, 1) == identifier:
-            output.append(score.set(row, int(options.pfield), v[i]))
+        if event.get(row, 0) is statement\
+                and event.get(row, 1) == identifier:
+            output.append(event.set(row, int(options.pfield), v[i]))
             i = (i + 1) % len(arp)
         else:
             output.append(row)

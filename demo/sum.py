@@ -45,7 +45,7 @@ After::
 
 import sys
 sys.path.append('../')  # Fix this.
-import score
+import csd.sco.event as event
 from optparse import OptionParser
 
 def sum_(s, statement, identifier, pfield, v):
@@ -54,15 +54,15 @@ def sum_(s, statement, identifier, pfield, v):
     output = []
     
     for row in s:
-        if score.get(row, 0) is statement\
-                and score.get(row, 1) == identifier:
+        if event.get(row, 0) is statement\
+                and event.get(row, 1) == identifier:
             
             # Sum values, or ignore if original pfield is not NUMERIC
-            pf = score.get(row, int(options.pfield))
-            if score.token_type(pf) is score.NUMERIC:
+            pf = event.get(row, int(options.pfield))
+            if event.token_type(pf) is event.NUMERIC:
                 pf = float(pf) + float(v)
 
-            output.append(score.set(row, int(options.pfield), pf))
+            output.append(event.set(row, int(options.pfield), pf))
         else:
             output.append(row)
 
