@@ -1,6 +1,10 @@
 '''These methods operate on multiple score events at a time. Generally
 speaking, these methods specifically deal with columns, where
-csd.sco.event deals with rows.'''
+csd.sco.event deals with rows.
+
+.. warning:: Stay away from this module for awhile.  This is currently
+   ill-conceived. 
+'''
 
 from . import event
 
@@ -29,4 +33,19 @@ def swap(score, statement, identifier, a, b):
             
     return ''.join(score_output)
     
+def insert():
+    pass
+    
+def pop():
+    pass
+    
+def push():
+    pass
+    
+def remove():
+    pass
+    
+def replace(fill='.'):
+    # replaces a column with stuff
+    pass
 
