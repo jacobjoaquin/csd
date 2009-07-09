@@ -2,18 +2,24 @@
 
 '''This module is designed to parse Csound score events.
 
-An *element* refers to pfield data, a comment, a continuous block of
-whitespace.
+* An *element* refers to pfield data, a comment, a continuous block of
+  whitespace.
 
-An *event* is a score event. For example, ``i 1 0 4 1.0 440  ; A440``
-is an event.
+* An *event* is a score event. For example, ``i 1 0 4 1.0 440  ; A440``
+  is an event.
 
-A *statement* is the type of Csound of event. For example, an ``i`` is
-an instrument event (i-event) while an ``f`` is a function table event.
+* A *statement* is the type of Csound o an ``f`` is a function table event.
 
-An *identifier* is the unique name of index that indicates a specific
-instrument or f-table, and immediately proceeds a *statement*. For
-example, ``33`` is the identifier in ``i 33 0 11``.
+* An *identifier* is the unique name of index that indicates a specific
+  instrument or f-table, and immediately proceeds a *statement*. For
+  example, ``33`` is the identifier in ``i 33 0 11``.
+  
+Many of the following methods utilize the python interpretor to
+demonstrate input and output. For each of these, assume the following
+import statement has been called::
+    
+    >>> from csd.sco import event
+
 '''
 
 import re
@@ -26,8 +32,8 @@ def get(event, pfield):
     Comments are right out.
     
     Example::
-        
-        >>> score.get('i 1 0 4 1.0 440  ; A440', 5)
+
+        >>> event.get('i 1 0 4 1.0 440  ; A440', 5)
         '440'
     '''
 
@@ -46,7 +52,7 @@ def get_pfield_list(event):
     
     Example::
         
-        >>> score.get_pfield_list('i 1 0 4 1.0 440  ; A440')
+        >>> event.get_pfield_list('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440']
     '''
     event = sanitize(event)
@@ -57,7 +63,7 @@ def insert(event, pfield, fill='.'):
     
     Example::
         
-        >>> score.insert('i 1 0 4 1.0 440  ; A440', 5, '1138')
+        >>> event.insert('i 1 0 4 1.0 440  ; A440', 5, '1138')
         'i 1 0 4 1.0 1138 440  ; A440'
     
     .. note:: The parameter fill must be a string. Future versions
@@ -84,7 +90,7 @@ def number_of_pfields(event):
 
     Example::
 
-        >>> score.number_of_pfields('i 1 0 4 1.0 440  ; A440')
+        >>> event.number_of_pfields('i 1 0 4 1.0 440  ; A440')
         6
     '''
     
@@ -98,7 +104,7 @@ def pop(event):
 
     Example::
         
-        >>> score.pop('i 1 0 4 1.0 440  ; A440')
+        >>> event.pop('i 1 0 4 1.0 440  ; A440')
         ('i 1 0 4 1.0   ; A440', '440')
     '''
     
@@ -110,7 +116,7 @@ def push(event, fill='.'):
     
     Example::
 
-        >>> score.push('i 1 0 4 1.0 440  ; A440', '1138')
+        >>> event.push('i 1 0 4 1.0 440  ; A440', '1138')
         'i 1 0 4 1.0 440 1138  ; A440'
     '''
 
@@ -124,7 +130,7 @@ def remove(event, pfield):
 
     Example::
         
-        >>> score.remove('i 1 0 4 1.0 440  ; A440', 4)
+        >>> event.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
     '''
     
@@ -140,7 +146,7 @@ def sanitize(event):
     '''Returns a copy of the score event with extra whitespace and
     comments removed::
     
-        >>> score.sanitize('i 1 0 4    1.0 440  ; A440')
+        >>> event.sanitize('i 1 0 4    1.0 440  ; A440')
         'i 1 0 4 1.0 440'
         
     .. note:: A statement and identifier will stay conjoined if there
@@ -169,7 +175,7 @@ def set(event, pfield, value):
     
     Example::
         
-        >>> score.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
+        >>> event.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
         'i 1 0 4 1.0 1138  ; A440'
     '''
 
@@ -211,7 +217,7 @@ def split(event):
 
     Example::
         
-        >>> score.split('i 1 0 4 1.0 440  ; A440')
+        >>> event.split('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440', '; A440']
     '''
 
@@ -242,7 +248,7 @@ def swap(event, pfield_a, pfield_b):
     
     Example::
         
-        >>> score.swap('i 1 0 4 1.0 440 ; A440', 4, 5)
+        >>> event.swap('i 1 0 4 1.0 440 ; A440', 4, 5)
         'i 1 0 4 440 1.0 ; A440'
     '''
 
@@ -261,7 +267,7 @@ def tokenize(event):
 
     Example::
         
-        >>> score.tokenize('i 1 0 4 1.0 440  ; A440')
+        >>> event.tokenize('i 1 0 4 1.0 440  ; A440')
         ['i', ' ', '1', ' ', '0', ' ', '4', ' ', '1.0', ' ', '440', '  ', '; A440']
     
     .. note:: This function will attempt to tokenize invalid elements.

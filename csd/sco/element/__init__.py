@@ -2,6 +2,8 @@
 
 '''Csound score elements.'''
 
+# Make COMMENT a type
+
 import re
 
 RE_STATEMENT = re.compile('[abefimnqrstvx]')

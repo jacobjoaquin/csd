@@ -25,3 +25,9 @@ such as pfield data, comments and whitespace.
 .. automodule:: csd.sco.event
    :members:
 
+element
+-------
+
+.. automodule:: csd.sco.element
+   :members:
+
