@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Command-line Operations &mdash; scoparse v0.0.1a documentation</title>
+    <title>Command-line Operations &mdash; CSD v0.0.2 alpha documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.1a',
+        VERSION:     '0.0.2 alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,9 +19,9 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
+    <link rel="top" title="CSD v0.0.2 alpha documentation" href="index.html" />
     <link rel="next" title="Bugs" href="bugs.html" />
-    <link rel="prev" title="Demos" href="demo.html" /> 
+    <link rel="prev" title="Demos" href="demo/index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,9 +37,9 @@
           <a href="bugs.html" title="Bugs"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="demo.html" title="Demos"
+          <a href="demo/index.html" title="Demos"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -71,34 +71,17 @@ multiple scripts in one swoop.  The following command does two things.
 First, it sums the values of pfields 4 in instrument 2 events with
 0.99999 with sum.py.  The output is then piped into align.py, making
 the columns tidy and neat:</p>
-<div class="highlight-python"><pre>$ cat carry.sco | ./sum.py -si -i2 -p4 -v0.99999 | ./align.py</pre>
+<div class="highlight-python"><pre>$ cat arpeggiator.sco | ./arpeggiator.py -si -i1 -p4 -v'0.1 0.444 0.9922' | ./sco_align.py</pre>
 </div>
-<p>Before:</p>
-<div class="highlight-none"><div class="highlight"><pre>i 2 0 0.25 0.3 7.00
-i 2 + 0.25 0.3 7.00
-i 2 + 0.25 0.3 7.00
-/**/
-i 2 + 0.25 0.5 7.00
-i 2 + 0.25 0.3 7.00
-i 2 + 0.25 0.5 7.00
-i 1 0 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-i 1 1 0.25 0.5 7.00
-</pre></div>
-</div>
-<p>After:</p>
-<div class="highlight-none"><div class="highlight"><pre>i 2 0 0.25 1.29999 7.00
-i 2 + 0.25 1.29999 7.00
-i 2 + 0.25 1.29999 7.00
-/**/
-i 2 + 0.25 1.49999 7.00
-i 2 + 0.25 1.29999 7.00
-i 2 + 0.25 1.49999 7.00
-i 1 0 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
-i 1 1 0.25 0.5     7.00
+<p>Arpeggiated and aligned:</p>
+<div class="highlight-none"><div class="highlight"><pre>i 1 0 0.25 0.1    7.00
+i 1 + .    0.444  .
+i 1 + .    0.9922 .
+i 1 + .    0.1    .
+i 1 + .    0.444  .
+i 1 + .    0.9922 .
+i 1 + .    0.1    .
+i 1 + .    0.444  .
 </pre></div>
 </div>
 </div>
@@ -120,7 +103,7 @@ i 1 1 0.25 0.5     7.00
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="demo.html"
+            <p class="topless"><a href="demo/index.html"
                                   title="previous chapter">Demos</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="bugs.html"
@@ -160,9 +143,9 @@ i 1 1 0.25 0.5     7.00
           <a href="bugs.html" title="Bugs"
              >next</a> |</li>
         <li class="right" >
-          <a href="demo.html" title="Demos"
+          <a href="demo/index.html" title="Demos"
              >previous</a> |</li>
-        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

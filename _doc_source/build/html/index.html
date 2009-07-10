@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Csound CSD Parsing Documentation &mdash; scoparse v0.0.1a documentation</title>
+    <title>Csound CSD Parsing Documentation &mdash; CSD v0.0.2 alpha documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.1a',
+        VERSION:     '0.0.2 alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,8 +19,8 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="scoparse v0.0.1a documentation" href="" />
-    <link rel="next" title="Demos" href="demo/index.html" /> 
+    <link rel="top" title="CSD v0.0.2 alpha documentation" href="" />
+    <link rel="next" title="The csd Package" href="csd_sco_event.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,9 +33,9 @@
           <a href="modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="demo/index.html" title="Demos"
+          <a href="csd_sco_event.html" title="The csd Package"
              accesskey="N">next</a> |</li>
-        <li><a href="">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -47,58 +47,43 @@
   <div class="section" id="csound-csd-parsing-documentation">
 <h1>Csound CSD Parsing Documentation<a class="headerlink" href="#csound-csd-parsing-documentation" title="Permalink to this headline">¶</a></h1>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="demo/index.html">Demos</a><ul>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-arpeggiator">arpeggiator</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-carry">carry</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-s_spacer">s_spacer</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-sco_align">sco_align</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-score_from_csd">score_from_csd</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-sum">sum</a></li>
-<li class="toctree-l2"><a class="reference external" href="demo/index.html#module-swap_columns">swap_columns</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference external" href="csd_sco_event.html">The csd Package</a><ul>
-<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd">csd</a></li>
-<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco">sco</a></li>
-<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
-<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference external" href="commandline.html">Command-line Operations</a><ul>
-<li class="toctree-l2"><a class="reference external" href="commandline.html#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
-<li class="toctree-l2"><a class="reference external" href="commandline.html#pipe-chain-trick">Pipe Chain Trick</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference external" href="csd_sco_event.html">The csd Package</a></li>
+<li class="toctree-l1"><a class="reference external" href="demo/index.html">Demos</a></li>
+<li class="toctree-l1"><a class="reference external" href="commandline.html">Command-line Operations</a></li>
 <li class="toctree-l1"><a class="reference external" href="bugs.html">Bugs</a></li>
 <li class="toctree-l1"><a class="reference external" href="bugs.html#planned-changes">Planned Changes</a></li>
 </ul>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>This is an early release of the score module for processing Csound
-score code.</p>
-<p>This python module along with the command-line demos accepts Csound
-score code at the standard input and processes them.</p>
-<p>This package is currently a rough draft, and development will
-definitely continue for the near future.  There are some definite
-quirks, which will eventually be ironed out.</p>
-<p>score.py contains the core functions that can be used to create
-custom python scripts.  Everything is in a state of flux, so do
-expect things to chage.</p>
-<p>In the demo folder, you&#8217;ll find five demo scripts: align.py,
-arpeggiator.py, carry.py and swap_columns.py.  There are descriptions
-beloew.  These scripts aren&#8217;t thoroughly test, but you still may
-find them useful.  align.py is probably the most reliable at the
-moment.</p>
-<p>In the test folder, there are many py scripts used to test the
-functions defined in score.py.</p>
+<div class="section" id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p>CSD is a Python package designed to allow simple text manipulation of
+Csound code.</p>
+<p>The purpose of this package is to make life easier for Csounders. As of
+now, several demo scripts built with CSD are included as part of
+the package, albeit not thoroughly tested.  With these scripts, you will
+be able to automatically align your score code, do simple score
+arpeggiations, replace repeated pfield values with the carry
+preprocessor symbol (.), etc.</p>
+<p>At the moment, the focus is on score manipulation, though room has been
+made in the package structure to accomodate for orchestra processing as
+well.</p>
+<p>In order to use these scripts, you&#8217;ll need to use the command-line.
+However, using these scripts in applications may be possible in the
+future.  If you are a developer of a Csound front-end, Csound based-app,
+or are just looking to extend the capabilities of your favories text
+editor, let me know so we can start the process of figuring out our
+respective needs to make this happen.  If you aren&#8217;t a developer, but
+you feel you have some good ideas, feel free to contact, too.</p>
+<p>This package is currently still very early in the development cycle,
+though quickly approaching a beta release.  The scripts have been tested
+primarily with Apple&#8217;s Python 2.5.1.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">These scripts are still experimental.  Back up any
-Csound work you plan on running through these scripts.</p>
+<p class="last">Use these at your own risk. CSD should be
+considered experimental.</p>
 </div>
 </div>
-<div class="section" id="info">
-<h2>Info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="information">
+<h2>Information<a class="headerlink" href="#information" title="Permalink to this headline">¶</a></h2>
 <p>Csound Score Parsing Python Module</p>
 <p>By Jacob Joaquin</p>
 <p><a class="reference external" href="mailto:jacobjoaquin&#37;&#52;&#48;gmail&#46;com">jacobjoaquin<span>&#64;</span>gmail<span>&#46;</span>com</a></p>
@@ -132,8 +117,8 @@ Csound work you plan on running through these scripts.</p>
             <h3><a href="">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Csound CSD Parsing Documentation</a><ul>
-<li><a class="reference external" href="#introduction">Introduction</a></li>
-<li><a class="reference external" href="#info">Info</a></li>
+<li><a class="reference external" href="#about">About</a></li>
+<li><a class="reference external" href="#information">Information</a></li>
 <li><a class="reference external" href="#license">License</a><ul>
 <li><a class="reference external" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
@@ -143,8 +128,8 @@ Csound work you plan on running through these scripts.</p>
 </ul>
 
             <h4>Next topic</h4>
-            <p class="topless"><a href="demo/index.html"
-                                  title="next chapter">Demos</a></p>
+            <p class="topless"><a href="csd_sco_event.html"
+                                  title="next chapter">The csd Package</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="_sources/index.txt"
@@ -177,9 +162,9 @@ Csound work you plan on running through these scripts.</p>
           <a href="modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="demo/index.html" title="Demos"
+          <a href="csd_sco_event.html" title="The csd Package"
              >next</a> |</li>
-        <li><a href="">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

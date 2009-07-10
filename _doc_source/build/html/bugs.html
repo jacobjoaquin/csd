@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Bugs &mdash; scoparse v0.0.1a documentation</title>
+    <title>Bugs &mdash; CSD v0.0.2 alpha documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.1a',
+        VERSION:     '0.0.2 alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,7 +19,7 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="scoparse v0.0.1a documentation" href="index.html" />
+    <link rel="top" title="CSD v0.0.2 alpha documentation" href="index.html" />
     <link rel="prev" title="Command-line Operations" href="commandline.html" /> 
   </head>
   <body>
@@ -35,7 +35,7 @@
         <li class="right" >
           <a href="commandline.html" title="Command-line Operations"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,6 +49,8 @@
 <ul class="simple">
 <li>In some of the test scores, there are some score string examples using
 single quotes.  Single quotes are not supported by the score.</li>
+<li>Test-cases need to be written for demos and some functions</li>
+<li>Jython 2.5 fails some tests.</li>
 </ul>
 </div>
 <div class="section" id="planned-changes">
@@ -56,15 +58,20 @@ single quotes.  Single quotes are not supported by the score.</li>
 <p>Major revisions are planned for this module.</p>
 <p>Functions may support returning single events as strings and
 multiple events as lists.  This might negate the need for column
-functions like <tt class="docutils literal"><span class="pre">score.swap_column()</span></tt>.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+functions like <tt class="docutils literal"><span class="pre">csd.sco.swap()</span></tt>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">csd</span><span class="o">.</span><span class="n">sco</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">score</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440</span><span class="se">\n</span><span class="s">i 1 4 8 0.5 770&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">csd</span><span class="o">.</span><span class="n">sco</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440</span><span class="se">\n</span><span class="s">i 1 4 8 0.5 770&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
 <span class="go">[&#39;i 1 0 4 440 1.0&#39;, &#39;i 1 4 8 770 0.5&#39;]</span>
 </pre></div>
 </div>
 <p>Error checking, exceptions, and warnings - <em>Oh my!!</em></p>
 <p>Eliminate redundant functions, add new ones as required.</p>
+<p>Need to get an online repository.  At least a somewhat official site.</p>
+<p>Need to make auto-installation happen.</p>
+<p>Tutorials on how to build custom scripts using this package.</p>
+<p>Glossary</p>
+<p>Spell check docs.</p>
 </div>
 
 
@@ -116,7 +123,7 @@ functions like <tt class="docutils literal"><span class="pre">score.swap_column(
         <li class="right" >
           <a href="commandline.html" title="Command-line Operations"
              >previous</a> |</li>
-        <li><a href="index.html">scoparse v0.0.1a documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

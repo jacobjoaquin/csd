@@ -3,49 +3,49 @@ Csound CSD Parsing Documentation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
+   :maxdepth: 1
 
+   The csd Package <csd_sco_event.rst>
    demo/index.rst
-
-   csd_sco_event.rst
    commandline.rst
    bugs.rst
 
    
-Introduction
-------------
+About
+-----
 
-This is an early release of the score module for processing Csound
-score code.
+CSD is a Python package designed to allow simple text manipulation of
+Csound code.
 
-This python module along with the command-line demos accepts Csound
-score code at the standard input and processes them.
+The purpose of this package is to make life easier for Csounders. As of
+now, several demo scripts built with CSD are included as part of
+the package, albeit not thoroughly tested.  With these scripts, you will
+be able to automatically align your score code, do simple score
+arpeggiations, replace repeated pfield values with the carry
+preprocessor symbol (.), etc.
 
-This package is currently a rough draft, and development will
-definitely continue for the near future.  There are some definite
-quirks, which will eventually be ironed out.
+At the moment, the focus is on score manipulation, though room has been
+made in the package structure to accomodate for orchestra processing as
+well.
 
-score.py contains the core functions that can be used to create
-custom python scripts.  Everything is in a state of flux, so do
-expect things to chage.
+In order to use these scripts, you'll need to use the command-line.
+However, using these scripts in applications may be possible in the
+future.  If you are a developer of a Csound front-end, Csound based-app,
+or are just looking to extend the capabilities of your favories text
+editor, let me know so we can start the process of figuring out our
+respective needs to make this happen.  If you aren't a developer, but
+you feel you have some good ideas, feel free to contact, too.
 
-In the demo folder, you'll find five demo scripts: align.py,
-arpeggiator.py, carry.py and swap_columns.py.  There are descriptions
-beloew.  These scripts aren't thoroughly test, but you still may
-find them useful.  align.py is probably the most reliable at the
-moment.
+This package is currently still very early in the development cycle,
+though quickly approaching a beta release.  The scripts have been tested
+primarily with Apple's Python 2.5.1.
 
-In the test folder, there are many py scripts used to test the
-functions defined in score.py.
+.. warning::  Use these at your own risk. CSD should be
+   considered experimental.
 
+Information
+-----------
 
-
-.. warning::  These scripts are still experimental.  Back up any
-        Csound work you plan on running through these scripts.
-
-
-
-Info
-----
 Csound Score Parsing Python Module
 
 By Jacob Joaquin

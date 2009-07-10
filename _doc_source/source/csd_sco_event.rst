@@ -1,5 +1,6 @@
+###############
 The csd Package
-===============
+###############
 
 csd
 ---
@@ -12,8 +13,6 @@ sco
 
 .. automodule:: csd.sco
    :members:
-
-Does nothing.
    
 event
 -----
