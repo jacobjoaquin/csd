@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 '''This module is designed to parse Csound score events.
 
 * An *element* refers to pfield data, a comment, a continuous block of
@@ -23,7 +21,7 @@ import statement has been called::
 '''
 
 import re
-from .. import element
+from csd.sco import element
 
 def get(event, pfield):
     '''Returns a pfield element for an event.
@@ -35,6 +33,7 @@ def get(event, pfield):
 
         >>> event.get('i 1 0 4 1.0 440  ; A440', 5)
         '440'
+    
     '''
 
     event = sanitize(event)
@@ -54,9 +53,27 @@ def get_pfield_list(event):
         
         >>> event.get_pfield_list('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440']
+        
     '''
     event = sanitize(event)
     return split(event)    
+
+def get_trailing_comment(event):
+    '''Returns a string of a trailing inline comment for an event.
+    
+    .. warning:: There are currently no test-cases for this function.
+    
+    '''
+    
+    tokens = tokenize(event)
+    
+    p = re.compile(';.*')
+    m = p.match(tokens[-1])
+    
+    if m:
+        return tokens[-1]
+    else:
+        return None
 
 def insert(event, pfield, fill='.'):
     '''Returns a new event with an inserted pfield element.
@@ -68,6 +85,7 @@ def insert(event, pfield, fill='.'):
     
     .. note:: The parameter fill must be a string. Future versions
         will automatically re-type numbers to strings.
+        
     '''
     
     if pfield in range(number_of_pfields(event)):
@@ -92,6 +110,7 @@ def number_of_pfields(event):
 
         >>> event.number_of_pfields('i 1 0 4 1.0 440  ; A440')
         6
+        
     '''
     
     return len(get_pfield_list(event))
@@ -106,6 +125,7 @@ def pop(event):
         
         >>> event.pop('i 1 0 4 1.0 440  ; A440')
         ('i 1 0 4 1.0   ; A440', '440')
+        
     '''
     
     return remove(event, number_of_pfields(event) - 1)
@@ -118,6 +138,7 @@ def push(event, fill='.'):
 
         >>> event.push('i 1 0 4 1.0 440  ; A440', '1138')
         'i 1 0 4 1.0 440 1138  ; A440'
+        
     '''
 
     return insert(event, number_of_pfields(event), fill)
@@ -132,6 +153,7 @@ def remove(event, pfield):
         
         >>> event.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
+        
     '''
     
     pf = ''
@@ -152,6 +174,7 @@ def sanitize(event):
     .. note:: A statement and identifier will stay conjoined if there
         is no whitespace between them. This will most likey not be the
         case in the future.
+        
     '''
 
     # Remove comments
@@ -177,6 +200,7 @@ def set(event, pfield, value):
         
         >>> event.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
         'i 1 0 4 1.0 1138  ; A440'
+        
     '''
 
     # Ensure pfield type is number, as string versions do seep in.
@@ -219,6 +243,7 @@ def split(event):
         
         >>> event.split('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440', '; A440']
+        
     '''
 
     # Separate statement from p1 if necessary.
@@ -250,6 +275,7 @@ def swap(event, pfield_a, pfield_b):
         
         >>> event.swap('i 1 0 4 1.0 440 ; A440', 4, 5)
         'i 1 0 4 440 1.0 ; A440'
+        
     '''
 
     a = get(event, pfield_a)
@@ -272,6 +298,7 @@ def tokenize(event):
     
     .. note:: This function will attempt to tokenize invalid elements.
         Be sure that the event you provide is syntactically correct.
+        
     '''
     
     tokens = []

@@ -1,8 +1,9 @@
 # Sphinx inventory version 1
 # Project: scoparse
 # Version: 0.0.1a
+sco_align mod demo.html
 swap_columns mod demo.html
-align mod demo.html
+sum mod demo.html
 space_statement mod demo.html
 carry mod demo.html
 csd.sco mod csd_sco_event.html
@@ -10,12 +11,13 @@ csd mod csd_sco_event.html
 arpeggiator mod demo.html
 csd.sco.event mod csd_sco_event.html
 csd.sco.element mod csd_sco_event.html
-sum mod demo.html
 csd.sco.event.get function csd_sco_event.html
-csd.sco.event.sanitize function csd_sco_event.html
-csd.sco.event.tokenize function csd_sco_event.html
+csd.sco.event.get_trailing_comment function csd_sco_event.html
+csd.sco.event.number_of_pfields function csd_sco_event.html
 csd.sco.event.swap function csd_sco_event.html
+csd.sco.event.tokenize function csd_sco_event.html
 carry.replace function demo.html
+arpeggiator.arpeggiator function demo.html
 csd.sco.swap function csd_sco_event.html
 sum.sum_ function demo.html
 csd.sco.event.get_pfield_list function csd_sco_event.html
@@ -24,9 +26,8 @@ csd.sco.event.insert function csd_sco_event.html
 csd.sco.event.pop function csd_sco_event.html
 csd.get_score function csd_sco_event.html
 csd.sco.event.push function csd_sco_event.html
-align.align_score function demo.html
-csd.sco.event.number_of_pfields function csd_sco_event.html
+csd.sco.event.sanitize function csd_sco_event.html
 csd.sco.event.set function csd_sco_event.html
-arpeggiator.arpeggiator function demo.html
+sco_align.align function demo.html
 csd.sco.event.split function csd_sco_event.html
 csd.sco.event.remove function csd_sco_event.html

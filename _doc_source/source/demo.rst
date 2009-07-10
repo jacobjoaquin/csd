@@ -13,10 +13,10 @@ Demo scripts are located in ``/score/demo``.
     are properly tested and bug checked.
     
     
-align
------
+sco_align
+---------
 
-.. automodule:: align
+.. automodule:: sco_align
    :members:
     
 arpeggiator
