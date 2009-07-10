@@ -12,41 +12,43 @@ module.
 
 Example::
     
-    $ cat carry.sco | ./sum.py -si -i2 -p4 -v0.999
+    $ cat sum.sco | ./sum.py -si -i1 -p4 -v0.4
 
 Before::
     
-    i 2 0 0.25 0.3 7.00
-    i 2 + 0.25 0.3 7.00
-    i 2 + 0.25 0.3 7.00
-    /**/
-    i 2 + 0.25 0.5 7.00
-    i 2 + 0.25 0.3 7.00
-    i 2 + 0.25 0.5 7.00
     i 1 0 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
+    i 1 + 0.25 0.5 7.00
+    i 1 + 0.25 0.5 8.00
+    i 1 + 0.25 0.5 8.00
+    i 1 + 0.25 0.6 7.06
+    i 1 + 0.25 0.6 7.06
+    i 1 + 0.25 0.6 6.06
+    i 1 + 0.25 0.6 6.06
+    i 1 + 0.25 0.6 7.00
+    i 1 + 0.25 0.6 7.00
 
 After::
 
-    i 2 0 0.25 1.299 7.00
-    i 2 + 0.25 1.299 7.00
-    i 2 + 0.25 1.299 7.00
-    /**/
-    i 2 + 0.25 1.499 7.00
-    i 2 + 0.25 1.299 7.00
-    i 2 + 0.25 1.499 7.00
-    i 1 0 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
-    i 1 1 0.25 0.5 7.00
+    i 1 0 0.25 0.9 7.00
+    i 1 + 0.25 0.9 7.00
+    i 1 + 0.25 0.9 8.00
+    i 1 + 0.25 0.9 8.00
+    i 1 + 0.25 1.0 7.06
+    i 1 + 0.25 1.0 7.06
+    i 1 + 0.25 1.0 6.06
+    i 1 + 0.25 1.0 6.06
+    i 1 + 0.25 1.0 7.00
+    i 1 + 0.25 1.0 7.00
+
 '''
 
 import sys
-sys.path.append('../')  # Fix this.
-import csd.sco.event as event
+
 from optparse import OptionParser
+
+sys.path.append('../')  # Fix this.
+from csd.sco import event
+from csd.sco import element
 
 def sum_(s, statement, identifier, pfield, v):
     '''Sums each pfield in a column with a user-specified value.'''
@@ -59,7 +61,7 @@ def sum_(s, statement, identifier, pfield, v):
             
             # Sum values, or ignore if original pfield is not NUMERIC
             pf = event.get(row, int(options.pfield))
-            if event.token_type(pf) is event.NUMERIC:
+            if element.token_type(pf) is element.NUMERIC:
                 pf = float(pf) + float(v)
 
             output.append(event.set(row, int(options.pfield), pf))
@@ -85,6 +87,6 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     sco = ''.join(stdin).splitlines(True)
 
-    print sum_(sco, options.statement, options.identifier,\
+    print sum_(sco, options.statement, options.identifier,
                       options.pfield, options.value), 
 

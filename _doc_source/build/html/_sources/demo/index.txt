@@ -1,5 +1,6 @@
+#####
 Demos
-=====
+#####
 
 These are examples of what can be built with the score module.
 

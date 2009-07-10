@@ -82,7 +82,7 @@ def align(score, s=1, p=1, c=2, m=1, statements='fi'):
 
     if block:
         b = ''.join(block)
-        output.append(align_block(b, s, p, c, m))
+        output.append(_align_block(b, s, p, c, m))
         
     return ''.join(output)
         

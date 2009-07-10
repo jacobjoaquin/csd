@@ -1,48 +1,47 @@
 #!/usr/bin/env python
 '''Sets space between a statement and the first active element.
 
-.. program:: space_statement
-.. cmdoption:: -p  Pad amount between statement and identifier
+.. program:: s_spacer
+.. cmdoption:: -s  Whitespace amount between statement and identifier
 
 Example::
     
-    $ cat unfactored.sco | ./space_statement.py -p0
+    $ cat s_spacer.sco | ./s_spacer.py
     
 Before::
     
-    i 1 0 4    1.0 9.07
-    i 2 0 0.25 0.3 7.00
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 1 0 4    1.0 9.11
+    i1 0 0.25 0.5 7.00
+    i1 + .    0.5 7.00
+    i1 + .    0.5 8.00
+    i1 + .    0.5 8.00
+    i1 + .    0.6 7.06
+    i1 + .    0.6 7.06
+    i1 + .    0.6 6.06
+    i1 + .    0.6 6.06
+    i1 + .    0.6 7.00
+    i1 + .    0.6 7.00
 
 After::
     
-    i1 0 4    1.0 9.07
-    i2 0 0.25 0.3 7.00
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i2 + .    .   .
-    i1 0 4    1.0 9.11
+    i 1 0 0.25 0.5 7.00
+    i 1 + .    0.5 7.00
+    i 1 + .    0.5 8.00
+    i 1 + .    0.5 8.00
+    i 1 + .    0.6 7.06
+    i 1 + .    0.6 7.06
+    i 1 + .    0.6 6.06
+    i 1 + .    0.6 6.06
+    i 1 + .    0.6 7.00
+    i 1 + .    0.6 7.00
+
 '''
 
 import re
 import sys
+
 sys.path.append('../')  # Fix this.
-import csd.sco.event as event
+from csd.sco import event
+from csd.sco import element
 
 from optparse import OptionParser
 
@@ -55,12 +54,12 @@ def pad(event_, pad):
     # Get index for the statement and identifier    
     for i, e in enumerate(elements):
         if not statement_found:
-            if event.token_type(e) == event.STATEMENT:
+            if element.token_type(e) == element.STATEMENT:
                 statement_index = i
                 statement_found = True
         else:
-            if event.token_type(e) in [event.NUMERIC, event.MACRO,
-                                       event.STRING]:
+            if element.token_type(e) in [element.NUMERIC, element.MACRO,
+                                         element.STRING]:
                 identifier_index = i
                 break
 
@@ -88,18 +87,18 @@ def pad(event_, pad):
 if __name__ == '__main__':
     # Get command-line flags
     u = ['usage: <stdout> |']
-    u.append('python arpeggiator.py -p(pad)')
+    u.append('python s_spacer.py -s[pad amount]')
     usage = ' '.join(u)
     parser = OptionParser(usage)
-    parser.add_option("-p", default=1, dest='pad', help='pad')
+    parser.add_option("-s", default=1, dest='spacer', help='spacer')
     (options, args) = parser.parse_args()
 
-    options.pad = int(options.pad)  # Flag option needs to be an int, not str
-    stdin = sys.stdin.readlines()   # Get data from stdin
-    sco = []                        # Stores each new score line as list items
+    options.spacer = int(options.spacer)  # Flag option needs to be an int
+    stdin = sys.stdin.readlines()         # Get data from stdin
+    sco = []                              # New score lines as list items
 
     for event_ in stdin:
-        sco.append(pad(event_, options.pad))
+        sco.append(pad(event_, options.spacer))
 
-    print ''.join(sco)
+    print ''.join(sco),
 

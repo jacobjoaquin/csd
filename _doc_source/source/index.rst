@@ -1,13 +1,14 @@
-Csound Score Parsing Python Module
-==================================
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Csound CSD Parsing Documentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
-   :maxdepth: 2
 
-   csd_sco_event
-   demo
-   commandline
-   bugs
+   demo/index.rst
+
+   csd_sco_event.rst
+   commandline.rst
+   bugs.rst
 
    
 Introduction

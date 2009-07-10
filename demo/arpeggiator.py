@@ -13,37 +13,30 @@ module.
 
 Example::
 
-    $ cat arp.sco | ./arpeggiator.py -si -i2 -p5 -v"7.00 7.03 7.07 7.10"
+    $ cat arpeggiator.sco | ./arpeggiator.py -si -i1 -p5 -v'7.00 7.03 6.09'
     
 Before::
     
-    i 1 0 4    1.0 9.07
-    i 2 0 0.25 0.3 7.00
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 2 + .    .   .
-    i 1 0 4    1.0 9.11
+    i 1 0 0.25 0.3 7.00
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
 
 After::
     
-    i 1 0 4    1.0 9.07
-    i 2 0 0.25 0.3 7.00
-    i 2 + .    .   7.03
-    i 2 + .    .   7.07
-    i 2 + .    .   7.10
-    i 2 + .    .   7.00
-    i 2 + .    .   7.03
-    i 2 + .    .   7.07
-    i 2 + .    .   7.10
-    i 2 + .    .   7.00
-    i 2 + .    .   7.03
-    i 1 0 4    1.0 9.11
+    i 1 0 0.25 0.3 7.00
+    i 1 + .    .   7.03
+    i 1 + .    .   6.09
+    i 1 + .    .   7.00
+    i 1 + .    .   7.03
+    i 1 + .    .   6.09
+    i 1 + .    .   7.00
+    i 1 + .    .   7.03
+
 '''
 
 import sys
@@ -53,7 +46,9 @@ from optparse import OptionParser
 
 def arpeggiator(s, statement, identifier, pfield, v):
     '''Arpeggiates values in for a selected pfield column for a specific
-event.'''
+    event.
+    
+    '''
     
     output = []
     
