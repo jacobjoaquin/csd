@@ -27,5 +27,6 @@ print test(12, '~', s.RANDOM)
 print test(13, '+', s.CARRY_PLUS)
 print test(14, '^+1', s.CARRY_PLUS)
 print test(15, '^-1', s.CARRY_PLUS)
+print test(16, 'i 1', None)
 
 

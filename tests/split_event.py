@@ -45,8 +45,15 @@ print test(22, 'z0 3; my comment', ['z0', '3', '; my comment'])
 print test(23, 'z0 3; my comment', ['z0', '3', '; my comment'])  
 print test(24, 'i  {{foo}}  0  {{foo }}', ['i', '{{foo}}', '0', '{{foo }}'])
 print test(25, 'i  "foo"  0  "foo "', ['i', '"foo"', '0', '"foo "'])
-print test(26, 'i  [~]  0  [~]', ['i', '[~]', '0', '[~]'])
+
+#Deprecated.  
+#print test(26, 'i  [~]  0  [~]', ['i', '[~]', '0', '[~]'])
+
 print test(27, 'i /**/ 1', ['i', '/**/', '1'])
-print test(26, 'i 1;', ['i', '1', ';'])
+print test(28, 'i 1;', ['i', '1', ';'])
+print test(29, 'i 1 0 1 np4', ['i', '1', '0', '1', 'np4'])
+print test(30, 'i 1 0 1 pp4', ['i', '1', '0', '1', 'pp4'])
+print test(31, 'i 1 0 1 np4 5', ['i', '1', '0', '1', 'np4', '5'])
+print test(32, 'i 1 0 1 pp4 5', ['i', '1', '0', '1', 'pp4', '5'])
 
 

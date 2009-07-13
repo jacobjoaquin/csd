@@ -3,10 +3,10 @@
 
 import sys
 sys.path.append('../')
-from csd.sco import event as s
+from csd.sco import event
 
 def test(n, line, expect):
-    result = s.tokenize(line)
+    result = event.tokenize(line)
     did_pass = result == expect
 
     return did_pass, n, 'token_type()', str(expect), str(result)

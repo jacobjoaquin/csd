@@ -1,12 +1,8 @@
-#!/usr/bin/env python
-
 '''Csound score elements.'''
 
-# Make COMMENT a type?
-# Make WHITESPACE a type?
-# Make NEWLINE a type?
-
 import re
+
+import csd.sco.event
 
 RE_STATEMENT = re.compile('[abefimnqrstvx]')
 RE_NUMERIC = re.compile('\d+.\d+|\d+.|.\d+|\d+')
@@ -21,6 +17,11 @@ RE_RAMP = re.compile('\<')
 RE_EXPONENTIAL_RAMP = re.compile('[\(\)]')
 RE_RANDOM = re.compile('\~')
 RE_CARRY_PLUS = re.compile('\+|\^\+\d+|\^\-\d+')
+
+# Make COMMENT a type?
+# Make WHITESPACE a type?
+# Make NEWLINE a type?
+# Make COMPOUND_STATEMENT a type?  For throwing error purposes?
 
 # Class this?
 STATEMENT = 1
@@ -38,12 +39,28 @@ RANDOM = 12
 CARRY_PLUS = 13
 
 # Valid pfield data types
-VALID_PFIELDS = [NUMERIC, MACRO, EXPRESSION, STRING, CARRY, RAMP,
+_VALID_PFIELDS = [STATEMENT, NUMERIC, MACRO, EXPRESSION, STRING, CARRY, RAMP,
                  EXPONENTIAL_RAMP, RANDOM, CARRY_PLUS, NO_CARRY, NEXT_PFIELD,
                  PREVIOUS_PFIELD]
 
+def is_valid(element):
+    '''Returns a boolean value indicating if the element if valid.
+    
+    An example of an invalid element is a compound element, consiting
+    of two or more elements.
+    
+    .. note:: This may return False for empty elements in the future.
+    
+    '''
+    
+    pass
+        
+        
 def is_valid_pfield(element):
-    return token_type(element) in VALID_PFIELDS
+    '''Returns a boolean value indicating if element is a pfield data
+    type.'''
+    
+    return token_type(element) in _VALID_PFIELDS
     
 def token_type(element):
     '''Returns the Csound score token type of an element.
@@ -60,7 +77,7 @@ def token_type(element):
         enums, and should be compared directly with the token
         constants.
     '''
-
+    
     type_ = None
 
     if RE_NEXT_PFIELD.match(element):

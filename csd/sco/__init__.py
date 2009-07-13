@@ -6,7 +6,7 @@ csd.sco.event deals with rows.
    ill-conceived. 
 '''
 
-from . import event
+from csd.sco import event
 
 def swap(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and

@@ -240,13 +240,9 @@ def split(event):
         
     '''
 
-    # Separate statement from p1 if necessary.
-    p = re.compile('([abefimnqrstvx])\S')
-    m = p.match(event)
+    # Separate statement from p1 if necessary
+    event = statement_spacer(event)
 
-    if m:
-        event = event.replace(m.group(1), m.group(1) + ' ', 1)
-    
     # Pattern for pfields
     pattern = '''(\".+?\"     |
                   \{\{.+?\}\} |
@@ -261,6 +257,27 @@ def split(event):
     p = re.compile(pattern, re.VERBOSE)
 
     return p.findall(event)
+
+def statement_spacer(event, spacer=1):
+    '''Returns a new string with the whitespace between a statement
+    and the following element altered.'''
+    
+    tokens = tokenize(event)
+
+    # Requires initializing, in case of zero tokens
+    i = 0
+
+    # Get index for the statement and identifier    
+    for i, e in enumerate(tokens):
+        if element.token_type(e) == element.STATEMENT:
+            break
+            
+    # Modify tokens[] element proceeding the statement
+    i = i + 1
+    if i < len(tokens):
+        tokens[i] = ' ' * spacer + tokens[i].lstrip()
+
+    return ''.join(tokens)
 
 def swap(event, pfield_a, pfield_b):
     '''Returns a new event string after swapping two pfield elements.
