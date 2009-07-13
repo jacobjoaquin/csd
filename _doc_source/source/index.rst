@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Csound CSD Parsing Documentation
+Csound CSD Package Documentation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
@@ -46,7 +46,7 @@ primarily with Apple's Python 2.5.1.
 Information
 -----------
 
-Csound Score Parsing Python Module
+Csound CSD Package
 
 By Jacob Joaquin
 

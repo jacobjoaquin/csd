@@ -2,7 +2,9 @@
 
 '''Csound score elements.'''
 
-# Make COMMENT a type
+# Make COMMENT a type?
+# Make WHITESPACE a type?
+# Make NEWLINE a type?
 
 import re
 
@@ -35,6 +37,14 @@ EXPONENTIAL_RAMP = 11
 RANDOM = 12
 CARRY_PLUS = 13
 
+# Valid pfield data types
+VALID_PFIELDS = [NUMERIC, MACRO, EXPRESSION, STRING, CARRY, RAMP,
+                 EXPONENTIAL_RAMP, RANDOM, CARRY_PLUS, NO_CARRY, NEXT_PFIELD,
+                 PREVIOUS_PFIELD]
+
+def is_valid_pfield(element):
+    return token_type(element) in VALID_PFIELDS
+    
 def token_type(element):
     '''Returns the Csound score token type of an element.
         

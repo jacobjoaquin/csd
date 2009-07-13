@@ -36,15 +36,12 @@ def get(event, pfield):
     
     '''
 
-    event = sanitize(event)
-    event_list = split(event)
+    event_list = get_pfield_list(event)
 
     if pfield in range(len(event_list)):
-        value = event_list[pfield]
+        return event_list[pfield]
     else:
-        value = None
-
-    return value
+        return None
 
 def get_pfield_list(event):
     '''Returns a list of all the pfield elements in a list.
@@ -55,25 +52,28 @@ def get_pfield_list(event):
         ['i', '1', '0', '4', '1.0', '440']
         
     '''
-    event = sanitize(event)
-    return split(event)    
+
+    return split(sanitize(event))    
 
 def get_trailing_comment(event):
     '''Returns a string of a trailing inline comment for an event.
-    
-    .. warning:: There are currently no test-cases for this function.
-    
+
+    Returns an empty string if no trailing comment is found.    
     '''
-    
+
     tokens = tokenize(event)
+    tokens.reverse()
     
-    p = re.compile(';.*')
-    m = p.match(tokens[-1])
+    # Get the index of the first valid pfield statement
+    for i, t in enumerate(tokens):
+        if element.is_valid_pfield(t):
+            break
+
+    # Reverse list and compensate index
+    tokens.reverse()
+    i = len(tokens) - i
     
-    if m:
-        return tokens[-1]
-    else:
-        return None
+    return ''.join(tokens[i:]).strip()
 
 def insert(event, pfield, fill='.'):
     '''Returns a new event with an inserted pfield element.
@@ -155,7 +155,8 @@ def remove(event, pfield):
         ('i 1 0 4  440  ; A440', '1.0')
         
     '''
-    
+
+    # An emptry string is preferable than None for the return    
     pf = ''
     
     if pfield in range(number_of_pfields(event)):
@@ -188,9 +189,8 @@ def sanitize(event):
 
     # Compress whitespace between fields
     p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
-    event = ' '.join(p.findall(event))
-
-    return event
+    
+    return ' '.join(p.findall(event))
 
 def set(event, pfield, value):
     '''Returns a new event string with the specified pfield set with
@@ -212,19 +212,13 @@ def set(event, pfield, value):
     
     tokens = tokenize(event)
     
-    valid_pfields = [element.NUMERIC, element.MACRO, element.EXPRESSION,
-                     element.STRING, element.CARRY, element.RAMP,
-                     element.EXPONENTIAL_RAMP, element.RANDOM,
-                     element.CARRY_PLUS, element.NO_CARRY, element.NEXT_PFIELD,
-                     element.PREVIOUS_PFIELD]
-    
     pf_index = -1
     for i, t in enumerate(tokens):
         if pf_index == -1:
             if element.token_type(t) == element.STATEMENT:
                 pf_index += 1
         else:
-            if element.token_type(t) in valid_pfields:
+            if element.is_valid_pfield(t):
                 pf_index += 1
 
         if pf_index == pfield:
@@ -278,12 +272,10 @@ def swap(event, pfield_a, pfield_b):
         
     '''
 
-    a = get(event, pfield_a)
-    b = get(event, pfield_b)
-
+    a, b = get(event, pfield_a), get(event, pfield_b)
     event = set(event, pfield_a, b)
     event = set(event, pfield_b, a)
-
+    
     return event
 
 def tokenize(event):
@@ -300,7 +292,7 @@ def tokenize(event):
         Be sure that the event you provide is syntactically correct.
         
     '''
-    
+
     tokens = []
 
     # Get leading whitespace and /* comments */
@@ -331,9 +323,7 @@ def tokenize(event):
                   '''
     
     p = re.compile(pattern, re.VERBOSE)
-    
-    for t in p.findall(event):
-        tokens.append(t)
-    
+    [tokens.append(t) for t in p.findall(event)]        
+
     return tokens
 
