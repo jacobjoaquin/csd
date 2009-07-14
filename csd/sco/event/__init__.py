@@ -75,7 +75,7 @@ def get_trailing_comment(event):
         if element.is_valid_pfield(t):
             break
 
-    # Reverse list and compensate index
+    # Un-reverse list and compensate index
     tokens.reverse()
     i = len(tokens) - i
     
