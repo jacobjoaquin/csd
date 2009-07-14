@@ -47,11 +47,10 @@ def is_valid(element):
     '''Returns a boolean value indicating if the element if valid.
     
     An example of an invalid element is a compound element, consiting
-    of two or more elements.
-    
-    .. note:: This may return False for empty elements in the future.
+    of two or more elements.  Continuous space is valid.
     
     '''
+
     # Token the rest of the event
     pattern = '''(\s+         |
                   \".+?\"     |
@@ -68,15 +67,13 @@ def is_valid(element):
     p = re.compile(pattern, re.VERBOSE)
     [tokens.append(t) for t in p.findall(element)]        
     
-    print tokens
-    return len(t) == 1
+    return len(tokens) == 1
         
         
 def is_valid_pfield(element):
     '''Returns a boolean value indicating if element is a pfield data
     type.'''
     
-    # This is where I'm leaving off.
     if is_valid(element):
         return token_type(element) in _VALID_PFIELDS
     else:
@@ -97,9 +94,12 @@ def token_type(element):
         enums, and should be compared directly with the token
         constants.
     '''
-    
-    type_ = None
 
+    # Check for valid element first
+    if is_valid(element) is False:
+        return None
+
+    # Determine element type        
     if RE_NEXT_PFIELD.match(element):
         type_ = NEXT_PFIELD
     elif RE_PREVIOUS_PFIELD.match(element):
