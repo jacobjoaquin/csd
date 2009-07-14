@@ -241,7 +241,7 @@ def split(event):
     '''
 
     # Separate statement from p1 if necessary
-    event = statement_spacer(event)
+    event = statement_spacer(event, spacer=1)
 
     # Pattern for pfields
     pattern = '''(\".+?\"     |

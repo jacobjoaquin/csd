@@ -52,15 +52,35 @@ def is_valid(element):
     .. note:: This may return False for empty elements in the future.
     
     '''
+    # Token the rest of the event
+    pattern = '''(\s+         |
+                  \".+?\"     |
+                  \{\{.+?\}\} |
+                  \[.+?\]     |
+                  \;.*        |
+                  \/\*.*?\*\/ |
+                  \S+(?=\/\*) |
+                  \S+(?=;)    |
+                  \S+)
+                  '''
+
+    tokens = []
+    p = re.compile(pattern, re.VERBOSE)
+    [tokens.append(t) for t in p.findall(element)]        
     
-    pass
+    print tokens
+    return len(t) == 1
         
         
 def is_valid_pfield(element):
     '''Returns a boolean value indicating if element is a pfield data
     type.'''
     
-    return token_type(element) in _VALID_PFIELDS
+    # This is where I'm leaving off.
+    if is_valid(element):
+        return token_type(element) in _VALID_PFIELDS
+    else:
+        return False
     
 def token_type(element):
     '''Returns the Csound score token type of an element.
