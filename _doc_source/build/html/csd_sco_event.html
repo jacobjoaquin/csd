@@ -21,7 +21,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="CSD v0.0.2 alpha documentation" href="index.html" />
     <link rel="next" title="Demos" href="demo/index.html" />
-    <link rel="prev" title="Csound CSD Parsing Documentation" href="index.html" /> 
+    <link rel="prev" title="Csound CSD Package Documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="demo/index.html" title="Demos"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound CSD Parsing Documentation"
+          <a href="index.html" title="Csound CSD Package Documentation"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>
@@ -138,9 +138,11 @@ Comments are right out.</p>
 <dt id="csd.sco.event.get_trailing_comment">
 <tt class="descclassname">csd.sco.event.</tt><tt class="descname">get_trailing_comment</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.get_trailing_comment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a string of a trailing inline comment for an event.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">There are currently no test-cases for this function.</p>
+<p>Returns an empty string if no trailing comment is found.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">get_trailing_comment</span><span class="p">(</span><span class="s">&#39;i1 0 4 1.0 440  ; comment&#39;</span><span class="p">)</span>
+<span class="go">&#39;; comment&#39;</span>
+</pre></div>
 </div>
 </dd></dl>
 
@@ -152,11 +154,6 @@ Comments are right out.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="s">&#39;1138&#39;</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 1138 440  ; A440&#39;</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The parameter fill must be a string. Future versions
-will automatically re-type numbers to strings.</p>
 </div>
 </dd></dl>
 
@@ -217,15 +214,12 @@ and the removed element.</p>
 <tt class="descclassname">csd.sco.event.</tt><tt class="descname">sanitize</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#csd.sco.event.sanitize" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a copy of the score event with extra whitespace and
 comments removed:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="s">&#39;i 1 0 4    1.0 440  ; A440&#39;</span><span class="p">)</span>
+<p>This function will introduce a single space between a statement and
+the following non-whitespace element.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">sanitize</span><span class="p">(</span><span class="s">&#39;i1 0 4    1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">A statement and identifier will stay conjoined if there
-is no whitespace between them. This will most likey not be the
-case in the future.</p>
 </div>
 </dd></dl>
 
@@ -249,6 +243,18 @@ elements.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440  ; A440&#39;</span><span class="p">)</span>
 <span class="go">[&#39;i&#39;, &#39;1&#39;, &#39;0&#39;, &#39;4&#39;, &#39;1.0&#39;, &#39;440&#39;, &#39;; A440&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.event.statement_spacer">
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">statement_spacer</tt><big>(</big><em>event</em>, <em>spacer=1</em><big>)</big><a class="headerlink" href="#csd.sco.event.statement_spacer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a new string with the whitespace between a statement
+and the following element altered.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">statement_spacer</span><span class="p">(</span><span class="s">&#39;i1 0 4 1.0 440&#39;</span><span class="p">)</span>
+<span class="go">&#39;i 1 0 4 1.0 440&#39;</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -285,6 +291,39 @@ Be sure that the event you provide is syntactically correct.</p>
 <div class="section" id="module-csd.sco.element">
 <h2>element<a class="headerlink" href="#module-csd.sco.element" title="Permalink to this headline">¶</a></h2>
 <p>Csound score elements.</p>
+<dl class="function">
+<dt id="csd.sco.element.is_valid">
+<tt class="descclassname">csd.sco.element.</tt><tt class="descname">is_valid</tt><big>(</big><em>element</em><big>)</big><a class="headerlink" href="#csd.sco.element.is_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean value indicating if the element if valid.</p>
+<p>An example of an invalid element is a compound element, consiting
+of two or more elements.  Continuous space is valid.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="s">&#39;440&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid</span><span class="p">(</span><span class="s">&#39;i 1&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.element.is_valid_pfield">
+<tt class="descclassname">csd.sco.element.</tt><tt class="descname">is_valid_pfield</tt><big>(</big><em>element</em><big>)</big><a class="headerlink" href="#csd.sco.element.is_valid_pfield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean value indicating if element is a pfield data
+type.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid_pfield</span><span class="p">(</span><span class="s">&#39;440&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid_pfield</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">element</span><span class="o">.</span><span class="n">is_valid_pfield</span><span class="p">(</span><span class="s">&#39;i 1&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="function">
 <dt id="csd.sco.element.token_type">
 <tt class="descclassname">csd.sco.element.</tt><tt class="descname">token_type</tt><big>(</big><em>element</em><big>)</big><a class="headerlink" href="#csd.sco.element.token_type" title="Permalink to this definition">¶</a></dt>
@@ -327,7 +366,7 @@ constants.</p>
 
             <h4>Previous topic</h4>
             <p class="topless"><a href="index.html"
-                                  title="previous chapter">Csound CSD Parsing Documentation</a></p>
+                                  title="previous chapter">Csound CSD Package Documentation</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="demo/index.html"
                                   title="next chapter">Demos</a></p>
@@ -366,7 +405,7 @@ constants.</p>
           <a href="demo/index.html" title="Demos"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound CSD Parsing Documentation"
+          <a href="index.html" title="Csound CSD Package Documentation"
              >previous</a> |</li>
         <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
       </ul>

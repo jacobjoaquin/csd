@@ -20,4 +20,6 @@ print test(5, 'i [~] 0 [~]', 1, '[~]', 'i [~] [~] 0 [~]')
 print test(6, 'i {{foo}} 0 {{foo}}', 1, '{{foo}}',
               'i {{foo}} {{foo}} 0 {{foo}}')
 print test(7, 'i "~" 0 "~"', 1, '"~"', 'i "~" "~" 0 "~"')
+print test(8, 'i 0', 1, 2, 'i 2 0')
+print test(9, 'i 0', 1, 2.2, 'i 2.2 0')
 

@@ -48,7 +48,16 @@ def is_valid(element):
     
     An example of an invalid element is a compound element, consiting
     of two or more elements.  Continuous space is valid.
-    
+
+    Example::
+        
+        >>> element.is_valid('440')
+        True
+        >>> element.is_valid(' ')
+        True
+        >>> element.is_valid('i 1')
+        False
+        
     '''
 
     # Token the rest of the event
@@ -72,7 +81,18 @@ def is_valid(element):
         
 def is_valid_pfield(element):
     '''Returns a boolean value indicating if element is a pfield data
-    type.'''
+    type.
+    
+    Example::
+        
+        >>> element.is_valid_pfield('440')
+        True
+        >>> element.is_valid_pfield(' ')
+        False
+        >>> element.is_valid_pfield('i 1')
+        False
+    
+    '''
     
     if is_valid(element):
         return token_type(element) in _VALID_PFIELDS

@@ -35,6 +35,7 @@ print test(20, 'i  "foo"  0  "foo "', 'i "foo" 0 "foo "')
 print test(24, 'i 1 0/*foo*/4 0.5 440 ;comment', 'i 1 0 4 0.5 440')
 print test(25, 'i /**/ 1', 'i 1')
 print test(26, 'i 1;', 'i 1')
+print test(27, 'i1 0 4 1.0 440;', 'i 1 0 4 1.0 440')
 
 
 

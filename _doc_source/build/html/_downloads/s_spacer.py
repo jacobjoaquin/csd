@@ -44,45 +44,6 @@ from csd.sco import event
 from csd.sco import element
 
 from optparse import OptionParser
-
-def pad(event_, pad):
-    elements = event.tokenize(event_)
-    statement_index = None
-    identifier_index = None
-    statement_found = False
-
-    # Get index for the statement and identifier    
-    for i, e in enumerate(elements):
-        if not statement_found:
-            if element.token_type(e) == element.STATEMENT:
-                statement_index = i
-                statement_found = True
-        else:
-            if element.token_type(e) in [element.NUMERIC, element.MACRO,
-                                         element.STRING]:
-                identifier_index = i
-                break
-
-    # If no statement or identifier exists, return unaltered event_
-    if None in [statement_index, identifier_index]:
-        return event_
-    
-    # Create a new list of elements, replacing any potential whitespace or
-    # comments that exists between the statement and the identifier
-    new_elements = []
-
-    # Append all elements through the statement    
-    for i in range(0, statement_index + 1):
-        new_elements.append(elements[i])
-        
-    # Append whitespace
-    new_elements.append(' ' * pad)
-    
-    # Append everything between the identifier and the end of the event_
-    for i in range(identifier_index, len(elements)):
-        new_elements.append(elements[i])
-        
-    return ''.join(new_elements)
     
 if __name__ == '__main__':
     # Get command-line flags
@@ -97,8 +58,8 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()         # Get data from stdin
     sco = []                              # New score lines as list items
 
-    for event_ in stdin:
-        sco.append(pad(event_, options.spacer))
+    for e in stdin:
+        sco.append(event.statement_spacer(e, options.spacer))
 
     print ''.join(sco),
 

@@ -58,7 +58,13 @@ def get_pfield_list(event):
 def get_trailing_comment(event):
     '''Returns a string of a trailing inline comment for an event.
 
-    Returns an empty string if no trailing comment is found.    
+    Returns an empty string if no trailing comment is found.
+
+    Example::
+        
+        >>> event.get_trailing_comment('i1 0 4 1.0 440  ; comment')
+        '; comment'
+        
     '''
 
     tokens = tokenize(event)
@@ -82,11 +88,11 @@ def insert(event, pfield, fill='.'):
         
         >>> event.insert('i 1 0 4 1.0 440  ; A440', 5, '1138')
         'i 1 0 4 1.0 1138 440  ; A440'
-    
-    .. note:: The parameter fill must be a string. Future versions
-        will automatically re-type numbers to strings.
         
-    '''
+    '''    
+
+    # Fill must be a string. This allows numbers to be passed to function.
+    fill = str(fill)
     
     if pfield in range(number_of_pfields(event)):
         pf = get(event, pfield)
@@ -168,13 +174,14 @@ def remove(event, pfield):
 def sanitize(event):
     '''Returns a copy of the score event with extra whitespace and
     comments removed::
-    
-        >>> event.sanitize('i 1 0 4    1.0 440  ; A440')
-        'i 1 0 4 1.0 440'
+
+    This function will introduce a single space between a statement and
+    the following non-whitespace element.
+
+    Example::
         
-    .. note:: A statement and identifier will stay conjoined if there
-        is no whitespace between them. This will most likey not be the
-        case in the future.
+        >>> event.sanitize('i1 0 4    1.0 440  ; A440')
+        'i 1 0 4 1.0 440'
         
     '''
 
@@ -187,6 +194,9 @@ def sanitize(event):
     
     event = event.strip()
 
+    # Insert a single whitespace after statement if necessary
+    event = statement_spacer(event, spacer=1)
+    
     # Compress whitespace between fields
     p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
     
@@ -260,11 +270,18 @@ def split(event):
 
 def statement_spacer(event, spacer=1):
     '''Returns a new string with the whitespace between a statement
-    and the following element altered.'''
+    and the following element altered.
+    
+    Example::
+        
+        >>> event.statement_spacer('i1 0 4 1.0 440')
+        'i 1 0 4 1.0 440'
+    
+    '''
     
     tokens = tokenize(event)
 
-    # Requires initializing, in case of zero tokens
+    # Index of statement requires initializing, in case of zero tokens.
     i = 0
 
     # Get index for the statement and identifier    
@@ -272,7 +289,7 @@ def statement_spacer(event, spacer=1):
         if element.token_type(e) == element.STATEMENT:
             break
             
-    # Modify tokens[] element proceeding the statement
+    # Modify tokens[] item proceeding the statement
     i = i + 1
     if i < len(tokens):
         tokens[i] = ' ' * spacer + tokens[i].lstrip()
