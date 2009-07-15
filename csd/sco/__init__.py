@@ -2,25 +2,19 @@
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
-.. warning:: Stay away from this module for awhile.  This is currently
-   ill-conceived.
-   
+.. note:: Shaping up nicely.
+
 '''
 
 from csd.sco import event
 
-'''Ideas.
-
-def get_list_of(score, statements, identifiers):
-    collection_of_matches = {}
+def overwrite(score, dict_):
+    '''Not implemented.
     
-    for i, e in enumerate(score):
-        if event.get(0) is element.STATEMENT and event.get(1) == identifier:
-            collection_of_matches({i: e})
-
-    return collection_of_matches
+    Merges a back into a score string, overwriting existing events.
     
-'''
+    '''
+    pass
 
 def select(score, pattern):
     '''Returns a dict with matched events from a score.
@@ -28,9 +22,11 @@ def select(score, pattern):
     
     Example::
 
-        >>> sco.match("""f 1 0 8192 10 1
+        >>> sco.select(
+        ... """f 1 0 8192 10 1
         ... i 1 0 4 1.0 440
-        ... i 1 4 4 0.5 880""", {0: 'i'})
+        ... i 1 4 4 0.5 880"""
+        ... , {0: 'i'})
         {1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
         
     '''
@@ -38,19 +34,44 @@ def select(score, pattern):
     # Convert score string to list    
     s_list = score.splitlines()
     
-    # Dictionary to story matched events.  {index_of_event: event}
-    m = {}
+    # Dictionary to store matched events.  {index_of_event: event}
+    d = {}
 
     # Get matched events
     for i, e in enumerate(s_list):
         if event.match(e, pattern):
-            m[i] = e
+            d[i] = e
             
-    return m
+    return d
 
-def overwrite(score, dict_):
-    '''Merges a back into a score string, overwriting existing events.'''
-    pass
+def select_all(score):
+    '''Returns a dict of all events in a score, keyed by index.
+
+    Example::
+
+        >>> sco.select_all(
+        ... """f 1 0 8192 10 1
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""")
+        {0: 'f 1 0 8192 10 1', 1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
+        
+    '''
+
+    # Convert score string to list    
+    s_list = score.splitlines()
+    
+    # Dictionary to store all events.  {index_of_event: event}
+    d = {}
+    
+    # Append each event
+    for i, e in enumerate(s_list):
+        d[i] = e
+    
+    # Appends an empty event in case of newline
+    if score.endswith('\n'):
+        d[i + 1] = ''
+
+    return d
     
 # Move this to csd.sco.column.swap()
 def swap(score, statement, identifier, a, b):
@@ -75,20 +96,4 @@ def swap(score, statement, identifier, a, b):
             score_output.append(e)
             
     return ''.join(score_output)
-    
-def insert():
-    pass
-    
-def pop():
-    pass
-    
-def push():
-    pass
-    
-def remove():
-    pass
-    
-def replace(fill='.'):
-    # replaces a column with stuff
-    pass
 

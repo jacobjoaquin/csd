@@ -227,7 +227,7 @@ def remove(event, pfield):
     
 def sanitize(event):
     '''Returns a copy of the score event with extra whitespace and
-    comments removed::
+    comments removed.
 
     This function will introduce a single space between a statement and
     the following non-whitespace element.
