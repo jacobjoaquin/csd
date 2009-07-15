@@ -107,33 +107,32 @@ def insert(event, pfield, fill='.'):
     return event
 
 def match(event, pattern):
-    '''Not yet implemented.
-    
-    This will return a boolean if an event meets the passed
+    '''This will return a boolean if an event meets the passed
     requirements.
 
-    Proposed patterns:    
-
-        [[0, 'i'], [1, 1]]            # Matches instr 1 events
-        [0, 'i']                      # Matches all instr 1 events
-        [[0, 'f'], [1, range(1, 8)]]  # Matches f-tables 1 through 7
-        [0, 'if']                     # Matches all i-events and f-tables
-        [0, 'f', match.NOT]
-        [match.pfield(0, 'i'), match.pfield(1, 1)]
-        [[0, ['i', 'f']], [1, [1, 2, 3]]]
-        [[0, list('if')], [1, range(1, 4)]]
+    Pattern Example::
         
-        {0: list('if'), 1: range(1, 4)}
-       
+        {0: 'i', 1: range(1, 4)}
+    
+    The pattern will return True for an i-event with an identifier of
+    1, 2, or 3.
+    
+    .. warning:: Limited support for the moment.
     '''
  
     test = True
     for pf, v in pattern.items():
-        # Must compare against type str
-        str_v = [str(n) for n in v]
+        # Items in v must be of type v
+        if type(v) is list:
+            for i, item in enumerate(v):
+                v[i] = str(item)
+                
+        # v must be a list
+        else:
+            v = [str(v)]
 
         # Check if pattern is true
-        test = test and (get(event, pf) in str_v)
+        test = test and (get(event, pf) in v)
         
     return test
     

@@ -24,5 +24,11 @@ print test(9, 'i 1 0 4', {0: 'i', 1: '2'}, False)
 print test(10, 'i 1 0 4', {0: list('if'), 1: '1'}, True)
 print test(11, 'f 1 0 4', {0: list('if'), 1: '1'}, True)
 print test(12, 'x 1 0 4', {0: list('if'), 1: '1'}, False)
-print test(13, 'i 1 0 $foo', {4: '$foo'}, True)
+print test(13, 'i 1 0 $foo', {3: '$foo'}, True)
+print test(14, 'i 1 0 4', {3: 4}, True)
+print test(15, 'i 1 0 4', {3: 4.1}, False)
+print test(15, 'i 1 0 [~]', {3: '[~]'}, True)
+print test(16, 'i 1 0 "foo"', {3: '"foo"'}, True)
+print test(17, 'i 1 0 {{foo}}', {3: '{{foo}}'}, True)
+
 
