@@ -21,6 +21,7 @@ import statement has been called::
 '''
 
 import re
+
 from csd.sco import element
 
 def get(event, pfield):
@@ -105,6 +106,37 @@ def insert(event, pfield, fill='.'):
     
     return event
 
+def match(event, pattern):
+    '''Not yet implemented.
+    
+    This will return a boolean if an event meets the passed
+    requirements.
+
+    Proposed patterns:    
+
+        [[0, 'i'], [1, 1]]            # Matches instr 1 events
+        [0, 'i']                      # Matches all instr 1 events
+        [[0, 'f'], [1, range(1, 8)]]  # Matches f-tables 1 through 7
+        [0, 'if']                     # Matches all i-events and f-tables
+        [0, 'f', match.NOT]
+        [match.pfield(0, 'i'), match.pfield(1, 1)]
+        [[0, ['i', 'f']], [1, [1, 2, 3]]]
+        [[0, list('if')], [1, range(1, 4)]]
+        
+        {0: list('if'), 1: range(1, 4)}
+       
+    '''
+ 
+    test = True
+    for pf, v in pattern.items():
+        # Must compare against type str
+        str_v = [str(n) for n in v]
+
+        # Check if pattern is true
+        test = test and (get(event, pf) in str_v)
+        
+    return test
+    
 def number_of_pfields(event):
     '''Returns an integer of the amounts of pfield elements in an
     event.
@@ -344,7 +376,7 @@ def tokenize(event):
         tokens.append(m.group())
         event = element.RE_STATEMENT.sub('', event, 1)
         
-    # Token the rest of the event
+    # Tokenize the rest of the event
     pattern = '''(\s+         |
                   \".+?\"     |
                   \{\{.+?\}\} |

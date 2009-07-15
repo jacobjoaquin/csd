@@ -3,11 +3,26 @@ speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
 .. warning:: Stay away from this module for awhile.  This is currently
-   ill-conceived. 
+   ill-conceived.
+   
 '''
 
 from csd.sco import event
 
+'''Ideas.
+
+def get_list_of(score, statements, identifiers):
+    collection_of_matches = {}
+    
+    for i, e in enumerate(score):
+        if event.get(0) is element.STATEMENT and event.get(1) == identifier:
+            collection_of_matches({i: e})
+
+    return collection_of_matches
+    
+'''
+
+# Move this to csd.sco.column.swap()
 def swap(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
     identifier.
