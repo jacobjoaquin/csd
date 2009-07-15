@@ -31,20 +31,18 @@ def swap(score, statement, identifier, a, b):
     score_output = []
     score_list = score.splitlines(True)
     
-    for row in score_list:
-        # Test statement type and statement identifier.
-        if event.get(row, 0) is statement\
-                and event.get(row, 1) == str(identifier):
-                    
+    for e in score_list:
+        if event.match(e, {0: statement, 1:identifier}):
+        
             # Check that pfields a and b are in range, return original if True.
             for pf in (a, b):
-                if pf not in range(event.number_of_pfields(row)):
+                if pf not in range(event.number_of_pfields(e)):
                     return score
                     
             # Swap pfields
-            score_output.append(event.swap(row, a, b))
+            score_output.append(event.swap(e, a, b))
         else:
-            score_output.append(row)
+            score_output.append(e)
             
     return ''.join(score_output)
     

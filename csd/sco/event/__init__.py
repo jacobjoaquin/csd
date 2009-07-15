@@ -107,34 +107,57 @@ def insert(event, pfield, fill='.'):
     return event
 
 def match(event, pattern):
-    '''This will return a boolean if an event meets the passed
-    requirements.
-
-    Pattern Example::
+    '''Returns a boolean determined whether an event matches the
+    requirements of a pattern.
+    
+    A pattern is built from a Python dict, and must follow strict
+    guidelines.  The key must be an integer, as the key is the index
+    of the pfield in which this function will test.  The value of the
+    dict can be either a single value or several values in list form.
         
-        {0: 'i', 1: range(1, 4)}
+    A pattern that returns True for i-events::
+        
+        {0: 'i'}
     
-    The pattern will return True for an i-event with an identifier of
-    1, 2, or 3.
+    A pattern that returns True for i-events and f-tables::
+        
+        {0: ['i', 'f']}
+        
+    A single pattern may check against multiple pfields.  The following
+    example returns True for an i-event with an identifier of 1, 2, or
+    3::
     
-    .. warning:: Limited support for the moment.
+        {0: 'i', 1: [1, 2, 3]}
+    
+    Example::
+       
+        >>> event.match('i 1 0 4 1.0 440', {0: 'i'})
+        True
+        >>> event.match('i 1 0 4 1.0 440', {0: 'i', 1: 1})
+        True
+        >>> event.match('i 1 0 4 1.0 440', {0: 'i', 1: 2})
+        False
+       
+    .. note:: Limited support for the moment.  Functions for designing
+       patterns may come at a later time.
+      
     '''
  
-    test = True
     for pf, v in pattern.items():
-        # Items in v must be of type v
+        # Items in v must be of type str
         if type(v) is list:
             for i, item in enumerate(v):
                 v[i] = str(item)
                 
-        # v must be a list
+        # v must be in list form
         else:
             v = [str(v)]
 
-        # Check if pattern is true
-        test = test and (get(event, pf) in v)
-        
-    return test
+        # Test to see if event passes all requirements of the pattern
+        if (get(event, pf) in v) is False:
+            return False
+
+    return True
     
 def number_of_pfields(event):
     '''Returns an integer of the amounts of pfield elements in an

@@ -55,8 +55,7 @@ def arpeggiator(s, statement, identifier, pfield, v):
     i = 0  # Cycle index of looping arp list
 
     for row in s:
-        if event.get(row, 0) is statement\
-                and event.get(row, 1) == identifier:
+        if event.match(row, {0: statement, 1: identifier}):
             output.append(event.set(row, int(options.pfield), v[i]))
             i = (i + 1) % len(arp)
         else:
