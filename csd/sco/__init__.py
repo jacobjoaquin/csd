@@ -2,19 +2,47 @@
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
-.. note:: Shaping up nicely.
-
 '''
 
 from csd.sco import event
 
-def overwrite(score, dict_):
-    '''Not implemented.
+def merge(score, score_dict):
+    '''Merges a score_dict back into a score string, overwriting the
+    existing parts of the score.
     
-    Merges a back into a score string, overwriting existing events.
+    The follow example merges a score string with a score_dict,
+    replacing the second line (index 1) with a new event.
     
+    Example::
+        
+        >>> sco.merge(
+        ... """i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""",
+        ... {1: 'i 1 4 4 0.5 1138'})
+        'i 1 0 4 1.0 440\\ni 1 4 4 0.5 1138'
+        
     '''
-    pass
+    
+    # Convert score string to list    
+    s_list = score.splitlines()
+
+    # Merge score_dict with the score list    
+    for k, v in score_dict.items():
+        
+        # Merge list of events
+        if type(v) is list:
+            s_list[k] = '\n'.join(v)
+            
+        # Merge single event
+        else:
+            s_list[k] = v
+
+    # Appends an empty event in case of newline
+    output = '\n'.join(s_list)
+    if score.endswith('\n'):
+        output = output + '\n'
+    
+    return output      
 
 def select(score, pattern):
     '''Returns a dict with matched events from a score.
@@ -74,34 +102,14 @@ def select_all(score):
     return d
 
 def swap(score_dict, x, y):
-    '''Returns a score_dict with swapped pfield columns.'''
+    '''Returns a score_dict with swapped pfield columns.
+    
+    .. warning:: Needs to check for multiple events as lists.
+    
+    '''
     
     for k, v in score_dict.iteritems():
         score_dict[k] = event.swap(v, x, y)
     
     return score_dict
     
-# Move this to csd.sco.column.swap()
-def swap_x(score, statement, identifier, a, b):
-    '''Exchanges all score columns for a specified statement and
-    identifier.
-    '''
-    
-    score_output = []
-    score_list = score.splitlines(True)
-    
-    for e in score_list:
-        if event.match(e, {0: statement, 1:identifier}):
-        
-            # Check that pfields a and b are in range, return original if True.
-            for pf in (a, b):
-                if pf not in range(event.number_of_pfields(e)):
-                    return score
-                    
-            # Swap pfields
-            score_output.append(event.swap(e, a, b))
-        else:
-            score_output.append(e)
-            
-    return ''.join(score_output)
-

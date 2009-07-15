@@ -50,6 +50,9 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
+    options.pfield_a = int(options.pfield_a)
+    options.pfield_b = int(options.pfield_b)
+    
     if options.pfield_a is None or options.pfield_b is None\
             or options.statement is None or options.instr is None:
         # Pass through input if all flags aren't specified.
@@ -61,8 +64,9 @@ if __name__ == '__main__':
         error.append('\n')
         print >> sys.stderr, ''.join(error)
     else:
-        # Swap columns
-        output = sco.swap(s, options.statement, options.instr,
-                 int(options.pfield_a), int(options.pfield_b))
+        score_dict = sco.select(s, {0: options.statement, 1: options.instr})
+        score_dict = sco.swap(score_dict, options.pfield_a, options.pfield_b)
+        output = sco.merge(s, score_dict)
+        
         print output,
 

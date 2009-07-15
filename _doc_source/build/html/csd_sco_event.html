@@ -76,15 +76,21 @@ trailing newline being introduced.</p>
 <p>These methods operate on multiple score events at a time. Generally
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Shaping up nicely.</p>
-</div>
 <dl class="function">
-<dt id="csd.sco.overwrite">
-<tt class="descclassname">csd.sco.</tt><tt class="descname">overwrite</tt><big>(</big><em>score</em>, <em>dict_</em><big>)</big><a class="headerlink" href="#csd.sco.overwrite" title="Permalink to this definition">¶</a></dt>
-<dd><p>Not implemented.</p>
-<p>Merges a back into a score string, overwriting existing events.</p>
+<dt id="csd.sco.merge">
+<tt class="descclassname">csd.sco.</tt><tt class="descname">merge</tt><big>(</big><em>score</em>, <em>score_dict</em><big>)</big><a class="headerlink" href="#csd.sco.merge" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merges a score_dict back into a score string, overwriting the
+existing parts of the score.</p>
+<p>The follow example merges a score string with a score_dict,
+replacing the second line (index 1) with a new event.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sco</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+<span class="gp">... </span><span class="sd">&quot;&quot;&quot;i 1 0 4 1.0 440</span>
+<span class="gp">... </span><span class="sd">i 1 4 4 0.5 880&quot;&quot;&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">{</span><span class="mf">1</span><span class="p">:</span> <span class="s">&#39;i 1 4 4 0.5 1138&#39;</span><span class="p">})</span>
+<span class="go">&#39;i 1 0 4 1.0 440\ni 1 4 4 0.5 1138&#39;</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="function">
@@ -119,9 +125,8 @@ csd.sco.event deals with rows.</p>
 
 <dl class="function">
 <dt id="csd.sco.swap">
-<tt class="descclassname">csd.sco.</tt><tt class="descname">swap</tt><big>(</big><em>score</em>, <em>statement</em>, <em>identifier</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#csd.sco.swap" title="Permalink to this definition">¶</a></dt>
-<dd>Exchanges all score columns for a specified statement and
-identifier.</dd></dl>
+<tt class="descclassname">csd.sco.</tt><tt class="descname">swap</tt><big>(</big><em>score_dict</em>, <em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#csd.sco.swap" title="Permalink to this definition">¶</a></dt>
+<dd>Returns a score_dict with swapped pfield columns.</dd></dl>
 
 </div>
 <div class="section" id="module-csd.sco.event">
@@ -342,6 +347,11 @@ and the following element altered.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440 ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
 <span class="go">&#39;i 1 0 4 440 1.0 ; A440&#39;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This currently will not swap pfield 0.  Not sure if it
+should, though throwing an error might be in order.</p>
 </div>
 </dd></dl>
 

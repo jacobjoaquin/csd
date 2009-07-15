@@ -17,7 +17,6 @@ csd.sco.event.statement_spacer function csd_sco_event.html
 csd.sco.event.insert function csd_sco_event.html
 csd.sco.select function csd_sco_event.html
 csd.sco.element.is_valid function csd_sco_event.html
-csd.sco.overwrite function csd_sco_event.html
 csd.sco.select_all function csd_sco_event.html
 csd.sco.swap function csd_sco_event.html
 csd.sco.event.match function csd_sco_event.html
@@ -36,6 +35,7 @@ csd.sco.event.swap function csd_sco_event.html
 carry.replace function demo/index.html
 csd.sco.element.is_valid_pfield function csd_sco_event.html
 arpeggiator.arpeggiator function demo/index.html
+csd.sco.merge function csd_sco_event.html
 csd.sco.event.set function csd_sco_event.html
 sco_align.align function demo/index.html
 csd.sco.event.split function csd_sco_event.html
