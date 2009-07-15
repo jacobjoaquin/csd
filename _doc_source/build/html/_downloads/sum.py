@@ -55,18 +55,17 @@ def sum_(s, statement, identifier, pfield, v):
     
     output = []
     
-    for row in s:
-        if event.get(row, 0) is statement\
-                and event.get(row, 1) == identifier:
+    for e in s:
+        if event.match(e, {0: statement, 1: identifier}):
             
             # Sum values, or ignore if original pfield is not NUMERIC
-            pf = event.get(row, int(options.pfield))
+            pf = event.get(e, int(options.pfield))
             if element.token_type(pf) is element.NUMERIC:
                 pf = float(pf) + float(v)
 
-            output.append(event.set(row, int(options.pfield), pf))
+            output.append(event.set(e, int(options.pfield), pf))
         else:
-            output.append(row)
+            output.append(e)
 
     return ''.join(output)
 

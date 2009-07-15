@@ -22,6 +22,36 @@ def get_list_of(score, statements, identifiers):
     
 '''
 
+def select(score, pattern):
+    '''Returns a dict with matched events from a score.
+    {index_of_event: event}
+    
+    Example::
+
+        >>> sco.match("""f 1 0 8192 10 1
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""", {0: 'i'})
+        {1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
+        
+    '''
+
+    # Convert score string to list    
+    s_list = score.splitlines()
+    
+    # Dictionary to story matched events.  {index_of_event: event}
+    m = {}
+
+    # Get matched events
+    for i, e in enumerate(s_list):
+        if event.match(e, pattern):
+            m[i] = e
+            
+    return m
+
+def overwrite(score, dict_):
+    '''Merges a back into a score string, overwriting existing events.'''
+    pass
+    
 # Move this to csd.sco.column.swap()
 def swap(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
