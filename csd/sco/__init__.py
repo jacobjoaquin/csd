@@ -72,9 +72,17 @@ def select_all(score):
         d[i + 1] = ''
 
     return d
+
+def swap(score_dict, x, y):
+    '''Returns a score_dict with swapped pfield columns.'''
+    
+    for k, v in score_dict.iteritems():
+        score_dict[k] = event.swap(v, x, y)
+    
+    return score_dict
     
 # Move this to csd.sco.column.swap()
-def swap(score, statement, identifier, a, b):
+def swap_x(score, statement, identifier, a, b):
     '''Exchanges all score columns for a specified statement and
     identifier.
     '''

@@ -357,7 +357,10 @@ def swap(event, pfield_a, pfield_b):
         
         >>> event.swap('i 1 0 4 1.0 440 ; A440', 4, 5)
         'i 1 0 4 440 1.0 ; A440'
-        
+
+    .. note:: This currently will not swap pfield 0.  Not sure if it
+       should, though throwing an error might be in order.
+       
     '''
 
     a, b = get(event, pfield_a), get(event, pfield_b)
