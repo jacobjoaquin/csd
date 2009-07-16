@@ -5,12 +5,13 @@ csd.sco.event deals with rows.
 '''
 
 from csd.sco import event
+from csd.sco import element
 
-def merge(score, score_dict):
-    '''Merges a score_dict back into a score string, overwriting the
+def merge(score, selection):
+    '''Merges a selection back into a score string, overwriting the
     existing parts of the score.
     
-    The follow example merges a score string with a score_dict,
+    The follow example merges a score string with a selection,
     replacing the second line (index 1) with a new event.
     
     Example::
@@ -26,8 +27,8 @@ def merge(score, score_dict):
     # Convert score string to list    
     s_list = score.splitlines()
 
-    # Merge score_dict with the score list    
-    for k, v in score_dict.items():
+    # Merge selection with the score list    
+    for k, v in selection.items():
         
         # Merge list of events
         if type(v) is list:
@@ -44,6 +45,49 @@ def merge(score, score_dict):
     
     return output      
 
+def operate_numeric(selection, pfield, pf_function, *args):
+    '''Not implemented yet.
+    
+    If the original pfield was an int, and a function performs
+    calculations involving a float, it will be returned as a float
+    with decimal point and trailing number(s).  For example, a
+    13 will be returned as 13.0 if summed with 0.0
+    
+    '''
+    
+    def _str_to_numeric(str_):
+        '''Converts a str to numeric type int or float.
+        
+        .. note:: Should this inspire a csd.utils module?  Or should
+        this go into csd.sco.element?
+        
+        '''
+        
+        try:
+            return int(str_)
+        except:
+            return float(str_)
+
+    # Convert args from str to number types int or float
+    args = list(args)
+    for i, a in enumerate(args):
+        if type(a) is str:
+            args[i] = _str_to_numeric(a)
+
+    # Convert pfield str in int    
+    pfield = int(pfield)
+    
+    # Operate on all events in selection
+    for k, v in selection.iteritems():
+        pf_value = event.get(v, pfield)
+        
+        # Preserve non-numeric pfields
+        if element.token_type(pf_value) is element.NUMERIC:
+            pf_value = _str_to_numeric(pf_value)
+            selection[k] = event.set(v, pfield, pf_function(pf_value, *args))
+
+    return selection
+    
 def select(score, pattern):
     '''Returns a dict with matched events from a score.
     {index_of_event: event}
@@ -101,15 +145,15 @@ def select_all(score):
 
     return d
 
-def swap(score_dict, x, y):
-    '''Returns a score_dict with swapped pfield columns.
+def swap(selection, x, y):
+    '''Returns a selection with swapped pfield columns.
     
     .. warning:: Needs to check for multiple events as lists.
     
     '''
     
-    for k, v in score_dict.iteritems():
-        score_dict[k] = event.swap(v, x, y)
+    for k, v in selection.iteritems():
+        selection[k] = event.swap(v, x, y)
     
-    return score_dict
+    return selection
     

@@ -6,12 +6,13 @@ s_spacer mod demo/index.html
 swap_columns mod demo/index.html
 sum mod demo/index.html
 score_from_csd mod demo/index.html
-arpeggiator mod demo/index.html
+carry mod demo/index.html
 csd.sco mod csd_sco_event.html
 csd mod csd_sco_event.html
-carry mod demo/index.html
+arpeggiator mod demo/index.html
 csd.sco.event mod csd_sco_event.html
 csd.sco.element mod csd_sco_event.html
+csd.sco.operate_numeric function csd_sco_event.html
 csd.sco.event.get_pfield_list function csd_sco_event.html
 csd.sco.event.statement_spacer function csd_sco_event.html
 csd.sco.event.insert function csd_sco_event.html
@@ -26,7 +27,6 @@ csd.sco.event.remove function csd_sco_event.html
 csd.sco.event.get_trailing_comment function csd_sco_event.html
 csd.sco.event.sanitize function csd_sco_event.html
 csd.sco.event.tokenize function csd_sco_event.html
-sum.sum_ function demo/index.html
 csd.sco.element.token_type function csd_sco_event.html
 csd.sco.event.pop function csd_sco_event.html
 csd.sco.event.number_of_pfields function csd_sco_event.html
@@ -34,8 +34,8 @@ csd.sco.event.get function csd_sco_event.html
 csd.sco.event.swap function csd_sco_event.html
 carry.replace function demo/index.html
 csd.sco.element.is_valid_pfield function csd_sco_event.html
-arpeggiator.arpeggiator function demo/index.html
+sco_align.align function demo/index.html
 csd.sco.merge function csd_sco_event.html
 csd.sco.event.set function csd_sco_event.html
-sco_align.align function demo/index.html
+arpeggiator.arpeggiator function demo/index.html
 csd.sco.event.split function csd_sco_event.html

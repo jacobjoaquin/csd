@@ -49,8 +49,22 @@ from optparse import OptionParser
 sys.path.append('../')  # Fix this.
 from csd.sco import event
 from csd.sco import element
+from csd import sco
 
 def sum_(s, statement, identifier, pfield, v):
+    '''Adds v with to every numeric value in a pfield column.
+    
+    .. note:: This should automatically skip certain literals, such
+       as a carry.  Though this probably needs to happend within
+       csd.sco.operate_numeric().
+    '''
+    
+    def _add(pf, x): return pf + x
+    selection = sco.select(s, {0: statement, 1: identifier})
+    selection = sco.operate_numeric(selection, pfield, _add, v)
+    return sco.merge(s, selection)
+
+def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
     '''Sums each pfield in a column with a user-specified value.'''
     
     output = []
@@ -69,7 +83,7 @@ def sum_(s, statement, identifier, pfield, v):
 
     return ''.join(output)
 
-if __name__ == '__main__':
+def main():
     # Get command-line flags
     u = ['usage: <stdout> |']
     u.append('python arpeggiator.py -s(statement) -i(identifier)')
@@ -80,12 +94,14 @@ if __name__ == '__main__':
     parser.add_option("-i", dest="identifier", help="identifier")
     parser.add_option("-p", dest="pfield", help="pfield")
     parser.add_option("-v", dest="value", help="value")
-    (options, args) = parser.parse_args()
+    (o, args) = parser.parse_args()
 
     # Get input
     stdin = sys.stdin.readlines()
-    sco = ''.join(stdin).splitlines(True)
+    s = ''.join(stdin)
 
-    print sum_(sco, options.statement, options.identifier,
-                      options.pfield, options.value), 
+    print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
+
+if __name__ == '__main__':
+    main()
 

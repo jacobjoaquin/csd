@@ -44,17 +44,17 @@ if __name__ == '__main__':
     parser.add_option("-i", dest="instr", help="instr")
     parser.add_option("-a", dest="pfield_a", help="pfield a")
     parser.add_option("-b", dest="pfield_b", help="pfield b")
-    (options, args) = parser.parse_args()
+    (o, args) = parser.parse_args()
 
     # Get stdin
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
-    options.pfield_a = int(options.pfield_a)
-    options.pfield_b = int(options.pfield_b)
+    o.pfield_a = int(o.pfield_a)
+    o.pfield_b = int(o.pfield_b)
     
-    if options.pfield_a is None or options.pfield_b is None\
-            or options.statement is None or options.instr is None:
+    if o.pfield_a is None or o.pfield_b is None\
+            or o.statement is None or o.instr is None:
         # Pass through input if all flags aren't specified.
         print s
 
@@ -64,8 +64,8 @@ if __name__ == '__main__':
         error.append('\n')
         print >> sys.stderr, ''.join(error)
     else:
-        score_dict = sco.select(s, {0: options.statement, 1: options.instr})
-        score_dict = sco.swap(score_dict, options.pfield_a, options.pfield_b)
+        score_dict = sco.select(s, {0: o.statement, 1: o.instr})
+        score_dict = sco.swap(score_dict, o.pfield_a, o.pfield_b)
         output = sco.merge(s, score_dict)
         
         print output,

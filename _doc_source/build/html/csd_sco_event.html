@@ -94,6 +94,16 @@ replacing the second line (index 1) with a new event.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="csd.sco.operate_numeric">
+<tt class="descclassname">csd.sco.</tt><tt class="descname">operate_numeric</tt><big>(</big><em>score_dict</em>, <em>pfield</em>, <em>pf_function</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.operate_numeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Not implemented yet.</p>
+<p>If the original pfield was an int, and a function performs
+calculations involving a float, it will be returned as a float
+with decimal point and trailing number(s).  For example, a
+13 will be returned as 13.0 if summed with 0.0</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="csd.sco.select">
 <tt class="descclassname">csd.sco.</tt><tt class="descname">select</tt><big>(</big><em>score</em>, <em>pattern</em><big>)</big><a class="headerlink" href="#csd.sco.select" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a dict with matched events from a score.
@@ -126,7 +136,12 @@ replacing the second line (index 1) with a new event.</p>
 <dl class="function">
 <dt id="csd.sco.swap">
 <tt class="descclassname">csd.sco.</tt><tt class="descname">swap</tt><big>(</big><em>score_dict</em>, <em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#csd.sco.swap" title="Permalink to this definition">¶</a></dt>
-<dd>Returns a score_dict with swapped pfield columns.</dd></dl>
+<dd><p>Returns a score_dict with swapped pfield columns.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Needs to check for multiple events as lists.</p>
+</div>
+</dd></dl>
 
 </div>
 <div class="section" id="module-csd.sco.event">

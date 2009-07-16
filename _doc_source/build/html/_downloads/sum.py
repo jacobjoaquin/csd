@@ -49,8 +49,16 @@ from optparse import OptionParser
 sys.path.append('../')  # Fix this.
 from csd.sco import event
 from csd.sco import element
+from csd import sco
+
 
 def sum_(s, statement, identifier, pfield, v):
+    def _add(x, y): return x + y
+    foo = sco.select(s, {0: statement, 1: identifier})
+    foo = sco.operate_numeric(foo, pfield, _add, v)
+    return sco.merge(s, foo)
+
+def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
     '''Sums each pfield in a column with a user-specified value.'''
     
     output = []
@@ -80,12 +88,14 @@ if __name__ == '__main__':
     parser.add_option("-i", dest="identifier", help="identifier")
     parser.add_option("-p", dest="pfield", help="pfield")
     parser.add_option("-v", dest="value", help="value")
-    (options, args) = parser.parse_args()
+    (o, args) = parser.parse_args()
 
     # Get input
     stdin = sys.stdin.readlines()
-    sco = ''.join(stdin).splitlines(True)
+#    sco = ''.join(stdin).splitlines(True)
+    s = ''.join(stdin)
 
-    print sum_(sco, options.statement, options.identifier,
-                      options.pfield, options.value), 
+    print o
+#    print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
+    print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
 
