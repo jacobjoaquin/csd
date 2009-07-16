@@ -78,6 +78,13 @@ def is_valid(element):
     
     return len(tokens) == 1
         
+def str_to_numeric(numeric):
+    '''Converts a str to numeric type int or float.'''
+    
+    try:
+        return int(numeric)
+    except:
+        return float(numeric)
         
 def is_valid_pfield(element):
     '''Returns a boolean value indicating if element is a pfield data

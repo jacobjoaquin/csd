@@ -2,6 +2,9 @@
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
+.. note:: Need to create a glossary to include terms like score,
+selection, element (atom), event, pf_function, etc...
+
 '''
 
 from csd.sco import event
@@ -46,36 +49,20 @@ def merge(score, selection):
     return output      
 
 def operate_numeric(selection, pfield, pf_function, *args):
-    '''Not implemented yet.
+    '''Processes each numeric value in a column with a passed function
+    and optional arguments.
     
-    If the original pfield was an int, and a function performs
-    calculations involving a float, it will be returned as a float
-    with decimal point and trailing number(s).  For example, a
-    13 will be returned as 13.0 if summed with 0.0
+    In cases where the original numeric pfield was an int, but
+    processed with floats, the int will be output as a float in the
+    score, even if the output contains no fractional parts.  e.g. 1.0
     
     '''
-    
-    def _str_to_numeric(str_):
-        '''Converts a str to numeric type int or float.
-        
-        .. note:: Should this inspire a csd.utils module?  Or should
-        this go into csd.sco.element?
-        
-        '''
-        
-        try:
-            return int(str_)
-        except:
-            return float(str_)
 
     # Convert args from str to number types int or float
     args = list(args)
     for i, a in enumerate(args):
         if type(a) is str:
-            args[i] = _str_to_numeric(a)
-
-    # Convert pfield str in int    
-    pfield = int(pfield)
+            args[i] = element.str_to_numeric(a)
     
     # Operate on all events in selection
     for k, v in selection.iteritems():
@@ -83,7 +70,7 @@ def operate_numeric(selection, pfield, pf_function, *args):
         
         # Preserve non-numeric pfields
         if element.token_type(pf_value) is element.NUMERIC:
-            pf_value = _str_to_numeric(pf_value)
+            pf_value = element.str_to_numeric(pf_value)
             selection[k] = event.set(v, pfield, pf_function(pf_value, *args))
 
     return selection

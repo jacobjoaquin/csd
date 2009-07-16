@@ -37,6 +37,9 @@ def get(event, pfield):
     
     '''
 
+    # Pfield must be of type int, as it refers to an index in a list.
+    pfield = int(pfield)
+
     event_list = get_pfield_list(event)
 
     if pfield in range(len(event_list)):
@@ -267,7 +270,7 @@ def set(event, pfield, value):
         
     '''
 
-    # Ensure pfield type is number, as string versions do seep in.
+    # Pfield must be of type int, as it refers to an index in a list.
     pfield = int(pfield)
     
     # Skip if pfield is out of range
