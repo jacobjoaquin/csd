@@ -79,6 +79,50 @@ def operate_numeric(selection, pfield, pf_function, *args):
         if type(a) is str:
             args[i] = element.str_to_numeric(a)
     
+    # Convert pfield single value to list
+    if type(pfield) is not list:
+        pfield = [pfield]
+    
+    # Operate on all events in selection
+    for k, v in selection.iteritems():
+        for i, pf in enumerate(pfield):
+            pf_value = event.get(v, pf)
+            
+            # Preserve non-numeric pfields
+            if element.token_type(pf_value) is element.NUMERIC:
+                pf_value = element.str_to_numeric(pf_value)
+                v = event.set(v, pf, pf_function(pf_value, *args))
+                selection[k] = v
+
+    return selection
+    
+    
+def operate_numeric_bak(selection, pfield, pf_function, *args):
+    '''Processes each numeric value in a column with a passed function
+    and optional arguments.
+    
+    In cases where the original numeric pfield was an int, but
+    processed with floats, the int will be output as a float in the
+    score, even if the output contains no fractional parts.  e.g. 1.0
+    
+    Example::
+    
+        >>> def multiply(pf, m): return pf * m
+        ... 
+        >>> sco.operate_numeric({0: 'i 1 0 4 1.0 440', 1: 'i 1 4 4 0.5 880'},
+        ...                     5, multiply, 3)
+        {0: 'i 1 0 4 1.0 1320', 1: 'i 1 4 4 0.5 2640'}
+        
+    See :term:`pf_function`, :term:`pfield`, :term:`selection`
+
+    '''
+
+    # Convert args from str to number types int or float
+    args = list(args)
+    for i, a in enumerate(args):
+        if type(a) is str:
+            args[i] = element.str_to_numeric(a)
+    
     # Operate on all events in selection
     for k, v in selection.iteritems():
         pf_value = event.get(v, pfield)
