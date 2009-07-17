@@ -3,12 +3,16 @@
 python function for every pfield in a column for a select group of
 events from a score.
 
-#. Define a pf_function swap_pan_position()
-#. Select all i-events for instr 2 from score
-#. Process every pfield 6 in selection with swap_pan_position()
+Here's the scenario.  You've listened to your piece and have decided
+that the panning in instrument 2 would sound better if the left and
+right channels were swapped.  How could you do this with CSD?
+
+#. Define a pf_function, swap_pan_position()
+#. Select all i-events for instr 2 from the score
+#. Operate on every pfield 6 in the selection with swap_pan_position()
 #. Merge the modifications with the original score
 
-The code that does this::
+The code::
 
     def swap_pan_position(x):
         return 1.0 - x
@@ -40,12 +44,17 @@ The original score compared with the modified score::
     i 2 + . .   .   0.75
     i 2 + . .   .   0.001
     i 2 + . .   .   1.0
-    
-See :func:`csd.sco.merge`, :func:`csd.sco.operate_numeric`,
-:func:`csd.sco.select`
 
-See :term:`pattern`, :term:`pf_function`, :term:`selection`,
-:term:`score`
+Now imagine applying this technique to dozens, or even hundreds of
+events.  Be sure to follow the links below, as each will help explain
+each of the components in further detail. (assuming you are reading
+from the CSD manual)
+
+    :term:`pattern`, :term:`pf_function`, :term:`selection`,
+    :term:`score`
+
+    :func:`csd.sco.merge`, :func:`csd.sco.operate_numeric`,
+    :func:`csd.sco.select`
 
 '''
 

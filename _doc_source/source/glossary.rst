@@ -93,6 +93,15 @@ Glossary
         Includes: :term:`statement`, :term:`numeric`, macro,
         :term:`expression`, string, and preprocessor symbols.
 
+    pfield_list
+        A pfield_list is either a single pfield value or a list of
+        pfield values.
+        
+        i.e. value, [value], or [value, value, ...].
+        
+        A pfield_list does not support a recursive list structure, i.e
+        as [value, [value]].
+        
     selection
         A selection is a :term:`score` reformatted into a repurposed
         python dict that stores collected :term:`event` strings with

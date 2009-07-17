@@ -5,13 +5,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>The csd Package &mdash; CSD v0.0.2 alpha documentation</title>
+    <title>The csd Package &mdash; CSD v0.0.3 alpha documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.0.2 alpha',
+        VERSION:     '0.0.3 alpha',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -19,7 +19,7 @@
     </script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="CSD v0.0.2 alpha documentation" href="index.html" />
+    <link rel="top" title="CSD v0.0.3 alpha documentation" href="index.html" />
     <link rel="next" title="Demos" href="demo/index.html" />
     <link rel="prev" title="Csound CSD Package Documentation" href="index.html" /> 
   </head>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="index.html" title="Csound CSD Package Documentation"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -101,9 +101,9 @@ replacing the second line (index 1) with a new event.</p>
 
 <dl class="function">
 <dt id="csd.sco.operate_numeric">
-<tt class="descclassname">csd.sco.</tt><tt class="descname">operate_numeric</tt><big>(</big><em>selection</em>, <em>pfield</em>, <em>pf_function</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.operate_numeric" title="Permalink to this definition">¶</a></dt>
-<dd><p>Processes each numeric value in a column with a passed function
-and optional arguments.</p>
+<tt class="descclassname">csd.sco.</tt><tt class="descname">operate_numeric</tt><big>(</big><em>selection</em>, <em>pfield_list</em>, <em>pf_function</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.operate_numeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes a matrix of pfields and events using the supplied
+pf_function and any optional arguments.</p>
 <p>In cases where the original numeric pfield was an int, but
 processed with floats, the int will be output as a float in the
 score, even if the output contains no fractional parts.  e.g. 1.0</p>
@@ -115,7 +115,7 @@ score, even if the output contains no fractional parts.  e.g. 1.0</p>
 <span class="go">{0: &#39;i 1 0 4 1.0 1320&#39;, 1: &#39;i 1 4 4 0.5 2640&#39;}</span>
 </pre></div>
 </div>
-<p>See <a class="reference external" href="glossary.html#term-pf-function"><em class="xref">pf_function</em></a>, <a class="reference external" href="glossary.html#term-pfield"><em class="xref">pfield</em></a>, <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a></p>
+<p>See <a class="reference external" href="glossary.html#term-pf-function"><em class="xref">pf_function</em></a>, <a class="reference external" href="glossary.html#term-pfield-list"><em class="xref">pfield_list</em></a>, <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a></p>
 </dd></dl>
 
 <dl class="function">
@@ -168,7 +168,7 @@ create a internalized function for this.  e.g. _iter_selection()</p>
 <p>The event module parses single score events.  In almost all cases,
 when you are parsing an event, you are dealing with score elements,
 such as pfield data, comments and whitespace.</p>
-<p>This module is operates on individual Csound score events.</p>
+<p>This module operates on individual Csound score events.</p>
 <dl class="function">
 <dt id="csd.sco.event.get">
 <tt class="descclassname">csd.sco.event.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#csd.sco.event.get" title="Permalink to this definition">¶</a></dt>
@@ -548,7 +548,7 @@ constants.</p>
         <li class="right" >
           <a href="index.html" title="Csound CSD Package Documentation"
              >previous</a> |</li>
-        <li><a href="index.html">CSD v0.0.2 alpha documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

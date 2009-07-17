@@ -52,12 +52,7 @@ from csd.sco import element
 from csd import sco
 
 def sum_(s, statement, identifier, pfield, v):
-    '''Adds v with to every numeric value in a pfield column.
-    
-    .. note:: This should automatically skip certain literals, such
-       as a carry.  Though this probably needs to happend within
-       csd.sco.operate_numeric().
-    '''
+    '''Adds v with to every numeric value in a pfield column.'''
     
     def _add(pf, x): return pf + x
     selection = sco.select(s, {0: statement, 1: identifier})

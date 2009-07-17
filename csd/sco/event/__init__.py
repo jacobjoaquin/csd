@@ -1,4 +1,4 @@
-'''This module is operates on individual Csound score events.'''
+'''This module operates on individual Csound score events.'''
 
 import re
 
