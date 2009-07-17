@@ -85,7 +85,7 @@ def align(score, s=1, p=1, c=2, m=1, statements='fi'):
         output.append(_align_block(b, s, p, c, m))
         
     return ''.join(output)
-        
+
 def _align_block(block, s=1, p=1, c=2, m=1):
     # Split score block into individual events
     event_list = block.splitlines()

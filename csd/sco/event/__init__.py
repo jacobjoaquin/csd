@@ -1,24 +1,4 @@
-'''This module is designed to parse Csound score events.
-
-* An *element* refers to pfield data, a comment, a continuous block of
-  whitespace.
-
-* An *event* is a score event. For example, ``i 1 0 4 1.0 440  ; A440``
-  is an event.
-
-* A *statement* is the type of Csound o an ``f`` is a function table event.
-
-* An *identifier* is the unique name of index that indicates a specific
-  instrument or f-table, and immediately proceeds a *statement*. For
-  example, ``33`` is the identifier in ``i 33 0 11``.
-  
-Many of the following methods utilize the python interpretor to
-demonstrate input and output. For each of these, assume the following
-import statement has been called::
-    
-    >>> from csd.sco import event
-
-'''
+'''This module is operates on individual Csound score events.'''
 
 import re
 
@@ -34,6 +14,8 @@ def get(event, pfield):
 
         >>> event.get('i 1 0 4 1.0 440  ; A440', 5)
         '440'
+
+    See :term:`event`, :term:`pfield`
     
     '''
 
@@ -55,6 +37,8 @@ def get_pfield_list(event):
         >>> event.get_pfield_list('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440']
         
+    See :term:`event`
+    
     '''
 
     return split(sanitize(event))    
@@ -69,6 +53,8 @@ def get_trailing_comment(event):
         >>> event.get_trailing_comment('i1 0 4 1.0 440  ; comment')
         '; comment'
         
+    See :term:`event`
+    
     '''
 
     tokens = tokenize(event)
@@ -88,11 +74,16 @@ def get_trailing_comment(event):
 def insert(event, pfield, fill='.'):
     '''Returns a new event with an inserted pfield element.
     
+    The fill attribute is the character or string which will be
+    inserted into the event.
+
     Example::
         
         >>> event.insert('i 1 0 4 1.0 440  ; A440', 5, '1138')
         'i 1 0 4 1.0 1138 440  ; A440'
         
+    See :term:`event`, :term:`pfield`
+    
     '''    
 
     # Fill must be a string. This allows numbers to be passed to function.
@@ -143,7 +134,9 @@ def match(event, pattern):
        
     .. note:: Limited support for the moment.  Functions for designing
        patterns may come at a later time.
-      
+
+    See :term:`event`, :term:`pattern`.
+    
     '''
  
     for pf, v in pattern.items():
@@ -174,6 +167,8 @@ def number_of_pfields(event):
         >>> event.number_of_pfields('i 1 0 4 1.0 440  ; A440')
         6
         
+    See :term:`event`
+
     '''
     
     return len(get_pfield_list(event))
@@ -189,6 +184,8 @@ def pop(event):
         >>> event.pop('i 1 0 4 1.0 440  ; A440')
         ('i 1 0 4 1.0   ; A440', '440')
         
+    See :term:`event`
+
     '''
     
     return remove(event, number_of_pfields(event) - 1)
@@ -197,11 +194,16 @@ def push(event, fill='.'):
     '''Appends a pfield element to the last pfield and returns the new
     event.
     
+    The fill attribute is the character or string which will be
+    inserted into the event.
+
     Example::
 
         >>> event.push('i 1 0 4 1.0 440  ; A440', '1138')
         'i 1 0 4 1.0 440 1138  ; A440'
-        
+
+    See :term:`event`
+
     '''
 
     return insert(event, number_of_pfields(event), fill)
@@ -217,6 +219,8 @@ def remove(event, pfield):
         >>> event.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
         
+    See :term:`event`, :term:`pfield`
+
     '''
 
     # An emptry string is preferable than None for the return    
@@ -240,6 +244,8 @@ def sanitize(event):
         >>> event.sanitize('i1 0 4    1.0 440  ; A440')
         'i 1 0 4 1.0 440'
         
+    See :term:`event`
+
     '''
 
     # Remove comments
@@ -261,13 +267,15 @@ def sanitize(event):
 
 def set(event, pfield, value):
     '''Returns a new event string with the specified pfield set with
-    a new element.
+    the new value.
     
     Example::
         
         >>> event.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
         'i 1 0 4 1.0 1138  ; A440'
         
+    See :term:`event`, :term:`pfield`
+
     '''
 
     # Pfield must be of type int, as it refers to an index in a list.
@@ -305,6 +313,8 @@ def split(event):
         >>> event.split('i 1 0 4 1.0 440  ; A440')
         ['i', '1', '0', '4', '1.0', '440', '; A440']
         
+    See :term:`event`
+
     '''
 
     # Separate statement from p1 if necessary
@@ -328,12 +338,17 @@ def split(event):
 def statement_spacer(event, spacer=1):
     '''Returns a new string with the whitespace between a statement
     and the following element altered.
+
+    The spacer attribute is the number of whitespace characters to
+    place between the statement and the following pfield.
     
     Example::
         
         >>> event.statement_spacer('i1 0 4 1.0 440')
         'i 1 0 4 1.0 440'
     
+    See :term:`event`
+
     '''
     
     tokens = tokenize(event)
@@ -364,6 +379,8 @@ def swap(event, pfield_a, pfield_b):
     .. note:: This currently will not swap pfield 0.  Not sure if it
        should, though throwing an error might be in order.
        
+    See :term:`event`
+
     '''
 
     a, b = get(event, pfield_a), get(event, pfield_b)
@@ -385,6 +402,8 @@ def tokenize(event):
     .. note:: This function will attempt to tokenize invalid elements.
         Be sure that the event you provide is syntactically correct.
         
+    See :term:`event`
+
     '''
 
     tokens = []

@@ -51,12 +51,18 @@ from csd.sco import event
 from csd.sco import element
 from csd import sco
 
-
 def sum_(s, statement, identifier, pfield, v):
-    def _add(x, y): return x + y
-    foo = sco.select(s, {0: statement, 1: identifier})
-    foo = sco.operate_numeric(foo, pfield, _add, v)
-    return sco.merge(s, foo)
+    '''Adds v with to every numeric value in a pfield column.
+    
+    .. note:: This should automatically skip certain literals, such
+       as a carry.  Though this probably needs to happend within
+       csd.sco.operate_numeric().
+    '''
+    
+    def _add(pf, x): return pf + x
+    selection = sco.select(s, {0: statement, 1: identifier})
+    selection = sco.operate_numeric(selection, pfield, _add, v)
+    return sco.merge(s, selection)
 
 def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
     '''Sums each pfield in a column with a user-specified value.'''
@@ -77,7 +83,7 @@ def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
 
     return ''.join(output)
 
-if __name__ == '__main__':
+def main():
     # Get command-line flags
     u = ['usage: <stdout> |']
     u.append('python arpeggiator.py -s(statement) -i(identifier)')
@@ -92,10 +98,10 @@ if __name__ == '__main__':
 
     # Get input
     stdin = sys.stdin.readlines()
-#    sco = ''.join(stdin).splitlines(True)
     s = ''.join(stdin)
 
-    print o
-#    print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
     print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
+
+if __name__ == '__main__':
+    main()
 

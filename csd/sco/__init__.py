@@ -3,7 +3,7 @@ speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
 .. note:: Need to create a glossary to include terms like score,
-selection, element (atom), event, pf_function, etc...
+   selection, element (atom), event, pf_function, etc...
 
 '''
 
@@ -24,7 +24,9 @@ def merge(score, selection):
         ... i 1 4 4 0.5 880""",
         ... {1: 'i 1 4 4 0.5 1138'})
         'i 1 0 4 1.0 440\\ni 1 4 4 0.5 1138'
-        
+
+    See :term:`selection`, :term:`score`
+    
     '''
     
     # Convert score string to list    
@@ -48,6 +50,13 @@ def merge(score, selection):
     
     return output      
 
+#def _sub_merge(event, list_):
+#    if type(event) is list:
+#        for e in event:
+#            _sub_merge(e, list_)
+#    else
+#        list_.append(event)
+    
 def operate_numeric(selection, pfield, pf_function, *args):
     '''Processes each numeric value in a column with a passed function
     and optional arguments.
@@ -56,6 +65,16 @@ def operate_numeric(selection, pfield, pf_function, *args):
     processed with floats, the int will be output as a float in the
     score, even if the output contains no fractional parts.  e.g. 1.0
     
+    Example::
+    
+        >>> def multiply(pf, m): return pf * m
+        ... 
+        >>> sco.operate_numeric({0: 'i 1 0 4 1.0 440', 1: 'i 1 4 4 0.5 880'},
+        ...                     5, multiply, 3)
+        {0: 'i 1 0 4 1.0 1320', 1: 'i 1 4 4 0.5 2640'}
+        
+    See :term:`pf_function`, :term:`pfield`, :term:`selection`
+
     '''
 
     # Convert args from str to number types int or float
@@ -88,6 +107,8 @@ def select(score, pattern):
         ... , {0: 'i'})
         {1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
         
+    See :term:`pattern`, :term:`score`
+    
     '''
 
     # Convert score string to list    
@@ -114,6 +135,8 @@ def select_all(score):
         ... i 1 4 4 0.5 880""")
         {0: 'f 1 0 8192 10 1', 1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
         
+    See :term:`score`
+
     '''
 
     # Convert score string to list    
@@ -134,8 +157,11 @@ def select_all(score):
 
 def swap(selection, x, y):
     '''Returns a selection with swapped pfield columns.
+
+    See :term:`selection`, :term:`score`
     
-    .. warning:: Needs to check for multiple events as lists.
+    .. warning:: Needs to check for multiple events as lists. May
+       create a internalized function for this.  e.g. _iter_selection()
     
     '''
     

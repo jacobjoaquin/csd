@@ -7,6 +7,7 @@ Csound CSD Package Documentation
 
    The csd Package <csd_sco_event.rst>
    demo/index.rst
+   glossary.rst
    commandline.rst
    bugs.rst
 

@@ -58,6 +58,8 @@ def is_valid(element):
         >>> element.is_valid('i 1')
         False
         
+    See :term:`element`
+
     '''
 
     # Token the rest of the event
@@ -77,15 +79,7 @@ def is_valid(element):
     [tokens.append(t) for t in p.findall(element)]        
     
     return len(tokens) == 1
-        
-def str_to_numeric(numeric):
-    '''Converts a str to numeric type int or float.'''
-    
-    try:
-        return int(numeric)
-    except:
-        return float(numeric)
-        
+                
 def is_valid_pfield(element):
     '''Returns a boolean value indicating if element is a pfield data
     type.
@@ -99,13 +93,34 @@ def is_valid_pfield(element):
         >>> element.is_valid_pfield('i 1')
         False
     
+    See :term:`element`
+
     '''
     
     if is_valid(element):
         return token_type(element) in _VALID_PFIELDS
     else:
         return False
+
+def str_to_numeric(numeric):
+    '''Converts a str to numeric type int or float.
     
+    Example::
+    
+        >>> element.str_to_numeric('440')
+        440
+        >>> element.str_to_numeric('440.0')
+        440.0
+    
+    See :term:`numeric`
+
+    '''
+    
+    try:
+        return int(numeric)
+    except:
+        return float(numeric)
+        
 def token_type(element):
     '''Returns the Csound score token type of an element.
         
@@ -120,6 +135,9 @@ def token_type(element):
         future. For the mean time, tokens are treated as faux-
         enums, and should be compared directly with the token
         constants.
+
+    See :term:`element`
+        
     '''
 
     # Check for valid element first

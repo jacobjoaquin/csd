@@ -50,9 +50,6 @@ if __name__ == '__main__':
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
-    o.pfield_a = int(o.pfield_a)
-    o.pfield_b = int(o.pfield_b)
-    
     if o.pfield_a is None or o.pfield_b is None\
             or o.statement is None or o.instr is None:
         # Pass through input if all flags aren't specified.
