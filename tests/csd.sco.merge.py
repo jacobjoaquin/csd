@@ -22,4 +22,7 @@ print test(6, 'i\n', {0: 'f'}, 'f\n')
 print test(7, 'i 1', {0: ['i 2', 'i 3']}, 'i 2\ni 3')
 print test(8, 'i 1', {0: ['i 2', 'i 3', '']}, 'i 2\ni 3\n')
 print test(9, 'i 1\ni 4', {0: ['i 2', 'i 3', '']}, 'i 2\ni 3\n\ni 4')
-
+print test(10, 'i 1\ni 4', {0: ['i 2', ['i 3', 'i 5'], 'i 6']},
+            'i 2\ni 3\ni 5\ni 6\ni 4')
+print test(11, 'i 1\ni 4', {0: ['i 2', ['i 3', '', '', 'i 5'], 'i 6']},
+            'i 2\ni 3\n\n\ni 5\ni 6\ni 4')

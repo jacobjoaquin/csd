@@ -32,16 +32,19 @@ def merge(score, selection):
     # Convert score string to list    
     s_list = score.splitlines()
 
+    # Recursive function to process lists within lists
+    def _sub_merge(event, temp_list):
+        if type(event) is list:
+            for e in event:
+                _sub_merge(e, temp_list)
+        else:
+            temp_list.append(event)
+            
     # Merge selection with the score list    
     for k, v in selection.items():
-        
-        # Merge list of events
-        if type(v) is list:
-            s_list[k] = '\n'.join(v)
-            
-        # Merge single event
-        else:
-            s_list[k] = v
+        temp_list = []
+        _sub_merge(v, temp_list)
+        s_list[k] = '\n'.join(temp_list)        
 
     # Appends an empty event in case of newline
     output = '\n'.join(s_list)
@@ -50,13 +53,6 @@ def merge(score, selection):
     
     return output      
 
-#def _sub_merge(event, list_):
-#    if type(event) is list:
-#        for e in event:
-#            _sub_merge(e, list_)
-#    else
-#        list_.append(event)
-    
 def operate_numeric(selection, pfield, pf_function, *args):
     '''Processes each numeric value in a column with a passed function
     and optional arguments.
