@@ -45,7 +45,7 @@ score_from_csd
 --------------
 .. automodule:: score_from_csd
    :members:
-
+   
 sum
 ---
 
@@ -58,3 +58,9 @@ swap_columns
 .. automodule:: swap_columns
    :members:
 
+swap_pan_position
+-----------------
+
+.. automodule:: swap_pan_position
+   :members:
+   

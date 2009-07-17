@@ -7,9 +7,9 @@ Csound CSD Package Documentation
 
    The csd Package <csd_sco_event.rst>
    demo/index.rst
-   glossary.rst
    commandline.rst
    bugs.rst
+   glossary.rst
 
    
 About
@@ -26,16 +26,16 @@ arpeggiations, replace repeated pfield values with the carry
 preprocessor symbol (.), etc.
 
 At the moment, the focus is on score manipulation, though room has been
-made in the package structure to accomodate for orchestra processing as
-well.
+made in the package structure to accomodate for future orchestra
+processing.
 
-In order to use these scripts, you'll need to use the command-line.
+In order to use the demo scripts, you'll need to use the command-line.
 However, using these scripts in applications may be possible in the
 future.  If you are a developer of a Csound front-end, Csound based-app,
 or are just looking to extend the capabilities of your favories text
 editor, let me know so we can start the process of figuring out our
-respective needs to make this happen.  If you aren't a developer, but
-you feel you have some good ideas, feel free to contact, too.
+respective needs to make this happen. I'm open to any and all ideas
+from anyone.
 
 This package is currently still very early in the development cycle,
 though quickly approaching a beta release.  The scripts have been tested
@@ -76,4 +76,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
+* :ref:`glossary`

@@ -20,7 +20,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="top" title="CSD v0.0.2 alpha documentation" href="../index.html" />
-    <link rel="next" title="glossary" href="../glossary.html" />
+    <link rel="next" title="Command-line Operations" href="../commandline.html" />
     <link rel="prev" title="The csd Package" href="../csd_sco_event.html" /> 
   </head>
   <body>
@@ -34,7 +34,7 @@
           <a href="../modindex.html" title="Global Module Index"
              accesskey="M">modules</a> |</li>
         <li class="right" >
-          <a href="../glossary.html" title="glossary"
+          <a href="../commandline.html" title="Command-line Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../csd_sco_event.html" title="The csd Package"
@@ -450,6 +450,54 @@ i 1 + . 1.0 7.04
 i 1 + . 0.8 7.05</pre>
 </div>
 </div>
+<div class="section" id="module-swap_pan_position">
+<h3>swap_pan_position<a class="headerlink" href="#module-swap_pan_position" title="Permalink to this headline">¶</a></h3>
+<p>An example that demonstrates how a script can operate a custom
+python function for every pfield in a column for a select group of
+events from a score.</p>
+<ol class="arabic simple">
+<li>Define a pf_function swap_pan_position()</li>
+<li>Select all i-events for instr 2 from score</li>
+<li>Process every pfield 6 in selection with swap_pan_position()</li>
+<li>Merge the modifications with the original score</li>
+</ol>
+<p>The code that does this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">swap_pan_position</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span>
+
+<span class="n">selection</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="mf">2</span><span class="p">})</span>
+<span class="n">selection</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">operate_numeric</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="mf">6</span><span class="p">,</span> <span class="n">swap_pan_position</span><span class="p">)</span>
+<span class="n">new_score</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The original score compared with the modified score:</p>
+<div class="highlight-python"><pre>__original score__
+f 1 0 8192 10 1
+
+i 1 0 4 1.0 440 0.9
+i 1 + . 0.7 .   0.25
+
+i 2 0 4 1.0 880 1.0    ; p6 is pan
+i 2 + . .   .   0.25
+i 2 + . .   .   0.999
+i 2 + . .   .   0.0
+
+__modified score__
+f 1 0 8192 10 1
+
+i 1 0 4 1.0 440 0.9
+i 1 + . 0.7 .   0.25
+
+i 2 0 4 1.0 880 0.0    ; p6 is pan
+i 2 + . .   .   0.75
+i 2 + . .   .   0.001
+i 2 + . .   .   1.0</pre>
+</div>
+<p>Uses <a title="csd.sco.merge" class="reference external" href="../csd_sco_event.html#csd.sco.merge"><tt class="xref docutils literal"><span class="pre">csd.sco.merge()</span></tt></a>, <a title="csd.sco.operate_numeric" class="reference external" href="../csd_sco_event.html#csd.sco.operate_numeric"><tt class="xref docutils literal"><span class="pre">csd.sco.operate_numeric()</span></tt></a>,
+<a title="csd.sco.select" class="reference external" href="../csd_sco_event.html#csd.sco.select"><tt class="xref docutils literal"><span class="pre">csd.sco.select()</span></tt></a></p>
+<p>See <a class="reference external" href="../glossary.html#term-pattern"><em class="xref">pattern</em></a>, <a class="reference external" href="../glossary.html#term-pf-function"><em class="xref">pf_function</em></a>, <a class="reference external" href="../glossary.html#term-selection"><em class="xref">selection</em></a>,
+<a class="reference external" href="../glossary.html#term-score"><em class="xref">score</em></a></p>
+</div>
 </div>
 </div>
 
@@ -470,6 +518,7 @@ i 1 + . 0.8 7.05</pre>
 <li><a class="reference external" href="#module-score_from_csd">score_from_csd</a></li>
 <li><a class="reference external" href="#module-sum">sum</a></li>
 <li><a class="reference external" href="#module-swap_columns">swap_columns</a></li>
+<li><a class="reference external" href="#module-swap_pan_position">swap_pan_position</a></li>
 </ul>
 </li>
 </ul>
@@ -480,8 +529,8 @@ i 1 + . 0.8 7.05</pre>
             <p class="topless"><a href="../csd_sco_event.html"
                                   title="previous chapter">The csd Package</a></p>
             <h4>Next topic</h4>
-            <p class="topless"><a href="../glossary.html"
-                                  title="next chapter">glossary</a></p>
+            <p class="topless"><a href="../commandline.html"
+                                  title="next chapter">Command-line Operations</a></p>
             <h3>This Page</h3>
             <ul class="this-page-menu">
               <li><a href="../_sources/demo/index.txt"
@@ -514,7 +563,7 @@ i 1 + . 0.8 7.05</pre>
           <a href="../modindex.html" title="Global Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="../glossary.html" title="glossary"
+          <a href="../commandline.html" title="Command-line Operations"
              >next</a> |</li>
         <li class="right" >
           <a href="../csd_sco_event.html" title="The csd Package"
