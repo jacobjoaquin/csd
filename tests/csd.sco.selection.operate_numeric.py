@@ -3,10 +3,10 @@
 
 import sys
 sys.path.append('../')
-from csd import sco
+from csd.sco import selection
 
 def test(n, expect, score_dict, pfield, pf_function, *args):
-    result = sco.operate_numeric(score_dict, pfield, pf_function, *args)
+    result = selection.operate_numeric(score_dict, pfield, pf_function, *args)
     did_pass = result == expect
 
     return did_pass, n, 'operate_numeric()', str(expect), str(result)

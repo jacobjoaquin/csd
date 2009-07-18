@@ -3,10 +3,10 @@
 
 import sys
 sys.path.append('../')
-from csd import sco as sco
+from csd.sco import selection
 
 def test(n, score_dict, x, y, expect):
-    result = sco.swap(score_dict, x, y)
+    result = selection.swap(score_dict, x, y)
     did_pass = result == expect
 
     return did_pass, n, 'swap()', str(expect), str(result)

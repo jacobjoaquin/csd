@@ -45,4 +45,6 @@ Planned Changes
 * Need to use better names for pfield and pfield_list, as some of the
   terms currently trip over each other. pfield, pfield_index,
   pfield_index_list, etc...
+* When dealing with dicts, make sure they are sorted. Had an issue with
+  csd.sco.operate_numeric().
 

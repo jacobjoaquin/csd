@@ -4,7 +4,7 @@
 This script can be used as command-line script as well as a
 module.
 
-.. program:: sum
+.. program:: add
 .. cmdoption:: -s  Statement (required)
 .. cmdoption:: -i  Identifier (required)
 .. cmdoption:: -p  Pfield (required)
@@ -12,7 +12,7 @@ module.
 
 Example::
     
-    $ cat sum.sco | ./sum.py -si -i1 -p4 -v0.4
+    $ cat add.sco | ./add.py -si -i1 -p4 -v0.4
 
 Before::
     
@@ -51,7 +51,7 @@ from csd.sco import event
 from csd.sco import element
 from csd import sco
 
-def sum_(s, statement, identifier, pfield, v):
+def add(s, statement, identifier, pfield, v):
     '''Adds v with to every numeric value in a pfield column.'''
     
     def _add(pf, x): return pf + x
@@ -60,7 +60,12 @@ def sum_(s, statement, identifier, pfield, v):
     return sco.merge(s, selection)
 
 def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
-    '''Sums each pfield in a column with a user-specified value.'''
+    '''Sums each pfield in a column with a user-specified value.
+    
+    .. note:: This is left in for the purpose of comparing the
+              operate_numeric version to the older way of doing it.
+    
+    '''
     
     output = []
     
@@ -95,7 +100,7 @@ def main():
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
-    print sum_(s, o.statement, o.identifier, o.pfield, o.value), 
+    print add(s, o.statement, o.identifier, o.pfield, o.value), 
 
 if __name__ == '__main__':
     main()
