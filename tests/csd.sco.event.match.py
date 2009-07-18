@@ -30,5 +30,5 @@ print test(15, 'i 1 0 4', {3: 4.1}, False)
 print test(15, 'i 1 0 [~]', {3: '[~]'}, True)
 print test(16, 'i 1 0 "foo"', {3: '"foo"'}, True)
 print test(17, 'i 1 0 {{foo}}', {3: '{{foo}}'}, True)
-
+print test(18, 'i 1 0 4', {}, False)
 

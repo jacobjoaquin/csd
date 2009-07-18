@@ -4,9 +4,9 @@ from csd.sco import event
 from csd.sco import element
 
 def operate(): pass
-def operate_str(): pass
-def operate_macro(): pass
-def operate_expression(): pass
+#def operate_str(): pass
+#def operate_macro(): pass
+#def operate_expression(): pass
 
 def operate_numeric(selection, pfield_list, pf_function, *args):
     '''Processes a matrix of pfields and events using the supplied
@@ -52,36 +52,6 @@ def operate_numeric(selection, pfield_list, pf_function, *args):
                 selection[k] = v
 
     return selection
-    
-def select(score, pattern):
-    '''Returns a dict with matched events from a score.
-    {index_of_event: event}
-    
-    Example::
-
-        >>> sco.select(
-        ... """f 1 0 8192 10 1
-        ... i 1 0 4 1.0 440
-        ... i 1 4 4 0.5 880"""
-        ... , {0: 'i'})
-        {1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
-        
-    See :term:`pattern`, :term:`score`
-    
-    '''
-
-    # Convert score string to list    
-    s_list = score.splitlines()
-    
-    # Dictionary to store matched events.  {index_of_event: event}
-    d = {}
-
-    # Get matched events
-    for i, e in enumerate(s_list):
-        if event.match(e, pattern):
-            d[i] = e
-            
-    return d
 
 def swap(selection, x, y):
     '''Returns a selection with swapped pfield columns.

@@ -43,7 +43,6 @@ After::
 '''
 
 import sys
-
 from optparse import OptionParser
 
 sys.path.append('../')  # Fix this.
@@ -53,6 +52,18 @@ from csd import sco
 
 def add(s, statement, identifier, pfield, v):
     '''Adds v with to every numeric value in a pfield column.'''
+    
+    def _add(pf, x): return pf + x
+    return sco.map_(s, {0: statement, 1: identifier}, pfield, _add, v)
+
+def __add_the_old_fashion_way_part_2_electric_boogaloo(s, statement,
+                                                       identifier, pfield, v):
+    '''Adds v with to every numeric value in a pfield column.
+    
+    .. note:: This is left in for the purpose of comparing the
+              operate_numeric version to the older way of doing it.
+    
+    '''
     
     def _add(pf, x): return pf + x
     selection = sco.select(s, {0: statement, 1: identifier})

@@ -139,6 +139,10 @@ def match(event, pattern):
     
     '''
  
+    # Return false if empty
+    if pattern == {}:
+        return False
+        
     for pf, v in pattern.items():
         # Items in v must be of type str
         if type(v) is list:

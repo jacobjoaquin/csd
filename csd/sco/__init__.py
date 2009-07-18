@@ -9,6 +9,7 @@ csd.sco.event deals with rows.
 
 from csd.sco import event
 from csd.sco import element
+from csd.sco import selection
 
 def merge(score, selection):
     '''Merges a selection back into a score string, overwriting the
@@ -59,18 +60,12 @@ def map_(score, pattern, pfield_index_list, pf_function, *args):
     Consolidates operate functions into a single line.  Accepts a score
     and returns a score.
     
-    Example::
-        
-        def _to_0dbfs(x, y):
-            return x / y
-        print map_(score, {0: 'i'}, 4, _to_0dbfs, 32768)
-
     '''
     
-    selection = sco.select(score, pattern)
-    selection = sco.operate_numeric(selection, pfield_index_list, pf_function,
-                                    *args)
-    return sco.merge(score, selection)
+    selection_ = select(score, pattern)
+    selection_ = selection.operate_numeric(selection_, pfield_index_list,
+                                           pf_function, *args)
+    return merge(score, selection_)
     
 def select(score, pattern):
     '''Returns a dict with matched events from a score.
