@@ -1,25 +1,24 @@
 #!/usr/bin/env python
 '''An example that demonstrates how a script can operate a custom
 python function for every pfield in a column for a select group of
-events from a score.
+events from a score used the map_() function.
 
 Here's the scenario.  You've listened to your piece and have decided
 that the panning in instrument 2 would sound better if the left and
 right channels were swapped.  How could you do this with CSD?
 
+
 #. Define a pf_function, swap_pan_position()
-#. Select all i-events for instr 2 from the score
-#. Operate on every pfield 6 in the selection with swap_pan_position()
-#. Merge the modifications with the original score
+#. Define a pattern to select instrument 2 events.
+#. Choose which pfield column to operate on.
+#. Run selected pfield data through swap_pan_position() with map_
 
 The code::
 
     def swap_pan_position(x):
         return 1.0 - x
     
-    selection = sco.select(score, {0: 'i', 1: 2})
-    selection = sco.operate_numeric(selection, 6, swap_pan_position)
-    new_score = sco.merge(score, selection)
+    new_score = sco.map_(score, {0: 'i', 1: 2}, 6, swap_pan_position)
     
 The original score compared with the modified score::
     
@@ -77,9 +76,7 @@ i 2 + . .   .   0.0
 def swap_pan_position(x):
     return 1.0 - x
 
-selection = sco.select(score, {0: 'i', 1: 2})
-selection = sco.operate_numeric(selection, 6, swap_pan_position)
-new_score = sco.merge(score, selection)
+new_score = sco.map_(score, {0: 'i', 1: 2}, 6, swap_pan_position)
 
 # Compare original score with modified score
 print '__original score__'

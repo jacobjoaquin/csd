@@ -67,4 +67,4 @@ def swap(selection, x, y):
         selection[k] = event.swap(v, x, y)
     
     return selection
-    
+

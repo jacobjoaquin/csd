@@ -11,6 +11,26 @@ from csd.sco import event
 from csd.sco import element
 from csd.sco import selection
 
+def __flatten_list(parent_list):
+    '''Returns a list with all embedded lists brought to the
+    surface.'''
+    
+    this_list = []
+    child_list = []
+
+    if type(parent_list) is not list:
+        return [parent_list]
+        
+    for i in parent_list:
+        if type(i) is list:
+            child_list = __flatten_list(i)
+            for j in child_list:
+                this_list.append(j)
+        else:
+            this_list.append(i)
+
+    return this_list
+
 def merge(score, selection):
     '''Merges a selection back into a score string, overwriting the
     existing parts of the score.
@@ -33,19 +53,9 @@ def merge(score, selection):
     # Convert score string to list    
     s_list = score.splitlines()
 
-    # Recursive function to process lists within lists
-    def _sub_merge(event, temp_list):
-        if type(event) is list:
-            for e in event:
-                _sub_merge(e, temp_list)
-        else:
-            temp_list.append(event)
-            
-    # Merge selection with the score list    
+    # Merge flattened selection with the score list    
     for k, v in selection.items():
-        temp_list = []
-        _sub_merge(v, temp_list)
-        s_list[k] = '\n'.join(temp_list)        
+        s_list[k] = '\n'.join(__flatten_list(v))
 
     # Appends an empty event in case of newline
     output = '\n'.join(s_list)
@@ -55,10 +65,8 @@ def merge(score, selection):
     return output      
     
 def map_(score, pattern, pfield_index_list, pf_function, *args):
-    '''Not yet implemented.
-    
-    Consolidates operate functions into a single line.  Accepts a score
-    and returns a score.
+    '''Performs matrix functions on select parts of a score,
+    return a new score.
     
     '''
     

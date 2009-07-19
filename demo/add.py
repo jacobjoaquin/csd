@@ -56,44 +56,6 @@ def add(s, statement, identifier, pfield, v):
     def _add(pf, x): return pf + x
     return sco.map_(s, {0: statement, 1: identifier}, pfield, _add, v)
 
-def __add_the_old_fashion_way_part_2_electric_boogaloo(s, statement,
-                                                       identifier, pfield, v):
-    '''Adds v with to every numeric value in a pfield column.
-    
-    .. note:: This is left in for the purpose of comparing the
-              operate_numeric version to the older way of doing it.
-    
-    '''
-    
-    def _add(pf, x): return pf + x
-    selection = sco.select(s, {0: statement, 1: identifier})
-    selection = sco.operate_numeric(selection, pfield, _add, v)
-    return sco.merge(s, selection)
-
-def __sum_the_old_fashion_way(s, statement, identifier, pfield, v):
-    '''Sums each pfield in a column with a user-specified value.
-    
-    .. note:: This is left in for the purpose of comparing the
-              operate_numeric version to the older way of doing it.
-    
-    '''
-    
-    output = []
-    
-    for e in s:
-        if event.match(e, {0: statement, 1: identifier}):
-            
-            # Sum values, or ignore if original pfield is not NUMERIC
-            pf = event.get(e, int(options.pfield))
-            if element.token_type(pf) is element.NUMERIC:
-                pf = float(pf) + float(v)
-
-            output.append(event.set(e, int(options.pfield), pf))
-        else:
-            output.append(e)
-
-    return ''.join(output)
-
 def main():
     # Get command-line flags
     u = ['usage: <stdout> |']
