@@ -2,6 +2,7 @@
 '''Testing playground.'''
 
 import sys
+from math import *
 
 sys.path.append('../')  # Fix this.
 from csd import sco
@@ -10,16 +11,17 @@ from csd.sco import event
 # Get argv from command-line
 statement = list(sys.argv[1])
 identifier = eval(sys.argv[2])
-pfield = sys.argv[3]
+pfield = eval(sys.argv[3])
 eval_ = sys.argv[4]
 
 # Get input
-stdin = sys.stdin.readlines()
-s = ''.join(stdin)
+s = ''.join(sys.stdin.readlines())
 
-def eval_this(p):
+# Generic pf_function
+def eval_this(x):
     global eval_
     return eval(eval_)
     
+# Where the magic happens
 print sco.map_(s, {0: statement, 1: identifier}, pfield, eval_this),
 
