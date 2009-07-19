@@ -20,31 +20,25 @@ Planned Changes
 * Tutorials on how to build custom scripts using this package.
 * Spell check docs.
 * Elements become atoms?
-* Design decision?  Should selection operations be done internally? Or
-  by leaving them exposed, let coders have a wider variety of choice
-  when they themselves are creating their own custom function?
-  
-  As it is now::
-      
-      def add(x, y): return x + y
-      selection = sco.select(score, {0: 'i', 1: '1'})
-      selection = sco.operate_numeric(selection, 5, add, 1000)
-      score = sco.merge(score, selection)
-      
-  As it could be::
-      
-      def add(x, y): return x + y
-      score = sco.operate_numeric(score, {0: 'i', 1: '1'}, 5, add, 1000)
-      
-  Not that speed would probably ever be an issue, but I'm guessing case
-  1 is more efficient.  Perhaps I can keep merge and select operations
-  available, and then keep processing type functions, like
-  operate_numeric, in a reduced form.
-  
 * Need a better name than pf_function.
 * Need to use better names for pfield and pfield_list, as some of the
   terms currently trip over each other. pfield, pfield_index,
   pfield_index_list, etc...
 * When dealing with dicts, make sure they are sorted. Had an issue with
   csd.sco.operate_numeric().
+* selection functions needs a contracterual flow.
 
+    When a function receives a selection, a value in a key_index may
+    contain multiple lines, and thus, the receiving function must
+    operate on it.
+    
+    The value should be treated as a value_score.  A string containing
+    one or more events.  Thus, it should be split.
+    
+    After the split, it can be processed.
+    
+    Before replacing the orignal value_score, the split needs to be
+    joined, creating a single string, with newlines as evenet
+    delimiters.
+    
+    
