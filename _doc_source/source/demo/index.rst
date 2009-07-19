@@ -13,12 +13,6 @@ Demo scripts are located in ``/demo/``.
 .. warning:: These are to be considered unstable releases until they
     are properly tested and bug checked.
 
-add
----
-
-.. automodule:: add
-   :members:
-
 arpeggiator
 -----------
 
@@ -60,4 +54,9 @@ swap_columns
 .. automodule:: swap_columns
    :members:
 
+swap_pan_position
+-----------------
+
+.. automodule:: swap_pan_position
+   :members:
 
