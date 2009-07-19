@@ -69,26 +69,25 @@ Glossary
             {0: 'i', 1: range(5, 11))  # All i-events for instrs 5 through 10
             {5: 440}                   # Events that contains 440 in pfield 5
         
-    pf_function
-        A python funcion used in conjunction with operate functions in
-        csd.sco.
+    pfunction
+        A function for operating on pfield values used in conjuction
+        with csd.sco.operate_numeric. or csd.sco.map_().
         
-        A pf_function requires a minimum of one argument, in which a
-        pfield value will be passed to.  A pf_fuctnion will also
-        supports any number of optional arguments.
+        The first argument ``x`` is required, and is used as the pfield
+        value in the function.  A pfunction supports any number of
+        additional optional arguments.
         
         Example::
             
-            def multiply(pfield_data, m):
-                return pfield_data * m
+            def multiply(x, y):
+                return x * y
+            
+            print csd.sco.map_(score, {0: 'i'}, 5, multiply, 3.0)
     
     pfield        
-        #. A pfield, or parameter field, refers to a value as part of a
-           :term:`event`.
-        
-        #. In context of a csd function, :term:`pfield` refers to the
-           index at which a pfield is located.
-    
+        A pfield, or parameter field, refers to a value as part of a
+        :term:`event`.
+            
     pfield data type
         Includes: :term:`statement`, :term:`numeric`, macro,
         :term:`expression`, string, and preprocessor symbols.

@@ -76,11 +76,12 @@ trailing newline being introduced.</p>
 <p>These methods operate on multiple score events at a time. Generally
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Need to create a glossary to include terms like score,
-selection, element (atom), event, pf_function, etc...</p>
-</div>
+<dl class="function">
+<dt id="csd.sco.map_">
+<tt class="descclassname">csd.sco.</tt><tt class="descname">map_</tt><big>(</big><em>score</em>, <em>pattern</em>, <em>pfield_index_list</em>, <em>pfunction</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.map_" title="Permalink to this definition">¶</a></dt>
+<dd>Performs matrix functions on select parts of a score,
+return a new score.</dd></dl>
+
 <dl class="function">
 <dt id="csd.sco.merge">
 <tt class="descclassname">csd.sco.</tt><tt class="descname">merge</tt><big>(</big><em>score</em>, <em>selection</em><big>)</big><a class="headerlink" href="#csd.sco.merge" title="Permalink to this definition">¶</a></dt>
@@ -97,25 +98,6 @@ replacing the second line (index 1) with a new event.</p>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a>, <a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="csd.sco.operate_numeric">
-<tt class="descclassname">csd.sco.</tt><tt class="descname">operate_numeric</tt><big>(</big><em>selection</em>, <em>pfield_list</em>, <em>pf_function</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.operate_numeric" title="Permalink to this definition">¶</a></dt>
-<dd><p>Processes a matrix of pfields and events using the supplied
-pf_function and any optional arguments.</p>
-<p>In cases where the original numeric pfield was an int, but
-processed with floats, the int will be output as a float in the
-score, even if the output contains no fractional parts.  e.g. 1.0</p>
-<p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">pf</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="n">pf</span> <span class="o">*</span> <span class="n">m</span>
-<span class="gp">... </span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">sco</span><span class="o">.</span><span class="n">operate_numeric</span><span class="p">({</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i 1 0 4 1.0 440&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="s">&#39;i 1 4 4 0.5 880&#39;</span><span class="p">},</span>
-<span class="gp">... </span>                    <span class="mf">5</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
-<span class="go">{0: &#39;i 1 0 4 1.0 1320&#39;, 1: &#39;i 1 4 4 0.5 2640&#39;}</span>
-</pre></div>
-</div>
-<p>See <a class="reference external" href="glossary.html#term-pf-function"><em class="xref">pf_function</em></a>, <a class="reference external" href="glossary.html#term-pfield-list"><em class="xref">pfield_list</em></a>, <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a></p>
 </dd></dl>
 
 <dl class="function">
@@ -150,18 +132,6 @@ score, even if the output contains no fractional parts.  e.g. 1.0</p>
 <p>See <a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
 </dd></dl>
 
-<dl class="function">
-<dt id="csd.sco.swap">
-<tt class="descclassname">csd.sco.</tt><tt class="descname">swap</tt><big>(</big><em>selection</em>, <em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#csd.sco.swap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a selection with swapped pfield columns.</p>
-<p>See <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a>, <a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Needs to check for multiple events as lists. May
-create a internalized function for this.  e.g. _iter_selection()</p>
-</div>
-</dd></dl>
-
 </div>
 <div class="section" id="module-csd.sco.event">
 <h2>event<a class="headerlink" href="#module-csd.sco.event" title="Permalink to this headline">¶</a></h2>
@@ -171,7 +141,7 @@ such as pfield data, comments and whitespace.</p>
 <p>This module operates on individual Csound score events.</p>
 <dl class="function">
 <dt id="csd.sco.event.get">
-<tt class="descclassname">csd.sco.event.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#csd.sco.event.get" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">get</tt><big>(</big><em>event</em>, <em>pfield_index</em><big>)</big><a class="headerlink" href="#csd.sco.event.get" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a pfield element for an event.</p>
 <p>The pfield maybe a number, string, expression, or a statement.
 Comments are right out.</p>
@@ -210,7 +180,7 @@ Comments are right out.</p>
 
 <dl class="function">
 <dt id="csd.sco.event.insert">
-<tt class="descclassname">csd.sco.event.</tt><tt class="descname">insert</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#csd.sco.event.insert" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">insert</tt><big>(</big><em>event</em>, <em>pfield_index</em>, <em>fill='.'</em><big>)</big><a class="headerlink" href="#csd.sco.event.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new event with an inserted pfield element.</p>
 <p>The fill attribute is the character or string which will be
 inserted into the event.</p>
@@ -308,7 +278,7 @@ inserted into the event.</p>
 
 <dl class="function">
 <dt id="csd.sco.event.remove">
-<tt class="descclassname">csd.sco.event.</tt><tt class="descname">remove</tt><big>(</big><em>event</em>, <em>pfield</em><big>)</big><a class="headerlink" href="#csd.sco.event.remove" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">remove</tt><big>(</big><em>event</em>, <em>pfield_index</em><big>)</big><a class="headerlink" href="#csd.sco.event.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes a pfield and returns a tuple containing the new event
 and the removed element.</p>
 <p>This function preserves whitespace.</p>
@@ -337,7 +307,7 @@ the following non-whitespace element.</p>
 
 <dl class="function">
 <dt id="csd.sco.event.set">
-<tt class="descclassname">csd.sco.event.</tt><tt class="descname">set</tt><big>(</big><em>event</em>, <em>pfield</em>, <em>value</em><big>)</big><a class="headerlink" href="#csd.sco.event.set" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">set</tt><big>(</big><em>event</em>, <em>pfield_index</em>, <em>value</em><big>)</big><a class="headerlink" href="#csd.sco.event.set" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new event string with the specified pfield set with
 the new value.</p>
 <p>Example:</p>
@@ -378,7 +348,7 @@ place between the statement and the following pfield.</p>
 
 <dl class="function">
 <dt id="csd.sco.event.swap">
-<tt class="descclassname">csd.sco.event.</tt><tt class="descname">swap</tt><big>(</big><em>event</em>, <em>pfield_a</em>, <em>pfield_b</em><big>)</big><a class="headerlink" href="#csd.sco.event.swap" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">csd.sco.event.</tt><tt class="descname">swap</tt><big>(</big><em>event</em>, <em>pfield_index_a</em>, <em>pfield_index_b</em><big>)</big><a class="headerlink" href="#csd.sco.event.swap" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a new event string after swapping two pfield elements.</p>
 <p>Example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">event</span><span class="o">.</span><span class="n">swap</span><span class="p">(</span><span class="s">&#39;i 1 0 4 1.0 440 ; A440&#39;</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
@@ -486,6 +456,41 @@ constants.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-csd.sco.selection">
+<h2>selection<a class="headerlink" href="#module-csd.sco.selection" title="Permalink to this headline">¶</a></h2>
+<p>These methods operate on selections.</p>
+<dl class="function">
+<dt id="csd.sco.selection.operate_numeric">
+<tt class="descclassname">csd.sco.selection.</tt><tt class="descname">operate_numeric</tt><big>(</big><em>selection</em>, <em>pfield_index_list</em>, <em>pfunction</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.selection.operate_numeric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes a matrix of pfields and events using the supplied
+pfunction and any optional arguments.</p>
+<p>In cases where the original numeric pfield was an int, but
+processed with floats, the int will be output as a float in the
+score, even if the output contains no fractional parts.  e.g. 1.0</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">pf</span><span class="p">,</span> <span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="n">pf</span> <span class="o">*</span> <span class="n">m</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sco</span><span class="o">.</span><span class="n">operate_numeric</span><span class="p">({</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i 1 0 4 1.0 440&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="s">&#39;i 1 4 4 0.5 880&#39;</span><span class="p">},</span>
+<span class="gp">... </span>                    <span class="mf">5</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
+<span class="go">{0: &#39;i 1 0 4 1.0 1320&#39;, 1: &#39;i 1 4 4 0.5 2640&#39;}</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="glossary.html#term-pfunction"><em class="xref">pfunction</em></a>, <a class="reference external" href="glossary.html#term-pfield-list"><em class="xref">pfield_list</em></a>, <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.selection.swap">
+<tt class="descclassname">csd.sco.selection.</tt><tt class="descname">swap</tt><big>(</big><em>selection</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#csd.sco.selection.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a selection with swapped pfield columns.</p>
+<p>See <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a>, <a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Needs to check for multiple events as lists. May
+create a internalized function for this.  e.g. _iter_selection()</p>
+</div>
+</dd></dl>
+
+</div>
 </div>
 
 
@@ -501,6 +506,7 @@ constants.</p>
 <li><a class="reference external" href="#module-csd.sco">sco</a></li>
 <li><a class="reference external" href="#module-csd.sco.event">event</a></li>
 <li><a class="reference external" href="#module-csd.sco.element">element</a></li>
+<li><a class="reference external" href="#module-csd.sco.selection">selection</a></li>
 </ul>
 </li>
 </ul>

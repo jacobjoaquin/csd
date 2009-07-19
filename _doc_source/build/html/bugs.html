@@ -74,31 +74,27 @@ csd.sco.select_all() to csd.sco.operate_numeric().</li>
 </li>
 <li><p class="first">Elements become atoms?</p>
 </li>
-<li><p class="first">Design decision?  Should selection operations be done internally? Or
-by leaving them exposed, let coders have a wider variety of choice
-when they themselves are creating their own custom function?</p>
-<p>As it is now:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p">})</span>
-<span class="n">selection</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">operate_numeric</span><span class="p">(</span><span class="n">selection</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="mf">1000</span><span class="p">)</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">selection</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>As it could be:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">score</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">operate_numeric</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p">},</span> <span class="mf">5</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="mf">1000</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Not that speed would probably ever be an issue, but I&#8217;m guessing case
-1 is more efficient.  Perhaps I can keep merge and select operations
-available, and then keep processing type functions, like
-operate_numeric, in a reduced form.</p>
-</li>
 <li><p class="first">Need a better name than pf_function.</p>
 </li>
 <li><p class="first">Need to use better names for pfield and pfield_list, as some of the
 terms currently trip over each other. pfield, pfield_index,
 pfield_index_list, etc...</p>
+</li>
+<li><p class="first">When dealing with dicts, make sure they are sorted. Had an issue with
+csd.sco.operate_numeric().</p>
+</li>
+<li><p class="first">selection functions needs a contracterual flow.</p>
+<blockquote>
+<p>When a function receives a selection, a value in a key_index may
+contain multiple lines, and thus, the receiving function must
+operate on it.</p>
+<p>The value should be treated as a value_score.  A string containing
+one or more events.  Thus, it should be split.</p>
+<p>After the split, it can be processed.</p>
+<p>Before replacing the orignal value_score, the split needs to be
+joined, creating a single string, with newlines as evenet
+delimiters.</p>
+</blockquote>
 </li>
 </ul>
 </div>

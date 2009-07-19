@@ -30,3 +30,9 @@ element
 .. automodule:: csd.sco.element
    :members:
 
+selection
+---------
+
+.. automodule:: csd.sco.selection
+   :members:
+

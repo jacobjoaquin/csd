@@ -4,7 +4,7 @@ import re
 
 from csd.sco import element
 
-def get(event, pfield):
+def get(event, pfield_index):
     '''Returns a pfield element for an event.
     
     The pfield maybe a number, string, expression, or a statement.
@@ -20,12 +20,12 @@ def get(event, pfield):
     '''
 
     # Pfield must be of type int, as it refers to an index in a list.
-    pfield = int(pfield)
+    pfield_index = int(pfield_index)
 
     event_list = get_pfield_list(event)
 
-    if pfield in range(len(event_list)):
-        return event_list[pfield]
+    if pfield_index in range(len(event_list)):
+        return event_list[pfield_index]
     else:
         return None
 
@@ -71,7 +71,7 @@ def get_trailing_comment(event):
     
     return ''.join(tokens[i:]).strip()
 
-def insert(event, pfield, fill='.'):
+def insert(event, pfield_index, fill='.'):
     '''Returns a new event with an inserted pfield element.
     
     The fill attribute is the character or string which will be
@@ -89,14 +89,14 @@ def insert(event, pfield, fill='.'):
     # Fill must be a string. This allows numbers to be passed to function.
     fill = str(fill)
     
-    if pfield in range(number_of_pfields(event)):
-        pf = get(event, pfield)
+    if pfield_index in range(number_of_pfields(event)):
+        pf = get(event, pfield_index)
         new = [fill, ' ', pf]
-        event = set(event, pfield, ''.join(new))  
-    elif pfield == number_of_pfields(event):
-        pf = get(event, pfield - 1)
+        event = set(event, pfield_index, ''.join(new))  
+    elif pfield_index == number_of_pfields(event):
+        pf = get(event, pfield_index - 1)
         new = [pf, ' ', fill]
-        event = set(event, pfield - 1, ''.join(new))  
+        event = set(event, pfield_index - 1, ''.join(new))  
     
     return event
 
@@ -212,7 +212,7 @@ def push(event, fill='.'):
 
     return insert(event, number_of_pfields(event), fill)
 
-def remove(event, pfield):
+def remove(event, pfield_index):
     '''Removes a pfield and returns a tuple containing the new event
     and the removed element.
 
@@ -230,9 +230,9 @@ def remove(event, pfield):
     # An emptry string is preferable than None for the return    
     pf = ''
     
-    if pfield in range(number_of_pfields(event)):
-        pf = get(event, pfield)
-        event = set(event, pfield, '')
+    if pfield_index in range(number_of_pfields(event)):
+        pf = get(event, pfield_index)
+        event = set(event, pfield_index, '')
     
     return event, pf
     
@@ -269,7 +269,7 @@ def sanitize(event):
     
     return ' '.join(p.findall(event))
 
-def set(event, pfield, value):
+def set(event, pfield_index, value):
     '''Returns a new event string with the specified pfield set with
     the new value.
     
@@ -283,10 +283,10 @@ def set(event, pfield, value):
     '''
 
     # Pfield must be of type int, as it refers to an index in a list.
-    pfield = int(pfield)
+    pfield_index = int(pfield_index)
     
     # Skip if pfield is out of range
-    if pfield not in range(number_of_pfields(event)):
+    if pfield_index not in range(number_of_pfields(event)):
         return event
     
     tokens = tokenize(event)
@@ -300,7 +300,7 @@ def set(event, pfield, value):
             if element.is_valid_pfield(t):
                 pf_index += 1
 
-        if pf_index == pfield:
+        if pf_index == pfield_index:
             
             # Create test case for str(value)
             tokens[i] = str(value)
@@ -372,7 +372,7 @@ def statement_spacer(event, spacer=1):
 
     return ''.join(tokens)
 
-def swap(event, pfield_a, pfield_b):
+def swap(event, pfield_index_a, pfield_index_b):
     '''Returns a new event string after swapping two pfield elements.
     
     Example::
@@ -387,9 +387,9 @@ def swap(event, pfield_a, pfield_b):
 
     '''
 
-    a, b = get(event, pfield_a), get(event, pfield_b)
-    event = set(event, pfield_a, b)
-    event = set(event, pfield_b, a)
+    a, b = get(event, pfield_index_a), get(event, pfield_index_b)
+    event = set(event, pfield_index_a, b)
+    event = set(event, pfield_index_b, a)
     
     return event
 

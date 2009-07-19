@@ -30,9 +30,11 @@ After::
 '''
 
 import sys
-sys.path.append('../')  # Fix this.
-import csd.sco as sco
 from optparse import OptionParser
+
+sys.path.append('../')  # Fix this.
+from csd import sco
+from csd.sco import selection
 
 if __name__ == '__main__':
     # Get command-line flags
@@ -61,9 +63,9 @@ if __name__ == '__main__':
         error.append('\n')
         print >> sys.stderr, ''.join(error)
     else:
-        score_dict = sco.select(s, {0: o.statement, 1: o.instr})
-        score_dict = sco.swap(score_dict, o.pfield_a, o.pfield_b)
-        output = sco.merge(s, score_dict)
+        selected = sco.select(s, {0: o.statement, 1: o.instr})
+        selected = selection.swap(selected, o.pfield_a, o.pfield_b)
+        output = sco.merge(s, selected)
         
         print output,
 

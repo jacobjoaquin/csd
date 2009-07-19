@@ -8,7 +8,7 @@ that the panning in instrument 2 would sound better if the left and
 right channels were swapped.  How could you do this with CSD?
 
 
-#. Define a pf_function, swap_pan_position()
+#. Define a pfunction, swap_pan_position()
 #. Define a pattern to select instrument 2 events.
 #. Choose which pfield column to operate on.
 #. Run selected pfield data through swap_pan_position() with map_
@@ -49,10 +49,10 @@ events.  Be sure to follow the links below, as each will help explain
 each of the components in further detail. (assuming you are reading
 from the CSD manual)
 
-    :term:`pattern`, :term:`pf_function`, :term:`selection`,
+    :term:`pattern`, :term:`pfunction`, :term:`selection`,
     :term:`score`
 
-    :func:`csd.sco.merge`, :func:`csd.sco.operate_numeric`,
+    :func:`csd.sco.merge`, :func:`csd.sco.selection.operate_numeric`,
     :func:`csd.sco.select`
 
 '''

@@ -24,30 +24,30 @@ Command-line::
 
 import sys
 
-from math import ceil
-from math import fabs
-from math import floor
-from math import fmod
-from math import exp
-from math import log
-from math import log10
-from math import pow
-from math import sqrt
 from math import acos
 from math import asin
 from math import atan
 from math import atan2
+from math import ceil
 from math import cos
-from math import hypot
-from math import sin
-from math import tan
-from math import degrees
-from math import radians
 from math import cosh 
-from math import sinh
-from math import tanh
-from math import pi
+from math import degrees
 from math import e
+from math import exp
+from math import fabs
+from math import floor
+from math import fmod
+from math import hypot
+from math import log
+from math import log10
+from math import pi
+from math import pow
+from math import radians
+from math import sin
+from math import sinh
+from math import sqrt
+from math import tan
+from math import tanh
 from random import betavariate
 from random import choice
 from random import expovariate

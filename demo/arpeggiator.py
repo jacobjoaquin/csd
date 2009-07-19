@@ -40,9 +40,10 @@ After::
 '''
 
 import sys
+from optparse import OptionParser
+
 sys.path.append('../')  # Fix this.
 import csd.sco.event as event
-from optparse import OptionParser
 
 def arpeggiator(s, statement, identifier, pfield, v):
     '''Arpeggiates values in for a selected pfield column for a specific
@@ -56,7 +57,7 @@ def arpeggiator(s, statement, identifier, pfield, v):
 
     for row in s:
         if event.match(row, {0: statement, 1: identifier}):
-            output.append(event.set(row, int(options.pfield), v[i]))
+            output.append(event.set(row, int(o.pfield), v[i]))
             i = (i + 1) % len(arp)
         else:
             output.append(row)
@@ -74,15 +75,14 @@ if __name__ == '__main__':
     parser.add_option("-i", dest="identifier", help="identifier")
     parser.add_option("-p", dest="pfield", help="pfield")
     parser.add_option("-v", dest="values", help="values")
-    (options, args) = parser.parse_args()
+    (o, args) = parser.parse_args()
 
     # Get input
     stdin = sys.stdin.readlines()
     sco = ''.join(stdin).splitlines(True)
 
     # Convert values into list
-    arp = options.values.split()
+    arp = o.values.split()
 
-    print arpeggiator(sco, options.statement, options.identifier,\
-                      options.pfield, arp), 
+    print arpeggiator(sco, o.statement, o.identifier, o.pfield, arp), 
 

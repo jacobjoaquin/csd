@@ -2,9 +2,6 @@
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
 
-.. note:: Need to create a glossary to include terms like score,
-   selection, element (atom), event, pf_function, etc...
-
 '''
 
 from csd.sco import event
@@ -64,7 +61,7 @@ def merge(score, selection):
     
     return output      
     
-def map_(score, pattern, pfield_index_list, pf_function, *args):
+def map_(score, pattern, pfield_index_list, pfunction, *args):
     '''Performs matrix functions on select parts of a score,
     return a new score.
     
@@ -72,7 +69,7 @@ def map_(score, pattern, pfield_index_list, pf_function, *args):
     
     selection_ = select(score, pattern)
     selection_ = selection.operate_numeric(selection_, pfield_index_list,
-                                           pf_function, *args)
+                                           pfunction, *args)
     return merge(score, selection_)
     
 def select(score, pattern):
@@ -96,14 +93,14 @@ def select(score, pattern):
     s_list = score.splitlines()
     
     # Dictionary to store matched events.  {index_of_event: event}
-    d = {}
+    selection_ = {}
 
     # Get matched events
     for i, e in enumerate(s_list):
         if event.match(e, pattern):
-            d[i] = e
+            selection_[i] = e
             
-    return d
+    return selection_
 
 def select_all(score):
     '''Returns a dict of all events in a score, keyed by index.
@@ -124,15 +121,15 @@ def select_all(score):
     s_list = score.splitlines()
     
     # Dictionary to store all events.  {index_of_event: event}
-    d = {}
+    selection_ = {}
     
     # Append each event
     for i, e in enumerate(s_list):
-        d[i] = e
+        selection_[i] = e
     
     # Appends an empty event in case of newline
     if score.endswith('\n'):
-        d[i + 1] = ''
+        selection_[i + 1] = ''
 
-    return d
+    return selection_
 

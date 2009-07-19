@@ -8,9 +8,9 @@ def operate(): pass
 #def operate_macro(): pass
 #def operate_expression(): pass
 
-def operate_numeric(selection, pfield_list, pf_function, *args):
+def operate_numeric(selection, pfield_index_list, pfunction, *args):
     '''Processes a matrix of pfields and events using the supplied
-    pf_function and any optional arguments.
+    pfunction and any optional arguments.
     
     In cases where the original numeric pfield was an int, but
     processed with floats, the int will be output as a float in the
@@ -24,7 +24,7 @@ def operate_numeric(selection, pfield_list, pf_function, *args):
         ...                     5, multiply, 3)
         {0: 'i 1 0 4 1.0 1320', 1: 'i 1 4 4 0.5 2640'}
         
-    See :term:`pf_function`, :term:`pfield_list`, :term:`selection`
+    See :term:`pfunction`, :term:`pfield_list`, :term:`selection`
 
     '''
 
@@ -35,25 +35,25 @@ def operate_numeric(selection, pfield_list, pf_function, *args):
             args[i] = element.str_to_numeric(a)
     
     # Convert single single value to list
-    if type(pfield_list) is not list:
-        pfield_list = [pfield_list]
+    if type(pfield_index_list) is not list:
+        pfield_index_list = [pfield_index_list]
     
     # Operate on all events in selection.  Sorted is a must.
     for k, v in sorted(selection.iteritems()):
         
         # Operate on each pfield
-        for pf in pfield_list:
+        for pf in pfield_index_list:
             pf_value = event.get(v, pf)
             
             # Preserve non-numeric pfields
             if element.token_type(pf_value) is element.NUMERIC:
                 pf_value = element.str_to_numeric(pf_value)
-                v = event.set(v, pf, pf_function(pf_value, *args))
+                v = event.set(v, pf, pfunction(pf_value, *args))
                 selection[k] = v
 
     return selection
 
-def swap(selection, x, y):
+def swap(selection, a, b):
     '''Returns a selection with swapped pfield columns.
 
     See :term:`selection`, :term:`score`
@@ -64,7 +64,7 @@ def swap(selection, x, y):
     '''
     
     for k, v in selection.iteritems():
-        selection[k] = event.swap(v, x, y)
+        selection[k] = event.swap(v, a, b)
     
     return selection
 

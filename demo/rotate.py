@@ -6,6 +6,7 @@ import sys
 sys.path.append('../')  # Fix this.
 from csd import sco
 from csd.sco import event
+from csd.sco import selection
 
 score = '''f 1 0 8192 10 1
 
@@ -31,15 +32,16 @@ class MyRotateClass:
 pfield_index = 6
 rotate = 1
 
-selection = sco.select(score, {0: 'i', 1: 2})
+s = sco.select(score, {0: 'i', 1: 2})
 
 # get all pfields-6 and place into list
 values = []
-for k, v in sorted(selection.items()):
+for k, v in sorted(s.items()):
     values.append(event.get(v, pfield_index))
 
 r = MyRotateClass(rotate, values)
-selection = sco.operate_numeric(selection, pfield_index, r.get)
-print sco.merge(score, selection)
+
+s = selection.operate_numeric(s, pfield_index, r.get)
+print sco.merge(score, s)
 
 
