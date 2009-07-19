@@ -61,6 +61,9 @@ def is_valid(element):
     See :term:`element`
 
     '''
+    
+    if element is None:
+        return False
 
     # Token the rest of the event
     pattern = '''(\s+         |

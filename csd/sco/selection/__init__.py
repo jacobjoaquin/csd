@@ -42,7 +42,7 @@ def operate_numeric(selection, pfield_list, pf_function, *args):
     for k, v in sorted(selection.iteritems()):
         
         # Operate on each pfield
-        for i, pf in enumerate(pfield_list):
+        for pf in pfield_list:
             pf_value = event.get(v, pf)
             
             # Preserve non-numeric pfields

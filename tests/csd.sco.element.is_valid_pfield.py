@@ -36,5 +36,7 @@ print test(21, '/*f*/i', False)
 print test(22, '[~]', True)
 print test(23, '[~]', True)
 print test(24, '[~ * 100.01 + 100.01]', True)
+print test(25, '', False)
+print test(26, None, False)
 
 

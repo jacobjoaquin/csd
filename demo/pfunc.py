@@ -15,17 +15,15 @@ Example Equations::
 
 Command-line::
 
-    $ cat foo.sco | ./eval.py i 1 4 '1.0 - x'
-    $ cat foo.sco | ./eval.py i 'range(1, 11)' 4 '1.0 - x'
-    $ cat foo.sco | ./eval.py i 1 '[4, 5]' '1.0 - x'
-
-Possible names:
-
-    pfunc
+    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 1 4 
+    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 'range(1, 11)' 4
+    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 1 '[4, 5]' 
+    $ cat pfunc.sco | ./pfunc.py 'random()' i 1 4 0.1
     
 '''
 
 import sys
+
 from math import ceil
 from math import fabs
 from math import floor
@@ -69,21 +67,26 @@ sys.path.append('../')  # Fix this.
 from csd import sco
 from csd.sco import event
 
+# Generic pfunction
+def eval_this(x):
+    global eval_
+    return eval(eval_)
+
+def fround(x, n=8):
+    '''Return a float rounded to the nth decimal place.'''
+    
+    return float(('%.' + str(n) + 'f') % x)
+
 # Get argv from command-line
-statement = list(sys.argv[1])
-identifier = eval(sys.argv[2])
-pfield = eval(sys.argv[3])
-eval_ = sys.argv[4]
+eval_ = sys.argv[1]
+statement = list(sys.argv[2])
+identifier = eval(sys.argv[3])
+pfield = eval(sys.argv[4])
 if len(sys.argv) == 6:
     seed(sys.argv[5])
 
 # Get input
 s = ''.join(sys.stdin.readlines())
-
-# Generic pf_function
-def eval_this(x):
-    global eval_
-    return eval(eval_)
     
 # Where the magic happens
 print sco.map_(s, {0: statement, 1: identifier}, pfield, eval_this),
