@@ -43,26 +43,20 @@ import sys
 from optparse import OptionParser
 
 sys.path.append('../')  # Fix this.
-import csd.sco.event as event
+from csd import sco
+from csd.sco import selection
 
-def arpeggiator(s, statement, identifier, pfield, v):
-    '''Arpeggiates values in for a selected pfield column for a specific
-    event.
-    
-    '''
-    
-    output = []
-    
-    i = 0  # Cycle index of looping arp list
+class Arpeggiator:
+    def __init__(self, list_of_values):
+        self.list_of_values = list_of_values
+        self.arp_index = 0
+        
+    def next(self, x):
+        output = self.list_of_values[self.arp_index]
+        self.arp_index = (self.arp_index + 1) % len(self.list_of_values)
+        print output
+        return output
 
-    for row in s:
-        if event.match(row, {0: statement, 1: identifier}):
-            output.append(event.set(row, int(o.pfield), v[i]))
-            i = (i + 1) % len(arp)
-        else:
-            output.append(row)
-
-    return ''.join(output)
 
 if __name__ == '__main__':
     # Get command-line flags
@@ -79,10 +73,17 @@ if __name__ == '__main__':
 
     # Get input
     stdin = sys.stdin.readlines()
-    sco = ''.join(stdin).splitlines(True)
+    score = ''.join(stdin)
 
-    # Convert values into list
-    arp = o.values.split()
+    selected = sco.select(score, {0: o.statement, 1: o.identifier})
+    arp = Arpeggiator([7, 8, 9])
+    selected = selection.operate_numeric(selected, o.pfield, arp.next)
+    print sco.merge(score, selected)
 
-    print arpeggiator(sco, o.statement, o.identifier, o.pfield, arp), 
-
+    
+    
+    
+    
+    
+    
+    
