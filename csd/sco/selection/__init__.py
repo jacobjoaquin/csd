@@ -3,10 +3,34 @@
 from csd.sco import event
 from csd.sco import element
 
-def operate(): pass
+#def operate(): pass
 #def operate_str(): pass
 #def operate_macro(): pass
 #def operate_expression(): pass
+
+def __pfield_index_to_list(pfield_index_list):
+    '''Forces a single value to be translated into a list.'''
+    
+    if type(pfield_index_list) is not list:
+        pfield_index_list = [pfield_index_list]
+        
+    return pfield_index_list
+
+def replace(selection, pfield_index_list, pgenerator, *args):
+    '''Replaces pfield values in an event/column matrix using a
+    supplied pgenerator function or method.'''
+    
+    pfield_index_list = __pfield_index_to_list(pfield_index_list)
+
+    # Operate on all events in selection.  Sorted is a must.
+    for k, v in sorted(selection.iteritems()):
+        
+        # Operate on each pfield
+        for pf in pfield_index_list:
+            v = event.set(v, pf, pgenerator(*args))
+            selection[k] = v
+
+    return selection
 
 def operate_numeric(selection, pfield_index_list, pfunction, *args):
     '''Processes a matrix of pfields and events using the supplied
@@ -35,8 +59,7 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
             args[i] = element.str_to_numeric(a)
     
     # Convert single single value to list
-    if type(pfield_index_list) is not list:
-        pfield_index_list = [pfield_index_list]
+    pfield_index_list = __pfield_index_to_list(pfield_index_list)
     
     # Operate on all events in selection.  Sorted is a must.
     for k, v in sorted(selection.iteritems()):

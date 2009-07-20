@@ -47,43 +47,31 @@ from csd import sco
 from csd.sco import selection
 
 class Arpeggiator:
-    def __init__(self, list_of_values):
-        self.list_of_values = list_of_values
+    def __init__(self, value_list):
+        self.value_list = value_list
         self.arp_index = 0
         
-    def next(self, x):
-        output = self.list_of_values[self.arp_index]
-        self.arp_index = (self.arp_index + 1) % len(self.list_of_values)
-        print output
+    def next(self):
+        output = self.value_list[self.arp_index]
+        self.arp_index = (self.arp_index + 1) % len(self.value_list)
         return output
 
 
 if __name__ == '__main__':
-    # Get command-line flags
-    u = ['usage: <stdout> |']
-    u.append('python arpeggiator.py -s(statement) -i(identifier)')
-    u.append('-p(pfield) -v("value1 value2 etc..")')
-    usage = ' '.join(u)
-    parser = OptionParser(usage)
-    parser.add_option("-s", dest="statement", help="statement")
-    parser.add_option("-i", dest="identifier", help="identifier")
-    parser.add_option("-p", dest="pfield", help="pfield")
-    parser.add_option("-v", dest="values", help="values")
-    (o, args) = parser.parse_args()
+    # Get argv from command-line
+    values = sys.argv[1]
+    statement = list(sys.argv[2])
+    identifier = eval(sys.argv[3])
+    pfield = eval(sys.argv[4])
 
     # Get input
     stdin = sys.stdin.readlines()
     score = ''.join(stdin)
 
-    selected = sco.select(score, {0: o.statement, 1: o.identifier})
-    arp = Arpeggiator([7, 8, 9])
-    selected = selection.operate_numeric(selected, o.pfield, arp.next)
-    print sco.merge(score, selected)
+    selected = sco.select(score, {0: statement, 1: identifier})
+    arp = Arpeggiator(values.split())
+    selected = selection.replace(selected, pfield, arp.next)
+    print sco.merge(score, selected),
 
     
-    
-    
-    
-    
-    
-    
+
