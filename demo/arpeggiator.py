@@ -50,19 +50,27 @@ class Arpeggiator:
         self.arp_index = (self.arp_index + 1) % len(self.value_list)
         return output
 
-if __name__ == '__main__':
+def arpeggiator(score, pattern, pfield_index_list, value_list):
+    selected = sco.select(score, pattern)
+    arp = Arpeggiator(value_list)
+    selected = selection.replace(selected, pfield_index_list, arp.next)
+    return ''.join(sco.merge(score, selected))
+
+def main():
     # Get argv from command-line
-    values = sys.argv[1]
+    value_list = sys.argv[1].split()
     statement = list(sys.argv[2])
     identifier = eval(sys.argv[3])
-    pfield = eval(sys.argv[4])
+    pfield_index_list = eval(sys.argv[4])
 
     # Get input
     stdin = sys.stdin.readlines()
     score = ''.join(stdin)
 
-    selected = sco.select(score, {0: statement, 1: identifier})
-    arp = Arpeggiator(values.split())
-    selected = selection.replace(selected, pfield, arp.next)
-    print sco.merge(score, selected),
+    # Arpeggiate
+    print arpeggiator(score, {0: statement, 1: identifier}, pfield_index_list,
+                      value_list),
     
+if __name__ == '__main__':
+    main()
+
