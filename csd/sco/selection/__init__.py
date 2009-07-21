@@ -8,6 +8,26 @@ from csd.sco import element
 #def operate_macro(): pass
 #def operate_expression(): pass
 
+
+'''
+Notes:
+    
+operate_numeric - processes numbers only, ignores non-numbers
+replace - ignores original pfield data, replaces what was there before
+
+operate(... [NUMERIC | REPLACE | ...]
+
+'''
+
+def __convert_args_to_numeric(args_tuple):
+    '''Returns a list of numeric args.'''
+
+    args = list(args_tuple)
+    for i, a in enumerate(args):
+        if type(a) is str:
+            args[i] = element.str_to_numeric(a)
+    return args
+
 def __pfield_index_to_list(pfield_index_list):
     '''Forces a single value to be translated into a list.'''
     
@@ -27,8 +47,7 @@ def replace(selection, pfield_index_list, pgenerator, *args):
         
         # Operate on each pfield
         for pf in pfield_index_list:
-            v = event.set(v, pf, pgenerator(*args))
-            selection[k] = v
+            selection[k] = v = event.set(v, pf, pgenerator(*args))
 
     return selection
 
@@ -48,15 +67,17 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
         ...                     5, multiply, 3)
         {0: 'i 1 0 4 1.0 1320', 1: 'i 1 4 4 0.5 2640'}
         
+    A lambda function can specified as the pfunction argument::
+    
+        # Inverse pfield values
+        operate_numeric(score, pf, lambda x: 1.0 / x)
+        
     See :term:`pfunction`, :term:`pfield_list`, :term:`selection`
 
     '''
 
-    # Convert args from str to number types int or float
-    args = list(args)
-    for i, a in enumerate(args):
-        if type(a) is str:
-            args[i] = element.str_to_numeric(a)
+    # Args need to be numeric
+    args = __convert_args_to_numeric(args)
     
     # Convert single single value to list
     pfield_index_list = __pfield_index_to_list(pfield_index_list)
@@ -71,8 +92,7 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
             # Preserve non-numeric pfields
             if element.token_type(pf_value) is element.NUMERIC:
                 pf_value = element.str_to_numeric(pf_value)
-                v = event.set(v, pf, pfunction(pf_value, *args))
-                selection[k] = v
+                selection[k] = v = event.set(v, pf, pfunction(pf_value, *args))
 
     return selection
 

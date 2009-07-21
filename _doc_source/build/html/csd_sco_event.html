@@ -475,6 +475,11 @@ score, even if the output contains no fractional parts.  e.g. 1.0</p>
 <span class="go">{0: &#39;i 1 0 4 1.0 1320&#39;, 1: &#39;i 1 4 4 0.5 2640&#39;}</span>
 </pre></div>
 </div>
+<p>A lambda function can specified as the pfunction argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Inverse pfield values</span>
+<span class="n">operate_numeric</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="n">pf</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
 <p>See <a class="reference external" href="glossary.html#term-pfunction"><em class="xref">pfunction</em></a>, <a class="reference external" href="glossary.html#term-pfield-list"><em class="xref">pfield_list</em></a>, <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a></p>
 </dd></dl>
 

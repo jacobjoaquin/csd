@@ -68,7 +68,7 @@ from csd import sco
 from csd.sco import event
 
 # Generic pfunction
-def eval_this(x):
+def __eval_this(x):
     global eval_
     return eval(eval_)
 
@@ -90,5 +90,5 @@ if __name__ == '__main__':
     s = ''.join(sys.stdin.readlines())
         
     # Where the magic happens
-    print sco.map_(s, {0: statement, 1: identifier}, pfield, eval_this),
+    print sco.map_(s, {0: statement, 1: identifier}, pfield, __eval_this),
 
