@@ -77,17 +77,18 @@ def fround(x, n=8):
     
     return float(('%.' + str(n) + 'f') % x)
 
-# Get argv from command-line
-eval_ = sys.argv[1]
-statement = list(sys.argv[2])
-identifier = eval(sys.argv[3])
-pfield = eval(sys.argv[4])
-if len(sys.argv) == 6:
-    seed(sys.argv[5])
-
-# Get input
-s = ''.join(sys.stdin.readlines())
+if __name__ == '__main__':
+    # Get argv from command-line
+    eval_ = sys.argv[1]
+    statement = list(sys.argv[2])
+    identifier = eval(sys.argv[3])
+    pfield = eval(sys.argv[4])
+    if len(sys.argv) == 6:
+        seed(sys.argv[5])
     
-# Where the magic happens
-print sco.map_(s, {0: statement, 1: identifier}, pfield, eval_this),
+    # Get input
+    s = ''.join(sys.stdin.readlines())
+        
+    # Where the magic happens
+    print sco.map_(s, {0: statement, 1: identifier}, pfield, eval_this),
 

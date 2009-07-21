@@ -28,8 +28,8 @@ carry
 pfunc
 -----
 
-Pfunc stuff here
-
+.. automodule:: pfunc
+   :members:
 
 s_spacer
 ---------------

@@ -11,7 +11,7 @@ right channels were swapped.  How could you do this with CSD?
 #. Define a pfunction, swap_pan_position()
 #. Define a pattern to select instrument 2 events.
 #. Choose which pfield column to operate on.
-#. Run selected pfield data through swap_pan_position() with map_
+#. Run selected pfield data through swap_pan_position() with map_()
 
 The code::
 

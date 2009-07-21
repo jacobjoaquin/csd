@@ -5,15 +5,9 @@ event.
 This script can be used as command-line script as well as a
 module.
 
-.. program:: arpeggiator
-.. cmdoption:: -s  Statement (required)
-.. cmdoption:: -i  Identifier (required)
-.. cmdoption:: -p  Pfield (required)
-.. cmdoption:: -v  Values (required)
-
 Example::
 
-    $ cat arpeggiator.sco | ./arpeggiator.py -si -i1 -p5 -v'7.00 7.03 6.09'
+    $ cat arpeggiator.sco | ./arpeggiator.py '7.00 7.03 6.09' i 1 5
     
 Before::
     
@@ -56,7 +50,6 @@ class Arpeggiator:
         self.arp_index = (self.arp_index + 1) % len(self.value_list)
         return output
 
-
 if __name__ == '__main__':
     # Get argv from command-line
     values = sys.argv[1]
@@ -72,6 +65,4 @@ if __name__ == '__main__':
     arp = Arpeggiator(values.split())
     selected = selection.replace(selected, pfield, arp.next)
     print sco.merge(score, selected),
-
     
-
