@@ -54,9 +54,3 @@ swap_columns
 .. automodule:: swap_columns
    :members:
 
-swap_pan_position
------------------
-
-.. automodule:: swap_pan_position
-   :members:
-

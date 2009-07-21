@@ -388,61 +388,6 @@ i 1 + . 1.0 7.04
 i 1 + . 0.8 7.05</pre>
 </div>
 </div>
-<div class="section" id="module-swap_pan_position">
-<h2>swap_pan_position<a class="headerlink" href="#module-swap_pan_position" title="Permalink to this headline">¶</a></h2>
-<p>An example that demonstrates how a script can operate a custom
-python function for every pfield in a column for a select group of
-events from a score used the map_() function.</p>
-<p>Here&#8217;s the scenario.  You&#8217;ve listened to your piece and have decided
-that the panning in instrument 2 would sound better if the left and
-right channels were swapped.  How could you do this with CSD?</p>
-<ol class="arabic simple">
-<li>Define a pfunction, swap_pan_position()</li>
-<li>Define a pattern to select instrument 2 events.</li>
-<li>Choose which pfield column to operate on.</li>
-<li>Run selected pfield data through swap_pan_position() with map_()</li>
-</ol>
-<p>The code:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">swap_pan_position</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span>
-
-<span class="n">new_score</span> <span class="o">=</span> <span class="n">sco</span><span class="o">.</span><span class="n">map_</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="mf">2</span><span class="p">},</span> <span class="mf">6</span><span class="p">,</span> <span class="n">swap_pan_position</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The original score compared with the modified score:</p>
-<div class="highlight-python"><pre>__original score__
-f 1 0 8192 10 1
-
-i 1 0 4 1.0 440 0.9
-i 1 + . 0.7 .   0.25
-
-i 2 0 4 1.0 880 1.0    ; p6 is pan
-i 2 + . .   .   0.25
-i 2 + . .   .   0.999
-i 2 + . .   .   0.0
-
-__modified score__
-f 1 0 8192 10 1
-
-i 1 0 4 1.0 440 0.9
-i 1 + . 0.7 .   0.25
-
-i 2 0 4 1.0 880 0.0    ; p6 is pan
-i 2 + . .   .   0.75
-i 2 + . .   .   0.001
-i 2 + . .   .   1.0</pre>
-</div>
-<p>Now imagine applying this technique to dozens, or even hundreds of
-events.  Be sure to follow the links below, as each will help explain
-each of the components in further detail. (assuming you are reading
-from the CSD manual)</p>
-<blockquote>
-<p><a class="reference external" href="../glossary.html#term-pattern"><em class="xref">pattern</em></a>, <a class="reference external" href="../glossary.html#term-pfunction"><em class="xref">pfunction</em></a>, <a class="reference external" href="../glossary.html#term-selection"><em class="xref">selection</em></a>,
-<a class="reference external" href="../glossary.html#term-score"><em class="xref">score</em></a></p>
-<p><a title="csd.sco.merge" class="reference external" href="../csd_sco_event.html#csd.sco.merge"><tt class="xref docutils literal"><span class="pre">csd.sco.merge()</span></tt></a>, <a title="csd.sco.selection.operate_numeric" class="reference external" href="../csd_sco_event.html#csd.sco.selection.operate_numeric"><tt class="xref docutils literal"><span class="pre">csd.sco.selection.operate_numeric()</span></tt></a>,
-<a title="csd.sco.select" class="reference external" href="../csd_sco_event.html#csd.sco.select"><tt class="xref docutils literal"><span class="pre">csd.sco.select()</span></tt></a></p>
-</blockquote>
-</div>
 </div>
 
 
@@ -461,7 +406,6 @@ from the CSD manual)</p>
 <li><a class="reference external" href="#module-sco_align">sco_align</a></li>
 <li><a class="reference external" href="#module-score_from_csd">score_from_csd</a></li>
 <li><a class="reference external" href="#module-swap_columns">swap_columns</a></li>
-<li><a class="reference external" href="#module-swap_pan_position">swap_pan_position</a></li>
 </ul>
 </li>
 </ul>
