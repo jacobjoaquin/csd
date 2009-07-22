@@ -1,0 +1,8 @@
+README
+setup.py
+csd/__init__.py
+csd/orc/__init__.py
+csd/sco/__init__.py
+csd/sco/element/__init__.py
+csd/sco/event/__init__.py
+csd/sco/selection/__init__.py
