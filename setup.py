@@ -9,6 +9,7 @@ setup(name='csd',
       url='http://www.thumbuki.com/',
       packages=['csd', 'csd.orc', 'csd.sco', 'csd.sco.element',
                 'csd.sco.event', 'csd.sco.selection'],
+      data_files=[('demo', ['demo/pfunc.py'])],
 #      package_dir={'': 'csd'},
 #      packages=['csd', 'csd.sco',],
       )
