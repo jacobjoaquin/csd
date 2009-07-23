@@ -8,7 +8,5 @@ setup(name='csd',
       url='http://www.thumbuki.com/',
       packages=['csd', 'csd.orc', 'csd.sco', 'csd.sco.element',
                 'csd.sco.event', 'csd.sco.selection'],
-      data_files=[('demo', ['demo/*.py'],
-                   'docs', ['_doc_source/build/html/*'])],
       )
 

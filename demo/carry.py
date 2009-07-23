@@ -37,7 +37,7 @@ After::
 '''
 
 import sys
-sys.path.append('../')  # Fix this.
+
 import csd.sco.event as event
 
 def replace(s):

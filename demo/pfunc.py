@@ -63,7 +63,6 @@ from random import uniform
 from random import vonmisesvariate
 from random import weibullvariate
 
-sys.path.append('../')  # Fix this.
 from csd import sco
 from csd.sco import event
 

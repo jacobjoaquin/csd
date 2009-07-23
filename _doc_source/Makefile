@@ -11,11 +11,12 @@ PAPEROPT_a4     = -D latex_paper_size=a4
 PAPEROPT_letter = -D latex_paper_size=letter
 ALLSPHINXOPTS   = -d build/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
-.PHONY: help clean html dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
+.PHONY: help clean html htmlbuild dirhtml pickle json htmlhelp qthelp latex changes linkcheck doctest
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
 	@echo "  html      to make standalone HTML files"
+	@echo "  htmlbuild to make standalone HTML files in build/"
 	@echo "  dirhtml   to make HTML files named index.html in directories"
 	@echo "  pickle    to make pickle files"
 	@echo "  json      to make JSON files"
@@ -30,14 +31,14 @@ clean:
 	-rm -rf build/*
 
 html:
-	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
-	@echo
-	@echo "Build finished. The HTML pages are in build/html."
-
-html_docs:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ../docs
 	@echo
 	@echo "Build finished. The HTML pages are in docs/."
+
+htmlbuild:
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
+	@echo
+	@echo "Build finished. The HTML pages are in build/html."
 
 dirhtml:
 	$(SPHINXBUILD) -b dirhtml $(ALLSPHINXOPTS) build/dirhtml

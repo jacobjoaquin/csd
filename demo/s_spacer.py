@@ -39,7 +39,6 @@ After::
 import re
 import sys
 
-sys.path.append('../')  # Fix this.
 from csd.sco import event
 from csd.sco import element
 

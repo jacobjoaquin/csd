@@ -22,6 +22,7 @@ demo/score_from_csd.py
 demo/swap_columns.py
 demo/swap_columns.sco
 demo/swap_pan_position.sco
+docs/.DS_Store
 docs/.buildinfo
 docs/bugs.html
 docs/commandline.html

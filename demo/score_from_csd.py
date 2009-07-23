@@ -80,7 +80,6 @@ After::
 
 import sys
 
-sys.path.append('../')  # Fix this.
 import csd
 
 if __name__ == '__main__':

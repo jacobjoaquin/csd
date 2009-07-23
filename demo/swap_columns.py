@@ -32,7 +32,6 @@ After::
 import sys
 from optparse import OptionParser
 
-sys.path.append('../')  # Fix this.
 from csd import sco
 from csd.sco import selection
 

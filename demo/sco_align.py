@@ -53,7 +53,6 @@ import sys
 
 from optparse import OptionParser
 
-sys.path.append('../')  # Fix this.
 from csd.sco import event
 from csd.sco import element
 
