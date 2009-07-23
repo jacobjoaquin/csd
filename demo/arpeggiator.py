@@ -20,12 +20,13 @@
 '''Arpeggiates values in for a selected pfield column for a specific
 event.
 
-This script can be used as command-line script as well as a
-module.
+Use::
+    
+    <stdout> | ./pfunc.py STATEMENT INSTR PFIELD VALUES
 
 Example::
 
-    $ cat arpeggiator.sco | ./arpeggiator.py '7.00 7.03 6.09' i 1 5
+    cat arpeggiator.sco | ./arpeggiator.py i 1 5 '7.00 7.03 6.09'
     
 Before::
     
@@ -52,7 +53,6 @@ After::
 '''
 
 import sys
-from optparse import OptionParser
 
 from csd import sco
 from csd.sco import selection
@@ -75,10 +75,10 @@ def arpeggiator(score, pattern, pfield_index_list, value_list):
 
 def main():
     # Get argv from command-line
-    value_list = sys.argv[1].split()
-    statement = list(sys.argv[2])
-    identifier = eval(sys.argv[3])
-    pfield_index_list = eval(sys.argv[4])
+    statement = list(sys.argv[1])
+    identifier = eval(sys.argv[2])
+    pfield_index_list = eval(sys.argv[3])
+    value_list = sys.argv[4].split()
 
     # Get input
     stdin = sys.stdin.readlines()

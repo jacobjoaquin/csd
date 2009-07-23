@@ -79,9 +79,29 @@ def merge(score, selection):
     return output      
     
 def map_(score, pattern, pfield_index_list, pfunction, *args):
-    '''Performs matrix functions on select parts of a score,
-    return a new score.
+    '''Performs a pfunction on multiple pfields in a score, returning
+    a new score.
     
+    Example:
+        
+        >>> def add(x, y):
+        ...     return x + y
+        ... 
+        >>> sco.map_("""
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""", {0: 'i'}, 5, add, 777)
+        '\\ni 1 0 4 1.0 1217\\ni 1 4 4 0.5 1657'
+    
+    Example using lambda function::
+        
+        >>> sco.map_("""
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""", {0: 'i'}, 5, lambda x: x * 3)
+        '\\ni 1 0 4 1.0 1320\\ni 1 4 4 0.5 2640'
+
+    See :term:`pattern`, :term:`pfield_index_list`, :term:`pfunction`,
+    :term:`score`
+
     '''
     
     selection_ = select(score, pattern)

@@ -1,3 +1,20 @@
+# Copyright (C) 2009 Jacob Joaquin
+#
+# This file is part of csd.
+# 
+# csd is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# csd is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public License
+# along with csd.  If not, see <http://www.gnu.org/licenses/>.
+
 '''These methods operate on multiple score events at a time. Generally
 speaking, these methods specifically deal with columns, where
 csd.sco.event deals with rows.
@@ -62,9 +79,29 @@ def merge(score, selection):
     return output      
     
 def map_(score, pattern, pfield_index_list, pfunction, *args):
-    '''Performs matrix functions on select parts of a score,
-    return a new score.
+    '''Performs a pfunction on multiple pfields in a score, returning
+    a new score.
     
+    Example:
+        
+        >>> def add(x, y):
+        ...     return x + y
+        ... 
+        >>> sco.map_("""
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""", {0: 'i'}, 5, add, 777)
+        '\\ni 1 0 4 1.0 1217\\ni 1 4 4 0.5 1657'
+    
+    Example using lambda function::
+        
+        >>> sco.map_("""
+        ... i 1 0 4 1.0 440
+        ... i 1 4 4 0.5 880""", {0: 'i'}, 5, lambda x: x * 3)
+        '\\ni 1 0 4 1.0 1320\\ni 1 4 4 0.5 2640'
+
+    See :term:`pattern`, :term:`pfield_index_list`, :term:`pfunction`,
+    :term:`score`
+
     '''
     
     selection_ = select(score, pattern)

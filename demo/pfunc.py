@@ -17,26 +17,91 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Csound Score Calculator
+'''**Csound Pfield Calculator**
 
 This command-line tool allows easy, quick and efficient operations on
-Csound score code.
+Csound score code.  The scripts comes equipped with dozens of functions
+imported from Python Libraries math and random.  For a full reference
+of supported functions, look at the import statements in
+``demo/pfunc.py``.
 
-Example Equations::
+**How it works**
+
+pfunc operates on Csound score code piped into the script, requiring
+four arguments: *statement*, *instrument*, *pfield_index*, *pfunction*::
+
+    <stdout> | ./pfunc.py STATEMENT INSTR PFIELD FUNCTION
+
+To use the existing pfield value, use the variable x in the function.
+Non-numeric pfield data types, i.e. carry, expression, etc, are
+ignored by pfunc, and will be preserved.
+
+The following example applies the function ``'1.0 - x'`` to every
+pfield 6 for all instrument 1 events::
+    
+    cat pfunc.sco | ./pfunc.py i 1 6 '1.0 - x'
+
+Before::
+
+    f 1 0 8192 10 1
+    
+    i 1 0 0.25 0.5 7.00 1.0    # p6 is pan
+    i 1 + 0.25 0.5 7.00 0.5
+    i 1 + 0.25 0.5 8.00 0.222
+    i 1 + 0.25 0.5 8.00 0.1
+    
+    i 2 + 0.25 0.6 7.06 1.0
+    i 2 + 0.25 0.6 7.06 0.5
+    i 2 + 0.25 0.6 6.06 0.222
+    i 2 + 0.25 0.6 6.06 0.1
+
+After::
+    
+    f 1 0 8192 10 1
+
+    i 1 0 0.25 0.5 7.00 0.0    # p6 is pan
+    i 1 + 0.25 0.5 7.00 0.5
+    i 1 + 0.25 0.5 8.00 0.778
+    i 1 + 0.25 0.5 8.00 0.9
+    
+    i 2 + 0.25 0.6 7.06 1.0
+    i 2 + 0.25 0.6 7.06 0.5
+    i 2 + 0.25 0.6 6.06 0.222
+    i 2 + 0.25 0.6 6.06 0.1
+
+Multiple statements, instruments and pfields may be passed in as
+arguments.  For statements, type in all characters without white space,
+e.g. ``if``.  For instruments and pfields, there are two approaches
+(maybe more).  The manual method is to create a quoted python list. e.g.
+``'[1, 2, 3]'``.  For integer sequences, you can use a quote python
+range function e.g. ``'range(1, 10)'`` includes numberes 1 through 9.
+
+Instruments 1 through 10, pfield 4::
+    
+    ./pfunc.py i 'range(1, 11)' 4 'x'   
+
+Instrument 1, pfields 4 and 5::
+    
+    ./pfunc.py i 1 '[4, 5]' 'x'
+
+F-tables and instruments 1 through 999, pfields 1 through 999::
+    
+    ./pfunc.py if 'range(1, 1000)' 'range(1, 1000)' 'x'
+    
+Function examples::
     
     1.0
     x * x
     1.0 - x
+    x / 32768.0
     sin(x)
-    x + x * random() * 0.01259
+    x + x * random() * pow(2, 1 / 12)
     7.00 + choice(['0.00', '0.03', '0.07', '0.11'])
+    pi
 
-Command-line::
-
-    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 1 4 
-    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 'range(1, 11)' 4
-    $ cat pfunc.sco | ./pfunc.py '1.0 - x' i 1 '[4, 5]' 
-    $ cat pfunc.sco | ./pfunc.py 'random()' i 1 4 0.1
+.. note:: The name **pfunc** is derived from **pfield function**, and
+    is not at all a reference to George Clinton and the Parliament
+    Funkadelic (P-Funk).  *Or is it?*
     
 '''
 
@@ -96,10 +161,10 @@ def fround(x, n=8):
 
 if __name__ == '__main__':
     # Get argv from command-line
-    eval_ = sys.argv[1]
-    statement = list(sys.argv[2])
-    identifier = eval(sys.argv[3])
-    pfield = eval(sys.argv[4])
+    statement = list(sys.argv[1])
+    identifier = eval(sys.argv[2])
+    pfield = eval(sys.argv[3])
+    eval_ = sys.argv[4]
     if len(sys.argv) == 6:
         seed(sys.argv[5])
     

@@ -15,8 +15,8 @@ ALLSPHINXOPTS   = -d build/doctrees $(PAPEROPT_$(PAPER)) $(SPHINXOPTS) source
 
 help:
 	@echo "Please use \`make <target>' where <target> is one of"
-	@echo "  html      to make standalone HTML files"
-	@echo "  htmlbuild to make standalone HTML files in build/"
+	@echo "  htmldocs  to make standalone HTML files in root_package/docs/"
+	@echo "  html      to make standalone HTML files in build/"
 	@echo "  dirhtml   to make HTML files named index.html in directories"
 	@echo "  pickle    to make pickle files"
 	@echo "  json      to make JSON files"
@@ -30,12 +30,12 @@ help:
 clean:
 	-rm -rf build/*
 
-html:
+htmldocs:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) ../docs
 	@echo
 	@echo "Build finished. The HTML pages are in docs/."
 
-htmlbuild:
+html:
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) build/html
 	@echo
 	@echo "Build finished. The HTML pages are in build/html."

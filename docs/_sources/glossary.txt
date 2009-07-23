@@ -92,6 +92,12 @@ Glossary
         Includes: :term:`statement`, :term:`numeric`, macro,
         :term:`expression`, string, and preprocessor symbols.
 
+    pfield_index_list
+        A pfield_index_list is either a single pfield index or a list
+        of pfield indexes.  A pfield index is always an integer, and
+        refers to a specific pfield. i.e. [6] refers to pfield 6 in the
+        same way p6 does in a Csound orchestra.
+        
     pfield_list
         A pfield_list is either a single pfield value or a list of
         pfield values.
@@ -147,4 +153,4 @@ Glossary
               events
             * x - Skip the rest of the current section
 
-            
+

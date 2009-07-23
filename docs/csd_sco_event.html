@@ -21,7 +21,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="CSD v0.0.3 alpha documentation" href="index.html" />
     <link rel="next" title="Demos" href="demo/index.html" />
-    <link rel="prev" title="Csound CSD Package Documentation" href="index.html" /> 
+    <link rel="prev" title="Installing csd" href="install.html" /> 
   </head>
   <body>
     <div class="related">
@@ -37,7 +37,7 @@
           <a href="demo/index.html" title="Demos"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound CSD Package Documentation"
+          <a href="install.html" title="Installing csd"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
       </ul>
@@ -53,6 +53,41 @@
 <div class="section" id="module-csd">
 <h2>csd<a class="headerlink" href="#module-csd" title="Permalink to this headline">¶</a></h2>
 <p>Parses Unified Csound CSD code.</p>
+<dl class="function">
+<dt id="csd.get_base64">
+<tt class="descclassname">csd.</tt><tt class="descname">get_base64</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_base64" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_csound">
+<tt class="descclassname">csd.</tt><tt class="descname">get_csound</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_csound" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_license">
+<tt class="descclassname">csd.</tt><tt class="descname">get_license</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_license" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_midi_base64">
+<tt class="descclassname">csd.</tt><tt class="descname">get_midi_base64</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_midi_base64" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_options">
+<tt class="descclassname">csd.</tt><tt class="descname">get_options</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_options" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_orchestra">
+<tt class="descclassname">csd.</tt><tt class="descname">get_orchestra</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_orchestra" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.get_sample_base64">
+<tt class="descclassname">csd.</tt><tt class="descname">get_sample_base64</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_sample_base64" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
 <dl class="function">
 <dt id="csd.get_score">
 <tt class="descclassname">csd.</tt><tt class="descname">get_score</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_score" title="Permalink to this definition">¶</a></dt>
@@ -70,6 +105,16 @@ trailing newline being introduced.</p>
 </div>
 </dd></dl>
 
+<dl class="function">
+<dt id="csd.get_version">
+<tt class="descclassname">csd.</tt><tt class="descname">get_version</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_version" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.replace_score">
+<tt class="descclassname">csd.</tt><tt class="descname">replace_score</tt><big>(</big><em>csd</em>, <em>sco</em><big>)</big><a class="headerlink" href="#csd.replace_score" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
 </div>
 <div class="section" id="module-csd.sco">
 <h2>sco<a class="headerlink" href="#module-csd.sco" title="Permalink to this headline">¶</a></h2>
@@ -79,8 +124,28 @@ csd.sco.event deals with rows.</p>
 <dl class="function">
 <dt id="csd.sco.map_">
 <tt class="descclassname">csd.sco.</tt><tt class="descname">map_</tt><big>(</big><em>score</em>, <em>pattern</em>, <em>pfield_index_list</em>, <em>pfunction</em>, <em>*args</em><big>)</big><a class="headerlink" href="#csd.sco.map_" title="Permalink to this definition">¶</a></dt>
-<dd>Performs matrix functions on select parts of a score,
-return a new score.</dd></dl>
+<dd><p>Performs a pfunction on multiple pfields in a score, returning
+a new score.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="gp">... </span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sco</span><span class="o">.</span><span class="n">map_</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s">i 1 0 4 1.0 440</span>
+<span class="gp">... </span><span class="s">i 1 4 4 0.5 880&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">},</span> <span class="mf">5</span><span class="p">,</span> <span class="n">add</span><span class="p">,</span> <span class="mf">777</span><span class="p">)</span>
+<span class="go">&#39;\ni 1 0 4 1.0 1217\ni 1 4 4 0.5 1657&#39;</span>
+</pre></div>
+</div>
+<p>Example using lambda function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sco</span><span class="o">.</span><span class="n">map_</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s">i 1 0 4 1.0 440</span>
+<span class="gp">... </span><span class="s">i 1 4 4 0.5 880&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">{</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">},</span> <span class="mf">5</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">3</span><span class="p">)</span>
+<span class="go">&#39;\ni 1 0 4 1.0 1320\ni 1 4 4 0.5 2640&#39;</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="glossary.html#term-pattern"><em class="xref">pattern</em></a>, <a class="reference external" href="glossary.html#term-pfield-index-list"><em class="xref">pfield_index_list</em></a>, <a class="reference external" href="glossary.html#term-pfunction"><em class="xref">pfunction</em></a>,
+<a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
+</dd></dl>
 
 <dl class="function">
 <dt id="csd.sco.merge">
@@ -523,8 +588,8 @@ create a internalized function for this.  e.g. _iter_selection()</p>
 </ul>
 
             <h4>Previous topic</h4>
-            <p class="topless"><a href="index.html"
-                                  title="previous chapter">Csound CSD Package Documentation</a></p>
+            <p class="topless"><a href="install.html"
+                                  title="previous chapter">Installing csd</a></p>
             <h4>Next topic</h4>
             <p class="topless"><a href="demo/index.html"
                                   title="next chapter">Demos</a></p>
@@ -563,7 +628,7 @@ create a internalized function for this.  e.g. _iter_selection()</p>
           <a href="demo/index.html" title="Demos"
              >next</a> |</li>
         <li class="right" >
-          <a href="index.html" title="Csound CSD Package Documentation"
+          <a href="install.html" title="Installing csd"
              >previous</a> |</li>
         <li><a href="index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
       </ul>
