@@ -160,7 +160,7 @@ html_static_path = ['_static']
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'scoparsedoc'
+htmlhelp_basename = 'csd'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -174,7 +174,7 @@ htmlhelp_basename = 'scoparsedoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'scoparse.tex', u'scoparse Documentation',
+  ('index', 'csd.tex', u'csd Documentation',
    u'Jacob Joaquin', 'manual'),
 ]
 

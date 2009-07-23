@@ -1,0 +1,3 @@
+include demo/*.py demo/*.sco demo/*.csd demo/*.orc
+include tests/*.py
+recursive-include docs *
