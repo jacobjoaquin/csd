@@ -20,7 +20,7 @@
 '''Tests for select_all()'''
 
 import sys
-sys.path.append('../')
+
 from csd import sco
 
 def test(n, score, expect):

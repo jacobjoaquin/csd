@@ -20,7 +20,7 @@
 '''Tests for swap()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import selection
 
 def test(n, score_dict, x, y, expect):

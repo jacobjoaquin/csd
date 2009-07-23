@@ -20,16 +20,14 @@
 '''Tests for map_()'''
 
 import sys
-sys.path.append('../')
+
 from csd import sco
 
 def test(n, expect, score, pattern, pfield_index, pf_function, *args):
     result = sco.map_(score, pattern, pfield_index, pf_function, *args)
     did_pass = result == expect
 
-    return d# Copyright (C) 2009 Jacob Joaquin
-#
-id_pass, n, 'map_()', str(expect), str(result)
+    return did_pass, n, 'map_()', str(expect), str(result)
 
 def do_nothing(x): return x
 print test(0, 'i 1', 'i 1', {}, 1, do_nothing)

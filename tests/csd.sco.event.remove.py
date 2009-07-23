@@ -20,7 +20,7 @@
 '''Tests for remove()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event as s
 
 def test(n, event, pfield, expect):

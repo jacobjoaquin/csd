@@ -20,7 +20,7 @@
 '''Tests for number_of_pfields()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event as s
 
 def test(n, line, expect):

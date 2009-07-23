@@ -20,7 +20,7 @@
 '''Tests for merge()'''
 
 import sys
-sys.path.append('../')
+
 from csd import sco
 
 def test(n, score, score_dict, expect):

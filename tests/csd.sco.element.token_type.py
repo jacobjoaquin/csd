@@ -20,7 +20,7 @@
 '''Tests for token_type()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import element as s
 
 def test(n, line, expect):

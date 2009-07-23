@@ -20,7 +20,7 @@
 '''Tests for get()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event as s
 
 def test(n, line, pf, expect):

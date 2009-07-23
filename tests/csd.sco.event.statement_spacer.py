@@ -20,7 +20,7 @@
 '''Tests for statement_spacer'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event
 
 def test(n, e, s, expect):

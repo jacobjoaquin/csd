@@ -20,7 +20,7 @@
 '''Tests for select()'''
 
 import sys
-sys.path.append('../')
+
 from csd import sco
 
 def test(n, score, pattern, expect):

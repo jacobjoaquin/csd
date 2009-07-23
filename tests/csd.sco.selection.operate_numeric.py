@@ -20,7 +20,7 @@
 '''Tests for operate_numeric()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import selection
 
 def test(n, expect, score_dict, pfield, pf_function, *args):

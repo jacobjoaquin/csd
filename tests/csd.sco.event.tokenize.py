@@ -20,7 +20,7 @@
 '''Tests tokenize()'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event
 
 def test(n, line, expect):

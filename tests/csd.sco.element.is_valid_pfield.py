@@ -20,7 +20,7 @@
 '''Tests for is_valid_pfield'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import element
 
 def test(n, e, expect):

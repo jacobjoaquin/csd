@@ -20,7 +20,7 @@
 '''Tests for get_trailing_comment'''
 
 import sys
-sys.path.append('../')
+
 from csd.sco import event as s
 
 def test(n, e, expect):
