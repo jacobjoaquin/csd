@@ -110,8 +110,7 @@ def map_(score, pattern, pfield_index_list, pfunction, *args):
     return merge(score, selection_)
     
 def select(score, pattern):
-    '''Returns a dict with matched events from a score.
-    {index_of_event: event}
+    '''Returns a selection from a score.
     
     Example::
 
@@ -122,7 +121,7 @@ def select(score, pattern):
         ... , {0: 'i'})
         {1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
         
-    See :term:`pattern`, :term:`score`
+    See :term:`pattern`, :term:`score`, :term:`selection`
     
     '''
 
@@ -140,7 +139,7 @@ def select(score, pattern):
     return selection_
 
 def select_all(score):
-    '''Returns a dict of all events in a score, keyed by index.
+    '''Returns a selection of all events in a score.
 
     Example::
 
@@ -150,11 +149,11 @@ def select_all(score):
         ... i 1 4 4 0.5 880""")
         {0: 'f 1 0 8192 10 1', 1: 'i 1 0 4 1.0 440', 2: 'i 1 4 4 0.5 880'}
         
-    See :term:`score`
+    See :term:`score`, :term:`selection`
 
     '''
 
-    # Convert score string to list    
+    # Convert score string to list
     s_list = score.splitlines()
     
     # Dictionary to store all events.  {index_of_event: event}

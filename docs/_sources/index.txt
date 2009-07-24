@@ -17,7 +17,12 @@ Mission Statement
 
 *"Enable users to process and generate Csound orchestras and scores
 quickly, easily and efficiently."*
-   
+
+Download
+--------
+
+`csd-0.0.4.tar.gz <http://www.thumbuki.com/csd/release/csd-0.0.4.tar.gz>`_
+
 About
 -----
 
@@ -59,7 +64,7 @@ primarily with Apple's Python 2.5.1.
 Information
 -----------
 
-Csound CSD Package
+Csound csd Python Package
 
 By Jacob Joaquin
 

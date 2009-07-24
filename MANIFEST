@@ -21,8 +21,7 @@ demo/score_from_csd.csd
 demo/score_from_csd.py
 demo/swap_columns.py
 demo/swap_columns.sco
-demo/swap_pan_position.sco
-docs/.DS_Store
+demo/test.py
 docs/.buildinfo
 docs/bugs.html
 docs/commandline.html
@@ -30,6 +29,7 @@ docs/csd_sco_event.html
 docs/genindex.html
 docs/glossary.html
 docs/index.html
+docs/install.html
 docs/modindex.html
 docs/objects.inv
 docs/search.html
@@ -39,6 +39,7 @@ docs/_sources/commandline.txt
 docs/_sources/csd_sco_event.txt
 docs/_sources/glossary.txt
 docs/_sources/index.txt
+docs/_sources/install.txt
 docs/_sources/demo/index.txt
 docs/_static/basic.css
 docs/_static/default.css
