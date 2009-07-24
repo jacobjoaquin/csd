@@ -19,12 +19,13 @@
 
 '''Replaces subsequent repeated values with a carry (.)
 
-This script can be used as command-line script as well as a
-module.
+Use::
+    
+    <stdout> | ./carry.py
 
 Example::
     
-    $ cat carry.sco | ./carry.py | ./sco_align.py
+    cat carry.sco | ./carry.py | ./sco_align.py
 
 Before::
 
@@ -92,11 +93,12 @@ def replace(s):
         
     return ''.join(output)
 
-if __name__ == '__main__':
-
+def main():
     # Get input
     stdin = sys.stdin.readlines()
     s = ''.join(stdin).splitlines(True)
 
     print replace(s),
-
+    
+if __name__ == '__main__':
+    main()

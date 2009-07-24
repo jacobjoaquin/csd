@@ -119,27 +119,8 @@ def insert(event, pfield_index, fill='.'):
 
 def match(event, pattern):
     '''Returns a boolean determined whether an event matches the
-    requirements of a pattern.
-    
-    A pattern is built from a Python dict, and must follow strict
-    guidelines.  The key must be an integer, as the key is the index
-    of the pfield in which this function will test.  The value of the
-    dict can be either a single value or several values in list form.
+    requirements of a :term:`pattern`.
         
-    A pattern that returns True for i-events::
-        
-        {0: 'i'}
-    
-    A pattern that returns True for i-events and f-tables::
-        
-        {0: ['i', 'f']}
-        
-    A single pattern may check against multiple pfields.  The following
-    example returns True for an i-event with an identifier of 1, 2, or
-    3::
-    
-        {0: 'i', 1: [1, 2, 3]}
-    
     Example::
        
         >>> event.match('i 1 0 4 1.0 440', {0: 'i'})
@@ -148,9 +129,6 @@ def match(event, pattern):
         True
         >>> event.match('i 1 0 4 1.0 440', {0: 'i', 1: 2})
         False
-       
-    .. note:: Limited support for the moment.  Functions for designing
-       patterns may come at a later time.
 
     See :term:`event`, :term:`pattern`.
     
@@ -177,13 +155,13 @@ def match(event, pattern):
     return True
     
 def number_of_pfields(event):
-    '''Returns an integer of the amounts of pfield elements in an
+    '''Returns an int of the number of pfields that exists in a given
     event.
     
     The statement (pfield 0) is also counted.  Comments and whitespace
-    are omitted from the tally.
-
-    Example::
+    are omitted from the tally.  The following examples counts 'i',
+    '1', '0', '4', '1.0' and '440', and does not include '; A440' as
+    part of the returned figure::
 
         >>> event.number_of_pfields('i 1 0 4 1.0 440  ; A440')
         6
@@ -240,7 +218,7 @@ def remove(event, pfield_index):
         >>> event.remove('i 1 0 4 1.0 440  ; A440', 4)
         ('i 1 0 4  440  ; A440', '1.0')
         
-    See :term:`event`, :term:`pfield`
+    See :term:`event`, :term:`pfield_index`
 
     '''
 
@@ -254,11 +232,10 @@ def remove(event, pfield_index):
     return event, pf
     
 def sanitize(event):
-    '''Returns a copy of the score event with extra whitespace and
+    '''Returns a copy of the event with extra whitespace and
     comments removed.
 
-    This function will introduce a single space between a statement and
-    the following non-whitespace element.
+    A single whitespace separates each pfield in the return.
 
     Example::
         
@@ -295,7 +272,7 @@ def set(event, pfield_index, value):
         >>> event.set('i 1 0 4 1.0 440  ; A440', 5, 1138)
         'i 1 0 4 1.0 1138  ; A440'
         
-    See :term:`event`, :term:`pfield`
+    See :term:`event`, :term:`pfield_index`
 
     '''
 
@@ -326,7 +303,7 @@ def set(event, pfield_index, value):
     return ''.join(tokens)
 
 def split(event):
-    '''Returns a list that includes all event pfield and comments
+    '''Returns a list that includes all event pfield and comment
     elements.
 
     Example::
@@ -400,7 +377,7 @@ def swap(event, pfield_index_a, pfield_index_b):
     .. note:: This currently will not swap pfield 0.  Not sure if it
        should, though throwing an error might be in order.
        
-    See :term:`event`
+    See :term:`event`, :term:`pfield_index`
 
     '''
 
@@ -422,6 +399,8 @@ def tokenize(event):
     
     .. note:: This function will attempt to tokenize invalid elements.
         Be sure that the event you provide is syntactically correct.
+        Though this module should provide an is_valid() that does this
+        for you.
         
     See :term:`event`
 

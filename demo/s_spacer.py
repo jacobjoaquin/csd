@@ -22,9 +22,13 @@
 .. program:: s_spacer
 .. cmdoption:: -s  Whitespace amount between statement and identifier
 
+Use::
+    
+    <stdout> | ./s_spacer.py [-s number of spaces]
+
 Example::
     
-    $ cat s_spacer.sco | ./s_spacer.py
+    cat s_spacer.sco | ./s_spacer.py
     
 Before::
     

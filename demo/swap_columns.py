@@ -20,16 +20,14 @@
 '''Exchanges all score columns for a specified statement and
 identifier.
 
-.. program:: swap_columns
-.. cmdoption:: -s  Statement (required)
-.. cmdoption:: -i  Identifier (required)
-.. cmdoption:: -a  Pfield A (required)
-.. cmdoption:: -b  Pfield B (required)
+Use::
+    
+    <stdout> | ./swap_columns.py STATEMENT INSTR PFIELD_A PFIELD_B
 
 The following command-line swaps pfields 4 and 5 for all instrument
 1 events::
 
-    $ cat swap_columns.sco | ./swap_columns.py -si -i1 -a4 -b5
+    cat swap_columns.sco | ./swap_columns.py i 1 4 5
 
 Before::
    
@@ -65,7 +63,7 @@ def main():
 
     selected = sco.select(s, {0: statement, 1: identifier})
     selected = selection.swap(selected, a, b)
-    print sco.merge(s, selected)
+    print sco.merge(s, selected),
 
 if __name__ == '__main__':
     main()

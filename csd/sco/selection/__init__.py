@@ -20,22 +20,6 @@
 from csd.sco import event
 from csd.sco import element
 
-#def operate(): pass
-#def operate_str(): pass
-#def operate_macro(): pass
-#def operate_expression(): pass
-
-
-'''
-Notes:
-    
-operate_numeric - processes numbers only, ignores non-numbers
-replace - ignores original pfield data, replaces what was there before
-
-operate(... [NUMERIC | REPLACE | ...]
-
-'''
-
 def __convert_args_to_numeric(args_tuple):
     '''Returns a list of numeric args.'''
 
@@ -53,28 +37,13 @@ def __pfield_index_to_list(pfield_index_list):
         
     return pfield_index_list
 
-def replace(selection, pfield_index_list, pgenerator, *args):
-    '''Replaces pfield values in an event/column matrix using a
-    supplied pgenerator function or method.'''
-    
-    pfield_index_list = __pfield_index_to_list(pfield_index_list)
-
-    # Operate on all events in selection.  Sorted is a must.
-    for k, v in sorted(selection.iteritems()):
-        
-        # Operate on each pfield
-        for pf in pfield_index_list:
-            selection[k] = v = event.set(v, pf, pgenerator(*args))
-
-    return selection
-
 def operate_numeric(selection, pfield_index_list, pfunction, *args):
     '''Processes a matrix of pfields and events using the supplied
-    pfunction and any optional arguments.
+    :term:`pfunction` and any optional arguments.
     
     In cases where the original numeric pfield was an int, but
     processed with floats, the int will be output as a float in the
-    score, even if the output contains no fractional parts.  e.g. 1.0
+    score, even if the output contains no fractional parts.
     
     Example::
     
@@ -86,10 +55,10 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
         
     A lambda function can specified as the pfunction argument::
     
-        # Inverse pfield values
+        # Invert pfield
         operate_numeric(score, pf, lambda x: 1.0 / x)
         
-    See :term:`pfunction`, :term:`pfield_list`, :term:`selection`
+    See :term:`pfield_index_list`, :term:`pfunction`, :term:`selection`
 
     '''
 
@@ -113,18 +82,57 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
 
     return selection
 
-def swap(selection, a, b):
+def replace(selection, pfield_index_list, pgenerator, *args):
+    '''Replaces pfield values in selection using a supplied pgenerator,
+    function or method.
+    
+    This will overwrite and existing value, numeric or not, in a
+    pfield, including elements such as carry statements and
+    expressions.
+    
+    Use this function instead of operate_numeric() when you want to
+    create new data, instead of altering existing pfield data. This
+    works wells with python objects that have a persistant state.
+    
+    
+    
+    Example::
+        
+        >>> def return_something(x):
+        ...     return x
+        ... 
+        >>> selection.replace({0: 'i 1 0 4 1.0 440'}, 5, return_something, '$foo')
+        {0: 'i 1 0 4 1.0 $foo'}
+        
+    See :term:`pfield_index_list`, :term:`pgenerator`, :term:`selection`
+    '''
+    
+    pfield_index_list = __pfield_index_to_list(pfield_index_list)
+
+    # Operate on all events in selection.  Sorted is a must.
+    for k, v in sorted(selection.iteritems()):
+        
+        # Operate on each pfield
+        for pf in pfield_index_list:
+            selection[k] = v = event.set(v, pf, pgenerator(*args))
+
+    return selection
+
+def swap(selection, pfield_index_a, pfield_index_b):
     '''Returns a selection with swapped pfield columns.
 
-    See :term:`selection`, :term:`score`
+    Example::
+        
+        >>> selection.swap({0: 'i 1 0 4 440 1.0', 1: 'i 1 4 4 880 0.5'}, 4, 5)
+        {0: 'i 1 0 4 1.0 440', 1: 'i 1 4 4 0.5 880'}
+
     
-    .. warning:: Needs to check for multiple events as lists. May
-       create a internalized function for this.  e.g. _iter_selection()
-    
+    See :term:`selection`, :term:`pfield_index`
+           
     '''
     
     for k, v in selection.iteritems():
-        selection[k] = event.swap(v, a, b)
+        selection[k] = event.swap(v, pfield_index_a, pfield_index_b)
     
     return selection
-
+    

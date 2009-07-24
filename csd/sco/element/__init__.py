@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Csound score elements.'''
+'''Module for handling Csound score elements.'''
 
 import re
 

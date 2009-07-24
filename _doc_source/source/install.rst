@@ -11,6 +11,9 @@ For complete instructions on installing python packages, refer to
 `Installing Python Modules <http://docs.python.org/install/>`_ in the
 Python on-line docs.
 
+Quick Instructions
+------------------
+
 After downloading the csd tar file, you can install csd in using the
 following command-lines in a terminal window::
 
@@ -18,8 +21,8 @@ following command-lines in a terminal window::
     cd csd-x.x.x
     python setup.py install
 
-Some systems, including OS X, allow you to unpack the contents
-of the tar files by double clicking on the file in the Finder.
+.. note:: Some systems, including OS X, allow you to unpack the contents
+    of the tar files by double clicking on the file in the Finder.
 
 Test
 ----

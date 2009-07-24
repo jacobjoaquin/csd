@@ -22,7 +22,7 @@ event.
 
 Use::
     
-    <stdout> | ./pfunc.py STATEMENT INSTR PFIELD VALUES
+    <stdout> | ./arpeggiator.py STATEMENT INSTR PFIELD VALUES
 
 Example::
 

@@ -92,6 +92,9 @@ Glossary
         Includes: :term:`statement`, :term:`numeric`, macro,
         :term:`expression`, string, and preprocessor symbols.
 
+    pfield_index
+        An integer that specifies a specific pfield in an event.
+
     pfield_index_list
         A pfield_index_list is either a single pfield index or a list
         of pfield indexes.  A pfield index is always an integer, and
@@ -107,6 +110,9 @@ Glossary
         A pfield_list does not support a recursive list structure, i.e
         as [value, [value]].
         
+    pgenerator
+        DEFINE ME PLEASE
+    
     selection
         A selection is a :term:`score` reformatted into a repurposed
         python dict that stores collected :term:`event` strings with

@@ -68,7 +68,7 @@ are properly tested and bug checked.</p>
 <p>Arpeggiates values in for a selected pfield column for a specific
 event.</p>
 <p>Use:</p>
-<div class="highlight-python"><pre>&lt;stdout&gt; | ./pfunc.py STATEMENT INSTR PFIELD VALUES</pre>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./arpeggiator.py STATEMENT INSTR PFIELD VALUES</pre>
 </div>
 <p>Example:</p>
 <div class="highlight-python"><pre>cat arpeggiator.sco | ./arpeggiator.py i 1 5 '7.00 7.03 6.09'</pre>
@@ -97,10 +97,11 @@ i 1 + .    .   7.03</pre>
 <div class="section" id="module-carry">
 <h2>carry<a class="headerlink" href="#module-carry" title="Permalink to this headline">¶</a></h2>
 <p>Replaces subsequent repeated values with a carry (.)</p>
-<p>This script can be used as command-line script as well as a
-module.</p>
+<p>Use:</p>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./carry.py</pre>
+</div>
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat carry.sco | ./carry.py | ./sco_align.py</pre>
+<div class="highlight-python"><pre>cat carry.sco | ./carry.py | ./sco_align.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i 1 0 0.25 0.5 7.00
@@ -219,8 +220,11 @@ Funkadelic (P-Funk).  <em>Or is it?</em></p>
 <tt class="descname">-s</tt><tt class="descclassname">  Whitespace amount between statement and identifier</tt><a class="headerlink" href="#cmdoption-s_spacer-s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Use:</p>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./s_spacer.py [-s number of spaces]</pre>
+</div>
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat s_spacer.sco | ./s_spacer.py</pre>
+<div class="highlight-python"><pre>cat s_spacer.sco | ./s_spacer.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i1 0 0.25 0.5 7.00
@@ -277,7 +281,7 @@ i 1 + .    0.6 7.00</pre>
 <dd></dd></dl>
 
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat sco_align.sco | ./sco_align.py</pre>
+<div class="highlight-python"><pre>cat sco_align.sco | ./sco_align.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>f1 0 8192 10 1 ; Sine
@@ -327,7 +331,7 @@ type.</p>
 of the score.</p>
 </div>
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat score_from_csd.csd | ./score_from_csd.py</pre>
+<div class="highlight-python"><pre>cat score_from_csd.csd | ./score_from_csd.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>&lt;CsoundSynthesizer&gt;
@@ -400,29 +404,12 @@ e</pre>
 <h2>swap_columns<a class="headerlink" href="#module-swap_columns" title="Permalink to this headline">¶</a></h2>
 <p>Exchanges all score columns for a specified statement and
 identifier.</p>
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-s">
-<tt class="descname">-s</tt><tt class="descclassname">  Statement (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-i">
-<tt class="descname">-i</tt><tt class="descclassname">  Identifier (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-i" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-a">
-<tt class="descname">-a</tt><tt class="descclassname">  Pfield A (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-a" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-b">
-<tt class="descname">-b</tt><tt class="descclassname">  Pfield B (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-b" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>Use:</p>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./swap_columns.py STATEMENT INSTR PFIELD_A PFIELD_B</pre>
+</div>
 <p>The following command-line swaps pfields 4 and 5 for all instrument
 1 events:</p>
-<div class="highlight-python"><pre>$ cat swap_columns.sco | ./swap_columns.py -si -i1 -a4 -b5</pre>
+<div class="highlight-python"><pre>cat swap_columns.sco | ./swap_columns.py i 1 4 5</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i 1 0 1 7.00 0.8

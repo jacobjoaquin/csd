@@ -24,7 +24,7 @@
 
 Example::
     
-    $ cat score_from_csd.csd | ./score_from_csd.py
+    cat score_from_csd.csd | ./score_from_csd.py
 
 Before::
     
@@ -100,11 +100,13 @@ import sys
 
 import csd
 
-if __name__ == '__main__':
-
+def main():
     # Get input
     stdin = sys.stdin.readlines()
     s = ''.join(stdin)
 
     print csd.get_score(s),
+
+if __name__ == '__main__':
+    main()
 

@@ -17,11 +17,10 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Testing are for half-thought out ideas.'''
+'''Testing grounds half-thought out ideas.'''
 
 import sys
 
-sys.path.append('../')  # Fix this.
 from csd import sco
 from csd.sco import selection
 

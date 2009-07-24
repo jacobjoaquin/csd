@@ -30,7 +30,7 @@ This script can be used as command-line script as well as a module.
 
 Example::
 
-    $ cat sco_align.sco | ./sco_align.py
+    cat sco_align.sco | ./sco_align.py
 
 Before::
     

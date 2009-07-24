@@ -48,6 +48,7 @@
 <h1>Csound csd Python Package<a class="headerlink" href="#csound-csd-python-package" title="Permalink to this headline">¶</a></h1>
 <ul>
 <li class="toctree-l1"><a class="reference external" href="install.html">Installing csd</a><ul>
+<li class="toctree-l2"><a class="reference external" href="install.html#quick-instructions">Quick Instructions</a></li>
 <li class="toctree-l2"><a class="reference external" href="install.html#test">Test</a></li>
 <li class="toctree-l2"><a class="reference external" href="install.html#supported-systems">Supported Systems</a></li>
 </ul>
@@ -55,8 +56,8 @@
 <li class="toctree-l1"><a class="reference external" href="csd_sco_event.html">CSD Modules</a><ul>
 <li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd">csd</a></li>
 <li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco">sco</a></li>
-<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
 <li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
+<li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
 <li class="toctree-l2"><a class="reference external" href="csd_sco_event.html#module-csd.sco.selection">selection</a></li>
 </ul>
 </li>
@@ -79,33 +80,43 @@
 <li class="toctree-l1"><a class="reference external" href="bugs.html#planned-changes">Planned Changes</a></li>
 <li class="toctree-l1"><a class="reference external" href="glossary.html">Glossary</a></li>
 </ul>
+<div class="section" id="mission-statement">
+<h2>Mission Statement<a class="headerlink" href="#mission-statement" title="Permalink to this headline">¶</a></h2>
+<p><em>&#8220;Enable users to process and generate Csound orchestras and scores
+quickly, easily and efficiently.&#8221;</em></p>
+</div>
 <div class="section" id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
-<p>CSD is a Python package designed to allow simple text manipulation of
-Csound code.</p>
-<p>The purpose of this package is to make life easier for Csounders. As of
-now, several demo scripts built with CSD are included as part of the
-package, albeit not thoroughly tested. With these scripts, you will be
-able to automatically align your score code, do simple score
-arpeggiations, replace repeated pfield values with the carry
-preprocessor symbol (.), etc.</p>
-<p>At the moment, the focus is on score manipulation, though room has been
-made in the package structure to accommodate for future orchestra
-processing.</p>
-<p>In order to use the demo scripts, you&#8217;ll need to use the command-line.
-However, using these scripts in applications may be possible in the
-future.  If you are a developer of a Csound front-end, Csound based-app,
-or are just looking to extend the capabilities of your favorites text
-editor, let me know so we can start the process of figuring out our
-respective needs to make this happen. I&#8217;m open to any and all ideas from
-anyone.</p>
+<p>CSD provides core functions for building python scripts that can process
+and generate Csound code.</p>
+<p>As of this moment, the focus is on score manipulation.  CSD comes with
+many functions that can parse, pull, push information in and out of
+Csound scores.  In the future, there are plans to provide equivalent
+functions for Csound orchestras.</p>
+<p>This package ships with a few demo scripts that can be of great use to
+anyone who writes Csound music the old fashion way, that is, with a text
+editor. The <tt class="docutils literal"><span class="pre">sco_align</span></tt> script will save you from repeatedly typing
+&#8216;space-down-left&#8217; by aligning Csound scores auto-magically.  If you need
+to run a dozen or more pfields through a function, <tt class="docutils literal"><span class="pre">pfunc</span></tt> lets your
+write your own function and choose which instruments and pfields to
+operate on with a single command-line in a terminal window.  Or if you
+are organizing your pfields, and decided that amp would work better on
+pfield 4 and pitch on pfield 5, then <tt class="docutils literal"><span class="pre">swap_columns</span></tt> is just what you
+need.</p>
+<p>In order to use these demo scripts, you&#8217;ll need to use a command-line
+terminal.  However, using these scripts in applications may be possible
+in the future.</p>
+<p>If you are a developer of a Csound front-end, Csound based-app, or are
+just looking to extend the capabilities of your favorites text editor,
+let me know so we can start the process of figuring out our respective
+needs to make this happen. I&#8217;m open to any and all ideas from anyone.</p>
 <p>This package is currently still very early in the development cycle,
 though quickly approaching a beta release.  The scripts have been tested
 primarily with Apple&#8217;s Python 2.5.1.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">Use these at your own risk. CSD should be
-considered experimental.</p>
+<p class="last">Use these at your own risk. CSD should be considered
+experimental.</p>
 </div>
 </div>
 <div class="section" id="information">
@@ -122,7 +133,7 @@ considered experimental.</p>
 <h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
 <p>GNU Lesser General Public License</p>
 <p>Version 3, 29 June 2007</p>
-<p><a class="reference external" href="http://http://www.gnu.org/licenses/lgpl.html">http://http://www.gnu.org/licenses/lgpl.html</a></p>
+<p><a class="reference external" href="http://www.gnu.org/licenses/lgpl.html">http://www.gnu.org/licenses/lgpl.html</a></p>
 <div class="section" id="indices-and-tables">
 <h3>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -143,6 +154,7 @@ considered experimental.</p>
             <h3><a href="">Table Of Contents</a></h3>
             <ul>
 <li><a class="reference external" href="">Csound csd Python Package</a><ul>
+<li><a class="reference external" href="#mission-statement">Mission Statement</a></li>
 <li><a class="reference external" href="#about">About</a></li>
 <li><a class="reference external" href="#information">Information</a></li>
 <li><a class="reference external" href="#license">License</a><ul>
