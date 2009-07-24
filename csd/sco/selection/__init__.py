@@ -119,7 +119,7 @@ def replace(selection, pfield_index_list, pgenerator, *args):
     return selection
 
 def swap(selection, pfield_index_a, pfield_index_b):
-    '''Returns a selection with swapped pfield columns.
+    '''Returns a copy of selection with swapped pfield columns.
 
     Example::
         
@@ -135,4 +135,4 @@ def swap(selection, pfield_index_a, pfield_index_b):
         selection[k] = event.swap(v, pfield_index_a, pfield_index_b)
     
     return selection
-    
+

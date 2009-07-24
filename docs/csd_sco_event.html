@@ -547,14 +547,14 @@ works wells with python objects that have a persistant state.</p>
 
 <dl class="function">
 <dt id="csd.sco.selection.swap">
-<tt class="descclassname">csd.sco.selection.</tt><tt class="descname">swap</tt><big>(</big><em>selection</em>, <em>a</em>, <em>b</em><big>)</big><a class="headerlink" href="#csd.sco.selection.swap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a selection with swapped pfield columns.</p>
-<p>See <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a>, <a class="reference external" href="glossary.html#term-score"><em class="xref">score</em></a></p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">Needs to check for multiple events as lists. May
-create a internalized function for this.  e.g. _iter_selection()</p>
+<tt class="descclassname">csd.sco.selection.</tt><tt class="descname">swap</tt><big>(</big><em>selection</em>, <em>pfield_index_a</em>, <em>pfield_index_b</em><big>)</big><a class="headerlink" href="#csd.sco.selection.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of selection with swapped pfield columns.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">selection</span><span class="o">.</span><span class="n">swap</span><span class="p">({</span><span class="mf">0</span><span class="p">:</span> <span class="s">&#39;i 1 0 4 440 1.0&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span> <span class="s">&#39;i 1 4 4 880 0.5&#39;</span><span class="p">},</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span>
+<span class="go">{0: &#39;i 1 0 4 1.0 440&#39;, 1: &#39;i 1 4 4 0.5 880&#39;}</span>
+</pre></div>
 </div>
+<p>See <a class="reference external" href="glossary.html#term-selection"><em class="xref">selection</em></a>, <a class="reference external" href="glossary.html#term-pfield-index"><em class="xref">pfield_index</em></a></p>
 </dd></dl>
 
 </div>
