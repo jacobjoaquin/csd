@@ -159,6 +159,9 @@ def fround(x, n=8):
     
     return float(('%.' + str(n) + 'f') % x)
 
+def pfunc(score, statement, identifier, pfield):
+    return sco.map_(score, {0: statement, 1: identifier}, pfield, __eval_this)
+
 if __name__ == '__main__':
     # Get argv from command-line
     statement = list(sys.argv[1])
@@ -172,5 +175,5 @@ if __name__ == '__main__':
     s = ''.join(sys.stdin.readlines())
         
     # Where the magic happens
-    print sco.map_(s, {0: statement, 1: identifier}, pfield, __eval_this),
+    print pfunc(s, statement, identifier, pfield),
 
