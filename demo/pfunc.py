@@ -149,7 +149,6 @@ from random import weibullvariate
 from csd import sco
 from csd.sco import event
 
-# Generic pfunction
 def __func(x):
     '''Runs pfield x through a function stored in __formula.'''
     
@@ -175,6 +174,7 @@ def pfunc(score, statement, identifier, pfield, formula):
     __formula = formula
     return sco.map_(score, {0: statement, 1: identifier}, pfield, __func)
 
+# Stores function. Initial state of 'x' is to do nothing.
 __formula = 'x'
 
 def main():
