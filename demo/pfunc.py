@@ -150,9 +150,11 @@ from csd import sco
 from csd.sco import event
 
 # Generic pfunction
-def __eval_this(x):
-    global eval_
-    return eval(eval_)
+def __func(x):
+    '''Runs pfield x through a function stored in __formula.'''
+    
+    global __formula
+    return eval(__formula)
 
 def fround(x, n=8):
     '''Return a float rounded to the nth decimal place.'''
@@ -160,13 +162,22 @@ def fround(x, n=8):
     return float(('%.' + str(n) + 'f') % x)
 
 def pfunc(score, statement, identifier, pfield, formula):
-    global eval_
-    eval_ = formula
-    return sco.map_(score, {0: statement, 1: identifier}, pfield, __eval_this)
+    '''Returns a modified score with selected pfields processed with
+    the provided formula.
+    
+    A global variable is used because a pfunction requires that its
+    arguments be of csd type numeric.  Thus, passing a forumula string
+    does not work.
 
-eval_ = 'x'
+    '''
+    
+    global __formula
+    __formula = formula
+    return sco.map_(score, {0: statement, 1: identifier}, pfield, __func)
 
-if __name__ == '__main__':
+__formula = 'x'
+
+def main():
     # Get argv from command-line
     statement = list(sys.argv[1])
     identifier = eval(sys.argv[2])
@@ -180,4 +191,7 @@ if __name__ == '__main__':
         
     # Where the magic happens
     print pfunc(s, statement, identifier, pfield, formula),
+
+if __name__ == '__main__':
+    main()
 
