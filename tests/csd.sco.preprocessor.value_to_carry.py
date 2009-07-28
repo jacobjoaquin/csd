@@ -88,8 +88,84 @@ i 1 2 $foo
 '''
 expect = '''\
 i 1 2 $foo
+i 1 2 $foo
+i 1 2 $foo
+'''
+print test(4, score, expect)
+
+score = '''\
+i 1 2 [~ * 440 + 440]
+i 1 2 [~ * 440 + 440]
+'''
+expect = '''\
+i 1 2 [~ * 440 + 440]
+i 1 2 [~ * 440 + 440]
+'''
+print test(5, score, expect)
+
+score = '''\
+i 1 2 3
+i 1 2
+i 1 2
+'''
+expect = '''\
+i 1 2 3
 i 1 2 .
 i 1 2 .
 '''
-print test(4, score, expect)
+print test(6, score, expect)
+
+score = '''\
+i 1 2 3
+i 1 2 !
+i 1 2 !
+'''
+expect = '''\
+i 1 2 3
+i 1 2 !
+i 1 2 !
+'''
+print test(7, score, expect)
+
+score = '''\
+i 1 2 3
+i 1 2 !
+i 1 2
+'''
+expect = '''\
+i 1 2 3
+i 1 2 !
+i 1 2
+'''
+print test(8, score, expect)
+
+score = '''\
+i 1 2 3 4 5
+i 1 2 3 4 5
+i 1 2 3 !
+i 1 2 3
+'''
+expect = '''\
+i 1 2 3 4 5
+i 1 2 . . .
+i 1 2 . !
+i 1 2 .
+'''
+print test(9, score, expect)
+
+score = '''\
+i 1 2 3 4 5
+i 1 2 3 4 5
+i 1 2 3 !
+i 1 2 3
+i 1 2 3 4 5
+'''
+expect = '''\
+i 1 2 3 4 5
+i 1 2 . . .
+i 1 2 . !
+i 1 2 .
+i 1 2 . 4 5
+'''
+print test(10, score, expect)
 

@@ -18,7 +18,7 @@
 '''Preprocessor functions.'''
 
 from csd.sco import event
-#from csd.sco import element
+from csd.sco import element
 #from csd.sco import selection
 
 def carry_to_value(score):
@@ -27,7 +27,16 @@ def carry_to_value(score):
     pass
     
 def value_to_carry(score):
-    '''Replaces subsequent repeated values with a carry (.)'''
+    '''Replaces subsequent repeated values with a carry (.)
+    
+    Identical expressions do no carry, as a carry only copies the first
+    value output from an expression.  This breaks the form when multiple
+    random evaluations are part of the score.
+    
+    Macros do no carry as they may contain expressions.
+    
+    No-carrys are not carried.
+    '''
     
     event_list = score.splitlines(True)    
     last_identifier = None
@@ -36,29 +45,48 @@ def value_to_carry(score):
 
     # Explicitly state pfield 3 instead a magic number.  Carry
     # statements only substitute for pfields 3 or higher.
-    pfield_3 = 3
+    PFIELD_3 = 3
+
+    size = 0
+    
+    # Excluded element token types
+    elements = [element.EXPRESSION, element.MACRO, element.NO_CARRY];
     
     for e in event_list:
         if event.match(e, {0: 'i', 1: last_identifier}):
-            for i in range(pfield_3, event.number_of_pfields(e)):
-                if event.match(e, {i: last_values[i]}):
+            lv = len(last_values)
+            
+            for i in range(PFIELD_3, max(event.number_of_pfields(e), lv)):
+                this_pfield = event.get(e, i)
+
+                if element.token_type(this_pfield) == element.NO_CARRY:
+                    last_values[i] = this_pfield
+                    break
+                    
+                elif element.token_type(last_values[i]) == element.NO_CARRY:
+                    break
+                    
+                elif (this_pfield == last_values[i] and
+                        element.token_type(this_pfield) not in elements):
+                            
+                    # Replace pfield with carry
                     e = event.set(e, i, '.')
                     
-                else:
-                    last_values[i] = event.get(e, i)
+                elif this_pfield == None:
                     
+                    # Add a carry if one does not exist
+                    e = event.push(e, '.')
+                    
+                else:
+                    last_values[i] = this_pfield
+
             output.append(e)
             
-#        elif event.get(e, 0) == None:
-#            output.append(e)
-
         else:
-#            last_identifier = ''
             last_identifier = event.get(e, 1)
-#            last_values = []
             last_values = event.get_pfield_list(e)
             output.append(e)
         
     return ''.join(output)
-    
+        
 
