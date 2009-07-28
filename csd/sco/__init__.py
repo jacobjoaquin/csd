@@ -71,8 +71,9 @@ def merge(score, selection):
     for k, v in selection.items():
         s_list[k] = '\n'.join(__flatten_list(v))
 
-    # Appends an empty event in case of newline
     output = '\n'.join(s_list)
+
+    # Appends an empty event in case of newline
     if score.endswith('\n'):
         output = output + '\n'
     

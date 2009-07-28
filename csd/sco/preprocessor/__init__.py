@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-#
 # Copyright (C) 2009 Jacob Joaquin
 #
 # This file is part of csd.
@@ -17,49 +15,18 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Replaces subsequent repeated values with a carry (.)
+'''Preprocessor functions.'''
 
-Use::
+from csd.sco import event
+#from csd.sco import element
+#from csd.sco import selection
+
+def carry_to_value(score):
+    '''Not implemented.'''
     
-    <stdout> | ./carry.py
-
-Example::
+    pass
     
-    cat carry.sco | ./carry.py | ./sco_align.py
-
-Before::
-
-    i 1 0 0.25 0.5 7.00
-    i 1 + 0.25 0.5 7.00
-    i 1 + 0.25 0.5 8.00
-    i 1 + 0.25 0.5 8.00
-    i 1 + 0.25 0.6 7.06
-    i 1 + 0.25 0.6 7.06
-    i 1 + 0.25 0.6 6.06
-    i 1 + 0.25 0.6 6.06
-    i 1 + 0.25 0.6 7.00
-    i 1 + 0.25 0.6 7.00
-
-After::
-    
-    i 1 0 0.25 0.5 7.00
-    i 1 + .    .   .
-    i 1 + .    .   8.00
-    i 1 + .    .   .
-    i 1 + .    0.6 7.06
-    i 1 + .    .   .
-    i 1 + .    .   6.06
-    i 1 + .    .   .
-    i 1 + .    .   7.00
-    i 1 + .    .   .
-
-'''
-
-import sys
-
-import csd.sco.event as event
-
-def replace(score):
+def value_to_carry(score):
     '''Replaces subsequent repeated values with a carry (.)'''
     
     event_list = score.splitlines(True)    
@@ -93,13 +60,5 @@ def replace(score):
             output.append(e)
         
     return ''.join(output)
-
-def main():
-    # Get input
-    stdin = sys.stdin.readlines()
-    score = ''.join(stdin)
-
-    print replace(score),
     
-if __name__ == '__main__':
-    main()
+

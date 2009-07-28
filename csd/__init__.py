@@ -82,7 +82,7 @@ def overwrite_score(csd, sco):
     output.append(''.join(pre.findall(csd)))
     output.append(sco)
 
-    # Assert there is a newline between sco and closing CsScore tag
+    # Insist a newline between sco and closing CsScore tag exists
     if not sco.endswith('\n'):
         output.append('\n')
 
