@@ -81,7 +81,7 @@
 <dl class="function">
 <dt id="csd.get_orchestra">
 <tt class="descclassname">csd.</tt><tt class="descname">get_orchestra</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_orchestra" title="Permalink to this definition">¶</a></dt>
-<dd>Not implemented.</dd></dl>
+<dd>Returns the orchestra from a Csound CSD.</dd></dl>
 
 <dl class="function">
 <dt id="csd.get_sample_base64">
@@ -91,19 +91,7 @@
 <dl class="function">
 <dt id="csd.get_score">
 <tt class="descclassname">csd.</tt><tt class="descname">get_score</tt><big>(</big><em>csd</em><big>)</big><a class="headerlink" href="#csd.get_score" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pulls score data from inbetween the &lt;CsScore&gt; markup tags in a
-Csound csd.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This should really reside somewhere else, such as a
-csdparse module.</p>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">There is an issue with an extra leading and extra
-trailing newline being introduced.</p>
-</div>
-</dd></dl>
+<dd>Returns the score from a Csound CSD.</dd></dl>
 
 <dl class="function">
 <dt id="csd.get_version">
@@ -111,9 +99,9 @@ trailing newline being introduced.</p>
 <dd>Not implemented.</dd></dl>
 
 <dl class="function">
-<dt id="csd.replace_score">
-<tt class="descclassname">csd.</tt><tt class="descname">replace_score</tt><big>(</big><em>csd</em>, <em>sco</em><big>)</big><a class="headerlink" href="#csd.replace_score" title="Permalink to this definition">¶</a></dt>
-<dd>Not implemented.</dd></dl>
+<dt id="csd.overwrite_score">
+<tt class="descclassname">csd.</tt><tt class="descname">overwrite_score</tt><big>(</big><em>csd</em>, <em>sco</em><big>)</big><a class="headerlink" href="#csd.overwrite_score" title="Permalink to this definition">¶</a></dt>
+<dd>Returns a new csd string with a new score.</dd></dl>
 
 </div>
 <div class="section" id="module-csd.sco">
@@ -496,6 +484,26 @@ for you.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-csd.sco.preprocessor">
+<h2>preprocessor<a class="headerlink" href="#module-csd.sco.preprocessor" title="Permalink to this headline">¶</a></h2>
+<p>Preprocessor functions.</p>
+<dl class="function">
+<dt id="csd.sco.preprocessor.carry_to_value">
+<tt class="descclassname">csd.sco.preprocessor.</tt><tt class="descname">carry_to_value</tt><big>(</big><em>score</em><big>)</big><a class="headerlink" href="#csd.sco.preprocessor.carry_to_value" title="Permalink to this definition">¶</a></dt>
+<dd>Not implemented.</dd></dl>
+
+<dl class="function">
+<dt id="csd.sco.preprocessor.value_to_carry">
+<tt class="descclassname">csd.sco.preprocessor.</tt><tt class="descname">value_to_carry</tt><big>(</big><em>score</em><big>)</big><a class="headerlink" href="#csd.sco.preprocessor.value_to_carry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces subsequent repeated values with a carry (.)</p>
+<p>Identical expressions do no carry, as a carry only copies the first
+value output from an expression.  This breaks the form when multiple
+random evaluations are part of the score.</p>
+<p>Macros do no carry as they may contain expressions.</p>
+<p>No-carries are not carried.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-csd.sco.selection">
 <h2>selection<a class="headerlink" href="#module-csd.sco.selection" title="Permalink to this headline">¶</a></h2>
 <p>These methods operate on selections.</p>
@@ -573,6 +581,7 @@ works wells with python objects that have a persistant state.</p>
 <li><a class="reference external" href="#module-csd.sco">sco</a></li>
 <li><a class="reference external" href="#module-csd.sco.element">element</a></li>
 <li><a class="reference external" href="#module-csd.sco.event">event</a></li>
+<li><a class="reference external" href="#module-csd.sco.preprocessor">preprocessor</a></li>
 <li><a class="reference external" href="#module-csd.sco.selection">selection</a></li>
 </ul>
 </li>

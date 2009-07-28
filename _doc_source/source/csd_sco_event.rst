@@ -26,6 +26,12 @@ event
 .. automodule:: csd.sco.event
    :members:
 
+preprocessor
+------------
+
+.. automodule:: csd.sco.preprocessor
+   :members:
+
 selection
 ---------
 

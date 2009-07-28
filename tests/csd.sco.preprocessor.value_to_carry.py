@@ -169,3 +169,17 @@ i 1 2 . 4 5
 '''
 print test(10, score, expect)
 
+score = '''\
+i 1 2 3 4 5
+i 1 2 3 4 5
+i 1 2 3 !
+i 1 2 3 4 5
+'''
+expect = '''\
+i 1 2 3 4 5
+i 1 2 . . .
+i 1 2 . !
+i 1 2 . 4 5
+'''
+print test(11, score, expect)
+

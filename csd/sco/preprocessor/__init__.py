@@ -35,7 +35,7 @@ def value_to_carry(score):
     
     Macros do no carry as they may contain expressions.
     
-    No-carrys are not carried.
+    No-carries are not carried.
     '''
     
     event_list = score.splitlines(True)    
