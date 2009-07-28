@@ -1,0 +1,11 @@
+csound_tests
+
+The contents of this folder are random tests to double check specific
+behavoirs by Csound.  For example:
+
+i 1 0 4 1.0 [~ * 440]
+i 1 0 4 1.0 .
+
+Does the expression [~ * 440] get carried, or the value it outputs?
+
+
