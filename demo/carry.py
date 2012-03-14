@@ -57,49 +57,15 @@ After::
 
 import sys
 
-import csd.sco.event as event
-
-def replace(score):
-    '''Replaces subsequent repeated values with a carry (.)'''
-    
-    event_list = score.splitlines(True)    
-    last_identifier = None
-    last_values = []
-    output = []
-
-    # Explicitly state pfield 3 instead a magic number.  Carry
-    # statements only substitute for pfields 3 or higher.
-    pfield_3 = 3
-    
-    for e in event_list:
-        if event.match(e, {0: 'i', 1: last_identifier}):
-            for i in range(pfield_3, event.number_of_pfields(e)):
-                if event.match(e, {i: last_values[i]}):
-                    e = event.set(e, i, '.')
-                    
-                else:
-                    last_values[i] = event.get(e, i)
-                    
-            output.append(e)
-            
-#        elif event.get(e, 0) == None:
-#            output.append(e)
-
-        else:
-#            last_identifier = ''
-            last_identifier = event.get(e, 1)
-#            last_values = []
-            last_values = event.get_pfield_list(e)
-            output.append(e)
-        
-    return ''.join(output)
+#import csd.sco.event as event
+from csd.sco.preprocessor import value_to_carry
 
 def main():
     # Get input
     stdin = sys.stdin.readlines()
     score = ''.join(stdin)
-
-    print replace(score),
+    
+    print value_to_carry(score),
     
 if __name__ == '__main__':
     main()

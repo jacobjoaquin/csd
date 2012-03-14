@@ -179,6 +179,7 @@ __formula = 'x'
 
 def main():
     # Get argv from command-line
+#    print sys.argv
     statement = list(sys.argv[1])
     identifier = eval(sys.argv[2])
     pfield = eval(sys.argv[3])

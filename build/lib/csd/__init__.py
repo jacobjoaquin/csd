@@ -19,6 +19,12 @@
 
 import re
 
+def __create_pattern(tag_name):
+    '''Generates a regular expression string for pulling data from
+    inbetween markup tags.'''
+    
+    return '<' + tag_name + '>.*?\n(.*)<\/' + tag_name + '>'
+    
 def get_base64(csd):
     '''Not implemented.'''
 
@@ -29,6 +35,11 @@ def get_csound(csd):
 
     pass
 
+def get_license(csd):
+    '''Not implemented.'''
+
+    pass
+    
 def get_midi_base64(csd):
     '''Not implemented.'''
 
@@ -40,27 +51,20 @@ def get_options(csd):
     pass
     
 def get_orchestra(csd):
-    '''Not implemented.'''
-
-    pass
+    '''Returns the orchestra from a Csound CSD.'''
+    
+    p = re.compile(__create_pattern('CsInstruments'), re.DOTALL)
+    return ''.join(p.findall(csd))
 
 def get_sample_base64(csd):
     '''Not implemented.'''
 
     pass
-    
+
 def get_score(csd):
-    '''Pulls score data from inbetween the <CsScore> markup tags in a
-    Csound csd.
+    '''Returns the score from a Csound CSD.'''
     
-    .. note:: This should really reside somewhere else, such as a
-        csdparse module.
-    
-    .. note:: There is an issue with an extra leading and extra
-        trailing newline being introduced.
-    '''
-    
-    p = re.compile('<CsScore>(.*)<\/CsScore>', re.DOTALL)
+    p = re.compile(__create_pattern('CsScore'), re.DOTALL)
     return ''.join(p.findall(csd))
 
 def get_version(csd):
@@ -68,12 +72,21 @@ def get_version(csd):
 
     pass
     
-def get_license(csd):
-    '''Not implemented.'''
-
-    pass
+def overwrite_score(csd, sco):
+    '''Returns a new csd string with a new score.'''
     
-def replace_score(csd, sco):
-    '''Not implemented.'''
+    pre = re.compile('(.*<CsScore>.*?\n)', re.DOTALL)
+    post = re.compile(r'(</CsScore>.*)', re.DOTALL)
+    
+    output = []
+    output.append(''.join(pre.findall(csd)))
+    output.append(sco)
 
-    pass
+    # Insist a newline between sco and closing CsScore tag exists
+    if not sco.endswith('\n'):
+        output.append('\n')
+
+    output.append(''.join(post.findall(csd)))
+    
+    return ''.join(output)
+

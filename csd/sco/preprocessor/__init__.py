@@ -19,7 +19,6 @@
 
 from csd.sco import event
 from csd.sco import element
-#from csd.sco import selection
 
 def carry_to_value(score):
     '''Not implemented.'''
@@ -47,18 +46,17 @@ def value_to_carry(score):
     # statements only substitute for pfields 3 or higher.
     PFIELD_3 = 3
 
-    size = 0
-    
     # Excluded element token types
     elements = [element.EXPRESSION, element.MACRO, element.NO_CARRY];
     
     for e in event_list:
         if event.match(e, {0: 'i', 1: last_identifier}):
-            lv = len(last_values)
-            
-            for i in range(PFIELD_3, max(event.number_of_pfields(e), lv)):
+            lolv = len(last_values)
+
+            for i in range(PFIELD_3, max(event.number_of_pfields(e), lolv)):
                 this_pfield = event.get(e, i)
 
+                # Detect NO_CARRY
                 if element.token_type(this_pfield) == element.NO_CARRY:
                     last_values[i] = this_pfield
                     break
@@ -66,15 +64,13 @@ def value_to_carry(score):
                 elif element.token_type(last_values[i]) == element.NO_CARRY:
                     break
                     
+                # Replace pfield with carry
                 elif (this_pfield == last_values[i] and
-                        element.token_type(this_pfield) not in elements):
-                            
-                    # Replace pfield with carry
+                      element.token_type(this_pfield) not in elements):
                     e = event.set(e, i, '.')
                     
+                # Add a carry if one does not exist
                 elif this_pfield == None:
-                    
-                    # Add a carry if one does not exist
                     e = event.push(e, '.')
                     
                 else:
