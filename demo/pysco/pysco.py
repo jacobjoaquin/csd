@@ -29,33 +29,41 @@ def pmap(statement, identifier, pfield, formula):
 	global _sco
 	_sco = [csd.sco.map_("\n".join(_sco), {0: statement, 1: identifier}, pfield, formula)]
 
-# Begin
-debug_m('--- Begin pysco ---')
+def score(s):
+	global _sco
+	_sco.append(s)
 
-# Read template from <CsScore>
-f = open(argv[1], 'r')
+def _parse():
+		exec_block = []
 
-exec_block = []
+		for line in f.readlines():
+			pfields = line.split()
 
-for line in f.readlines():
-	pfields = line.split()
+			if len(pfields) and len(pfields[0]) == 1:
+				print 'sco: ' + line
+				_sco.append(line)
 
-	if len(pfields) and len(pfields[0]) == 1:
-		print 'sco: ' + line
-		_sco.append(line)
+				if len(exec_block) >= 1:
+					print exec_block
+					exec("\n".join(exec_block))
+					exec_block = []
+			else:
+				print 'py:  ' + line
+				exec_block.append(line)
 
 		if len(exec_block) >= 1:
 			print exec_block
 			exec("\n".join(exec_block))
 			exec_block = []
-	else:
-		print 'py:  ' + line
-		exec_block.append(line)
 
-if len(exec_block) >= 1:
-	print exec_block
-	exec("\n".join(exec_block))
-	exec_block = []
+
+# Begin
+debug_m('--- Begin pysco ---')
+
+f = open(argv[1], 'r')
+
+foo = f.read()
+exec(foo)
 
 f.close();
 
