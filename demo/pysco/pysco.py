@@ -25,8 +25,7 @@ def i_event(*args):
 	for arg in args:
 		output.append(str(arg))
 
-	output.append("\n")
-	_sco.append(' '.join(output))
+	score(' '.join(output))
 
 def pmap(statement, identifier, pfield, formula):
 	global _sco
@@ -83,6 +82,13 @@ debug_m('_sco', _sco)
 # Output preprocessed score
 output = open(argv[2], 'w')
 output.write("\n".join(_sco))
+output.close
+
+# Print to extra file for testing purposes
+output = open('current.sco', 'w')
+output.write("\n".join(_sco))
+output.close
 
 # End
 debug_m('--- End pysco ---')
+
