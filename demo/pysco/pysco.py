@@ -8,6 +8,9 @@ from random import random
 
 # Stores score output
 _sco = []
+time_stack = [0]
+
+
 
 def debug_m(m, v=''):
 	print m + ': '
@@ -31,6 +34,14 @@ def pmap(statement, identifier, pfield, formula):
 
 def score(s):
 	global _sco
+	global time_stack
+	#selected = sco.select_all(s)
+	selected = sco.select(s, {0: 'i'})
+	print s
+	print time_stack
+	print selected
+	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack[-1])
+	s = sco.merge(s, foo)
 	_sco.append(s)
 
 def _parse():
