@@ -57,11 +57,17 @@ def _parse_timestack():
 
 		if tokens and tokens[0][0] == '@':
 			debug_m('exec timestack', exec_block)
+
+			# Execute Python code in exec buffer
 			exec("\n".join(exec_block))
 			exec_block = []
-			time = tokens.pop(0)
-			time_stack.append(float(time[1:]))
-			exec(" ".join(tokens))
+
+			# Get position of ':'
+			pos = line.index(':')
+			stripped = line.strip()
+			debug_m('@ var', stripped[1:pos])
+			time_stack.append(float(stripped[1:pos]))
+			exec("".join(stripped[pos + 1:].strip()))
 			time_stack.pop()
 
 		else:

@@ -36,10 +36,8 @@ f 1 0 8192 10 1
 t 0 120
 ''')
 
-#score('i 1 0 0.5 -7 9.02')
-
-@0 phrase()
-@4 phrase()
+@0: phrase()
+@4: phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
