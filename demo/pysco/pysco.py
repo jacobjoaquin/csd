@@ -56,56 +56,37 @@ def score(s):
 	print s
 	print time_stack
 	print selected
-	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack[-1])
+	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(time_stack))
 	s = sco.merge(s, foo)
 	_sco.append(s)
 
+def append_score(when, what):
+	if type(when) in [int, float]:
+		exec_block.append('time_stack.append(' + str(when) + ')')
+		exec_block.append(what.strip())
+		exec_block.append('time_stack.pop()')
+	elif type(when) == list:
+		for i in when:
+			append_score(i, what)
 
 def _parse_timestack():
 	global f
 	global exec_block
-
-	debug_m('inside _parse_timestack')
 
 	for line in f.readlines():
 		debug_m('line', line)
 		tokens = line.split()
 
 		if tokens and tokens[0][0] == '@':
-			debug_m('exec timestack', exec_block)
-
-			# Execute Python code in exec buffer
-			exec("\n".join(exec_block))
-			exec_block = []
-
-			# Get position of ':'
-			stripped = line.strip()
-			pos = stripped.index(':')
-			debug_m('@ var', stripped[1:pos])
-				
-
-
-
-			e = do_exec(stripped[1:pos])
-			debug_m('do_exec', e)
-			debug_m('type(e)', type(e))
-
-			if type(e) in [int, float]:
-				debug_m('type int/float', e)
-				time_stack.append(float(e))
-				exec(stripped[pos + 1:].strip())
-				time_stack.pop()
-			elif type(e) == list:
-				debug_m('type list', e)
-				for _i in e:
-					time_stack.append(float(_i))
-					exec(stripped[pos + 1:].strip())
-					time_stack.pop()
+			# @<WHEN>: <WHAT> 
+			pattern = re.compile("@(.+):(.+)")
+			match = pattern.match(line)
+			
+			if match:
+				append_score(eval(match.group(1)), match.group(2))
 
 		else:
-			debug_m('exec_block', exec_block)
 			exec_block.append(line)
-
 
 # Begin
 def main():
@@ -114,11 +95,7 @@ def main():
 	debug_m('--- Begin pysco ---')
 
 	f = open(argv[1], 'r')
-
-
-	debug_m('pre _parse_timestack')
 	_parse_timestack()
-	debug_m('post _parse_timestack')
 
 	if len(exec_block) >= 1:
 		debug_m('exec final block', exec_block)
@@ -126,7 +103,6 @@ def main():
 		exec_block = []
 
 	f.close();
-
 
 	debug_m('final _sco:', _sco)
 	# Output preprocessed score

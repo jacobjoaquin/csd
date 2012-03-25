@@ -40,6 +40,7 @@ def grain_gen(time, dur):
 		i_event(2, time, grain_dur, amp, freq)
 		time += random() * 0.1 + 0.01
 
+score('''
 f 1 0 8192 10 1
 t 0 120
 
@@ -51,6 +52,7 @@ i 1 + .   .  9.00
 i 1 + .   .  8.09
 i 1 + .   .  8.11
 i 1 + .   .  8.07
+''')
 
 for i_ in range(5):
 	 grain_gen(i_ * 3, 2)

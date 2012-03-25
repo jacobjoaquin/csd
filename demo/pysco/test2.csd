@@ -29,6 +29,7 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
+score('''
 f 1 0 8192 10 1
 t 0 120
 
@@ -40,6 +41,7 @@ i 1 + .   .  C5
 i 1 + .   .  A4
 i 1 + .   .  B4
 i 1 + .   .  G5
+''')
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, conv_to_hz)
