@@ -17,7 +17,7 @@ class TimeStack:
 	def pop(self):
 		self.stack.pop()
 
-	def push(self, t):
+	def append(self, t):
 		self.stack.append(t)
 
 	def time(self):
@@ -70,7 +70,7 @@ def append_score(when, what, indent=''):
 	line = []
 
 	if type(when) in [int, float]:
-		line.append('time_stack.push(' + str(when) + ')')
+		line.append('time_stack.append(' + str(when) + ')')
 		line.append(what.strip())
 		line.append('time_stack.pop()')
 
