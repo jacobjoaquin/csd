@@ -56,13 +56,13 @@ def append_score(when, what, indent=''):
 	line = []
 
 	if type(when) in [int, float]:
-		line.append('time_stack.append(' + str(when) + ')')
+		line.append(''.join(['time_stack.append(', str(when), ')']))
 		line.append(what.strip())
 		line.append('time_stack.pop()')
 
 		for L in line:
-			debug('REPL', indent + L + "\n")
-			exec_block.append(indent + L + "\n")
+			exec_block.append(''.join([indent, L]))
+			debug('REPL', exec_block[-1])
 
 	elif type(when) == list:
 		for i in when:
@@ -89,7 +89,7 @@ def _parse_timestack(f):
 				debug('WARNING', 'No match found')
 
 		else:
-			exec_block.append(line)
+			exec_block.append(line.rstrip())
 
 # Globals
 _sco = []
@@ -104,15 +104,12 @@ def main():
 
 	f = open(argv[1], 'r')
 	_parse_timestack(f)
-
-	if len(exec_block) >= 1:
-		#debug('exec final block', exec_block)
-		exec("\n".join(exec_block))
-		exec_block = []
-
 	f.close();
 
-	debug('final _sco:', _sco)
+	# Execute processed script
+	if len(exec_block) >= 1:
+		exec("\n".join(exec_block))
+
 	# Output preprocessed score
 	output = open(argv[2], 'w')
 	output.write("\n".join(_sco))
