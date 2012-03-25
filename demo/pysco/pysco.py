@@ -9,11 +9,19 @@ import StringIO
 from StringIO import StringIO
 import sys
 
-# Stores score output
-_sco = []
-exec_block = []
-time_stack = [0]
-f = ''
+class TimeStack:
+	def __init__(self):
+		self.stack = []
+		self.indent = ''
+	
+	def pop(self):
+		self.stack.pop()
+
+	def push(self, t):
+		self.stack.append(t)
+
+	def time(self):
+		return sum(self.stack)
 
 def debug(m, v=''):
 	print m + ': ' + str(v),
@@ -54,16 +62,15 @@ def score(s):
 	print s
 	print time_stack
 	print selected
-	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(time_stack))
+	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack.time())
 	s = sco.merge(s, foo)
 	_sco.append(s)
 
 def append_score(when, what, indent=''):
-	debug('append_score() indent', '"' + indent + '"' + "\n")	
 	line = []
 
 	if type(when) in [int, float]:
-		line.append('time_stack.append(' + str(when) + ')')
+		line.append('time_stack.push(' + str(when) + ')')
 		line.append(what.strip())
 		line.append('time_stack.pop()')
 
@@ -84,27 +91,27 @@ def _parse_timestack():
 		tokens = line.strip().split()
 
 		if tokens and tokens[0][0] == '@':
-			debug('@ found', line)
-			# @<WHEN>: <WHAT> 
-			pattern = re.compile(".*@(.+):(.+)")
+			# <WHITESPACE>@<WHEN>: <WHAT> 
+			pattern = re.compile("(\s*)@(.+):(.+)")
 			match = pattern.match(line)
-		
-			space = re.compile("^(\s+)")
-			space_match = space.match(line)
-			indent = ''
-
-			if space_match:
-				indent = space_match.group(1)
-				debug('space_match', '"' + indent + '"' + "\n")
 	
 			if match:
-				debug('match this')
-				append_score(eval(match.group(1)), match.group(2), indent)
+				indent = match.group(1)
+				when = eval(match.group(2))
+				what = match.group(3)
+				append_score(when, what, indent)
 			else:
-				debug('no match found')
+				debug('WARNING', 'No match found')
 
 		else:
 			exec_block.append(line)
+
+
+# Stores score output
+_sco = []
+exec_block = []
+time_stack = TimeStack() 
+f = ''
 
 # Begin
 def main():

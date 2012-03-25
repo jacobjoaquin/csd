@@ -37,7 +37,7 @@ def phrase_2():
 score('t 0 90')
 
 @[0, 2]: phrase_2()
-@[0, 4]: phrase()
+@4: phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
