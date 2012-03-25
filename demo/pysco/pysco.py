@@ -15,9 +15,8 @@ exec_block = []
 time_stack = [0]
 f = ''
 
-def debug_m(m, v=''):
-	print m + ': '
-	print v
+def debug(m, v=''):
+	print m + ': ' + str(v),
 
 def do_exec(code, g={}, l={}):
 	'''Ugly. Picks between eval and exec.'''
@@ -48,7 +47,6 @@ def pmap(statement, identifier, pfield, formula):
 	_sco = [csd.sco.map_("\n".join(_sco), {0: statement, 1: identifier}, pfield, formula)]
 
 def score(s):
-	debug_m('score(): ', s)
 	global _sco
 	global time_stack
 	#selected = sco.select_all(s)
@@ -60,11 +58,19 @@ def score(s):
 	s = sco.merge(s, foo)
 	_sco.append(s)
 
-def append_score(when, what):
+def append_score(when, what, indent=''):
+	debug('append_score() indent', '"' + indent + '"' + "\n")	
+	line = []
+
 	if type(when) in [int, float]:
-		exec_block.append('time_stack.append(' + str(when) + ')')
-		exec_block.append(what.strip())
-		exec_block.append('time_stack.pop()')
+		line.append('time_stack.append(' + str(when) + ')')
+		line.append(what.strip())
+		line.append('time_stack.pop()')
+
+		for L in line:
+			debug('REPL', indent + L + "\n")
+			exec_block.append(indent + L + "\n")
+
 	elif type(when) == list:
 		for i in when:
 			append_score(i, what)
@@ -74,16 +80,28 @@ def _parse_timestack():
 	global exec_block
 
 	for line in f.readlines():
-		debug_m('line', line)
-		tokens = line.split()
+		debug('line', line)
+		tokens = line.strip().split()
 
 		if tokens and tokens[0][0] == '@':
+			debug('@ found', line)
 			# @<WHEN>: <WHAT> 
-			pattern = re.compile("@(.+):(.+)")
+			pattern = re.compile(".*@(.+):(.+)")
 			match = pattern.match(line)
-			
+		
+			space = re.compile("^(\s+)")
+			space_match = space.match(line)
+			indent = ''
+
+			if space_match:
+				indent = space_match.group(1)
+				debug('space_match', '"' + indent + '"' + "\n")
+	
 			if match:
-				append_score(eval(match.group(1)), match.group(2))
+				debug('match this')
+				append_score(eval(match.group(1)), match.group(2), indent)
+			else:
+				debug('no match found')
 
 		else:
 			exec_block.append(line)
@@ -92,19 +110,19 @@ def _parse_timestack():
 def main():
 	global f
 	global exec_block
-	debug_m('--- Begin pysco ---')
+	debug('Begin pysco.py')
 
 	f = open(argv[1], 'r')
 	_parse_timestack()
 
 	if len(exec_block) >= 1:
-		debug_m('exec final block', exec_block)
+		#debug('exec final block', exec_block)
 		exec("\n".join(exec_block))
 		exec_block = []
 
 	f.close();
 
-	debug_m('final _sco:', _sco)
+	debug('final _sco:', _sco)
 	# Output preprocessed score
 	output = open(argv[2], 'w')
 	output.write("\n".join(_sco))
@@ -116,7 +134,7 @@ def main():
 	output.close
 
 	# End
-	debug_m('--- End pysco ---')
+	debug('--- End pysco ---')
 
 if __name__ == '__main__':
 	main()

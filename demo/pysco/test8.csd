@@ -19,8 +19,25 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-@0: score('i 1 0 0.5 -3 8.07')
-@[0.5, 1.333]: score('i 1 0 0.5 -3 8.07')
+def phrase():
+	score('''
+	i 1 0 0.5 -3 8.00
+	i 1 + .   .  8.03
+	i 1 + .   .  8.07
+	i 1 + .   .  8.08
+	i 1 + .   .  8.07
+	i 1 + .   .  8.03
+	i 1 + .   .  7.11
+	''')
+
+def phrase_2():
+	@0: score('i 1 0 2 -6 7.07')
+	@1: score('i 1 0 2 -6 8.07')
+
+score('t 0 90')
+
+@[0, 2]: phrase_2()
+@[0, 4]: phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
