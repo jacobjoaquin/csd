@@ -110,14 +110,21 @@ def main():
 	if len(exec_block) >= 1:
 		exec("\n".join(exec_block))
 
+	# Clean output
+	clean_split = _sco[0].splitlines()
+	clean = []
+
+	for L in clean_split:
+		clean.append(L.strip())
+
 	# Output preprocessed score
 	output = open(argv[2], 'w')
-	output.write("\n".join(_sco))
+	output.write("\n".join(clean))
 	output.close
 
 	# Print to extra file for testing purposes
 	output = open('current.sco', 'w')
-	output.write("\n".join(_sco))
+	output.write("\n".join(clean))
 	output.close
 
 	# End
