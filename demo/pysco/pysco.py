@@ -26,20 +26,6 @@ class TimeStack:
 def debug(m, v=''):
 	print m + ': ' + str(v),
 
-def do_exec(code, g={}, l={}):
-	'''Ugly. Picks between eval and exec.'''
-
-	redirect_out = StringIO()
-	stdout_temp = sys.stdout
-	sys.stdout = redirect_out
-	try:
-		return eval(code, g, l)
-	except:
-		try:
-			exec(code, g, l)
-		except:
-			pass
-
 def i_event(*args):
 	global _sco
 
@@ -57,13 +43,13 @@ def pmap(statement, identifier, pfield, formula):
 def score(s):
 	global _sco
 	global time_stack
-	#selected = sco.select_all(s)
+
 	selected = sco.select(s, {0: 'i'})
 	print s
 	print time_stack
 	print selected
-	foo = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack.time())
-	s = sco.merge(s, foo)
+	op = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack.time())
+	s = sco.merge(s, op)
 	_sco.append(s)
 
 def append_score(when, what, indent=''):
@@ -82,8 +68,7 @@ def append_score(when, what, indent=''):
 		for i in when:
 			append_score(i, what)
 
-def _parse_timestack():
-	global f
+def _parse_timestack(f):
 	global exec_block
 
 	for line in f.readlines():
@@ -106,21 +91,19 @@ def _parse_timestack():
 		else:
 			exec_block.append(line)
 
-
-# Stores score output
+# Globals
 _sco = []
 exec_block = []
 time_stack = TimeStack() 
-f = ''
 
 # Begin
 def main():
-	global f
 	global exec_block
+
 	debug('Begin pysco.py')
 
 	f = open(argv[1], 'r')
-	_parse_timestack()
+	_parse_timestack(f)
 
 	if len(exec_block) >= 1:
 		#debug('exec final block', exec_block)
