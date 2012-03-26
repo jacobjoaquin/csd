@@ -1,0 +1,128 @@
+-------------------------
+
+
+<INDENT>@<TIME>: <FOO>
+
+
+On <INDENT>
+	is_time_stacking = true
+
+
+if time_stacking = true
+	# Do nothing, bascially
+	if blank line:
+		exec_block.append()
+
+	# Exit time queue as indent is back at base
+	elif indent_stack = line.indent:
+		is_time_stacking = false
+
+	# Add to stack
+	elif indent_stack > indent_stack:
+		indent_stack.append
+		
+		if @:
+			if <INDENT>@<WHEN>:<WHAT>:
+				process single line
+				#include indent_stack[0]
+
+		elif  <INDENT>@<WHEN>:
+			time_stack.append(<WHEN>)
+			indent_stack.append(line.indent)
+
+	# Continue pushing current block
+	elif indent_stack == line.indent:
+		(use indent_stack[0])
+		exec_block.append()
+
+	elif indent_stack < line.indent:
+		do:
+			index.pop()
+		until indent_pop == line.indent
+
+if not time_stacking
+	if @:
+		if <INDENT>@<WHEN>:<WHAT>:
+			process single line
+
+		else <INDENT>@<WHEN>:
+			is_time_stacking = true
+			time_stack.append(<WHEN>)
+			indent_stack.append(line.indent)
+
+	else
+		exec_block.append()
+
+
+
+
+
+
+-------------------------
+@<FOO>: <BAR>
+
+time_stack.append(<FOO>)
+<BAR>
+time_stack.pop()
+
+
+@<FOO>:
+	@<FOO_2>: <BAR>
+
+time_stack.append(<FOO>)
+time_stack.append(<FOO_2>)
+<BAR>
+time_stack.pop()
+time_stack.pop()
+
+
+-------------------------
+From
+http://codehop.com/nine-rules-for-scheduling-events/
+
+1. Individual Events
+
+@0 foo()
+@1 foo()
+@2 foo()
+@3 foo()
+2. List
+
+@[0, 1, 2, 3] foo()
+3. Identifier
+
+t = [0, 1, 2, 3]
+@t foo()
+4. List Comprehension
+
+@[i for i in range(0, 4)] foo()
+5. Loop
+
+for i in range(0, 4):
+    @i foo()
+6. Function
+
+def bar():
+    @0 foo()
+    @1 foo()
+    @2 foo()
+    @3 foo()
+
+bar()
+7. Nested
+
+foo()
+1:
+    foo()
+    1:
+        foo()
+        1:
+            foo()
+8. Item Iteration
+
+items = (0, 1, 2, 3)
+@[i for i in items] foo()
+9. Map
+
+def bar(x): return x
+@(map(bar, range(0, 4)) foo()

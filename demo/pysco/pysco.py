@@ -12,7 +12,7 @@ import sys
 class TimeStack:
 	def __init__(self):
 		self.stack = []
-		self.indent = ''
+		self._indent = ''
 	
 	def pop(self):
 		self.stack.pop()
@@ -22,6 +22,9 @@ class TimeStack:
 
 	def time(self):
 		return sum(self.stack)
+
+	def indent(self):
+		return _indent
 
 def debug(m, v=''):
 	print m + ': ' + str(v),
@@ -70,6 +73,7 @@ def append_score(when, what, indent=''):
 
 def _parse_timestack(f):
 	global exec_block
+	global time_stack
 
 	for line in f.readlines():
 		debug('line', line)
@@ -77,14 +81,24 @@ def _parse_timestack(f):
 
 		if tokens and tokens[0][0] == '@':
 			# <WHITESPACE>@<WHEN>: <WHAT> 
-			pattern = re.compile("(\s*)@(.+):(.+)")
+			pattern = re.compile("(\s*)@(.+):\s*(.*)")
 			match = pattern.match(line)
 	
 			if match:
 				indent = match.group(1)
 				when = eval(match.group(2))
-				what = match.group(3)
-				append_score(when, what, indent)
+
+				if match.group(3):
+					what = match.group(3)
+					append_score(when, what, indent)
+
+				else:
+					if time_stack.indent:
+						append_score(when, what, time_stack.indent)
+
+					else:
+						pass
+
 			else:
 				debug('WARNING', 'No match found')
 
