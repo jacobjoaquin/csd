@@ -10,6 +10,8 @@ from StringIO import StringIO
 import sys
 
 class TimeStack:
+	is_time_stacking = False
+
 	def __init__(self):
 		self.stack = []
 		self._indent = ''
@@ -75,7 +77,40 @@ def _parse_timestack(f):
 	global exec_block
 	global time_stack
 
+	# <WHITESPACE>@<WHEN>: <WHAT> 
+	pattern = re.compile("(\s*)@(.+):\s*(.*)")
+
 	for line in f.readlines():
+		debug('line', line)
+		m = pattern.match(line)
+
+		if time_stack.is_time_stacking:
+			pass
+
+		else:
+			if m:
+				indent = m.group(1)
+				when = eval(m.group(2))
+
+				# Single-line time_stack
+				if m.group(3):
+					what = m.group(3)
+					append_score(when, what, indent)
+
+				# Multi-line time_stack entry point
+				else:
+					time_stack.is_time_stacking = True	
+					time_stack.append(when)
+					time_stack.indent = indent
+
+			# Not time_stack code
+			else:
+				exec_block.append(line.rstrip())
+					
+
+
+	return
+	if True:
 		debug('line', line)
 		tokens = line.strip().split()
 
