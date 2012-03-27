@@ -9,25 +9,22 @@ import StringIO
 from StringIO import StringIO
 import sys
 
-class TimeStack:
-	is_time_stacking = False
+class t(object):
+	stack = []
 
-	def __init__(self):
-		self.stack = []
-		self._indent = ''
+	def __init__(self, when):
+		self.when = when
+
+	def __enter__(self):
+		t.stack.append(self.when)
+
+		return self
+
+	def __exit__(self, *exc):
+		t.stack.pop()
+
+		return False
 	
-	def pop(self):
-		self.stack.pop()
-
-	def append(self, t):
-		self.stack.append(t)
-
-	def time(self):
-		return sum(self.stack)
-
-	def indent(self):
-		return _indent
-
 def debug(m, v=''):
 	print m + ': ' + str(v),
 
@@ -47,13 +44,9 @@ def pmap(statement, identifier, pfield, formula):
 
 def score(s):
 	global _sco
-	global time_stack
 
 	selected = sco.select(s, {0: 'i'})
-	print s
-	print time_stack
-	print selected
-	op = sco.selection.operate_numeric(selected, 2, lambda x: x + time_stack.time())
+	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
 	s = sco.merge(s, op)
 	_sco.append(s)
 
@@ -73,91 +66,13 @@ def append_score(when, what, indent=''):
 		for i in when:
 			append_score(i, what)
 
-def _parse_timestack(f):
-	global exec_block
-	global time_stack
-
-	# <WHITESPACE>@<WHEN>: <WHAT> 
-	pattern = re.compile("(\s*)@(.+):\s*(.*)")
-
-	for line in f.readlines():
-		debug('line', line)
-		m = pattern.match(line)
-
-		if time_stack.is_time_stacking:
-			pass
-
-		else:
-			if m:
-				indent = m.group(1)
-				when = eval(m.group(2))
-
-				# Single-line time_stack
-				if m.group(3):
-					what = m.group(3)
-					append_score(when, what, indent)
-
-				# Multi-line time_stack entry point
-				else:
-					time_stack.is_time_stacking = True	
-					time_stack.append(when)
-					time_stack.indent = indent
-
-			# Not time_stack code
-			else:
-				exec_block.append(line.rstrip())
-					
-
-
-	return
-	if True:
-		debug('line', line)
-		tokens = line.strip().split()
-
-		if tokens and tokens[0][0] == '@':
-			# <WHITESPACE>@<WHEN>: <WHAT> 
-			pattern = re.compile("(\s*)@(.+):\s*(.*)")
-			match = pattern.match(line)
-	
-			if match:
-				indent = match.group(1)
-				when = eval(match.group(2))
-
-				if match.group(3):
-					what = match.group(3)
-					append_score(when, what, indent)
-
-				else:
-					if time_stack.indent:
-						append_score(when, what, time_stack.indent)
-
-					else:
-						pass
-
-			else:
-				debug('WARNING', 'No match found')
-
-		else:
-			exec_block.append(line.rstrip())
-
 # Globals
 _sco = []
-exec_block = []
-time_stack = TimeStack() 
 
 # Begin
 def main():
-	global exec_block
-
-	debug('Begin pysco.py')
-
-	f = open(argv[1], 'r')
-	_parse_timestack(f)
-	f.close();
-
-	# Execute processed script
-	if len(exec_block) >= 1:
-		exec("\n".join(exec_block))
+	# Execute CsScore
+	execfile(argv[1], globals())
 
 	# Clean output
 	clean_split = _sco[0].splitlines()

@@ -20,10 +20,27 @@ endin
 <CsScore bin="./pysco.py">
 score('t 0 140')
 
-@0: score('i 1 0 0.5 -3 8.00')
-@1: score('i 1 0 0.5 -3 8.02')
-@2:
-	score('i 1 0 0.5 -3 8.03')
+def phrase():
+	score('''
+	i 1 0 0.5 -7 8.00
+	i 1 + .   .  8.03
+	i 1 + .   .  8.02
+	i 1 + .   .  8.07
+	i 1 + .   .  8.05
+	i 1 + .   .  8.10
+	i 1 + 1   .  8.08
+	''')
+
+def phrase_2():
+	phrase()
+
+	with t(0.25):
+		phrase()
+
+with t(0): phrase()
+with t(4): phrase_2()
+with t(8): phrase()
+with t(12): phrase_2()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

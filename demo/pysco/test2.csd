@@ -29,6 +29,10 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
+# THIS EXAMPLE DOESN'T WORK
+print "\n\n\n\n\nTHIS EXAMPLE DOESN'T WORK\n\n\n\n"
+exit(1)
+
 score('''
 f 1 0 8192 10 1
 t 0 120

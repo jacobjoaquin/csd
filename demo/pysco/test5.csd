@@ -63,13 +63,8 @@ t 0 120
 ''')
 
 dusty_vinyl(2, 0.5, 8000, 9000, 50)
-time_stack.append(3)
-dusty_vinyl(2, 0.5, 8000, 9000, 15)
-time_stack.pop()
-
-time_stack.append(6)
-phrase()
-time_stack.pop()
+with t(3): dusty_vinyl(2, 0.5, 8000, 9000, 15)
+with t(6): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

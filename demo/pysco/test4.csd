@@ -48,16 +48,8 @@ def phrase():
 	i 1 + .   .  8.07
 	''')
 
-phrase()
-time_stack.append(4)
-phrase()
-time_stack.pop()
-time_stack.append(8)
-phrase()
-time_stack.pop()
-time_stack.append(12)
-phrase()
-time_stack.pop()
+for i in range(0, 16, 4):
+	with t(i): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
