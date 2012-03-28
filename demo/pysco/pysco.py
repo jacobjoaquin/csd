@@ -2,7 +2,6 @@
 from sys import argv
 from convert import *
 import csd
-import re
 from csd import sco
 from random import random
 
@@ -37,6 +36,7 @@ def i_event(*args):
 
 def pmap(statement, identifier, pfield, formula):
 	global _sco
+
 	_sco = [csd.sco.map_("\n".join(_sco), {0: statement, 1: identifier}, pfield, formula)]
 
 def score(s):
@@ -54,15 +54,13 @@ def main():
 	# Execute CsScore
 	execfile(argv[1], globals())
 
-	# Output preprocessed score
-	output = open(argv[2], 'w')
-	output.write("\n".join(_sco))
-	output.close
+	# Write score used by Csound
+	with open(argv[2], 'w') as f:
+		f.write("\n".join(_sco))
 
-	# Print to extra file for testing purposes
-	output = open('current.sco', 'w')
-	output.write("\n".join(_sco))
-	output.close
+	# Additional file for development testing
+	with open('current.sco', 'w') as f:
+		f.write("\n".join(_sco))
 
 if __name__ == '__main__':
 	main()
