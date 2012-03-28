@@ -44,27 +44,15 @@ def pmap(statement, identifier, pfield, formula):
 
 def score(s):
 	global _sco
-
+	debug('score()', s)
 	selected = sco.select(s, {0: 'i'})
 	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
 	s = sco.merge(s, op)
+
+	debug('score() merged', s)
 	_sco.append(s)
 
-def append_score(when, what, indent=''):
-	line = []
-
-	if type(when) in [int, float]:
-		line.append(''.join(['time_stack.append(', str(when), ')']))
-		line.append(what.strip())
-		line.append('time_stack.pop()')
-
-		for L in line:
-			exec_block.append(''.join([indent, L]))
-			debug('REPL', exec_block[-1])
-
-	elif type(when) == list:
-		for i in when:
-			append_score(i, what)
+	debug('_sco', _sco)
 
 # Globals
 _sco = []
@@ -78,8 +66,13 @@ def main():
 	clean_split = _sco[0].splitlines()
 	clean = []
 
+
 	for L in clean_split:
 		clean.append(L.strip())
+
+	clean = _sco
+
+	debug("\n_sco final\n", clean)
 
 	# Output preprocessed score
 	output = open(argv[2], 'w')
