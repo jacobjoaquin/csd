@@ -5,9 +5,6 @@ import csd
 import re
 from csd import sco
 from random import random
-import StringIO
-from StringIO import StringIO
-import sys
 
 class t(object):
 	stack = []
@@ -44,6 +41,7 @@ def pmap(statement, identifier, pfield, formula):
 
 def score(s):
 	global _sco
+
 	selected = sco.select(s, {0: 'i'})
 	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
 	s = sco.merge(s, op)
@@ -52,37 +50,19 @@ def score(s):
 # Globals
 _sco = []
 
-# Begin
 def main():
 	# Execute CsScore
 	execfile(argv[1], globals())
 
-	# Clean output
-	clean_split = _sco[0].splitlines()
-	clean = []
-
-
-	for L in clean_split:
-		clean.append(L.strip())
-
-	clean = _sco
-
-	debug("\n_sco final\n", clean)
-
 	# Output preprocessed score
 	output = open(argv[2], 'w')
-	output.write("\n".join(clean))
+	output.write("\n".join(_sco))
 	output.close
 
 	# Print to extra file for testing purposes
 	output = open('current.sco', 'w')
-	output.write("\n".join(clean))
+	output.write("\n".join(_sco))
 	output.close
 
-	# End
-	debug('--- End pysco ---')
-
 if __name__ == '__main__':
-	main()
-else:
 	main()
