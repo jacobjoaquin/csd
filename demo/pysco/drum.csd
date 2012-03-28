@@ -120,24 +120,69 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
+# Import choice from python library
+from random import choice
+
 # Create wrapper functions for instruments.
 def kick(amp=0.25): score('i 1 0 1 %f' % amp)
-def snare(amp=1): score('i 2 0 1 %f' % amp)
-def hat(amp=1): score('i 3 0 1 %f' % amp)
+def snare(amp=0.25): score('i 2 0 1 %f' % amp)
+def hat(amp=0.15): score('i 3 0 1 %f' % amp)
 
 # f-tables and tempo
 score('''
 f 1 0 [2^16+1] 10 1
 f 2 0 8192 -7 -1 4096 1 4096 -1
 f 5 0 8192 -7 1 200 1 0 -1 7912 -1
-
-t 0 140
+t 0 170
 ''')
 
-hat()
-#snare()
-#kick()
+def pattern_1():
+	'''Simple drum pattern'''
 
+	with t(0): kick()
+	with t(1): snare()
+	with t(2.5): kick()
+	with t(3): snare()
+
+	for i in range(8):
+		amp = i % 2 * 0.1 + 0.05
+		with t(i * 0.5): hat(amp)
+
+def pattern_2(r=0.5):
+	'''pattern_ plus extra random notes'''
+
+	times = [0.5, 0.75, 1.5, 2, 3.5, 3.75]
+	instrs = [kick, snare]
+
+	# Play pattern_1
+	pattern_1()
+
+	for time in times:
+		if random() < r:
+			with t(time):
+				instr = choice(instrs)
+				instr(random() * 0.25)
+
+def section_1():
+	'''A 4-bar section'''
+
+	with t(0): pattern_1()
+	with t(4): pattern_2(0.25)
+	with t(8): pattern_1()
+	with t(12): pattern_2(0.75)
+
+# Play 4 measures using the two patterns
+with t(0): pattern_1()
+with t(4): pattern_2(0.25)
+with t(8): pattern_1()
+with t(12): pattern_2(0.75)
+
+# Same, except using the section
+with t(16): section_1()
+
+# "Turn it up!" - Abe Simpson
+# Process amplitudes for instruments 1, 2, and 3.
+pmap('i', [1, 2, 3], 4, lambda x: x * 2.5)
 
 </CsScore>
 </CsoundSynthesizer>

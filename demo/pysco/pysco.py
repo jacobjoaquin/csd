@@ -44,15 +44,10 @@ def pmap(statement, identifier, pfield, formula):
 
 def score(s):
 	global _sco
-	debug('score()', s)
 	selected = sco.select(s, {0: 'i'})
 	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
 	s = sco.merge(s, op)
-
-	debug('score() merged', s)
 	_sco.append(s)
-
-	debug('_sco', _sco)
 
 # Globals
 _sco = []
