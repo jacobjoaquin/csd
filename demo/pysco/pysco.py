@@ -39,21 +39,13 @@ def pmap(statement, identifier, pfield, formula):
 
 	_sco = [csd.sco.map_("\n".join(_sco), {0: statement, 1: identifier}, pfield, formula)]
 
-def collect_score(fn):
-	def _inner(*args):
-		_sco.append(fn(*args))
-
-	return _inner
-
-@collect_score
 def score(s):
 	global _sco
 
 	selected = sco.select(s, {0: 'i'})
 	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
 	s = sco.merge(s, op)
-	#_sco.append(s)
-	return s
+	_sco.append(s)
 
 # Globals
 _sco = []
