@@ -1,5 +1,31 @@
 -------------------------
 
+simple_sine = instr('''
+	idur = p3
+	iamp = p4
+	ifreq = p5
+
+	l1 line iamp, idur, 0
+	a1 oscils l1, ifreq, 1
+
+	@audio_out a1
+''')
+
+
+@audio_out(a1) becomes
+chnset FOO, a1
+
+gets added to audio_clear_stack, which is cleared at end of chain
+
+
+
+define ALL the graphing patterns!!!
+
+
+
+
+-------------------------
+
 
 <INDENT>@<TIME>: <FOO>
 
