@@ -43,7 +43,7 @@ def dusty_vinyl(dur, amp, freq_min, freq_max, density):
 	for i in range(int(density * dur)):
 		freq = random() * (freq_max - freq_min) + freq_min
 		t = random() * dur 
-		i_event(3, t, 1 / freq, amp, freq)
+		event_i(3, t, 1 / freq, amp, freq)
 		
 def phrase():
 	score('''

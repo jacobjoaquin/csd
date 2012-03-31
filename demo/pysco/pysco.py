@@ -11,6 +11,14 @@ class Slipmat():
 		self.score_data = []
 		self.callback_dict = {}
 
+	def event_i(self, *args):
+		output = ['i']
+
+		for arg in args:
+			output.append(str(arg))
+
+		self.score(' '.join(output))
+
 	def pmap(self, statement, identifier, pfield, formula):
 		self.score_data = [csd.sco.map_("\n".join(self.score_data), {0: statement, 1: identifier}, pfield, formula)]
 
@@ -30,7 +38,6 @@ class Slipmat():
 			'pfield' : pfield,
 			'func' : func
 		}
-
 
 class Slipcue(object):
 	def __init__(self):
@@ -54,15 +61,6 @@ class Slipcue(object):
 def debug(m, v=''):
 	print m + ': ' + str(v),
 
-#def i_event(*args):
-#	global _sco
-#
-#	output = ['i']
-#
-#	for arg in args:
-#		output.append(str(arg))
-#
-#	score(' '.join(output))
 
 # Globals
 slipmat = Slipmat()
@@ -70,6 +68,7 @@ t = slipmat.slipcue
 score = slipmat.score
 pmap = slipmat.pmap
 bind = slipmat.bind
+event_i = slipmat.event_i
 
 def main():
 	# Execute CsScore

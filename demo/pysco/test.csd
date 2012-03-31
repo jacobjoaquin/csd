@@ -37,7 +37,7 @@ def grain_gen(time, dur):
 		grain_dur = random() * 0.1 + 0.02
 		amp = random() * 0.0125
 		freq = base_freq * (3 ** (int(random() * 26) / 13.0) )
-		i_event(2, time, grain_dur, amp, freq)
+		event_i(2, time, grain_dur, amp, freq)
 		time += random() * 0.1 + 0.01
 
 score('''
