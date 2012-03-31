@@ -170,6 +170,12 @@ def swing_test(x):
 
 	return int + sin(frac * (pi / 2.0))
 
+# "Turn it up!" - Abe Simpson
+# Bind amplitude processors callbacks to mix instruments.
+bind('a', 'i', 1, 4, lambda x: x * 2.5)
+bind('b', 'i', 2, 4, lambda x: x * 2.0)
+bind('c', 'i', 3, 4, lambda x: x * 1.5)
+
 # f-tables and tempo
 score('''
 f 1 0 [2^16+1] 10 1
@@ -182,13 +188,7 @@ t 0 120
 for i in range(0, 256, 16):
 	with t(i): section_1()
 
-# "Turn it up!" - Abe Simpson
-# Process amplitudes for instruments 1, 2, and 3.
-pmap('i', [1], 4, lambda x: x * 2.5)
-pmap('i', [2], 4, lambda x: x * 2.0)
-pmap('i', [3], 4, lambda x: x * 1.5)
-
 # Swing it!
-pmap('i', [1, 2, 3], 2, swing_test)
+#pmap('i', [1, 2, 3], 2, swing_test)
 </CsScore>
 </CsoundSynthesizer>

@@ -19,13 +19,12 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-with t(0): score('i 1 0 0.5 -7 9.02')
-with t(0.02): score('i 1 0 0.5 -7 10.02')
+# Bind callbacks to pfields
+bind('convert_midi', 'i', 1, 4, dB)
+bind('cpspch', 'i', 1, 5, cpspch)
 
-
-
-pmap('i', 1, 4, dB)
-pmap('i', 1, 5, cpspch)
+with t(0): score('i 1 0 0.5 -3 9.02')
+with t(0.02): score('i 1 0 0.5 -3 10.02')
 
 </CsScore>
 </CsoundSynthesizer>
