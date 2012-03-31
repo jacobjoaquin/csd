@@ -1,8 +1,8 @@
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
-kr = 4410
-ksmps = 10
+kr = 44100
+ksmps = 1
 nchnls = 1
 0dbfs = 1.0
 
@@ -19,9 +19,10 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-with t(4):
-	print 'with'
-	score('i 1 0 0.5 -3 9.02')
+with t(0): score('i 1 0 0.5 -7 9.02')
+with t(0.02): score('i 1 0 0.5 -7 10.02')
+
+
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

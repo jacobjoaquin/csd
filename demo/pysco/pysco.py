@@ -8,7 +8,15 @@ from random import random
 class Slipmat():
 	def __init__(self):
 		self.slipcue = Slipcue()
-		self.slipscore = Slipscore()
+		self.score_data = []
+
+	def pmap(self, statement, identifier, pfield, formula):
+		self.score_data = [csd.sco.map_("\n".join(self.score_data), {0: statement, 1: identifier}, pfield, formula)]
+
+	def score(self, data):
+		selected = sco.select(data, {0: 'i'})
+		op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(self.slipcue.stack))
+		self.score_data.append(sco.merge(data, op))
 
 class Slipcue(object):
 	def __init__(self):
@@ -26,43 +34,34 @@ class Slipcue(object):
 		self.stack.pop()
 		return False
 
+	def now(self):
+		return sum(self.stack)
+
 def debug(m, v=''):
 	print m + ': ' + str(v),
 
-def i_event(*args):
-	global _sco
-
-	output = ['i']
-
-	for arg in args:
-		output.append(str(arg))
-
-	score(' '.join(output))
-
-def pmap(statement, identifier, pfield, formula):
-	global _sco
-
-	_sco = [csd.sco.map_("\n".join(_sco), {0: statement, 1: identifier}, pfield, formula)]
-
-def score(s):
-	global _sco
-
-	selected = sco.select(s, {0: 'i'})
-	op = sco.selection.operate_numeric(selected, 2, lambda x: x + sum(t.stack))
-	s = sco.merge(s, op)
-	_sco.append(s)
+#def i_event(*args):
+#	global _sco
+#
+#	output = ['i']
+#
+#	for arg in args:
+#		output.append(str(arg))
+#
+#	score(' '.join(output))
 
 # Globals
-_sco = []
-t = Slipcue()
-
+slipmat = Slipmat()
+t = slipmat.slipcue
+score = slipmat.score
+pmap = slipmat.pmap
 
 def main():
 	# Execute CsScore
 	execfile(argv[1], globals())
 
 	# Create score string
-	sco_output = "/n".join(_sco)
+	sco_output = "/n".join(slipmat.score_data)
 
 	# Write score used by Csound
 	with open(argv[2], 'w') as f:

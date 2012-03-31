@@ -1,7 +1,6 @@
 Slipmat class
 	centralized object for managing score and time
 
-
 ------------------------------------------------------------------------
 
 Lesson in the help.
@@ -17,6 +16,8 @@ Think ByteCode?
 ------------------------------------------------------------------------
 
 Smart graphs. Nodes that seek out data and commands from within a graph.
+
+Example. When a unit generator is graphed to a network of other unit generators, it traverses the list seeking pertinent information on how it should behave. The sample rate and control rate could be part of this data.
 
 ------------------------------------------------------------------------
 
