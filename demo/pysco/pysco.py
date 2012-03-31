@@ -5,22 +5,27 @@ import csd
 from csd import sco
 from random import random
 
-class t(object):
-	stack = []
+class Slipmat():
+	def __init__(self):
+		self.slipcue = Slipcue()
+		self.slipscore = Slipscore()
 
-	def __init__(self, when):
+class Slipcue(object):
+	def __init__(self):
+		self.stack = []
+
+	def __call__(self, when):
 		self.when = when
-
-	def __enter__(self):
-		t.stack.append(self.when)
-
 		return self
 
-	def __exit__(self, *exc):
-		t.stack.pop()
+	def __enter__(self):
+		self.stack.append(self.when)
+		return self
 
+	def __exit__(self, exc_type, exc_value, traceback):
+		self.stack.pop()
 		return False
-	
+
 def debug(m, v=''):
 	print m + ': ' + str(v),
 
@@ -49,6 +54,8 @@ def score(s):
 
 # Globals
 _sco = []
+t = Slipcue()
+
 
 def main():
 	# Execute CsScore
@@ -62,7 +69,7 @@ def main():
 		f.write(sco_output)
 
 	# Additional file for development testing
-	with open('current.sco', 'w') as f:
+	with open('dev.sco', 'w') as f:
 		f.write(sco_output)
 
 if __name__ == '__main__':

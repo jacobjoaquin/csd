@@ -1,3 +1,93 @@
+Slipmat class
+	centralized object for managing score and time
+
+
+------------------------------------------------------------------------
+
+Lesson in the help.
+
+------------------------------------------------------------------------
+
+How do the internals of a sine wavework? How are its mechanisms graphed?
+
+Need to think of opcodes as part of a more low-level system.
+
+Think ByteCode?
+
+------------------------------------------------------------------------
+
+Smart graphs. Nodes that seek out data and commands from within a graph.
+
+------------------------------------------------------------------------
+
+a1 sine amp, frequency, phase_offset
+
+@  [  ]      @          @
+a1 sine amp, frequency, phase_offset
+   @
+
+-----------------------------------------------
+
+bind('convert_midi', {'i', 1, 5}, midi_to_freq)
+
+score('''
+i 1 0 5 0.707 72
+i 1 + . .     62
+i 1 + . .     63
+i 1 + . .     65
+i 1 + . .     67
+i 1 + . .     68
+i 1 + . .     70
+''')
+
+The pmap() exists to postprocess or preprocess,
+depending if you are looking at this from the
+perspective of the slipmat score of the
+traditional Csound score.
+
+The bind(), if that really is its name, creates
+and graphs a callback onto a selected list of
+Csound pfields.
+
+The processing happens as the score is written
+in pieces.
+
+-------------------------------------------------------
+
+score('i 1 0 5 0.707 72')
+disable_bind('name', False)  # Disables it
+enable_bind('name', True)   # Enables it
+
+bind('name', selection, some_func, *args, enabled=True)
+score('i 1 0 5 0.707 72')
+disable_bind('name', False)  # Disables it
+enable_bind('name', True)   # Enables it
+
+score.bind('name', selection, some_func, *args)
+score('i 1 0 5 0.707 72')
+score.set_bind('name', False)  # Disables it
+score.set_bind('name', True)   # Enables it
+
+score.bind_callback('name', selection, some_func, *args)
+score('i 1 0 5 0.707 72')
+score.set_callback('name', False)  # Disables it
+score.set_callback('name', True)  # Enables it
+
+with t(0):
+with time(0):
+with when(0):
+with start(0):
+
+with time(0):
+	score('FOO')
+
+	with t(4):
+		score('BAR')
+
+	score.process(SOMETHING)
+
+score.process(SOMETHING
+
 -------------------------
 
 simple_sine = instr('''
