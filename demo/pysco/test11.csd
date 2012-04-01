@@ -11,7 +11,7 @@ instr 1
     iamp = p4          ; Amplitude
     ipch = cpspch(p5)  ; Pitch
 
-    kenv line iamp, idur, 0       ; Line envelope
+    kenv line iamp, idur, 0      ; Line envelope
     a1 vco2 kenv, ipch, 12, 0.5  ; Triangle wave
     out a1
 endin
@@ -21,9 +21,9 @@ endin
 
 # Invention No. 1 (excerpt) by J.S. Bach
 
-def measure(x):
+def measure(t):
 	global cue
-	return cue(x * 4.0 - 1)
+	return cue((t - 1) * 4.0)
 
 score('t 0 210')
 

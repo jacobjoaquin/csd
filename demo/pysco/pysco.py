@@ -59,8 +59,7 @@ class Slipcue(object):
 		return sum(self.stack)
 
 def debug(m, v=''):
-	print m + ': ' + str(v),
-
+	print m + ': ' + str(v) + "\n",
 
 # Globals
 slipmat = Slipmat()
