@@ -29,10 +29,6 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-# THIS EXAMPLE DOESN'T WORK
-#print "\n\n\n\n\nTHIS EXAMPLE DOESN'T WORK\n\n\n\n"
-#exit(1)
-
 score('''
 f 1 0 8192 10 1
 t 0 120
@@ -48,46 +44,7 @@ i 1 + .   .  G5
 ''')
 
 pmap('i', 1, 4, dB)
-
-def pmap_string(statement, identifier, pfield, func, convert_numeric=True):
-	global slipmat
-
-	# Convert pfield to list if it isn't one
-	if type(pfield) != list:
-		pfield = [pfield]
-
-	the_score = "\n".join(slipmat.score_data)
-	debug('the_score', the_score)
-
-	selection = sco.select(the_score, {0: statement, 1: identifier})
-	debug('selection', selection)
-
-	for k, v in selection.iteritems():
-		debug('k, v', str(k) + ', ' + str(v))
-
-		for p in pfield:
-			element = sco.event.get(v, p)
-			debug('element', element) 
-
-			value = func(element)
-			debug('value', value)
-
-			new_event = sco.event.set(v, p, value)
-			debug('new_event', new_event)
-
-			selection[k] = new_event
-
-	debug('selection processed', selection)
-
-	merged = sco.merge(the_score, selection)
-	debug('merged', merged)
-
-	slipmat.score_data = [merged]
-
-	
-
-
-pmap_string('i', 1, 5, conv_to_hz)
+pmap('i', 1, 5, conv_to_hz)
 
 #exit(1)
 </CsScore>

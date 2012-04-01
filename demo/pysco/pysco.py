@@ -19,8 +19,35 @@ class Slipmat():
 
 		self.score(' '.join(output))
 
-	def pmap(self, statement, identifier, pfield, formula):
-		self.score_data = [csd.sco.map_("\n".join(self.score_data), {0: statement, 1: identifier}, pfield, formula)]
+	def pmap(self, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
+		# Convert pfield to list if it isn't one
+		if type(pfield) != list:
+			pfield = [pfield]
+
+		the_score = "\n".join(self.score_data)
+		selection = sco.select(the_score, {0: statement, 1: identifier})
+
+		for k, v in selection.iteritems():
+			for p in pfield:
+				element = sco.event.get(v, p)
+
+				# Bypass if score statement like carry
+				# TODO: ^+x, npx, ppx, etc...
+				if sco_statements_enabled and element in ['.', '!', '+', '<']:
+					break
+
+				# Convert value to float
+				if convert_numeric:
+					try:
+						element = float(element)
+					except:
+						pass
+
+				value = func(element)
+				new_event = sco.event.set(v, p, value)
+				selection[k] = new_event
+
+		self.score_data = [sco.merge(the_score, selection)]
 
 	def score(self, data):
 		for k, v in self.callback_dict.iteritems():
