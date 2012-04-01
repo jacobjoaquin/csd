@@ -11,20 +11,12 @@ class Slipmat():
 		self.score_data = []
 		self.callback_dict = {}
 
-	def event_i(self, *args):
-		output = ['i']
-
-		for arg in args:
-			output.append(str(arg))
-
-		self.score(' '.join(output))
-
-	def pmap(self, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
+	def __map_process(self, data, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
 		# Convert pfield to list if it isn't one
 		if type(pfield) != list:
 			pfield = [pfield]
 
-		the_score = "\n".join(self.score_data)
+		the_score = data
 		selection = sco.select(the_score, {0: statement, 1: identifier})
 
 		for k, v in selection.iteritems():
@@ -47,16 +39,7 @@ class Slipmat():
 				new_event = sco.event.set(v, p, value)
 				selection[k] = new_event
 
-		self.score_data = [sco.merge(the_score, selection)]
-
-	def score(self, data):
-		for k, v in self.callback_dict.iteritems():
-			data = csd.sco.map_(data, {0: v['statement'], 1: v['identifier']}, v['pfield'], v['func'])
-
-		selected = sco.select(data, {0: 'i'})
-		op = sco.selection.operate_numeric(selected, 2, lambda x: x + self.slipcue.now())
-
-		self.score_data.append(sco.merge(data, op))
+		return sco.merge(the_score, selection)
 
 	def bind(self, name, statement, identifier, pfield, func):
 		self.callback_dict[name] = {
@@ -65,6 +48,28 @@ class Slipmat():
 			'pfield' : pfield,
 			'func' : func
 		}
+
+	def event_i(self, *args):
+		output = ['i']
+
+		for arg in args:
+			output.append(str(arg))
+
+		self.score(' '.join(output))
+
+	def pmap(self, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
+		data = "\n".join(self.score_data)
+		self.score_data = [self.__map_process(data, statement, identifier, pfield, func)]
+
+	def score(self, data):
+		# Apply callbacks
+		for k, v in self.callback_dict.iteritems():
+			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'])
+
+		# Apply time stack
+		selected = sco.select(data, {0: 'i'})
+		op = sco.selection.operate_numeric(selected, 2, lambda x: x + self.slipcue.now())
+		self.score_data.append(sco.merge(data, op))
 
 class Slipcue(object):
 	def __init__(self):
