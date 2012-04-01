@@ -48,14 +48,14 @@ t 0 120
 ''')
 
 for i in [0, 0.505, 1.333]:
-	with t(i): phrase()
+	with cue(i): phrase()
 
 for i in range(0, 16):
-	with t(i):
+	with cue(i):
 		score('i 1 0 0.25 -9 8.02') 
 
 for i in [8, 8.505, 9,333]:
-	with t(i): phrase_2()
+	with cue(i): phrase_2()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

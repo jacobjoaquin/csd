@@ -35,8 +35,8 @@ score('''
 t 0 120
 ''')
 
-with t(0): phrase()
-with t(4): phrase()
+with cue(0): phrase()
+with cue(4): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

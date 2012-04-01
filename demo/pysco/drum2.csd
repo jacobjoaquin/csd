@@ -130,44 +130,35 @@ def kick(amp=0.25): score('i 1 0 1 %f' % amp)
 def snare(amp=0.25): score('i 2 0 1 %f' % amp)
 def hat(amp=0.15): score('i 3 0 1 %f' % amp)
 
-def pattern_1():
+def pattern(r=0.0):
 	'''Simple drum pattern'''
 
-	with t(0): kick()
-	with t(1): snare()
-	with t(2.5): kick()
-	with t(3): snare()
+	with cue(0): kick()
+	with cue(1): snare()
+	with cue(2.5): kick()
+	with cue(3): snare()
 
 	for i in range(8):
 		amp = i % 2 * 0.1 + 0.05
-		with t(i * 0.5): hat(amp)
+		with cue(i * 0.5): hat(amp)
 
-def pattern_2(r=0.5):
-	'''pattern_ plus extra random notes'''
-
-	times = [0.5, 0.75, 1.5, 2, 3.5, 3.75]
-	instrs = [kick, snare]
-
-	# Play pattern_1
-	pattern_1()
-
-	for time in times:
+	# Algorithmic sugar
+	for t in [0.5, 0.75, 1.5, 2, 3.5, 3.75]:
 		if random() < r:
-			with t(time):
-				instr = choice(instrs)
+			with cue(t):
+				instr = choice([kick, snare])
 				instr(random() * 0.25)
 
-def section_1():
+def section():
 	'''A 4-bar section'''
 
-	with t(0): pattern_1()
-	with t(4): pattern_2(0.25)
-	with t(8): pattern_1()
-	with t(12): pattern_2(0.9)
+	with cue(0): pattern()
+	with cue(4): pattern(0.25)
+	with cue(8): pattern()
+	with cue(12): pattern(0.9)
 
 def swing_test(x):
 	int, frac = divmod(x, 1)
-
 	return int + sin(frac * (pi / 2.0))
 
 # "Turn it up!" - Abe Simpson
@@ -184,11 +175,10 @@ f 5 0 8192 -7 1 200 1 0 -1 7912 -1
 t 0 120
 ''')
 
-# Same, except using the section
 for i in range(0, 256, 16):
-	with t(i): section_1()
+	with cue(i): section()
 
 # Swing it!
-#pmap('i', [1, 2, 3], 2, swing_test)
+pmap('i', [1, 2, 3], 2, swing_test)
 </CsScore>
 </CsoundSynthesizer>

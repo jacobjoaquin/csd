@@ -63,8 +63,8 @@ t 0 120
 ''')
 
 dusty_vinyl(2, 0.5, 8000, 9000, 50)
-with t(3): dusty_vinyl(2, 0.5, 8000, 9000, 15)
-with t(6): phrase()
+with cue(3): dusty_vinyl(2, 0.5, 8000, 9000, 15)
+with cue(6): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

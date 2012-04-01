@@ -34,13 +34,13 @@ def phrase():
 def phrase_2():
 	phrase()
 
-	with t(0.25):
+	with cue(0.25):
 		phrase()
 
-with t(0): phrase()
-with t(4): phrase_2()
-with t(8): phrase()
-with t(12): phrase_2()
+with cue(0): phrase()
+with cue(4): phrase_2()
+with cue(8): phrase()
+with cue(12): phrase_2()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

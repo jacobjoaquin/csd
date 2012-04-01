@@ -31,14 +31,14 @@ def phrase():
 	''')
 
 def phrase_2():
-	with t(0): score('i 1 0 2 -6 7.07')
-	with t(1): score('i 1 0 2 -6 8.07')
+	with cue(0): score('i 1 0 2 -6 7.07')
+	with cue(1): score('i 1 0 2 -6 8.07')
 
 score('t 0 90')
 
-with t(0): phrase_2()
-with t(2): phrase_2()
-with t(4): phrase()
+with cue(0): phrase_2()
+with cue(2): phrase_2()
+with cue(4): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)

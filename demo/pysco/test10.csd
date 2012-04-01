@@ -23,8 +23,8 @@ endin
 bind('convert_midi', 'i', 1, 4, dB)
 bind('cpspch', 'i', 1, 5, cpspch)
 
-with t(0): score('i 1 0 0.5 -3 9.02')
-with t(0.02): score('i 1 0 0.5 -3 10.02')
+with cue(0): score('i 1 0 0.5 -6 9.02')
+with cue(0.02): score('i 1 0 0.5 -3 10.02')
 
 </CsScore>
 </CsoundSynthesizer>

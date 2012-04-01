@@ -64,7 +64,7 @@ def debug(m, v=''):
 
 # Globals
 slipmat = Slipmat()
-t = slipmat.slipcue
+cue = slipmat.slipcue
 score = slipmat.score
 pmap = slipmat.pmap
 bind = slipmat.bind

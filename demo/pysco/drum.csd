@@ -139,14 +139,14 @@ t 0 170
 def pattern_1():
 	'''Simple drum pattern'''
 
-	with t(0): kick()
-	with t(1): snare()
-	with t(2.5): kick()
-	with t(3): snare()
+	with cue(0): kick()
+	with cue(1): snare()
+	with cue(2.5): kick()
+	with cue(3): snare()
 
 	for i in range(8):
 		amp = i % 2 * 0.1 + 0.05
-		with t(i * 0.5): hat(amp)
+		with cue(i * 0.5): hat(amp)
 
 def pattern_2(r=0.5):
 	'''pattern_ plus extra random notes'''
@@ -159,26 +159,26 @@ def pattern_2(r=0.5):
 
 	for time in times:
 		if random() < r:
-			with t(time):
+			with cue(time):
 				instr = choice(instrs)
 				instr(random() * 0.25)
 
 def section_1():
 	'''A 4-bar section'''
 
-	with t(0): pattern_1()
-	with t(4): pattern_2(0.25)
-	with t(8): pattern_1()
-	with t(12): pattern_2(0.75)
+	with cue(0): pattern_1()
+	with cue(4): pattern_2(0.25)
+	with cue(8): pattern_1()
+	with cue(12): pattern_2(0.75)
 
 # Play 4 measures using the two patterns
-with t(0): pattern_1()
-with t(4): pattern_2(0.25)
-with t(8): pattern_1()
-with t(12): pattern_2(0.75)
+with cue(0): pattern_1()
+with cue(4): pattern_2(0.25)
+with cue(8): pattern_1()
+with cue(12): pattern_2(0.75)
 
 # Same, except using the section
-with t(16): section_1()
+with cue(16): section_1()
 
 # "Turn it up!" - Abe Simpson
 # Process amplitudes for instruments 1, 2, and 3.

@@ -49,7 +49,7 @@ def phrase():
 	''')
 
 for i in range(0, 16, 4):
-	with t(i): phrase()
+	with cue(i): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
