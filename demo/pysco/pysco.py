@@ -16,8 +16,7 @@ class Slipmat():
 		if type(pfield) != list:
 			pfield = [pfield]
 
-		the_score = data
-		selection = sco.select(the_score, {0: statement, 1: identifier})
+		selection = sco.select(data, {0: statement, 1: identifier})
 
 		for k, v in selection.iteritems():
 			for p in pfield:
@@ -25,7 +24,7 @@ class Slipmat():
 
 				# Bypass if score statement like carry
 				# TODO: ^+x, npx, ppx, etc...
-				if sco_statements_enabled and element in ['.', '!', '+', '<']:
+				if sco_statements_enabled and element in ['.', '+', '<', '!']:
 					break
 
 				# Convert value to float
@@ -35,11 +34,9 @@ class Slipmat():
 					except:
 						pass
 
-				value = func(element)
-				new_event = sco.event.set(v, p, value)
-				selection[k] = new_event
+				selection[k] = sco.event.set(v, p, func(element))
 
-		return sco.merge(the_score, selection)
+		return sco.merge(data, selection)
 
 	def bind(self, name, statement, identifier, pfield, func):
 		self.callback_dict[name] = {
