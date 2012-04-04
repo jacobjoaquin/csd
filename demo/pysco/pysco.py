@@ -39,17 +39,18 @@ class Slipmat():
 						pass
 
 				deez_args = (element,) + args
-				selection[k] = sco.event.set(v, p, func(*deez_args))
+				selection[k] = sco.event.set(v, p, func(*deez_args, **kwargs))
 
 		return sco.merge(data, selection)
 
-	def bind(self, name, statement, identifier, pfield, func, *args):
+	def bind(self, name, statement, identifier, pfield, func, *args, **kwargs):
 		self.callback_dict[name] = {
 			'statement' : statement,
 			'identifier' : identifier,
 			'pfield' : pfield,
 			'func' : func,
-			'args' : args
+			'args' : args,
+			'kwargs' : kwargs
 		}
 
 	def event_i(self, *args):
@@ -60,14 +61,14 @@ class Slipmat():
 
 		self.score(' '.join(output))
 
-	def pmap(self, statement, identifier, pfield, func, *args):
+	def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
 		data = "\n".join(self.score_data)
-		self.score_data = [self.__map_process(data, statement, identifier, pfield, func, *args)]
+		self.score_data = [self.__map_process(data, statement, identifier, pfield, func, *args, **kwargs)]
 
 	def score(self, data):
 		# Apply callbacks
 		for k, v in self.callback_dict.iteritems():
-			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'])
+			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'], **v['kwargs'])
 
 		# Apply time stack
 		selected = sco.select(data, {0: 'i'})
