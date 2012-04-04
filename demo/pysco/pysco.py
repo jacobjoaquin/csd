@@ -11,8 +11,12 @@ class Slipmat():
 		self.score_data = []
 		self.callback_dict = {}
 
-	def __map_process(self, data, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
-		# Convert pfield to list if it isn't one
+	#def __map_process(self, data, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
+	def __map_process(self, data, statement, identifier, pfield, func, *args, **kwargs):
+		convert_numeric = True
+		sco_statements_enabled = True
+
+		# Convert pfield to list if it isn't on
 		if type(pfield) != list:
 			pfield = [pfield]
 
@@ -34,16 +38,18 @@ class Slipmat():
 					except:
 						pass
 
-				selection[k] = sco.event.set(v, p, func(element))
+				deez_args = (element,) + args
+				selection[k] = sco.event.set(v, p, func(*deez_args))
 
 		return sco.merge(data, selection)
 
-	def bind(self, name, statement, identifier, pfield, func):
+	def bind(self, name, statement, identifier, pfield, func, *args):
 		self.callback_dict[name] = {
 			'statement' : statement,
 			'identifier' : identifier,
 			'pfield' : pfield,
-			'func' : func
+			'func' : func,
+			'args' : args
 		}
 
 	def event_i(self, *args):
@@ -54,14 +60,14 @@ class Slipmat():
 
 		self.score(' '.join(output))
 
-	def pmap(self, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
+	def pmap(self, statement, identifier, pfield, func, *args):
 		data = "\n".join(self.score_data)
-		self.score_data = [self.__map_process(data, statement, identifier, pfield, func)]
+		self.score_data = [self.__map_process(data, statement, identifier, pfield, func, *args)]
 
 	def score(self, data):
 		# Apply callbacks
 		for k, v in self.callback_dict.iteritems():
-			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'])
+			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'])
 
 		# Apply time stack
 		selected = sco.select(data, {0: 'i'})
