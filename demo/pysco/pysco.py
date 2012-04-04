@@ -11,12 +11,11 @@ class Slipmat():
 		self.score_data = []
 		self.callback_dict = {}
 
-	#def __map_process(self, data, statement, identifier, pfield, func, convert_numeric=True, sco_statements_enabled=True):
 	def __map_process(self, data, statement, identifier, pfield, func, *args, **kwargs):
 		convert_numeric = True
 		sco_statements_enabled = True
 
-		# Convert pfield to list if it isn't on
+		# Convert pfield to list if it isn't one
 		if type(pfield) != list:
 			pfield = [pfield]
 
@@ -50,8 +49,13 @@ class Slipmat():
 			'pfield' : pfield,
 			'func' : func,
 			'args' : args,
-			'kwargs' : kwargs
+			'kwargs' : kwargs,
+			'enabled' : True
 		}
+
+	def bind_enabled(self, name, value):
+		if name in self.callback_dict:
+			self.callback_dict[name]['enabled'] = value
 
 	def event_i(self, *args):
 		output = ['i']
@@ -68,7 +72,8 @@ class Slipmat():
 	def score(self, data):
 		# Apply callbacks
 		for k, v in self.callback_dict.iteritems():
-			data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'], **v['kwargs'])
+			if v['enabled']:
+				data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'], **v['kwargs'])
 
 		# Apply time stack
 		selected = sco.select(data, {0: 'i'})
@@ -103,6 +108,7 @@ cue = slipmat.slipcue
 score = slipmat.score
 pmap = slipmat.pmap
 bind = slipmat.bind
+bind_enabled = slipmat.bind_enabled
 event_i = slipmat.event_i
 
 def main():

@@ -36,12 +36,14 @@ def transpose(x, y):
 	return x * 2 ** (y / 12.0)
 
 # Bind with additional arg
-bind('transpose', 'i', 1, 5, transpose, 7)
+bind('transpose', 'i', 1, 5, transpose, 17)
 
 score('''
 f 1 0 8192 10 1
 t 0 180
+''')
 
+phrase = '''
 i 1 0 0.5 0 110
 i 1 + .   0 220
 i 1 + .   0 330
@@ -50,14 +52,21 @@ i 1 + .   0 550
 i 1 + .   0 660
 i 1 + .   0 770
 i 1 + .   0 880
-''')
+'''
+
+score(phrase)
+bind_enabled('transpose', False)
+with cue(4): score(phrase)
+bind_enabled('transpose', True)
+with cue(8): score(phrase)
+bind_enabled('transpose', False)
+with cue(12): score(phrase)
 
 # pmap with additional arg
 pmap('i', 1, 4, add, -3)
 
 # Convert dB
 pmap('i', 1, 4, dB)
-
 
 </CsScore>
 </CsoundSynthesizer>
