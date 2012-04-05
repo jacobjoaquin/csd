@@ -16,16 +16,6 @@ instr 1
     out a1
 endin
 
-instr 2
-    idur = p3   ; Duration
-    iamp = p4   ; Amplitude
-	ifreq = p5  ; Frequency
-
-    aenv linseg 0, idur * 0.5, 1, idur * 0.5, 0
-    a1 oscil aenv, ifreq, 1
-    out a1
-endin
-
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
@@ -46,6 +36,5 @@ i 1 + .   .  G5
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, conv_to_hz)
 
-#exit(1)
 </CsScore>
 </CsoundSynthesizer>

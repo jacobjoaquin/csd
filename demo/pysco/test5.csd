@@ -3,70 +3,41 @@
 sr = 44100
 kr = 44100
 ksmps = 1
-nchnls = 1
+nchnls = 2
 0dbfs = 1.0
 
 instr 1
-	idur = p3   ; Duration
-	iamp = p4   ; Amplitude
-	ifreq = p5  ; Frequency
-
-	kenv line iamp, idur, 0       ; Line envelope
-	a1 vco2 kenv, ifreq, 12, 0.5  ; Triangle wave
-	out a1
-endin
-
-instr 2
     idur = p3   ; Duration
     iamp = p4   ; Amplitude
 	ifreq = p5  ; Frequency
-
-    aenv linseg 0, idur * 0.5, 1, idur * 0.5, 0
-    a1 oscil aenv, ifreq, 1
-    out a1
-endin
-
-instr 3
-    idur = p3   ; Duration
-    iamp = p4   ; Amplitude
-	ifreq = p5  ; Frequency
+	ipan = p6   ; Pan
 
     a1 oscil iamp, ifreq, 1
-    out a1
+    outs a1 * sqrt(1 - ipan), a1 * sqrt(ipan)
 endin
 
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-# Test using score method.
 def dusty_vinyl(dur, amp, freq_min, freq_max, density):
 	for i in range(int(density * dur)):
 		freq = random() * (freq_max - freq_min) + freq_min
 		t = random() * dur 
-		event_i(3, t, 1 / freq, amp, freq)
+		event_i(1, t, 1 / freq, amp, freq, random())
 		
-def phrase():
-	score('''
-	i 1 0 0.5 -7 9.02
-	i 1 + .   .  8.07
-	i 1 + .   .  8.09
-	i 1 + .   .  8.11
-	i 1 + .   .  9.00
-	i 1 + .   .  8.09
-	i 1 + .   .  8.11
-	i 1 + .   .  8.07
-	''')
+score(' f 1 0 8192 10 1')
 
-score('''
-f 1 0 8192 10 1
-t 0 120
-''')
+with cue(0):
+	dusty_vinyl(4, 0.5, 8000, 9000, 50)
 
-dusty_vinyl(2, 0.5, 8000, 9000, 50)
-with cue(3): dusty_vinyl(2, 0.5, 8000, 9000, 15)
-with cue(6): phrase()
+with cue(4):
+	dusty_vinyl(4, 0.5, 4000, 10000, 15)
 
-pmap('i', 1, 4, dB)
-pmap('i', 1, 5, cpspch)
+with cue(8):
+	dusty_vinyl(4, 0.5, 1000, 12000, 5)
+
+with cue(12):
+	dusty_vinyl(4, 0.5, 500, 16000, 55)
+
 </CsScore>
 </CsoundSynthesizer>
