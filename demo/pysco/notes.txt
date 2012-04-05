@@ -1,3 +1,19 @@
+------------------------------------------------------------------------
+
+
+class Foo (Instr):
+    super(Foo, self).__init__():
+        pass
+
+
+
+
+lfo = LFO(4)
+
+
+
+
+------------------------------------------------------------------------
 Slipmat class
 	centralized object for managing score and time
 
