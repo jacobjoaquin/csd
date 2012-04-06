@@ -47,8 +47,7 @@ score('t 0 120')
 
 with cue(0):
     for i in range(0, 16):
-        with cue(i):
-            score('i 1 0 0.25 -9 8.02')
+        with cue(i): score('i 1 0 0.25 -9 8.02')
 
 with cue(0):
     for i in [0, 0.505, 1.333]:
