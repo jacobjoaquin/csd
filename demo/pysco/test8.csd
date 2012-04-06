@@ -20,19 +20,19 @@ endin
 <CsScore bin="./pysco.py">
 
 def phrase():
-	score('''
-	i 1 0 0.5 -3 8.00
-	i 1 + .   .  8.03
-	i 1 + .   .  8.07
-	i 1 + .   .  8.08
-	i 1 + .   .  8.07
-	i 1 + .   .  8.03
-	i 1 + .   .  7.11
-	''')
+    score('''
+    i 1 0 0.5 -3 8.00
+    i 1 + .   .  8.03
+    i 1 + .   .  8.07
+    i 1 + .   .  8.08
+    i 1 + .   .  8.07
+    i 1 + .   .  8.03
+    i 1 + .   .  7.11
+    ''')
 
 def phrase_2():
-	with cue(0): score('i 1 0 2 -6 7.07')
-	with cue(1): score('i 1 0 2 -6 8.07')
+    with cue(0): score('i 1 0 2 -6 7.07')
+    with cue(1): score('i 1 0 2 -6 8.07')
 
 score('t 0 90')
 
@@ -42,5 +42,6 @@ with cue(4): phrase()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
+
 </CsScore>
 </CsoundSynthesizer>

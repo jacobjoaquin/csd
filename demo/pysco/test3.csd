@@ -21,7 +21,6 @@ endin
 
 # Test using score method.
 score('''
-f 1 0 8192 10 1
 t 0 189
 
 i 1 0 0.5 -3 9.02

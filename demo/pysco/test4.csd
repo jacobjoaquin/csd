@@ -19,20 +19,17 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-score('''
-f 1 0 8192 10 1
-t 0 210
-''')
+score('t 0 210')
 
 def phrase():
-	score('''
-	i 1 0 1    0.5 8.07
-	i 1 + .    .   9.00
-	i 1 + 0.25 .   8.11
-	i 1 + 0.25 .   8.09
-	i 1 + 0.5  .   8.11
-	i 1 + .    .   9.00
-	''')
+    score('''
+    i 1 0 1    0.5 8.07
+    i 1 + .    .   9.00
+    i 1 + 0.25 .   8.11
+    i 1 + 0.25 .   8.09
+    i 1 + 0.5  .   8.11
+    i 1 + .    .   9.00
+    ''')
 
 with cue(0): phrase()
 with cue(4): phrase()

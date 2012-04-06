@@ -18,24 +18,25 @@ endin
 
 </CsInstruments>
 <CsScore bin="./pysco.py">
-score('t 0 140')
 
 def phrase():
-	score('''
-	i 1 0 0.5 -7 8.00
-	i 1 + .   .  8.03
-	i 1 + .   .  8.02
-	i 1 + .   .  8.07
-	i 1 + .   .  8.05
-	i 1 + .   .  8.10
-	i 1 + 1   .  8.08
-	''')
+    score('''
+    i 1 0 0.5 -7 8.00
+    i 1 + .   .  8.03
+    i 1 + .   .  8.02
+    i 1 + .   .  8.07
+    i 1 + .   .  8.05
+    i 1 + .   .  8.10
+    i 1 + 1   .  8.08
+    ''')
 
 def phrase_2():
-	phrase()
+    phrase()
 
-	with cue(0.25):
-		phrase()
+    with cue(0.25):
+        phrase()
+
+score('t 0 140')
 
 with cue(0): phrase()
 with cue(4): phrase_2()
@@ -44,5 +45,6 @@ with cue(12): phrase_2()
 
 pmap('i', 1, 4, dB)
 pmap('i', 1, 5, cpspch)
+
 </CsScore>
 </CsoundSynthesizer>
