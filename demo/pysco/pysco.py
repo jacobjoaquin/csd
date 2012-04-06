@@ -6,17 +6,19 @@ from csd import sco
 from random import random
 
 class Slipmat():
+
     def __init__(self):
         self.slipcue = Slipcue()
         self.score_data = []
         self.callback_dict = {}
 
-    def __map_process(self, data, statement, identifier, pfield, func, *args, **kwargs):
+    def _map_process(self, data, statement, identifier, pfield, func,
+                     *args, **kwargs):
         convert_numeric = True
         sco_statements_enabled = True
 
         # Convert pfield to list if it isn't one
-        if type(pfield) != list:
+        if not isinstance(pfield, list):
             pfield = [pfield]
 
         selection = sco.select(data, {0: statement, 1: identifier})
@@ -34,7 +36,7 @@ class Slipmat():
                 if convert_numeric:
                     try:
                         element = float(element)
-                    except:
+                    except Exception:
                         pass
 
                 deez_args = (element,) + args
@@ -67,20 +69,26 @@ class Slipmat():
 
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
         data = "\n".join(self.score_data)
-        self.score_data = [self.__map_process(data, statement, identifier, pfield, func, *args, **kwargs)]
+        self.score_data = [self._map_process(data, statement, identifier,
+                           pfield, func, *args, **kwargs)]
 
     def score(self, data):
         # Apply callbacks
         for k, v in self.callback_dict.iteritems():
             if v['enabled']:
-                data = self.__map_process(data, v['statement'], v['identifier'], v['pfield'], v['func'], *v['args'], **v['kwargs'])
+                data = self._map_process(
+                        data, v['statement'], v['identifier'], v['pfield'],
+                        v['func'], *v['args'], **v['kwargs'])
 
         # Apply time stack
         selected = sco.select(data, {0: 'i'})
-        op = sco.selection.operate_numeric(selected, 2, lambda x: x + self.slipcue.now())
+        op = sco.selection.operate_numeric(selected, 2,
+                                           lambda x: x + self.slipcue.now())
         self.score_data.append(sco.merge(data, op))
 
+
 class Slipcue(object):
+
     def __init__(self):
         self.stack = []
 
@@ -98,6 +106,7 @@ class Slipcue(object):
 
     def now(self):
         return sum(self.stack)
+
 
 def debug(m, v=''):
     print m + ': ' + str(v) + "\n",
