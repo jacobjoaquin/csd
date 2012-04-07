@@ -5,6 +5,12 @@ import csd
 from csd import sco
 from random import random
 
+class PfieldCallback():
+
+	def __init__(self):
+		self.stack = []
+
+
 class Slipmat():
 
     def __init__(self):
@@ -45,15 +51,9 @@ class Slipmat():
         return sco.merge(data, selection)
 
     def bind(self, name, statement, identifier, pfield, func, *args, **kwargs):
-        self.callback_dict[name] = {
-            'statement' : statement,
-            'identifier' : identifier,
-            'pfield' : pfield,
-            'func' : func,
-            'args' : args,
-            'kwargs' : kwargs,
-            'enabled' : True
-        }
+        self.callback_dict[name] = { 'statement': statement,
+			'identifier': identifier, 'pfield': pfield, 'func': func,
+            'args': args, 'kwargs': kwargs, 'enabled': True}
 
     def bind_enabled(self, name, value):
         if name in self.callback_dict:

@@ -1,4 +1,68 @@
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
+Bind Types...
+
+First, the term "bind" may or may not be the correct term. Though
+the idea is to "bind" callback functions to specific pfields in
+specific score events. Usually i-events, but the callback engine
+is written in a way to allow this to other types of events. Probably
+f-tables.
+
+That said, there are other types of binds that may be of use. Such
+as applying a callback function to an entire score() call.
+
+Types of callbacks for score:
+	pfield callback
+	entire contents callback
+
+foo.callback(type, function, *args, **kwargs)
+foo.score(function, *args, *kwargs)
+foo.pfield(selector, function, *args, **kwargs)
+foo.pfield(statement, instrument, pfield, function, *args, **kwargs)
+
+ie
+foo.pfield(select('i', 1, 4), dB)
+vs
+foo.pfield('i', 1, 4, dB)
+
+A callback object needs to append existing callback objects to
+itself.
+
+Is it worth distinguishing callbacks that are appended or prepended
+to a list? Perhaps a moot point if a user has fully access to the
+stack.
+
+Selectors need extending. Or do they? What if a user wanted to
+selected a range, whether it is for time or duration? What about
+logic? Select anything less this this and also select anything above
+this. Needs more think'n.
+
+-------------------------------------------------------------------------------
+
+# Create a new bind set and attach pfield callbacks
+foo = Bind()
+foo('i', 1, 4, my_func)
+foo('i', 1, 5, my_func_2, 3)
+
+with foo:
+	# foo is applied to score
+	score('...')
+
+# foo is NOT applied to score
+score('...')
+
+# Score transform. A method for applying multiple context managers.
+with score_transform(cue(x), foo):
+	# Apply both the cue and foo to score
+	score('...')
+
+# Alternatively
+with cue(t, foo):
+	# cue with bind set
+	score('...')
+
+-------------------------------------------------------------------------------
+
 VIM Stuff
 
 :set expandtab
@@ -10,7 +74,7 @@ Remove trailing whitespace
 or even bettter
 :set expandtab | retab | %s=\s\+$==
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 class Foo (Instr):
     super(Foo, self).__init__():
@@ -18,29 +82,35 @@ class Foo (Instr):
 
 lfo = LFO(4)
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
+
 Slipmat class
 	centralized object for managing score and time
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 Lesson in the help.
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
-How do the internals of a sine wavework? How are its mechanisms graphed?
+How do the internals of a sine wavework? How are its mechanisms
+graphed?
 
 Need to think of opcodes as part of a more low-level system.
 
 Think ByteCode?
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
-Smart graphs. Nodes that seek out data and commands from within a graph.
+Smart graphs. Nodes that seek out data and commands from within a
+graph.
 
-Example. When a unit generator is graphed to a network of other unit generators, it traverses the list seeking pertinent information on how it should behave. The sample rate and control rate could be part of this data.
+Example. When a unit generator is graphed to a network of other
+unit generators, it traverses the list seeking pertinent information
+on how it should behave. The sample rate and control rate could be
+part of this data.
 
-------------------------------------------------------------------------
+-------------------------------------------------------------------------------
 
 a1 sine amp, frequency, phase_offset
 
@@ -48,7 +118,7 @@ a1 sine amp, frequency, phase_offset
 a1 sine amp, frequency, phase_offset
    @
 
------------------------------------------------
+-------------------------------------------------------------------------------
 
 bind('convert_midi', {'i', 1, 5}, midi_to_freq)
 
@@ -62,19 +132,16 @@ i 1 + . .     68
 i 1 + . .     70
 ''')
 
-The pmap() exists to postprocess or preprocess,
-depending if you are looking at this from the
-perspective of the slipmat score of the
-traditional Csound score.
+The pmap() exists to postprocess or preprocess, depending if you
+are looking at this from the perspective of the slipmat score of
+the traditional Csound score.
 
-The bind(), if that really is its name, creates
-and graphs a callback onto a selected list of
-Csound pfields.
+The bind(), if that really is its name, creates and graphs a callback
+onto a selected list of Csound pfields.
 
-The processing happens as the score is written
-in pieces.
+The processing happens as the score is written in pieces.
 
--------------------------------------------------------
+-------------------------------------------------------------------------------
 
 score('i 1 0 5 0.707 72')
 disable_bind('name', False)  # Disables it
@@ -110,7 +177,7 @@ with time(0):
 
 score.process(SOMETHING
 
--------------------------
+-------------------------------------------------------------------------------
 
 simple_sine = instr('''
 	idur = p3
@@ -123,28 +190,19 @@ simple_sine = instr('''
 	@audio_out a1
 ''')
 
-
 @audio_out(a1) becomes
 chnset FOO, a1
 
 gets added to audio_clear_stack, which is cleared at end of chain
 
-
-
 define ALL the graphing patterns!!!
 
-
-
-
--------------------------
-
+-------------------------------------------------------------------------------
 
 <INDENT>@<TIME>: <FOO>
 
-
 On <INDENT>
 	is_time_stacking = true
-
 
 if time_stacking = true
 	# Do nothing, bascially
@@ -191,12 +249,8 @@ if not time_stacking
 	else
 		exec_block.append()
 
+-------------------------------------------------------------------------------
 
-
-
-
-
--------------------------
 @<FOO>: <BAR>
 
 time_stack.append(<FOO>)
@@ -213,10 +267,9 @@ time_stack.append(<FOO_2>)
 time_stack.pop()
 time_stack.pop()
 
+-------------------------------------------------------------------------------
 
--------------------------
-From
-http://codehop.com/nine-rules-for-scheduling-events/
+From http://codehop.com/nine-rules-for-scheduling-events/
 
 1. Individual Events
 

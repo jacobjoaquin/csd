@@ -14,6 +14,7 @@ instr 1
 
     kenv line iamp, idur, 0       ; Line envelope
     a1 vco2 kenv, ifreq, 12, 0.5  ; Triangle wave
+
     outs a1 * sqrt(1 - ipan), a1 * sqrt(ipan)
 endin
 
@@ -60,6 +61,12 @@ times = [0.05, 0.75, 1.333, 1.75]
 
 score('t 0 90')
 
+with cue(0):
+    for t in xrange(0, 64, 1):
+        with cue(t):
+            score('i 1 0.01 0.66  0.8 6.00 0.5')
+            score('i 1 0    0.125 0.8 7.00 0.5')
+
 with cue(8):
     for t in xrange(0, 16, 8):
         with cue(t):
@@ -68,12 +75,7 @@ with cue(8):
 with cue(24):
     for t in xrange(0, 32, 8):
         with cue(t):
-            phrase_delay(my_phrase, times, 0.45)
-
-for t in xrange(0, 64, 1):
-    with cue(t):
-        score('i 1 0 0.5 0.5 7.00 0.4')
-        score('i 1 0 0.5 0.5 6.00 0.4')
+            phrase_delay(my_phrase, times, 0.65)
 
 pmap('i', 1, 4, lambda x: x * 0.707)
 pmap('i', 1, 5, cpspch)
