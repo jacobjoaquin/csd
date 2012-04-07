@@ -36,7 +36,7 @@ time = 0
 
 while time < phrase_duration:
     with cue(time):
-        event_i(1, 0, note_duration * 1.5, 0.707, 0, 0)
+        event_i(1, 0, note_duration * 1.5, 0, 0, 0)
 
     time += note_duration
 
