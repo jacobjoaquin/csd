@@ -29,7 +29,7 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-bind('foo', 'i', 1, 5, conv_to_hz)
+p_callback('i', 1, 5, conv_to_hz)
 
 score('''
 f 1 0 8192 10 1

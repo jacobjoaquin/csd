@@ -26,9 +26,9 @@ def simulated_lfo(null, freq, min=0.0, max=1.0):
     v = (sin(cue.now() * freq * 2 * pi) + 1) / 2.0
     return v * (max - min) + min
 
-bind('amp', 'i', 1, 4, simulated_lfo, 0.666, 0.125, 0.75)
-bind('freq', 'i', 1, 5, simulated_lfo, 0.111, 110, 880)
-bind('pan', 'i', 1, 6, simulated_lfo, 0.333)
+p_callback('i', 1, 4, simulated_lfo, 0.666, 0.125, 0.75)
+p_callback('i', 1, 5, simulated_lfo, 0.111, 110, 880)
+p_callback('i', 1, 6, simulated_lfo, 0.333)
 
 note_duration = 0.125
 phrase_duration = 32

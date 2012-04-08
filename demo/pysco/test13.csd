@@ -36,7 +36,8 @@ def transpose(x, y):
     return x * 2 ** (y / 12.0)
 
 # Bind with additional arg
-bind('transpose', 'i', 1, 5, transpose, 17)
+def p_transpose(y):
+    p_callback('i', 1, 5, transpose, y)
 
 phrase = '''
 i 1 0 0.5 0 110
@@ -54,13 +55,19 @@ f 1 0 8192 10 1
 t 0 180
 ''')
 
-score(phrase)
-bind_enabled('transpose', False)
-with cue(4): score(phrase)
-bind_enabled('transpose', True)
-with cue(8): score(phrase)
-bind_enabled('transpose', False)
-with cue(12): score(phrase)
+with cue(0):
+    score(phrase)
+
+with cue(4):
+    p_transpose(17)
+    score(phrase)
+
+with cue(8):
+    score(phrase)
+
+with cue(12):
+    p_transpose(17)
+    score(phrase)
 
 # pmap with additional arg
 pmap('i', 1, 4, add, -3)

@@ -5,20 +5,27 @@ import csd
 from csd import sco
 from random import random
 
-class PfieldCallback():
 
-	def __init__(self):
-		self.stack = []
+class PCallback():
 
+    def __init__(self, statement, identifier, pfield, function, *args,
+                 **kwargs):
+        self.statement = statement
+        self.identifier = identifier
+        self.pfield = pfield
+        self.function = function
+        self.args = args
+        self.kwargs = kwargs
+        
 
 class Slipmat():
 
     def __init__(self):
-        self.slipcue = Slipcue()
+        self.slipcue = Slipcue(self)
         self.score_data = []
-        self.callback_dict = {}
+        self.p_callbacks = [[]]
 
-    def _map_process(self, data, statement, identifier, pfield, func,
+    def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
         convert_numeric = True
         sco_statements_enabled = True
@@ -46,18 +53,10 @@ class Slipmat():
                         pass
 
                 deez_args = (element,) + args
-                selection[k] = sco.event.set(v, p, func(*deez_args, **kwargs))
+                selection[k] = sco.event.set(v, p,
+                                             function(*deez_args, **kwargs))
 
         return sco.merge(data, selection)
-
-    def bind(self, name, statement, identifier, pfield, func, *args, **kwargs):
-        self.callback_dict[name] = { 'statement': statement,
-			'identifier': identifier, 'pfield': pfield, 'func': func,
-            'args': args, 'kwargs': kwargs, 'enabled': True}
-
-    def bind_enabled(self, name, value):
-        if name in self.callback_dict:
-            self.callback_dict[name]['enabled'] = value
 
     def event_i(self, *args):
         output = ['i']
@@ -67,18 +66,23 @@ class Slipmat():
 
         self.score(' '.join(output))
 
+    def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
+        self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
+                                    func, *args, **kwargs))
+
+
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
         data = "\n".join(self.score_data)
         self.score_data = [self._map_process(data, statement, identifier,
                            pfield, func, *args, **kwargs)]
 
     def score(self, data):
-        # Apply callbacks
-        for k, v in self.callback_dict.iteritems():
-            if v['enabled']:
-                data = self._map_process(
-                        data, v['statement'], v['identifier'], v['pfield'],
-                        v['func'], *v['args'], **v['kwargs'])
+        # Apply pfield callbacks
+        for L in self.p_callbacks:
+            for cb in L:
+                data = self._map_process(data, cb.statement, cb.identifier,
+                                         cb.pfield, cb.function, *cb.args,
+                                         **cb.kwargs)
 
         # Apply time stack
         selected = sco.select(data, {0: 'i'})
@@ -89,8 +93,9 @@ class Slipmat():
 
 class Slipcue(object):
 
-    def __init__(self):
+    def __init__(self, parent):
         self.stack = []
+        self.parent = parent
 
     def __call__(self, when):
         self.when = when
@@ -98,10 +103,12 @@ class Slipcue(object):
 
     def __enter__(self):
         self.stack.append(self.when)
+        self.parent.p_callbacks.append([])
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.stack.pop()
+        self.parent.p_callbacks.pop()
         return False
 
     def now(self):
@@ -116,8 +123,7 @@ slipmat = Slipmat()
 cue = slipmat.slipcue
 score = slipmat.score
 pmap = slipmat.pmap
-bind = slipmat.bind
-bind_enabled = slipmat.bind_enabled
+p_callback = slipmat.p_callback
 event_i = slipmat.event_i
 
 def main():

@@ -1,5 +1,21 @@
 -------------------------------------------------------------------------------
 
+Over thought this whole callback thing. Make binding of callbacks and post-processing pmaps local to the current cue().
+
+p_callback('i", 1, 4, bar)
+
+with cue(t):
+	p_callback('i', 1, 4, foo)
+
+	# Score uses bar then foo
+	score('...')
+
+# Score uses just bar
+score('...')
+
+
+-------------------------------------------------------------------------------
+
 Bind Types...
 
 First, the term "bind" may or may not be the correct term. Though

@@ -36,9 +36,8 @@ def phrase_delay(phrase, delay_time=0.75, feedback=0.8):
 
     for d in delay_time:
         with cue(d):
-            bind('temp', 'i', 1, 4, lambda x: x * f)
+            p_callback('i', 1, 4, lambda x: x * f)
             score(phrase)
-            bind_enabled('temp', False)
 
         f *= feedback
 
