@@ -19,6 +19,8 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
+from random import random
+
 def dusty_vinyl(dur, amp, freq_min, freq_max, density):
     for i in range(int(density * dur)):
         freq = random() * (freq_max - freq_min) + freq_min

@@ -1,8 +1,8 @@
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
-kr = 4410
-ksmps = 10
+kr = 44100
+ksmps = 1
 nchnls = 2
 0dbfs = 1.0
 
@@ -20,6 +20,8 @@ endin
 
 </CsInstruments>
 <CsScore bin="./pysco.py">
+
+from random import random
 
 def pan_cycle(x):
     global positions
@@ -82,16 +84,16 @@ with cue(24):
         with cue(t):
             phrase_delay(my_phrase, times, 0.65)
 
-# Phrase with event delay effect plus triple octave voice
+# Phrase with event delay effect plus voice 1 octave lower
 with cue(40):
     # Taps for event delay
     fib = map(lambda x: x * 0.1618, [1, 2, 3, 5, 8, 13])
 
     for t in xrange(0, 16, 8):
-        # Create a second voice 3 octaves higher with reduced amplitude
+        # Create a second voice 1 octave lower with reduced amplitude
         with cue(t):
-            p_callback('i', 1, 4, lambda x: x * 0.25)
-            p_callback('i', 1, 5, lambda x: x * 3.0)
+            p_callback('i', 1, 4, lambda x: x * 0.45)
+            p_callback('i', 1, 5, lambda x: x / 2.0)
             score(my_phrase)
 
         with cue(t):

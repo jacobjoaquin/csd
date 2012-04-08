@@ -122,6 +122,7 @@ endin
 
 # Import choice from python library
 from random import choice
+from random import random
 
 # Create wrapper functions for instruments.
 def kick(amp=0.25): score('i 1 0 1 %f' % amp)

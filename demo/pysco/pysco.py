@@ -1,9 +1,9 @@
 #!/usr/bin/python
 from sys import argv
+
 from convert import *
 import csd
 from csd import sco
-from random import random
 
 
 class PCallback():
@@ -69,7 +69,6 @@ class Slipmat():
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
         self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
                                     func, *args, **kwargs))
-
 
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
         data = "\n".join(self.score_data)
@@ -138,7 +137,7 @@ def main():
         f.write(sco_output)
 
     # Additional file for development testing
-    with open('dev.sco', 'w') as f:
+    with open('_pysco.sco', 'w') as f:
         f.write(sco_output)
 
 if __name__ == '__main__':

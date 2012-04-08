@@ -121,9 +121,10 @@ endin
 <CsScore bin="./pysco.py">
 
 # Import choice from python library
-from random import choice
 from math import sin
 from math import pi
+from random import choice
+from random import random
 
 # Create wrapper functions for instruments.
 def kick(amp=0.25): score('i 1 0 1 %f' % amp)
@@ -163,9 +164,9 @@ def swing_test(x):
 
 # "Turn it up!" - Abe Simpson
 # Bind amplitude processors callbacks to mix instruments.
-bind('a', 'i', 1, 4, lambda x: x * 2.5)
-bind('b', 'i', 2, 4, lambda x: x * 2.0)
-bind('c', 'i', 3, 4, lambda x: x * 1.5)
+p_callback('i', 1, 4, lambda x: x * 2.5)
+p_callback('i', 2, 4, lambda x: x * 2.0)
+p_callback('i', 3, 4, lambda x: x * 1.5)
 
 # f-tables and tempo
 score('''
