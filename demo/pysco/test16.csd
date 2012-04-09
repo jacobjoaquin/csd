@@ -39,10 +39,11 @@ with cue(0):
     score(phrase)
 
 with cue(4):
+    p_callback('i', 1, 3, lambda x: x * 2.0)
     p_callback('i', 1, 5, lambda x: x / 2.0)
     score(phrase)
 
-with cue(8):
+with cue(12):
     score(phrase)
 
 </CsScore>
