@@ -1,21 +1,26 @@
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
-kr = 4410
-ksmps = 10
+kr = 44100
+ksmps = 1
 nchnls = 1
 0dbfs = 1.0
 
 instr 1
-    idur = p3   ; Duration
-
-    kenv line 0.707, idur, 0       ; Line envelope
-    a1 vco2 kenv, 440, 12, 0.5  ; Triangle wave
-    out a1
+    a1 line 0.707, p3, 0
+    a2 oscil a1, 478.8, 1
+    out a2
 endin
 
 </CsInstruments>
 <CsScore bin="./pysco.py">
+
+quote = 'ALL COMPOSERS SHOULD BE AS LAZY AS POSSIBLE WHEN WRITING SCORES MAX V MATHEWS'
+
+DIT = 1
+DAH = 3
+LETTER = 3
+SPACE = 7
 
 morse = {
     'A': '.-',
@@ -55,23 +60,16 @@ morse = {
     '8': '---..',
     '9': '----.'}
    
-DIT = 1
-DAH = 3
-LETTER = 3
-SPACE = 7
-
-foo = 'The quick brown fox jumped over the lazy dog'
 last = None
 t = 0
 
-# Pre-process string
-pass
+score('''
+f 1 0 512 7 0 50 1 155 1 101 -1 155 -1 50 0')
+t 0 500
+''')
 
-score('t 0 700')
-
-for c in foo:
-    c = c.upper()
-
+# Process each letter in quote
+for c in quote:
     if c in morse:
         # Space between letters and words
         if last == 'letter':
@@ -79,11 +77,14 @@ for c in foo:
         elif last == 'space':
             t += SPACE
 
+        # Write letter and morse code to score
         score('; ' + c + ' ' + morse[c])
+
+        # Audio process letter
         for m in morse[c]:
             with cue(t): 
                 if m == '.':
-                    event_i(1, 0, DIT, )
+                    event_i(1, 0, DIT)
                     t += DIT
                 elif m == '-':
                     event_i(1, 0, DAH)
@@ -91,6 +92,7 @@ for c in foo:
 
         last = 'letter'
 
+    # Blank space
     elif c == ' ':
         score('; SPACE')
         last = 'space'
