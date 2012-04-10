@@ -17,11 +17,6 @@ endin
 
 quote = 'ALL COMPOSERS SHOULD BE AS LAZY AS POSSIBLE WHEN WRITING SCORES MAX V MATHEWS'
 
-DIT = 1
-DAH = 3
-LETTER = 3
-SPACE = 7
-
 morse = {
     'A': '.-',
     'B': '-...',
@@ -59,42 +54,29 @@ morse = {
     '7': '--...',
     '8': '---..',
     '9': '----.'}
-   
-last = None
+
+dur = {'.': 1, '-': 3, 'dit': 1, 'dah': 3, 'letter': 3, 'space': 7, 'none': 0}
+last = 'none'
 t = 0
 
-score('''
-f 1 0 512 7 0 50 1 155 1 101 -1 155 -1 50 0')
-t 0 500
-''')
+score('f 1 0 512 7 0 50 1 155 1 101 -1 155 -1 50 0')
+score('t 0 500')
 
-# Process each letter in quote
+# Process each character in quote
 for c in quote:
+    # Letter
     if c in morse:
-        # Space between letters and words
-        if last == 'letter':
-            t += LETTER
-        elif last == 'space':
-            t += SPACE
-
-        # Write letter and morse code to score
-        score('; ' + c + ' ' + morse[c])
-
-        # Audio process letter
-        for m in morse[c]:
-            with cue(t): 
-                if m == '.':
-                    event_i(1, 0, DIT)
-                    t += DIT
-                elif m == '-':
-                    event_i(1, 0, DAH)
-                    t += DAH
-
+        # Rest
+        t += dur[last]
         last = 'letter'
 
-    # Blank space
+        # Convert to morse
+        for m in morse[c]:
+            event_i(1, t, dur[m])
+            t += dur[m]
+
+    # Space
     elif c == ' ':
-        score('; SPACE')
         last = 'space'
 
 </CsScore>
