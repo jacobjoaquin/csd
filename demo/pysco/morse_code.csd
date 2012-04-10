@@ -15,49 +15,21 @@ endin
 </CsInstruments>
 <CsScore bin="./pysco.py">
 
-quote = 'ALL COMPOSERS SHOULD BE AS LAZY AS POSSIBLE WHEN WRITING SCORES MAX V MATHEWS'
+quote = '''
+ALL COMPOSERS SHOULD BE AS LAZY AS POSSIBLE WHEN WRITING SCORES MAX V MATHEWS
+'''
 
+dur = {'.': 1, '-': 3, 'letter': 3, 'space': 7, 'none': 0}
 morse = {
-    'A': '.-',
-    'B': '-...',
-    'C': '-.-.',
-    'D': '-..',
-    'E': '.',
-    'F': '..-.',
-    'G': '--.',
-    'H': '....',
-    'I': '..',
-    'J': '.---',
-    'K': '-.-',
-    'L': '.-..',
-    'M': '--',
-    'N': '-.',
-    'O': '---',
-    'P': '.--.',
-    'Q': '--.-',
-    'R': '.-.',
-    'S': '...',
-    'T': '-',
-    'U': '..-',
-    'V': '...-',
-    'W': '.--',
-    'X': '-..-',
-    'Y': '-.--',
-    'Z': '--..',
-    '0': '-----',
-    '1': '.----',
-    '2': '..---',
-    '3': '...--',
-    '4': '....-',
-    '5': '.....',
-    '6': '-....',
-    '7': '--...',
-    '8': '---..',
-    '9': '----.'}
-
-dur = {'.': 1, '-': 3, 'dit': 1, 'dah': 3, 'letter': 3, 'space': 7, 'none': 0}
+    'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+    'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+    'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+    'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+    'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+    '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...',
+    '8': '---..', '9': '----.'}
 last = 'none'
-t = 0
+time = 0
 
 score('f 1 0 512 7 0 50 1 155 1 101 -1 155 -1 50 0')
 score('t 0 500')
@@ -67,13 +39,13 @@ for c in quote:
     # Letter
     if c in morse:
         # Rest
-        t += dur[last]
+        time += dur[last]
         last = 'letter'
 
-        # Convert to morse
+        # Morse
         for m in morse[c]:
-            event_i(1, t, dur[m])
-            t += dur[m]
+            event_i(1, time, dur[m])
+            time += dur[m]
 
     # Space
     elif c == ' ':
