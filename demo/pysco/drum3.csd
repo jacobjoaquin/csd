@@ -6,7 +6,7 @@ ksmps = 1
 nchnls = 2
 0dbfs = 1.0
 
-;gS_loop = "amen.wav"
+; Uses one of the millions of Amen loops by the Winstons. Originally, that is.
 gS_loop = "Amenbreak.aif"
 gisr filesr gS_loop
 gilength filelen gS_loop
@@ -32,13 +32,13 @@ from random import random
 
 # Create wrapper functions for instruments.
 def kick(amp=1):
-    event_i(1, 0, 1, amp, choice([0, 4, 8, 16]))
+    event_i(1, 0, 1, amp, choice([0, 0.5, 4, 8, 16]))
 
 def snare(amp=1):
-    event_i(1, 0, 1, amp, choice([1, 5, 11.5]))
+    event_i(1, 0, 1, amp, choice([1, 5, 9, 11.5]))
 
 def hat(amp=1):
-    event_i(1, 0, 1, amp, choice([3.5, 7.5, 19.5]))
+    event_i(1, 0, 1, amp, choice([3.5, 7.5, 10, 11, 19.5]))
 
 score('t 0 170')
 
@@ -50,7 +50,7 @@ def pattern(r=0):
     with cue(2.5): kick()
     with cue(3): snare()
 
-    times = [0.5, 0.75, 1.5, 2, 3.5, 3.75]
+    times = [0.5, 0.75, 1.5, 2, 2.75, 3.5, 3.75]
     instrs = [kick, snare, hat, hat, hat]
 
     for time in times:
@@ -59,12 +59,37 @@ def pattern(r=0):
                 instr = choice(instrs)
                 instr(random() * 0.75 + 0.125)
 
-for t in xrange(0, 256, 16):
-    with cue(t):
-        with cue(0): pattern()
-        with cue(4): pattern(0.25)
-        with cue(8): pattern()
-        with cue(12): pattern(0.95)
+def section_a():
+    with cue(0): pattern()
+    with cue(4): pattern(0.25)
+    with cue(8): pattern()
+    with cue(12): pattern(0.95)
+
+def section_b():
+    with cue(0): pattern(1.0)
+    with cue(4): pattern(1.0)
+    with cue(8): pattern(1.0)
+    with cue(12): pattern(1.0)
+
+with cue(0):
+    for t in xrange(4):
+        with cue(t * 16):
+            section_a()
+
+with cue(64):
+    for t in xrange(4):
+        with cue(t * 16):
+            section_b()
+
+with cue(128):
+    for t in xrange(4):
+        with cue(t * 16):
+            section_a()
+
+with cue(192):
+    for t in xrange(4):
+        with cue(t * 16):
+            section_b()
 
 pmap('i', 1, 4, lambda x: x * 0.707)
 
