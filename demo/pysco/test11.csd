@@ -22,7 +22,6 @@ endin
 # Invention No. 1 (excerpt) by J.S. Bach
 
 def measure(t):
-    global cue
     return cue((t - 1) * 4.0)
 
 score('t 0 210')

@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import inspect
 from sys import argv
 
 from convert import *
@@ -54,7 +55,7 @@ class Slipmat():
 
                 deez_args = (element,) + args
                 selection[k] = sco.event.set(v, p,
-                                             function(*deez_args, **kwargs))
+                        function(*deez_args, **kwargs))
 
         return sco.merge(data, selection)
 

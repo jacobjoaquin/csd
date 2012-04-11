@@ -23,11 +23,13 @@ endin
 
 from random import random
 
-def pan_cycle(x):
-    global positions
-    global pos
-    pos = (pos + 1) % len(positions)  
-    return positions[pos]
+def pan_cycle():
+    pos = 0
+    positions = [0.0, 0.333, 0.75, 0.5, 0.25, 0.666, 1.0]
+
+    while True:
+        yield positions[pos]
+        pos = (pos + 1) % len(positions)  
 
 def phrase_delay(phrase, delay_time=1, feedback=0.5):
     if not isinstance(delay_time, list):
@@ -106,9 +108,8 @@ pmap('i', 1, 4, lambda x: x * 0.5)
 pmap('i', 1, 5, lambda x: x * (random() * 0.015 + 0.992))
 
 # Pan cycler
-pos = 0
-positions = [0.0, 0.333, 0.75, 0.5, 0.25, 0.666, 1.0]
-pmap('i', 1, 6, pan_cycle)
+cycle = pan_cycle()
+pmap('i', 1, 6, lambda x: cycle.next())
 
 </CsScore>
 </CsoundSynthesizer>
