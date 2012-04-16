@@ -98,7 +98,7 @@ state_5 = markov.node(1.5, note, 1.5, 1.0, 8.10)
 state_6 = markov.node(1.0, note, 1.0, 1.0, 8.09)
 state_7 = markov.node(0.5, note, 0.5, 1.0, 9.00)
 
-# Connect nodes and set probablity
+# Connect nodes and set probability
 state_0.edge(state_1, 1)
 state_1.edge(state_0, 1)
 state_1.edge(state_2, 1)

@@ -17,7 +17,7 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 # Invention No. 1 (excerpt) by J.S. Bach
 
