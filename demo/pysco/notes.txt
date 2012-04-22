@@ -1,17 +1,173 @@
 -------------------------------------------------------------------------------
 
-Over thought this whole callback thing. Make binding of callbacks and post-processing pmaps local to the current cue().
+instr ${instr_name}
+    kfreq chnget ${freq}
+
+    k1 line 1, idur, 0
+    a1 oscils 1.0, kfreq, 0
+
+    chnmix a1 * iamp, ${out}
+endin
+
+
+instr $instr_name
+    kfreq chnget $freq
+
+    k1 line 1, idur, 0
+    a1 oscils 1.0, kfreq, 0
+
+    chnmix a1 * iamp, $out
+endin
+
+
+foo = instr('''
+kfreq chnget $freq
+
+k1 line 1, idur, 0
+a1 oscils 1.0, kfreq, 0
+
+chnmix a1 * iamp, $out
+''')
+
+
+foo = Instr()
+foo.input('freq', 'k')
+foo.input('amp', 'i')
+foo.output('out', 'a')
+foo.table('sine', 0, 8192, 10, 1)
+foo.instr('''
+kfreq @in(freq)
+iamp @in(amp)
+
+k1 line 1, idur, 0
+a1 oscil 1.0, kfreq, @table(sine)
+
+@out_mix(out, a1 * k1 * kamp)
+''')
+
+
+class Foo (Instr):
+
+    def __init__(self):
+        self.input('freq', 'k')
+        self.input('amp', 'i')
+        self.output('out', 'a')
+        self.table('sine', 0, 8192, 10, 1)
+
+        self.instr('''
+        kfreq @in(freq)
+        iamp @in(amp)
+
+        k1 line 1, idur, 0
+        a1 oscil 1.0, kfreq, @table(sine)
+
+        @out_mix(out, a1 * k1 * kamp)
+        ''')
+
+-------------------------------------------------------------------------------
+
+A system for patching together orchestra code may also apply to raw
+instrument code; Blocks of code that exist by itself that can be
+combined with other blocks before being placed within an instrument.
+
+
+osc = instr_module('''
+${output} oscil ${amp}, ${freq}, ${table}
+''')
+
+osc = instr_module('''
+${out} oscil ${in.amp}, ${in.freq}, ${in.table}, ${in.phase}
+''')
+osc = instr_module('''
+$out oscil $in.amp, $in.freq, $in.table, $in.phase
+''')
+
+
+Only this far in and I already think this may be too complex to be
+useful. We'll see.
+
+-------------------------------------------------------------------------------
+
+class Instr:
+    
+    def __init__(self):
+        self.id = self.create_unique_id()
+        self.inputs = []
+        self.outputs = []
+        self.code_body = ''
+        self.instr_number
+
+    def in(self, name, signal="a", type="set", clear=True):
+        self.inputs.append(stuff) 
+           
+    def out(self, name, signal="a", type="set", clear=True):
+        self.inputs.append(stuff) 
+
+    def code(self, c):
+        self.code_body = c
+
+
+# Accepts an input
+# Creates an output
+# Probably a thru, too.
+
+foo.inputs["freq"] = bar.out[0]
+
+-------------------------------------------------------------------------------
+
+class Saw (Instr):
+    stuff
+
+class Pan (Instr):
+    
+    def __init__(self, channels=2):
+        self.channels = channels
+
+
+    def gen_code():
+        self.inputs = []
+        self.outputs = []
+
+        for i in self.channels:
+            self.inputs.append(create_a_input())
+            self.outputs.append(create_a_output())
+
+
+class Output (Instr):
+    stuff
+
+
+saw = Saw()
+pan = Pan(2)
+output = Output()
+
+pan.in(saw.out)
+output.in(pan.out[0], pan.out[1])
+
+-------------------------------------------------------------------------------
+
+my_instr = instr('''
+    a1 oscils 1.0, 440, 1
+    out a1
+    ''')
+
+orchestra_compile()
+
+event_i(my_instr, 0, 1)
+
+-------------------------------------------------------------------------------
+
+Over thought this whole callback thing. Make binding of callbacks
+and post-processing pmaps local to the current cue().
 
 p_callback('i", 1, 4, bar)
 
 with cue(t):
 	p_callback('i', 1, 4, foo)
 
-	# Score uses bar then foo
-	score('...')
+	# Score uses bar then foo score('...')
 
-# Score uses just bar
-score('...')
+# Score uses just bar score('...')
 
 
 -------------------------------------------------------------------------------
