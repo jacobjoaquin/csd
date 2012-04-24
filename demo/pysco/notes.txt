@@ -1,5 +1,47 @@
 -------------------------------------------------------------------------------
 
+class Instr:
+
+    def __init__(self):
+        pass
+
+    def in(self, name, type, auto_clear=True, always_on=False):
+        pass
+
+    def out(self, name, type, auto_clear=True, always_on=False)
+        pass
+
+    def gen_table(self, *args):
+        pass
+
+    def udo(self):
+        pass
+
+    def event_i(self, *args, **kwargs):
+        pass
+
+
+class SineWithEnvelope (Instr):
+    '''Sine With Envelope'''
+
+    def __init__(self):
+        self.in('freq', 'k')
+        self.in('amp', 'k')
+        self.out('out', 'a')
+        self.gen_table('sine', 0, 8192, 10, 1)
+
+        self.instr('''
+        kfreq @in $freq 
+        kamp @in $amp 
+
+        k1 line 1, idur, 0
+        a1 oscil 1.0, kfreq, $table['sine']
+
+        @mixout $out, a1 * k1 * kamp
+        ''')
+
+-------------------------------------------------------------------------------
+
 instr ${instr_name}
     kfreq chnget ${freq}
 
@@ -63,6 +105,17 @@ class Foo (Instr):
 
         @out_mix(out, a1 * k1 * kamp)
         ''')
+
+
+self.instr('''
+kfreq @in freq
+iamp @in($amp)
+
+k1 line 1, idur, 0
+a1 oscil 1.0, kfreq, @table($sine)
+
+@out_mix($out, a1 * k1 * kamp)
+''')
 
 -------------------------------------------------------------------------------
 
