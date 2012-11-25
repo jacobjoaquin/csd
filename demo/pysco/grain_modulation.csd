@@ -12,8 +12,8 @@ instr 1
     ifreq = p5  ; Frequency
     ipan = p6   ; Pan
 
-    a1 oscil 0.5, ifreq, 1, 0.76
-;    a1 init 1
+;    a1 oscil 0.5, ifreq, 1, 0.76
+    a1 init 1
     chnmix a1 + 0.5, "mod"
 endin
 

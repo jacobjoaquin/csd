@@ -19,11 +19,13 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 from random import random
 
 def pan_cycle():
+    '''Python generator for cycling a list of fixed pan positions.'''
+
     pos = 0
     positions = [0.0, 0.333, 0.75, 0.5, 0.25, 0.666, 1.0]
 
@@ -32,6 +34,8 @@ def pan_cycle():
         pos = (pos + 1) % len(positions)  
 
 def phrase_delay(phrase, delay_time=1, feedback=0.5):
+    '''Event delay fx that simulates a tap delay.'''
+
     if not isinstance(delay_time, list):
         delay_time = [delay_time]
 
@@ -45,7 +49,7 @@ def phrase_delay(phrase, delay_time=1, feedback=0.5):
 
         f *= feedback
 
-# Conver pch notation to Hz
+# Convert pch notation to Hz
 p_callback('i', 1, 5, cpspch)
 
 # My musical phrase
