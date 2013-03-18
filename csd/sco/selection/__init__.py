@@ -92,7 +92,7 @@ def operate_string(selection, pfield_index_list, pfunction, *args):
         # Operate on each pfield
         for pf in pfield_index_list:
             pf_value = event.get(v, pf)
-			selection[k] = v = event.set(v, pf, pfunction(pf_value, *args))
+            selection[k] = v = event.set(v, pf, pfunction(pf_value, *args))
 
     return selection
 
