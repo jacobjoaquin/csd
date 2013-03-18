@@ -27,7 +27,7 @@ instr 2
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 p_callback('i', 1, 5, conv_to_hz)
 

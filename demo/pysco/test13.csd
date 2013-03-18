@@ -27,7 +27,7 @@ instr 2
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 def add(x, y):
     return x + y

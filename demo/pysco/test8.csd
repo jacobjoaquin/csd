@@ -17,7 +17,7 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 def phrase():
     score('''

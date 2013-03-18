@@ -118,7 +118,7 @@ instr 3
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 # Import choice from python library
 from random import choice

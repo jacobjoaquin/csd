@@ -82,6 +82,20 @@ def operate_numeric(selection, pfield_index_list, pfunction, *args):
 
     return selection
 
+def operate_string(selection, pfield_index_list, pfunction, *args):
+    # Convert single single value to list
+    pfield_index_list = __pfield_index_to_list(pfield_index_list)
+    
+    # Operate on all events in selection.  Sorted is a must.
+    for k, v in sorted(selection.iteritems()):
+        
+        # Operate on each pfield
+        for pf in pfield_index_list:
+            pf_value = event.get(v, pf)
+            selection[k] = v = event.set(v, pf, pfunction(pf_value, *args))
+
+    return selection
+
 def replace(selection, pfield_index_list, pgenerator, *args):
     '''Replaces pfield values in selection using a supplied pgenerator,
     function or method.
