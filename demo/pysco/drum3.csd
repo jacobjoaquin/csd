@@ -7,7 +7,7 @@ nchnls = 2
 0dbfs = 1.0
 
 ; Uses one of the millions of Amen loops by the Winstons. Originally, that is.
-gS_loop = "Amenbreak.aif"
+gS_loop = "samples/Amenbreak.aif"
 gisr filesr gS_loop
 gilength filelen gS_loop
 gibeats = 64 
@@ -24,7 +24,7 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 # Import choice from python library
 from random import choice

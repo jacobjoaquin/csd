@@ -17,7 +17,7 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 score('''
 f 1 0 8192 10 1

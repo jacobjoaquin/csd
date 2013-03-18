@@ -17,7 +17,7 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore bin="./pysco.py">
+<CsScore bin="python pysco.py">
 
 p_callback('i', 1, 4, dB)
 p_callback('i', 1, 5, cpspch)
