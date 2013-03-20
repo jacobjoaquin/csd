@@ -37,7 +37,7 @@ def cycle(values):
         pos = (pos + 1) % len(values)  
 
 def swing(values):
-    values += values[len(values) - 2:0:-1]
+    values += values[-2:0:-1]
     pos = 0
     while True:
         yield values[pos]
