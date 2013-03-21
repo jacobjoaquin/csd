@@ -94,7 +94,7 @@ for this_measure in range(9, 13):
 
 # Measure 13 - 16 in 4/4
 for this_measure in range(13, 17):
-    with m.measure(this_measure) as foo:
+    with m.measure(this_measure):
         event_i(1, 0.0, 0.5, 0.707, 7.07)
         event_i(1, 0.5, 0.5, 0.707, 7.04)
         event_i(1, 1.0, 0.5, 0.707, 7.04)
