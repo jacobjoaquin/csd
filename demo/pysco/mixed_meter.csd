@@ -44,8 +44,8 @@ class MixedMeter:
                 beats += resolution
                 measure += 1
 
-        self._tail = sorted(meters.keys())[-1]
-        self._res = self._resolution(meters[self._tail])
+        self._tail = max(meters.keys())
+        self._res = resolution
 
     def _resolution(self, sig):
         return 4.0 / sig[1] * sig[0]
