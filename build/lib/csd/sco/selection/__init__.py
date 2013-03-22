@@ -25,14 +25,15 @@ def __convert_args_to_numeric(args_tuple):
 
     args = list(args_tuple)
     for i, a in enumerate(args):
-        if type(a) is str:
+        if isinstance(a, str):
             args[i] = element.str_to_numeric(a)
     return args
 
 def __pfield_index_to_list(pfield_index_list):
     '''Forces a single value to be translated into a list.'''
     
-    if type(pfield_index_list) is not list:
+    #if type(pfield_index_list) is not list:
+    if not isinstance(pfield_index_list, list):
         pfield_index_list = [pfield_index_list]
         
     return pfield_index_list
