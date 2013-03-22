@@ -22,8 +22,8 @@ endin
 class MixedMeter:
     def __init__(self, meters):
         self._beat_map = {}
-        self._last_measure = 0
-        self._last_resolution = 0
+        self._tail = 0
+        self._res = 0
         self._create_map(meters)
 
     def _create_map(self, meters):
@@ -44,18 +44,15 @@ class MixedMeter:
                 beats += resolution
                 measure += 1
 
-        self._last_measure = sorted(meters.keys())[-1]
-        self._last_resolution = self._resolution(
-                meters[self._last_measure])
+        self._tail = sorted(meters.keys())[-1]
+        self._res = self._resolution(meters[self._tail])
 
     def _resolution(self, sig):
         return 4.0 / sig[1] * sig[0]
         
     def measure(self, m):
-        if m in self._beat_map:
-            return cue(self._beat_map[m])
-        return cue((m - self._last_measure) * self._last_resolution +
-                    self._beat_map[self._last_measure])
+        return cue(self._beat_map.get(m,
+            (m - self._tail) * self._res + self._beat_map[self._tail]))
 
 m = MixedMeter({
     1: (3, 4),
