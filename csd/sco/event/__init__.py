@@ -287,12 +287,8 @@ def set(event, pfield_index, value):
     
     pf_index = -1
     for i, t in enumerate(tokens):
-        if pf_index == -1:
-            if element.token_type(t) == element.STATEMENT:
-                pf_index += 1
-        else:
-            if element.is_valid_pfield(t):
-                pf_index += 1
+        if element.is_valid_pfield(t):
+            pf_index += 1
 
         if pf_index == pfield_index:
             
