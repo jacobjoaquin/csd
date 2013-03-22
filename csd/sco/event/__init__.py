@@ -284,7 +284,6 @@ def set(event, pfield_index, value):
         return event
     
     tokens = tokenize(event)
-    
     pf_index = -1
     for i, t in enumerate(tokens):
         if pf_index == -1:
