@@ -6,11 +6,6 @@ ksmps = 10
 nchnls = 1
 0dbfs = 1.0
 
-sr = 44100
-kr = 44100
-ksmps = 1
-nchnls = 2
-
 instr 1
     idur = p3
     iamp = p4
@@ -60,7 +55,7 @@ for t in xrange(1000):
             amp *= 0.9
 
         harmbend += 0.001
-print 'done'
+
 </CsScore>
 </CsoundSynthesizer>
 
