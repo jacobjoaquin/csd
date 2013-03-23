@@ -89,7 +89,7 @@ for this_measure in range(9, 13):
         event_i(1, 5, 1, 0.707, 6.11)
         event_i(1, 6, 1, 0.707, 6.11)
 
-# Measure 13 - 16 in 4/4
+# Measure 13 - 16 in 3/8
 for this_measure in range(13, 17):
     with m.measure(this_measure):
         event_i(1, 0.0, 0.5, 0.707, 7.07)
