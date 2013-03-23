@@ -43,33 +43,24 @@ def panner():
         yield pos / 15.0
         pos = (pos + 1) % 16
 
-duration = 3
-amp = 0.03125
-ampslope = 0.9
-freq = 200
-pan = 0.5
-voices = 128
-harmmin = 2
-harmmax = 3
+p = panner()
 harmbend = 1
 
-event_i(1, 0, 0.2, 0.707, 440, 0.5)
-p = panner()
-
-for t in xrange(3):
+for t in xrange(1000):
     with cue(t * 0.075):
-        f = freq
-        a = amp
+        freq = 200
+        amp = 0.03125
 
-        for v in xrange(voices):
-            if not 20 < f < 22050:
+        score("; voice " + str(t))
+        for v in xrange(128):
+            if not 20 < freq < 22050:
                 break
+            event_i(1, 0, 3, amp, freq, p.next())
+            freq = harmonic(freq, 2, 3, harmbend)
+            amp *= 0.9
 
-            f = harmonic(f, harmmin, harmmax, harmbend)
-
-            event_i(1, 0, duration, a, f, p.next())
-            a *= ampslope
-
+        harmbend += 0.001
+print 'done'
 </CsScore>
 </CsoundSynthesizer>
 
