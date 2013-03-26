@@ -1,7 +1,8 @@
 #!/usr/bin/python
 import inspect
 from sys import argv
-
+from itertools import imap
+from itertools import chain
 from convert import *
 import csd
 from csd import sco
@@ -55,17 +56,12 @@ class Slipmat():
 
                 deez_args = (element,) + args
                 selection[k] = sco.event.set(v, p,
-                        function(*deez_args, **kwargs))
+                                             function(*deez_args, **kwargs))
 
         return sco.merge(data, selection)
 
     def event_i(self, *args):
-        output = ['i']
-
-        for arg in args:
-            output.append(str(arg))
-
-        self.score(' '.join(output))
+        self.score(' '.join(chain('i', imap(str, args)))) 
 
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
         self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
