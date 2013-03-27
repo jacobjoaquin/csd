@@ -3,14 +3,15 @@ Csound csd Python Package
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   Installing csd<install.rst>
-   CSD Modules <csd_sco_event.rst>
-   Demo Scripts <demo/index.rst>
-   Command-Line <commandline.rst>
-   bugs.rst
-   glossary.rst
+    Installing csd<install.rst>
+    CSD Modules <csd_sco_event.rst>
+    Pysco <pysco.rst>
+    Demo Scripts <demo/index.rst>
+    Command-Line <commandline.rst>
+    bugs.rst
+    glossary.rst
 
 Mission Statement
 -----------------
