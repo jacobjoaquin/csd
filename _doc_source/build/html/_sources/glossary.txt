@@ -24,22 +24,19 @@ Glossary
         A single :term:`score` event. e.g. ``i 1 0 4 1.0 440  ; A440``.
     
     expression
-        A Csound score expression, which is containted within brackets.
-        e.g. ``[~ * 440 + 440]``
+        A Csound score expression. e.g. ``[~ * 440 + 440]``
                 
     identifier
-        The unique name of index that indicates a specific instrument or
-        f-table, and immediately proceeds a :term:`statement`. For example,
-        ``33`` is the identifier in ``i 33 0 11``.
-    
-    literal
-        A literal is any valid :term:`pfield data type`, such as:
-        :term:`numeric`, :term:`expression`, macro, string, or
-        preprocessor symbol.
+        The name or numeric value that refers to a specific instrument
+        or function table, For example, ``33`` is the identifier in
+        ``i 33 0 11``.
     
     numeric
         A number.  Csound does not distinguish between ints and
-        floats.  The term numeric refers to both.
+        floats.  The term *numeric* refers to both.
+    
+    pcolumn
+        A column of pfields in a score.
         
     pattern
         A pattern is a python dict that has been repurposed to describe
@@ -47,18 +44,18 @@ Glossary
 
         Pattern syntax::
             
-            {pfield_index: ((string | numeric) | [(string | numeric), *]), *}
+            {pfield_index: ((string | numeric) | [(string | numeric), ...]), ...}
 
         The format is very precise, and must follow strict rules. The
         key is an integer that refers to the index of a pfield. The
         value is either a string, :term:`numeric`, or a list of strings
-        and numbers. The values are used to compare against a
+        and numeric values. The values are used to match against a
         :term:`pfield data type` from within an event.
         
         This system only works with pfield data types.  Whitespace and
         comments are not recognized.  If matching against a numeric
         type, the pattern matcher does distinguish between an integer
-        and a floating point number.  i.e. 440 is not 440.0.
+        and a floating point number.  i.e. ``440`` is not ``440.0``.
         
         Pattern examples::
             
@@ -73,9 +70,9 @@ Glossary
         A function for operating on pfield values used in conjuction
         with csd.sco.operate_numeric. or csd.sco.map_().
         
-        The first argument ``x`` is required, and is used as the pfield
-        value in the function.  A pfunction supports any number of
-        additional optional arguments.
+        A pfunction requires a minimum of one argument that is reserved
+        for a pfield numeric value.  This argumented is denoted by an
+        ``x``.  Additional arguments are optional.
         
         Example::
             
@@ -85,12 +82,15 @@ Glossary
             print csd.sco.map_(score, {0: 'i'}, 5, multiply, 3.0)
     
     pfield        
-        A pfield, or parameter field, refers to a value as part of a
-        :term:`event`.
+        A pfield, aka parameter field, refers to a particular value in
+        an :term:`event`.
             
     pfield data type
         Includes: :term:`statement`, :term:`numeric`, macro,
         :term:`expression`, string, and preprocessor symbols.
+
+    pfield_index
+        An integer that specifies a specific pfield in an event.
 
     pfield_index_list
         A pfield_index_list is either a single pfield index or a list
@@ -99,14 +99,19 @@ Glossary
         same way p6 does in a Csound orchestra.
         
     pfield_list
-        A pfield_list is either a single pfield value or a list of
-        pfield values.
+        A pfield_list is either a single :term:`pfield` or a list of
+        pfields.
         
-        i.e. value, [value], or [value, value, ...].
+        i.e. pfield, [pfield], or [pfield, pfield, ...].
         
         A pfield_list does not support a recursive list structure, i.e
         as [value, [value]].
         
+    pgenerator
+        A function or method that generates values to be placed into
+        a pfield.  They require no arguments, but will accept optional
+        arguments.
+    
     selection
         A selection is a :term:`score` reformatted into a repurposed
         python dict that stores collected :term:`event` strings with
@@ -114,14 +119,15 @@ Glossary
        
         Selection syntax::
             
-            {event_index: (event | [event, *]), *}
+            {event_index: (event | [event, ...]), ...}
             
-        The purpose of a selection is to be able to pull specific events
-        from a :term:`score` and for processing.
+        The purpose of a selection is to be to pull specific events
+        from a :term:`score` and store for later processing.
         
         Selections are created with the select functions in csd.sco.
         Once they are processed, they must be recombined with the
-        original score with the merge function.
+        original score with the merge function to be converted back
+        into a string.
             
     score
         #. The part of a Csound program that controls and plays a
@@ -131,10 +137,10 @@ Glossary
            score events.
                
     statement
-        A statement is Csound score command that begins an active score
-        :term:`event`.
+        A statement is a Csound score command that begins an active
+        score :term:`event`.
         
-        Statements include: (from the `Csound manual <http://www.csounds.com/manual/html/ScoreStatements.html>`_)
+        From the `Csound manual <http://www.csounds.com/manual/html/ScoreStatements.html>`_:
         
             * a - Advance score time by a specified amount
             * b - Resets the clock

@@ -16,17 +16,13 @@ Planned Changes
 
 * Error checking, exceptions, and warnings - *Oh my!!*
 * Need to get an online repository.  At least a somewhat official site.
-* Need to make auto-installation happen.  Eggs?
+* Look into eggs.
 * Tutorials on how to build custom scripts using this package.
 * Spell check docs.
 * Elements become atoms?
-* Need a better name than pf_function.
-* Need to use better names for pfield and pfield_list, as some of the
-  terms currently trip over each other. pfield, pfield_index,
-  pfield_index_list, etc...
 * When dealing with dicts, make sure they are sorted. Had an issue with
   csd.sco.operate_numeric().
-* selection functions needs a contracterual flow.
+* selection functions needs a contractual flow.
 
     When a function receives a selection, a value in a key_index may
     contain multiple lines, and thus, the receiving function must
@@ -41,4 +37,4 @@ Planned Changes
     joined, creating a single string, with newlines as evenet
     delimiters.
     
-    
+

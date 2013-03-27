@@ -1,25 +1,31 @@
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Demos &mdash; CSD v0.0.3 alpha documentation</title>
-    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <title>Demos &mdash; csd 0.0.4 alpha documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.0.3 alpha',
-        COLLAPSE_MODINDEX: false,
+        VERSION:     '0.0.4 alpha',
+        COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="CSD v0.0.3 alpha documentation" href="../index.html" />
+    <link rel="top" title="csd 0.0.4 alpha documentation" href="../index.html" />
     <link rel="next" title="Command-line Operations" href="../commandline.html" />
     <link rel="prev" title="The csd Package" href="../csd_sco_event.html" /> 
   </head>
@@ -31,17 +37,59 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
-             accesskey="M">modules</a> |</li>
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
         <li class="right" >
           <a href="../commandline.html" title="Command-line Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="../csd_sco_event.html" title="The csd Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
+        <li><a href="../index.html">csd 0.0.4 alpha documentation</a> &raquo;</li> 
       </ul>
-    </div>  
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Demos</a><ul>
+<li><a class="reference internal" href="#module-arpeggiator">arpeggiator</a></li>
+<li><a class="reference internal" href="#carry">carry</a></li>
+<li><a class="reference internal" href="#module-pfunc">pfunc</a></li>
+<li><a class="reference internal" href="#module-s_spacer">s_spacer</a></li>
+<li><a class="reference internal" href="#module-sco_align">sco_align</a></li>
+<li><a class="reference internal" href="#module-score_from_csd">score_from_csd</a></li>
+<li><a class="reference internal" href="#module-swap_columns">swap_columns</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../csd_sco_event.html"
+                        title="previous chapter">The csd Package</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../commandline.html"
+                        title="next chapter">Command-line Operations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/demo/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
 
     <div class="document">
       <div class="documentwrapper">
@@ -64,11 +112,11 @@ versions of Python.</p>
 are properly tested and bug checked.</p>
 </div>
 <div class="section" id="module-arpeggiator">
-<h2>arpeggiator<a class="headerlink" href="#module-arpeggiator" title="Permalink to this headline">¶</a></h2>
+<span id="arpeggiator"></span><h2>arpeggiator<a class="headerlink" href="#module-arpeggiator" title="Permalink to this headline">¶</a></h2>
 <p>Arpeggiates values in for a selected pfield column for a specific
 event.</p>
 <p>Use:</p>
-<div class="highlight-python"><pre>&lt;stdout&gt; | ./pfunc.py STATEMENT INSTR PFIELD VALUES</pre>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./arpeggiator.py STATEMENT INSTR PFIELD VALUES</pre>
 </div>
 <p>Example:</p>
 <div class="highlight-python"><pre>cat arpeggiator.sco | ./arpeggiator.py i 1 5 '7.00 7.03 6.09'</pre>
@@ -94,46 +142,11 @@ i 1 + .    .   7.00
 i 1 + .    .   7.03</pre>
 </div>
 </div>
-<div class="section" id="module-carry">
-<h2>carry<a class="headerlink" href="#module-carry" title="Permalink to this headline">¶</a></h2>
-<p>Replaces subsequent repeated values with a carry (.)</p>
-<p>This script can be used as command-line script as well as a
-module.</p>
-<p>Example:</p>
-<div class="highlight-python"><pre>$ cat carry.sco | ./carry.py | ./sco_align.py</pre>
-</div>
-<p>Before:</p>
-<div class="highlight-python"><pre>i 1 0 0.25 0.5 7.00
-i 1 + 0.25 0.5 7.00
-i 1 + 0.25 0.5 8.00
-i 1 + 0.25 0.5 8.00
-i 1 + 0.25 0.6 7.06
-i 1 + 0.25 0.6 7.06
-i 1 + 0.25 0.6 6.06
-i 1 + 0.25 0.6 6.06
-i 1 + 0.25 0.6 7.00
-i 1 + 0.25 0.6 7.00</pre>
-</div>
-<p>After:</p>
-<div class="highlight-python"><pre>i 1 0 0.25 0.5 7.00
-i 1 + .    .   .
-i 1 + .    .   8.00
-i 1 + .    .   .
-i 1 + .    0.6 7.06
-i 1 + .    .   .
-i 1 + .    .   6.06
-i 1 + .    .   .
-i 1 + .    .   7.00
-i 1 + .    .   .</pre>
-</div>
-<dl class="function">
-<dt id="carry.replace">
-<tt class="descclassname">carry.</tt><tt class="descname">replace</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#carry.replace" title="Permalink to this definition">¶</a></dt>
-<dd>Replaces subsequent repeated values with a carry (.)</dd></dl>
-
+<div class="section" id="carry">
+<h2>carry<a class="headerlink" href="#carry" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pfunc">
-<h2>pfunc<a class="headerlink" href="#module-pfunc" title="Permalink to this headline">¶</a></h2>
+<span id="pfunc"></span><h2>pfunc<a class="headerlink" href="#module-pfunc" title="Permalink to this headline">¶</a></h2>
 <p><strong>Csound Pfield Calculator</strong></p>
 <p>This command-line tool allows easy, quick and efficient operations on
 Csound score code.  The scripts comes equipped with dozens of functions
@@ -199,7 +212,7 @@ range function e.g. <tt class="docutils literal"><span class="pre">'range(1,</sp
 <span class="mf">1.0</span> <span class="o">-</span> <span class="n">x</span>
 <span class="n">x</span> <span class="o">/</span> <span class="mf">32768.0</span>
 <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">1</span> <span class="o">/</span> <span class="mf">12</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">12</span><span class="p">)</span>
 <span class="mf">7.00</span> <span class="o">+</span> <span class="n">choice</span><span class="p">([</span><span class="s">&#39;0.00&#39;</span><span class="p">,</span> <span class="s">&#39;0.03&#39;</span><span class="p">,</span> <span class="s">&#39;0.07&#39;</span><span class="p">,</span> <span class="s">&#39;0.11&#39;</span><span class="p">])</span>
 <span class="n">pi</span>
 </pre></div>
@@ -212,15 +225,18 @@ Funkadelic (P-Funk).  <em>Or is it?</em></p>
 </div>
 </div>
 <div class="section" id="module-s_spacer">
-<h2>s_spacer<a class="headerlink" href="#module-s_spacer" title="Permalink to this headline">¶</a></h2>
+<span id="s-spacer"></span><h2>s_spacer<a class="headerlink" href="#module-s_spacer" title="Permalink to this headline">¶</a></h2>
 <p>Sets space between a statement and the first active element.</p>
 <dl class="cmdoption">
 <dt id="cmdoption-s_spacer-s">
 <tt class="descname">-s</tt><tt class="descclassname">  Whitespace amount between statement and identifier</tt><a class="headerlink" href="#cmdoption-s_spacer-s" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<p>Use:</p>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./s_spacer.py [-s number of spaces]</pre>
+</div>
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat s_spacer.sco | ./s_spacer.py</pre>
+<div class="highlight-python"><pre>cat s_spacer.sco | ./s_spacer.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i1 0 0.25 0.5 7.00
@@ -248,7 +264,7 @@ i 1 + .    0.6 7.00</pre>
 </div>
 </div>
 <div class="section" id="module-sco_align">
-<h2>sco_align<a class="headerlink" href="#module-sco_align" title="Permalink to this headline">¶</a></h2>
+<span id="sco-align"></span><h2>sco_align<a class="headerlink" href="#module-sco_align" title="Permalink to this headline">¶</a></h2>
 <p>Auto-aligns groupings of i-events.</p>
 <p>This script can be used as command-line script as well as a module.</p>
 <dl class="cmdoption">
@@ -277,7 +293,7 @@ i 1 + .    0.6 7.00</pre>
 <dd></dd></dl>
 
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat sco_align.sco | ./sco_align.py</pre>
+<div class="highlight-python"><pre>cat sco_align.sco | ./sco_align.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>f1 0 8192 10 1 ; Sine
@@ -319,7 +335,7 @@ type.</p>
 
 </div>
 <div class="section" id="module-score_from_csd">
-<h2>score_from_csd<a class="headerlink" href="#module-score_from_csd" title="Permalink to this headline">¶</a></h2>
+<span id="score-from-csd"></span><h2>score_from_csd<a class="headerlink" href="#module-score_from_csd" title="Permalink to this headline">¶</a></h2>
 <p>Extracts a score from a Csound csd file.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
@@ -327,7 +343,7 @@ type.</p>
 of the score.</p>
 </div>
 <p>Example:</p>
-<div class="highlight-python"><pre>$ cat score_from_csd.csd | ./score_from_csd.py</pre>
+<div class="highlight-python"><pre>cat score_from_csd.csd | ./score_from_csd.py</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>&lt;CsoundSynthesizer&gt;
@@ -397,32 +413,15 @@ e</pre>
 </div>
 </div>
 <div class="section" id="module-swap_columns">
-<h2>swap_columns<a class="headerlink" href="#module-swap_columns" title="Permalink to this headline">¶</a></h2>
+<span id="swap-columns"></span><h2>swap_columns<a class="headerlink" href="#module-swap_columns" title="Permalink to this headline">¶</a></h2>
 <p>Exchanges all score columns for a specified statement and
 identifier.</p>
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-s">
-<tt class="descname">-s</tt><tt class="descclassname">  Statement (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-s" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-i">
-<tt class="descname">-i</tt><tt class="descclassname">  Identifier (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-i" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-a">
-<tt class="descname">-a</tt><tt class="descclassname">  Pfield A (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-a" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="cmdoption">
-<dt id="cmdoption-swap_columns-b">
-<tt class="descname">-b</tt><tt class="descclassname">  Pfield B (required)</tt><a class="headerlink" href="#cmdoption-swap_columns-b" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<p>Use:</p>
+<div class="highlight-python"><pre>&lt;stdout&gt; | ./swap_columns.py STATEMENT INSTR PFIELD_A PFIELD_B</pre>
+</div>
 <p>The following command-line swaps pfields 4 and 5 for all instrument
 1 events:</p>
-<div class="highlight-python"><pre>$ cat swap_columns.sco | ./swap_columns.py -si -i1 -a4 -b5</pre>
+<div class="highlight-python"><pre>cat swap_columns.sco | ./swap_columns.py i 1 4 5</pre>
 </div>
 <p>Before:</p>
 <div class="highlight-python"><pre>i 1 0 1 7.00 0.8
@@ -443,48 +442,6 @@ i 1 + . 0.8 7.05</pre>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-            <h3><a href="../index.html">Table Of Contents</a></h3>
-            <ul>
-<li><a class="reference external" href="">Demos</a><ul>
-<li><a class="reference external" href="#module-arpeggiator">arpeggiator</a></li>
-<li><a class="reference external" href="#module-carry">carry</a></li>
-<li><a class="reference external" href="#module-pfunc">pfunc</a></li>
-<li><a class="reference external" href="#module-s_spacer">s_spacer</a></li>
-<li><a class="reference external" href="#module-sco_align">sco_align</a></li>
-<li><a class="reference external" href="#module-score_from_csd">score_from_csd</a></li>
-<li><a class="reference external" href="#module-swap_columns">swap_columns</a></li>
-</ul>
-</li>
-</ul>
-
-            <h4>Previous topic</h4>
-            <p class="topless"><a href="../csd_sco_event.html"
-                                  title="previous chapter">The csd Package</a></p>
-            <h4>Next topic</h4>
-            <p class="topless"><a href="../commandline.html"
-                                  title="next chapter">Command-line Operations</a></p>
-            <h3>This Page</h3>
-            <ul class="this-page-menu">
-              <li><a href="../_sources/demo/index.txt"
-                     rel="nofollow">Show Source</a></li>
-            </ul>
-          <div id="searchbox" style="display: none">
-            <h3>Quick search</h3>
-              <form class="search" action="../search.html" method="get">
-                <input type="text" name="q" size="18" />
-                <input type="submit" value="Go" />
-                <input type="hidden" name="check_keywords" value="yes" />
-                <input type="hidden" name="area" value="default" />
-              </form>
-              <p class="searchtip" style="font-size: 90%">
-              Enter search terms or a module, class or function name.
-              </p>
-          </div>
-          <script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
-      </div>
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -494,7 +451,7 @@ i 1 + . 0.8 7.05</pre>
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../modindex.html" title="Global Module Index"
+          <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
           <a href="../commandline.html" title="Command-line Operations"
@@ -502,12 +459,12 @@ i 1 + . 0.8 7.05</pre>
         <li class="right" >
           <a href="../csd_sco_event.html" title="The csd Package"
              >previous</a> |</li>
-        <li><a href="../index.html">CSD v0.0.3 alpha documentation</a> &raquo;</li> 
+        <li><a href="../index.html">csd 0.0.4 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
-      &copy; Copyright 2009, Jacob Joaquin.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.2.
+        &copy; Copyright 2009, Jacob Joaquin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

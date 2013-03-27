@@ -12,7 +12,7 @@ Terminal.
 To use in a workflow, highlight a section of score you want to process,
 copy the selection, type the following into the Terminal::
 
-    $ pbpaste | ./align.py | pbcopy
+    pbpaste | ./sco_align.py | pbcopy
 
 Go back to your text editor, and with the section of score code still
 highlighted, paste.  The highlighted test will be replaced with your
@@ -21,20 +21,32 @@ newly processed score.
 Pipe Chain Trick
 ----------------
 
-It is possible to chain pipes in series to process scores with
-multiple scripts in one swoop.  The following command does two things.
-First, it sums the values of pfields 4 in instrument 2 events with
-0.99999 with sum.py.  The output is then piped into align.py, making
-the columns tidy and neat::
+You can chain multiple csd scripts in a row to do several csd processes
+in a single swoop.  The following example does three things.  First, it
+transposes pfield 5 by two octaves with ``pfunc.py``.  Then the output
+of ``pfunc.py`` is piped into ``arpeggiator.py``, processing that
+amplitude values in p4.  The resulting score is made neat and tidy with
+``sco_align.py``::
     
-    $ cat arpeggiator.sco | ./arpeggiator.py -si -i1 -p4 -v'0.1 0.444 0.9922' | ./sco_align.py
+    cat arpeggiator.sco | \
+    > ./pfunc.py i 1 5 'x + 2' | \
+    > ./arpeggiator.py i 1 4 '0.1 0.444 0.9922' | \
+    > ./sco_align.py
 
+Before::
 
-.. highlight:: none
+    i 1 0 0.25 0.3 7.00
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
+    i 1 + .    .   .
     
-Arpeggiated and aligned::
+After::
     
-    i 1 0 0.25 0.1    7.00
+    i 1 0 0.25 0.1    9.0
     i 1 + .    0.444  .
     i 1 + .    0.9922 .
     i 1 + .    0.1    .
