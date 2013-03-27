@@ -1,9 +1,11 @@
+`View On GitHub <https://github.com/jacobjoaquin/csd>`_
+
 %%%%%%%%%%%%%%%%%%%%%%%%%
 Csound csd Python Package
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
 
     Installing csd<install.rst>
     CSD Modules <csd_sco_event.rst>
@@ -59,9 +61,6 @@ This package is currently still very early in the development cycle,
 though quickly approaching a beta release.  The scripts have been tested
 primarily with Apple's Python 2.5.1.
 
-.. warning::  Use these at your own risk. CSD should be considered
-    experimental.
-
 Information
 -----------
 
@@ -70,10 +69,6 @@ Csound csd Python Package
 By Jacob Joaquin
 
 jacobjoaquin@gmail.com
-
-http://www.thumbuki.com/
-
-http://jacobjoaquin.tumblr.com/
 
 http://twitter.com/JacobJoaquin
 
