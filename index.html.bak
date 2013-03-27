@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>csd by jacobjoaquin</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>csd</h1>
+        <p>Csound Orchestra and Score Preprocessor</p>
+
+        <p class="view"><a href="https://github.com/jacobjoaquin/csd">View the Project on GitHub <small>jacobjoaquin/csd</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/jacobjoaquin/csd/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>csd
+Csound Orchestra and Score Preprocessor
+By Jacob Joaquin</p>
+
+<p><a href="mailto:jacobjoaquin@gmail.com">jacobjoaquin@gmail.com</a>
+<a href="http://www.codehop.com">http://www.codehop.com</a></p>
+
+<p>copyright (c) Jacob Joaquin 2009</p>
+
+<h2>Mission Statement</h2>
+
+<p><em>"Enable users to process and generate Csound orchestras and scores
+quickly, easily and efficiently."</em></p>
+
+<h2>Quick Installation Instructions for Unix / Mac OS X Terminal</h2>
+
+<p>To install, clone from git and run setup.</p>
+
+<pre><code>git clone git://github.com/jacobjoaquin/csd.git
+cd csd
+python setup.py install
+</code></pre>
+
+<h2>About</h2>
+
+<p>CSD provides core functions for building python scripts that can process
+and generate Csound code.</p>
+
+<p>As of this moment, the focus is on score manipulation.  CSD comes with
+many functions that can parse, pull, push information in and out of
+Csound scores.  In the future, there are plans to provide equivalent
+functions for Csound orchestras.</p>
+
+<p>This package ships with a few demo scripts that can be of great use to
+anyone who writes Csound music the old fashion way, that is, with a text
+editor. The <code>sco_align</code> script will save you from repeatedly typing
+'space-down-left' by aligning Csound scores auto-magically.  If you need
+to run a dozen or more pfields through a function, <code>pfunc</code> lets your
+write your own function and choose which instruments and pfields to
+operate on with a single command-line in a terminal window.  Or if you
+are organizing your pfields, and decided that amp would work better on
+pfield 4 and pitch on pfield 5, then <code>swap_columns</code> is just what you
+need.</p>
+
+<p>In order to use these demo scripts, you'll need to use a command-line
+terminal.  However, using these scripts in applications may be possible
+in the future.</p>
+
+<p>If you are a developer of a Csound front-end, Csound based-app, or are
+just looking to extend the capabilities of your favorites text editor,
+let me know so we can start the process of figuring out our respective
+needs to make this happen. I'm open to any and all ideas from anyone.</p>
+
+<p>This package is currently still very early in the development cycle,
+though quickly approaching a beta release.  The scripts have been tested
+primarily with Apple's Python 2.5.1.</p>
+
+<p>Preview of the documentation can be <a href="docs/index.html">read here</a></p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/jacobjoaquin">jacobjoaquin</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+
+    
+  </body>
+</html>
