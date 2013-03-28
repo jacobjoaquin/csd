@@ -10,11 +10,13 @@ Csound csd Python Package
     Installing csd<install.rst>
     CSD Modules <csd_sco_event.rst>
     Pysco <pysco.rst>
-    A Pysco Score TOOTorial <pysco_toot.rst>
     Demo Scripts <demo/index.rst>
     Command-Line <commandline.rst>
     bugs.rst
     glossary.rst
+
+..
+    A Pysco Score TOOTorial <pysco_toot.rst>
 
 Mission Statement
 -----------------
