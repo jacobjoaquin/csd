@@ -30,40 +30,37 @@ endin
 def measure(t):
     return cue((t - 1) * 4.0)
 
-def kick(amp=1, tune=1):
-    event_i(1, 0, 0.5, amp, 0, tune)
+def kick():
+    event_i(1, 0, 0.5, 0.707, 0, 1)
 
-def snare(amp=1, tune=1):
-    event_i(1, 0, 0.5, amp, 1, tune)
-
-def hat(amp=1, tune=1):
-    event_i(1, 0, 0.5, amp, 3.5, tune)
+def snare():
+    event_i(1, 0, 0.5, 0.707, 1, 1)
 
 score('t 0 170')
 
 with measure(1):
-    with cue(0): kick()
-    with cue(1): snare()
+    with cue(0.0): kick()
+    with cue(1.0): snare()
     with cue(2.5): kick()
-    with cue(3): snare()
+    with cue(3.0): snare()
 
 with measure(2):
-    with cue(0): kick()
-    with cue(1): snare()
+    with cue(0.0): kick()
+    with cue(1.0): snare()
     with cue(2.5): kick()
-    with cue(3): snare()
+    with cue(3.0): snare()
 
 with measure(3):
-    with cue(0): kick()
-    with cue(1): snare()
+    with cue(0.0): kick()
+    with cue(1.0): snare()
     with cue(2.5): kick()
-    with cue(3): snare()
+    with cue(3.0): snare()
 
 with measure(4):
-    with cue(0): kick()
-    with cue(1): snare()
+    with cue(0.0): kick()
+    with cue(1.0): snare()
     with cue(2.5): kick()
-    with cue(3): snare()
+    with cue(3.0): snare()
 
 </CsScore>
 </CsoundSynthesizer>

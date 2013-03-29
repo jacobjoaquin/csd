@@ -25,33 +25,27 @@ instr 1
 endin
 
 </CsInstruments>
-<CsScore>
+<CsScore bin="python pysco.py">
 
-t 0 170
+def measure(t):
+    return cue((t - 1) * 4.0)
 
-; Measure 1
-i 1 0.0 0.5 0.707 0 1
-i 1 1.0 0.5 0.707 1 1
-i 1 2.5 0.5 0.707 0 1
-i 1 3.0 0.5 0.707 1 1
+def kick():
+    event_i(1, 0, 0.5, 0.707, 0, 1)
 
-; Measure 2
-i 1 4.0 0.5 0.707 0 1
-i 1 5.0 0.5 0.707 1 1
-i 1 6.5 0.5 0.707 0 1
-i 1 7.0 0.5 0.707 1 1
+def snare():
+    event_i(1, 0, 0.5, 0.707, 1, 1)
 
-; Measure 3
-i 1 8.0  0.5 0.707 0 1
-i 1 9.0  0.5 0.707 1 1
-i 1 10.5 0.5 0.707 0 1
-i 1 11.0 0.5 0.707 1 1
+def drum_pattern():
+    with cue(0.0): kick()
+    with cue(1.0): snare()
+    with cue(2.5): kick()
+    with cue(3.0): snare()
 
-; Measure 4
-i 1 12.0 0.5 0.707 0 1
-i 1 13.0 0.5 0.707 1 1
-i 1 14.5 0.5 0.707 0 1
-i 1 15.0 0.5 0.707 1 1
+score('t 0 170')
+
+for m in range(1, 5):
+    with measure(m): drum_pattern()
 
 </CsScore>
 </CsoundSynthesizer>
