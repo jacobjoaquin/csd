@@ -29,6 +29,7 @@ Evolving Amen - A Pycso Tutorial
 
 TODO: Update orchesta. Envelope was added in variation example.
 TODO: hat() before evolving_amen_default_args.csd need updating
+TODO: drum_pattern_2 isn't in everything
 
 Note. 4 spaces, not tabs. Indentation sensitve
 
@@ -264,6 +265,17 @@ Swell
 Algorithmic Flair Drum Pattern
 ==============================
 
+* import random
+* for each point in time, if event is generated, play a random instrument with a random amplitude
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+    :language: python
+    :pyobject: drum_pattern_flair
 
 Write Some Music
 ================

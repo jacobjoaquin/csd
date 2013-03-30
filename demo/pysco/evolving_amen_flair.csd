@@ -29,6 +29,7 @@ endin
 <CsScore bin="python pysco.py">
 
 from random import choice
+from random import random
 
 def measure(t):
     return cue((t - 1) * 4.0)
@@ -79,6 +80,18 @@ def drum_pattern_8th_hats():
     for t in range(8):
         with cue(t / 2.0): hat()
 
+def drum_pattern_flair(r=0):
+    drum_pattern()
+
+    times = [0.5, 0.75, 1.5, 2, 2.75, 3.5, 3.75]
+    instrs = [kick, snare, hat, hat, hat]
+
+    for time in times:
+        if random() < r:
+            with cue(time):
+                instr = choice(instrs)
+                instr(amp=random() * 0.75 + 0.125)
+
 def intro():
     with measure(1):
         swell(kick, 4, 1, 4, 0.3, 1, transpose(-3))
@@ -100,13 +113,17 @@ def intro():
         with cue(2.0): swell(hat, 2, 1, 4, 0.5, 1.0)
         swell(snare, 4, 1, 16, 0.05, 0.7, transpose(7))
 
-
 p_callback('i', 1, 6, multiply, transpose(7))
 p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
 score('t 0 170')
 
-with measure(1): intro()
+for m in range(1, 17, 4):
+    with measure(m):
+        with measure(1): drum_pattern()
+        with measure(2): drum_pattern_flair(0.25)
+        with measure(3): drum_pattern_8th_hats()
+        with measure(4): drum_pattern_flair(1)
 
 pmap('i', 1, 4, multiply, 0.707)
 
