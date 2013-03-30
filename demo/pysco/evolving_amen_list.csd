@@ -44,14 +44,8 @@ def drum_pattern():
 
 score('t 0 170')
 
-for m in range(1, 5):
+for m in [1, 2, 3, 4]:
     with measure(m): drum_pattern()
 
 </CsScore>
 </CsoundSynthesizer>
-
-
-
-
-
-

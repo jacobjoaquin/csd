@@ -27,6 +27,11 @@ Evolving Amen - A Pycso Tutorial
         slight variations to pan position / pitch for pmap
 
 
+TODO: Update orchesta. Envelope was added in variation example.
+TODO: hat() before evolving_amen_default_args.csd need updating
+
+Note. 4 spaces, not tabs. Indentation sensitve
+
 .. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
     :start-after: <CsInstruments
     :end-before: </CsInstruments
@@ -137,20 +142,80 @@ Drum Pattern
     :start-after: <CsScore
     :end-before: </CsScore>
 
+List
+====
+
+* Python List
+* Looping
+* Crossed an interesting threshold. The Python Score is 2 lines shorter than the original classical score
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_list.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
 Range
 =====
 
-* The score is now 6 lines shorter than the original, even with defining 4 custom functions
 * range()
-* Python List
-* Looping
+* Python interpretor
 * Adding 4 more measures would require a single change, from 5 to 9
 * If 5 to 9, more events generated than there are lines of code in CsScore
-* Python interpretor
-
-[0, 1, 2, 3]
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_range.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Sample Variation with Choice
+============================
+
+New Audio File
+
+* Import from library
+* choice
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_choice.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Hats
+====
+
+* Reinforce one instrument, multiple score interfaces
+* Include phrases within new phrases
+* Samples out of range
+
+     number of samples out of range:       25       25
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Post Processing with pmap()
+===========================
+
+* pmap post processing
+* Usually comes at end
+* custom function for multiplying
+* The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Pre-processing Events with p_callback()
+=======================================
+
+* What is p_callback. Pre-processor version.
+* Should be placed for the events to be processed
+* math for pefect 5th
+* Increasing the pitch by a 5th requires the duration to be reduced by the inverse of the perfect 5th
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -159,6 +224,22 @@ Default Def Values
 ==================
 
 * def with default value
+* used in order from left to right
+* or calling them by name
+
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Whats left
+==========
+
+* Add default values to instruments
+* Algorithmic flair
+* Creating a score from all the pieces
+
 
 
 

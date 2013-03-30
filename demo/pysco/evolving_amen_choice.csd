@@ -20,21 +20,26 @@ instr 1
     itune = p6
     ipos = ibeat / gibeats * gilength * gisr
 
+    aenv linseg 1, idur - 0.01, 1, 0.01, 0
     a1, a2 loscilx iamp, itune, 1, 0, 1, ipos, 0
-    outs a1, a2
+    outs a1 * aenv, a2 * aenv
 endin
 
 </CsInstruments>
 <CsScore bin="python pysco.py">
 
+from random import choice
+
 def measure(t):
     return cue((t - 1) * 4.0)
 
 def kick():
-    event_i(1, 0, 0.5, 0.707, 0, 1)
+    sample = choice([0, 0.5, 4, 4.5])
+    event_i(1, 0, 0.5, 0.707, sample, 1)
 
 def snare():
-    event_i(1, 0, 0.5, 0.707, 1, 1)
+    sample = choice([1, 3, 5, 7])
+    event_i(1, 0, 0.5, 0.707, sample, 1)
 
 def drum_pattern():
     with cue(0.0): kick()
@@ -49,9 +54,3 @@ for m in range(1, 5):
 
 </CsScore>
 </CsoundSynthesizer>
-
-
-
-
-
-
