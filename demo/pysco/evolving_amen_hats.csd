@@ -42,8 +42,7 @@ def snare():
     event_i(1, 0, 0.5, 0.707, sample, 1)
 
 def hat():
-    samples = [1.5, 2, 2.5, 6.5, 7.5]
-    sample = choice(samples)
+    sample = choice([1.5, 2, 2.5, 6.5, 7.5])
     event_i(1, 0, 0.35, 0.707, sample, 1)
 
 def drum_pattern():

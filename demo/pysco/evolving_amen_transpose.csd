@@ -36,6 +36,9 @@ def measure(t):
 def multiply(x, y):
     return x * y
 
+def transpose(halfstep, value=1):
+    return value * 2 ** (halfstep / 12.0)
+
 def kick():
     sample = choice([0, 0.5, 4, 4.5])
     event_i(1, 0, 0.5, 0.707, sample, 1)
@@ -60,9 +63,8 @@ def drum_pattern_8th_hats():
     for t in range(8):
         with cue(t / 2.0): hat()
 
-perfect_5th = 2 ** (7 / 12.0)
-p_callback('i', 1, 6, multiply, perfect_5th)
-p_callback('i', 1, 3, multiply, 1 / perfect_5th)
+p_callback('i', 1, 6, multiply, transpose(7))
+p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
 score('t 0 170')
 

@@ -220,6 +220,17 @@ Pre-processing Events with p_callback()
     :start-after: <CsScore
     :end-before: </CsScore>
 
+Transpose
+=========
+
+* That code might be useful, so let's wrap it into a function
+* Requires 1 arg, 1 optional
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
 Default Def Values
 ==================
 
@@ -233,18 +244,28 @@ Default Def Values
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Whats left
-==========
+Swell
+=====
 
-* Add default values to instruments
-* Algorithmic flair
-* Creating a score from all the pieces
+* Gesture
+* Possible because kick, snare, hat have identical interfaces
+* Describe parameters
+* A pattern is emerging, and Python objects could be used, but that's the subject of another tutorial
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+    :language: python
+    :pyobject: swell
+
+Algorithmic Flair Drum Pattern
+==============================
 
 
-
-
-
-
-
+Write Some Music
+================
 
 
