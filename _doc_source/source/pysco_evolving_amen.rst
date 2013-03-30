@@ -280,4 +280,8 @@ Algorithmic Flair Drum Pattern
 Write Some Music
 ================
 
+.. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
 

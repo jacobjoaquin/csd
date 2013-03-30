@@ -129,17 +129,19 @@ def section_b():
     for m in range(1, 17):
         with measure(m): drum_pattern_flair(1)
 
-    with measure(9):
-        swell(snare, 16, 1, 64, 0.2, 0.1, transpose(7))
-
-    with measure(13):
-        swell(snare, 12, 1, 48, 0.1, 0.2, transpose(7))
-
-    with measure(16):
-        swell(snare, 4, 1, 16, 0.2, 0.6, transpose(7))
+    with measure(9): swell(snare, 16, 1, 64, 0.2, 0.1, transpose(7))
+    with measure(13): swell(snare, 12, 1, 48, 0.1, 0.2, transpose(7))
+    with measure(16): swell(snare, 4, 1, 16, 0.2, 0.6, transpose(7))
 
 def section_c():
-    drum_pattern()
+    with measure(1): swell(kick, 4, 1, 8, 1.1, 0.4, transpose(-3))
+    with measure(2): swell(kick, 20, 1, 8 * 5, 0.4, 0.4, transpose(-3))
+    with measure(7): swell(kick, 8, 1, 16, 0.4, 1, transpose(-3))
+    with measure(1): 
+        with cue(1): swell(hat, 32, 1, 16, 1, 1) 
+    with measure(5): swell(snare, 15, 1, 60, 0.2, 0.3, transpose(7))
+    with measure(8):
+        with cue(3): swell(snare, 1, 1, 4, 0.1, 0.8, transpose(7))
 
 p_callback('i', 1, 6, multiply, transpose(7))
 p_callback('i', 1, 3, multiply, 1 / transpose(7))
@@ -147,12 +149,17 @@ p_callback('i', 1, 3, multiply, 1 / transpose(7))
 score('t 0 170')
 
 #with measure(1): section_c()
+#with measure(1): section_c()
+#with measure(9): section_b()
 
 if True:
     with measure(1): intro()
     with measure(5): section_a()
     with measure(21): section_b()
     with measure(37): section_a()
+    with measure(53): section_c()
+    with measure(61): section_a()
+    with measure(77): section_b()
 
 pmap('i', 1, 4, multiply, 0.707)
 
