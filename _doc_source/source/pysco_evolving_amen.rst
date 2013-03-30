@@ -226,7 +226,7 @@ Default Def Values
 * def with default value
 * used in order from left to right
 * or calling them by name
-
+* user input is for all 3 args is designed to accept ratios
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
     :language: python
