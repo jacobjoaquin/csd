@@ -1,11 +1,46 @@
-#################
-A Pysco TOOTorial
-#################
+################################
+Evolving Amen - A Pycso Tutorial
+################################
 
 
+Set up Sampler Instrument
+Classical Score example with 1 bar repeat 4 times
+score() version
+split bars with cue()
+Python def
+def measure()
+instrs as definitions
+    factoring out instr number, start time, duration
+    default values
+    One orchestra instrument becomes many score instruments
+Refactor instrs
+    Importing choice from Python Library
+    Choice
+    Lists
+Score phrase to def phrase()
+Algorithmic flair def
+    Lists
 
-Toot 1 - Easy Point of Entry
-----------------------------
+Arranging
+
+
+Where to put p_callback and pmap
+    dB for p_callback
+    slight variations to pan position / pitch for pmap
+
+
+* Keep your instr interfaces as generic as possible, fashion specifics in the score.
+    # bad
+    ipch = cpspch(p5)
+
+    # good
+    ifreq = p5
+
+    cpspch(freq)
+
+
+Easy Point of Entry
+===================
 
 Don't know Python, but know the Csound score. Everything, and I mean
 everything, you already know about the score can be used in Pysco,
@@ -14,7 +49,10 @@ without modification, as long as it's wrapped in the score() function.
 ..
     .. literalinclude:: ../../demo/pysco/test.csd 
 
+
 .. code-block:: python
+
+    <CsScore bin="python pysco">
 
     score('''
     f 1 0 8192 10 1
@@ -29,6 +67,8 @@ without modification, as long as it's wrapped in the score() function.
     i 1 + .   .     8.11
     i 1 + .   .     8.07
     ''')
+
+    </CsScore>
 
 Code:
 https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test.csd
@@ -140,7 +180,9 @@ Now let's place those two notes into measure 16.
         ''')
 
 That that math works out to:
+
 (16 - 1) * 4) + 0 = 60
+
 (16 - 1) * 4) + 1.5 = 61.5
 
 Gone are the days of manually keeping track of absolute position in

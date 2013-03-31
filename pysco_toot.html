@@ -8,7 +8,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>A Pysco TOOTorial &mdash; csd 0.0.5 alpha documentation</title>
+    <title>Evolving Amen - A Pycso Tutorial &mdash; csd 0.0.5 alpha documentation</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,9 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="csd 0.0.5 alpha documentation" href="index.html" />
-    <link rel="next" title="Demos" href="demo/index.html" />
-    <link rel="prev" title="Pysco" href="pysco.html" /> 
+    <link rel="top" title="csd 0.0.5 alpha documentation" href="index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -39,12 +37,6 @@
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pysco.html" title="Pysco"
-             accesskey="P">previous</a> |</li>
         <li><a href="index.html">csd 0.0.5 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
@@ -52,8 +44,8 @@
         <div class="sphinxsidebarwrapper">
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">A Pysco TOOTorial</a><ul>
-<li><a class="reference internal" href="#toot-1-easy-point-of-entry">Toot 1 - Easy Point of Entry</a></li>
+<li><a class="reference internal" href="#">Evolving Amen - A Pycso Tutorial</a><ul>
+<li><a class="reference internal" href="#easy-point-of-entry">Easy Point of Entry</a><ul>
 <li><a class="reference internal" href="#toot-2-pfield-processing">Toot 2 - Pfield Processing</a></li>
 <li><a class="reference internal" href="#time-with-the-cue-object">Time with the cue() object</a></li>
 <li><a class="reference internal" href="#don-t-like-time-in-beats-how-about-measures-instead">Don&#8217;t like Time-In-Beats? How about Measures instead</a></li>
@@ -64,13 +56,9 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pysco.html"
-                        title="previous chapter">Pysco</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="demo/index.html"
-                        title="next chapter">Demos</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/pysco_toot.txt"
@@ -97,14 +85,55 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="a-pysco-tootorial">
-<h1>A Pysco TOOTorial<a class="headerlink" href="#a-pysco-tootorial" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="toot-1-easy-point-of-entry">
-<h2>Toot 1 - Easy Point of Entry<a class="headerlink" href="#toot-1-easy-point-of-entry" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="evolving-amen-a-pycso-tutorial">
+<h1>Evolving Amen - A Pycso Tutorial<a class="headerlink" href="#evolving-amen-a-pycso-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Set up Sampler Instrument
+Classical Score example with 1 bar repeat 4 times
+score() version
+split bars with cue()
+Python def
+def measure()
+instrs as definitions</p>
+<blockquote>
+<div>factoring out instr number, start time, duration
+default values
+One orchestra instrument becomes many score instruments</div></blockquote>
+<dl class="docutils">
+<dt>Refactor instrs</dt>
+<dd>Importing choice from Python Library
+Choice
+Lists</dd>
+</dl>
+<p>Score phrase to def phrase()
+Algorithmic flair def</p>
+<blockquote>
+<div>Lists</div></blockquote>
+<p>Arranging</p>
+<dl class="docutils">
+<dt>Where to put p_callback and pmap</dt>
+<dd>dB for p_callback
+slight variations to pan position / pitch for pmap</dd>
+</dl>
+<ul>
+<li><dl class="first docutils">
+<dt>Keep your instr interfaces as generic as possible, fashion specifics in the score.</dt>
+<dd><p class="first"># bad
+ipch = cpspch(p5)</p>
+<p># good
+ifreq = p5</p>
+<p class="last">cpspch(freq)</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="section" id="easy-point-of-entry">
+<h2>Easy Point of Entry<a class="headerlink" href="#easy-point-of-entry" title="Permalink to this headline">¶</a></h2>
 <p>Don&#8217;t know Python, but know the Csound score. Everything, and I mean
 everything, you already know about the score can be used in Pysco,
 without modification, as long as it&#8217;s wrapped in the score() function.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">score</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">CsScore</span> <span class="nb">bin</span><span class="o">=</span><span class="s">&quot;python pysco&quot;</span><span class="o">&gt;</span>
+
+<span class="n">score</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
 <span class="s">f 1 0 8192 10 1</span>
 <span class="s">t 0 189</span>
 
@@ -117,13 +146,14 @@ without modification, as long as it&#8217;s wrapped in the score() function.</p>
 <span class="s">i 1 + .   .     8.11</span>
 <span class="s">i 1 + .   .     8.07</span>
 <span class="s">&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="o">&lt;/</span><span class="n">CsScore</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <p>Code:
 <a class="reference external" href="https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test.csd">https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test.csd</a></p>
-</div>
 <div class="section" id="toot-2-pfield-processing">
-<h2>Toot 2 - Pfield Processing<a class="headerlink" href="#toot-2-pfield-processing" title="Permalink to this headline">¶</a></h2>
+<h3>Toot 2 - Pfield Processing<a class="headerlink" href="#toot-2-pfield-processing" title="Permalink to this headline">¶</a></h3>
 <p>The original idea of Pysco came from a user request in the list in
 which someone wanted to be able to use an alternative way of
 expressing notes in the form of C5, D#4, G4, etc. The following
@@ -153,7 +183,7 @@ on the function passed to pmap.</p>
 <p>You may have noticed that it also translates decibels with pfield.</p>
 </div>
 <div class="section" id="time-with-the-cue-object">
-<h2>Time with the cue() object<a class="headerlink" href="#time-with-the-cue-object" title="Permalink to this headline">¶</a></h2>
+<h3>Time with the cue() object<a class="headerlink" href="#time-with-the-cue-object" title="Permalink to this headline">¶</a></h3>
 <p>Time is treated like other control structures, akin to the if
 statement. The cue() object translates the current postion of time in
 the score, and modifies pfield 2 to reflect the position. For example,
@@ -194,7 +224,7 @@ easy to manage events in time this way:</p>
 <p><a class="reference external" href="https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test10.csd">https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test10.csd</a></p>
 </div>
 <div class="section" id="don-t-like-time-in-beats-how-about-measures-instead">
-<h2>Don&#8217;t like Time-In-Beats? How about Measures instead<a class="headerlink" href="#don-t-like-time-in-beats-how-about-measures-instead" title="Permalink to this headline">¶</a></h2>
+<h3>Don&#8217;t like Time-In-Beats? How about Measures instead<a class="headerlink" href="#don-t-like-time-in-beats-how-about-measures-instead" title="Permalink to this headline">¶</a></h3>
 <p>So you&#8217;re writing a piece in 4/4 and you&#8217;d rather organize events in
 measures instead of beats because it totally makes more sense to do it that way. Here&#8217;s how to customize the cue() with a Python function:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">measure</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
@@ -209,9 +239,9 @@ measures instead of beats because it totally makes more sense to do it that way.
 <span class="s">    &#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>That that math works out to:
-(16 - 1) * 4) + 0 = 60
-(16 - 1) * 4) + 1.5 = 61.5</p>
+<p>That that math works out to:</p>
+<p>(16 - 1) * 4) + 0 = 60</p>
+<p>(16 - 1) * 4) + 1.5 = 61.5</p>
 <p>Gone are the days of manually keeping track of absolute position in
 beats, or even seconds, for each note.</p>
 <p>Similiar code to example 3, but uses the custom measure():
@@ -219,7 +249,7 @@ beats, or even seconds, for each note.</p>
 <p>This is measure() example is a simple conversion, but it wouldn&#8217;t take much to create a custom object that allowed users to mix and match time signatures.</p>
 </div>
 <div class="section" id="functions-as-reusable-musical-phrases">
-<h2>Functions as Reusable Musical Phrases<a class="headerlink" href="#functions-as-reusable-musical-phrases" title="Permalink to this headline">¶</a></h2>
+<h3>Functions as Reusable Musical Phrases<a class="headerlink" href="#functions-as-reusable-musical-phrases" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s wrap up those two notes into a re-usable phrase.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_phrase</span><span class="p">():</span>
     <span class="n">score</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
@@ -237,7 +267,7 @@ beats, or even seconds, for each note.</p>
 </div>
 </div>
 <div class="section" id="alternatives-to-score-i-events">
-<h2>Alternatives to Score() i_events<a class="headerlink" href="#alternatives-to-score-i-events" title="Permalink to this headline">¶</a></h2>
+<h3>Alternatives to Score() i_events<a class="headerlink" href="#alternatives-to-score-i-events" title="Permalink to this headline">¶</a></h3>
 <p>The score() isn&#8217;t the only way to create i-events. Here is an
 alternative form using event_i()</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_phrase</span><span class="p">():</span>
@@ -251,7 +281,7 @@ alternative form using event_i()</p>
 </div>
 </div>
 <div class="section" id="p-callback-and-alternative-to-pmap">
-<h2>p_callback(), And Alternative to pmap()<a class="headerlink" href="#p-callback-and-alternative-to-pmap" title="Permalink to this headline">¶</a></h2>
+<h3>p_callback(), And Alternative to pmap()<a class="headerlink" href="#p-callback-and-alternative-to-pmap" title="Permalink to this headline">¶</a></h3>
 <p>The pmap() is a processor, and processes data that is already inside
 the score() object. The p_callback() modifies events as they&#8217;re being
 inserted. In this example, the data stored for pfield 5 is the
@@ -266,7 +296,7 @@ the score.</p>
 <a class="reference external" href="https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test12.csd">https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test12.csd</a></p>
 </div>
 <div class="section" id="cue-and-p-callback-work-as-a-team">
-<h2>cue() and p_callback() work as a team<a class="headerlink" href="#cue-and-p-callback-work-as-a-team" title="Permalink to this headline">¶</a></h2>
+<h3>cue() and p_callback() work as a team<a class="headerlink" href="#cue-and-p-callback-work-as-a-team" title="Permalink to this headline">¶</a></h3>
 <p>Remember our two note phrase:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_phrase</span><span class="p">():</span>
     <span class="n">event_i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mf">8.00</span><span class="p">)</span>
@@ -297,6 +327,7 @@ block is finished.</p>
 <a class="reference external" href="https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test16.csd">https://github.com/jacobjoaquin/csd/blob/master/demo/pysco/test16.csd</a></p>
 </div>
 </div>
+</div>
 
 
           </div>
@@ -313,12 +344,6 @@ block is finished.</p>
         <li class="right" >
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pysco.html" title="Pysco"
-             >previous</a> |</li>
         <li><a href="index.html">csd 0.0.5 alpha documentation</a> &raquo;</li> 
       </ul>
     </div>
