@@ -143,23 +143,27 @@ def section_c():
     with measure(8):
         with cue(3): swell(snare, 1, 1, 4, 0.1, 0.8, transpose(7))
 
+def outro():
+    offset = 1.0
+    for t in range(16):
+        with cue(t / 2.0 * offset):
+            hat(tune=transpose(-3) * (1 / offset))
+            kick(tune=transpose(-3) * (1 / offset))
+            offset = offset + 0.03
+
 p_callback('i', 1, 6, multiply, transpose(7))
 p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
 score('t 0 170')
 
-#with measure(1): section_c()
-#with measure(1): section_c()
-#with measure(9): section_b()
-
-if True:
-    with measure(1): intro()
-    with measure(5): section_a()
-    with measure(21): section_b()
-    with measure(37): section_a()
-    with measure(53): section_c()
-    with measure(61): section_a()
-    with measure(77): section_b()
+with measure(1): intro()
+with measure(5): section_a()
+with measure(21): section_b()
+with measure(37): section_a()
+with measure(53): section_c()
+with measure(61): section_a()
+with measure(77): section_b()
+with measure(93): outro()
 
 pmap('i', 1, 4, multiply, 0.707)
 

@@ -1,63 +1,67 @@
-################################
-Evolving Amen - A Pycso Tutorial
-################################
+######################
+Evolving Amen Tutorial
+######################
+
+*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
+
 
 ..
-    Set up Sampler Instrument
-    Classical Score example with 1 bar repeat 4 times
-    score() version
-    split bars with cue()
-    def measure()
-    instrs as definitions
-        factoring out instr number, start time, duration
-        default values
-        One orchestra instrument becomes many score instruments
-    Refactor instrs
-        Importing choice from Python Library
-        Choice
-        Lists
-    Score phrase to def phrase()
-    Algorithmic flair def
-        Lists
+    TODO: Update orchesta. Envelope was added in variation example.
+    TODO: hat() before evolving_amen_default_args.csd need updating
+    TODO: drum_pattern_2 isn't in everything
 
-    Arranging
+    Note. 4 spaces, not tabs. Indentation sensitve
 
-    Where to put p_callback and pmap
-        dB for p_callback
-        slight variations to pan position / pitch for pmap
+The Sampler Instrument
+======================
 
+A simple stereo sampler instrument is used for the entirety of this tutorial. This is ensure that the focus solely on the techniques afforded by Python.
 
-TODO: Update orchesta. Envelope was added in variation example.
-TODO: hat() before evolving_amen_default_args.csd need updating
-TODO: drum_pattern_2 isn't in everything
-
-Note. 4 spaces, not tabs. Indentation sensitve
+The sampler uses the famous Amen break. [#amen]_ It supports 3 custom pfield inputs for determining amplitude, the start position in beats of the sample, and an option for tuning the pitch of the sample.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
     :start-after: <CsInstruments
     :end-before: </CsInstruments
 
+The output has a very trashy [#trashy]_ quality to it, and sounds like it was produced with a tracker [#tracker]_ such as Fast Tracker II.
+
+
 Classical Csound Score
 ======================
+
+The first phase of this tutorial starts with a classical Csound score. Over the course of several steps, the score is transformed into Python Score with new features slowly added and explained. The following is a four identical measures that plays the standard drum'n'bass beat. [#dnb]_
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Porting to Python Score
-=======================
+Porting the Classical Score to Python
+=====================================
 
-* bin
-* score()
-* triple single quotes
+Porting a classical Csound score to Python Score is a straight forward process. First, the Csound Unified bin feature is specified to active pysco.bin. Second, the Csound score code is passed into the score() function as multiline string. Any and all Csound score code will work,
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_ported.csd
     :language: python
     :start-after: </CsInstruments>
     :end-before: </CsoundSynthesizers>
 
-Cue
-===
+In Python, triple quotes allow for multi-line strings.
+
+The Movable Cue() Object
+========================
+
+*"It's what makes time travel possible."* - Dr. Emmett Lathrop Brown
+
+The “cue” is a bit like a flux capacitor, as it makes time travel possible. It allows the composer to move to any point in time in the score, treat the current time if it's time zero, and then move to somewhere else. 
+
+
+All events entered are entered relative to the cue(). If the cue is at 33, then events placed at 0 and 4 will be placed into the score at 33 and 37.
+
+The Python Score cue object is a device for moving the start pointer. The pfield 2 valu
+
+The unit of time for cue is in beats, which is the same as the classical Csound score. Unless a tempo is specified, the default value is 60 beats per minute, which is the same as time in seconds.
+
+The # symbol denotes a Python comment, and works similarly to the ; symbol in the Csound score.
 
 * What is the cue?
 * In beats
@@ -70,24 +74,40 @@ Cue
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Measure
-=======
+Beats to Measures
+=================
 
-* Factored out comment, the indicator is now code
-* def
-* example of the extensible nature of Python
+Python is a highly extensible language and allows composers to shape their score environment by defining new features on the fly as functions. See `Defining Functions <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
+
+In the case the music we're dealing with is standard 4/4. Working in measures makes more sense than working in global beats. 
+
+
+In this instance, the cue object is transformed from beats to measures. This is accomplished by this two line function:
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
+    :language: python
+    :pyobject: measure
+
+Users pass in the measure they want to create events for, the math translates the from measure to beats, and then returns the cue object with the time set accordingly.
+
+Since function itself is called measure, the "# Measure" comments are factored out.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-event_i
-=======
+Generating Instrument Events with event_i()
+===========================================
 
-* Classical data to python event
-* event_i
-* nested cue
+A second method for entering score data exists in Python Score.
+
+    event_i(1, 0, 1, 0.707, 8.00)
+
+will generate this line of score code:
+
+    i 1 0 1 0.707 8.00
+
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
     :language: python
@@ -277,11 +297,19 @@ Algorithmic Flair Drum Pattern
     :language: python
     :pyobject: drum_pattern_flair
 
-Write Some Music
-================
+Form With Functions
+===================
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+.. rubric:: Footnotes
+
+.. [#michaeljnelson] Link to funny tweet
+.. [#amen] Amen break description
+.. [#trashy] Trashy is a good thing in the right context.
+.. [#tracker] Trackers are the bee's knees
+.. [#dnb] Drum'n'bass beat
 
