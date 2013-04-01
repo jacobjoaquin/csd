@@ -20,6 +20,10 @@ Python Score, also sometimes called Pysco, is a modular score environment.
 
 The reality is, Python Score is just Python.
 
+The tutorial is based on an early example, which took surprisingly little time to make, clocking in around at around a few hours.
+
+Pysco is also under development, and there will be changes made through its early life. And thus, any changes made to Pysco will be reflected in this tutorial. Consider this a living document.
+
 The Sampler Instrument
 ======================
 
@@ -53,7 +57,7 @@ This will starts an interactive Python session in which users can start entering
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-In addition to the terminal, you can use CsoundQt comes with a Python Console built-in. There's also IPython which supercharges the Python Interpretor with a lot of great features for Python beginners and veterans alike.
+In addition to the terminal, you can use CsoundQt comes with a Python Console built-in. There's also `IPython <http://ipython.org/>`_ which supercharges the Python Interpretor with a lot of great features for Python beginners and veterans alike.
 
 ************************
 From Classical To Modern
@@ -153,8 +157,8 @@ Since function itself is called measure, the "# Measure" comments are factored o
     >>> measure_math(4)
     12
 
-Generating Instrument Events with event_i()
-===========================================
+Generating Instrument Events
+============================
 
 A second method for entering score data exists in Python Score::
 
@@ -164,6 +168,8 @@ will generate this line of score code::
 
     i 1 0 1 0.707 8.00
 
+In this iteration of the score, the instrument events that were previously entered through the score() function have been converted using event_i().
+
 .. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
     :language: python
     :start-after: <CsScore
@@ -172,19 +178,40 @@ will generate this line of score code::
 Nested Cues
 ===========
 
-* Cues are nestable
+The cue() object is designed to support multiple levels of nesting
+
+..
+
+    with cue(32):
+        with cue(4):
+            with cue(1):
+                event_i(1, 0, 1)
+
+Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue hierarchy.
+
 * Start times are separated from event
+
+In the score, all the start times are set to 0, giving the responsibility of when things happen to the cue().  
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_nested.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Score Instrument Interfaces
-===========================
+Score Instruments
+=================
 
-* 1 instrument, multiple def interfaces
-* factor out instr number, start time 
+A orchestra instrument has only one interface, though it is possible to define multiple new interfaces in Python, which in a sense creates a new category of instruments.
+
+The sampler instrument in the orchestra, even with the fixed Amen break, is designed to be non-specific in terms of what is played; It knows the position in the audio table to begin playing, but has no knowledge of what is being played.
+
+Defining new interfaces to the sampler brings context to the score. In this case, the kick() and snare() functions are created.
+
+This also being clarity to the score. In the clasical score, a composer is required to scan the positional numbers in the pfield 6 column to see what was being played, and they'd need to also know what these numbers meant.
+
+In the Python score, if you play a kick() it sounds like a kick. Play a snare() it sounds like a snare. Play a snozberry() it sounds like a snozberry(). [#snozberry]_
+
+The score we're left with is fundamentally more readable than the original Csound score. The fact that drums are being played is much more obvious than in the original classical score.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
     :language: python
@@ -279,7 +306,6 @@ Hats
     :pyobject: hat
 
 New pattern. Musical phrases defined as functions can be embedded into other phrase functions.
-
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
     :language: python
