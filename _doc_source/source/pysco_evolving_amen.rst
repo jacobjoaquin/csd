@@ -20,6 +20,8 @@ Python Score, also sometimes called Pysco, is a modular score environment.
 
 The reality is, Python Score is just Python.
 
+Despite being a general purpose language that never had music in mind during it's inception and development, Python is particularly well suited for compostion.
+
 The tutorial is based on an early example, which took surprisingly little time to make, clocking in around at around a few hours.
 
 Pysco is also under development, and there will be changes made through its early life. And thus, any changes made to Pysco will be reflected in this tutorial. Consider this a living document.
@@ -180,7 +182,7 @@ Nested Cues
 
 The cue() object is designed to support multiple levels of nesting
 
-..
+::
 
     with cue(32):
         with cue(4):
@@ -211,68 +213,82 @@ This also being clarity to the score. In the clasical score, a composer is requi
 
 In the Python score, if you play a kick() it sounds like a kick. Play a snare() it sounds like a snare. Play a snozberry() it sounds like a snozberry(). [#snozberry]_
 
-The score we're left with is fundamentally more readable than the original Csound score. The fact that drums are being played is much more obvious than in the original classical score.
-
 .. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Pause For A Moment
-==================
+Pause For A Moment (Interlude)
+==============================
 
 * Data to structure
 * fundamentally more expressive (which is a good thing with music)
 * Even if you don't know python, this is fundamentally more readable
 * Definitely read on, but practice the preceeding examples
+* Everything you can do with the classical score you can do in Python Score. The opposite isn't true (not even close)
 
+The score we're left with is fundamentally more readable than the original Csound score. The fact that drums are being played is much more obvious than in the original classical score.
 
-*************
-The New Style
-*************
+*************************
+Developing a Python Score
+*************************
 
 *"Sometimes you have to run before you learn how to walk."* - Tony Stark
 
-* Remeber, it's Python
-* Aggresive with introducing Python concepts
-* Continue doing 1 idiom at a time
-* Excerpts as examples. Make sure you take the time to read them
+Since Python is an open-ended environment, there are many ways in which to develop a personalized score environment for a piece. In this section, we'll build new features into our environment one by one. Many of these concepts may be used in other pieces either together, or individually.
 
-For the rest of the tutorial, concepts will be introduced through making changes to the music.
+The goal of this section is to introduce concepts that are readily available, while at the same time trying to make aware how much Python has to offer. The approach maybe a little aggressive at times, but at the same time none of the concepts introduced here are necessariy for your scores.
 
-Goal is to show fluidity in composition
+Each new Python Score idiom is distilled to a stand alone example. Entire scores are phased out to only the code added with each new example.
+
+The orchestra will remain unchanged, though the score and audio examples will change through out.
 
 Drum Pattern
 ============
 
-* Defs as containers for reusable musical pharase
-* Consolidating code that is used multiple times
-* Pattern isn't inserted into the score until it is called
+We've seen function defintions for our custom measure-based cue() oobject and for defining score-based instrument interfaces. Python functions can also be used to consolidate snippets of score code into reusable musical phrases.
+
+The four measures in the piece are identical, which makes it perfect for consolidating it into a single measure phrase.
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :pyobject: drum_pattern
+
+Events that exist inside a function are not added into the score until the function is called. The updates to the score code does this once for each measure:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
     :language: python
-    :start-after: <CsScore
+    :start-after: score(
     :end-before: </CsScore>
 
-List
-====
+It's worth noting that functions aren't limited to measures. Notes, licks, phrases, bars, sections, entire scores, can all be placed inside a function. We'll see more of this as we continue along.
 
-* Python List
-* Looping
-* Crossed an interesting threshold. The Python Score is 2 lines shorter than the original classical score
+Looping Through Lists
+=====================
+
+A list is a Python container for storing various data, which may include numbers, strings, other lists, functions, etc. And they make a wonderful additional to the score environment. They're highly versatile, capable of evertything from saving time for the composer through automation, to generating granular synthesis events, to algorithmic composition.
+
+The for statement is used to loop through each value in the specified list. As the program loops through the list, the m variable becomes the value of the current value in the list. Thus, calling drum_pattern() for measures 1, 2, 3, and 4.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_list.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
+Now that much of the score code has been consolidated into a function and a foor loop, this score is now 2 lines shorter than the original Csound classical score in the first example.
+
 Range
 =====
 
-* range()
-* Python interpretor
 * Adding 4 more measures would require a single change, from 5 to 9
 * If 5 to 9, more events generated than there are lines of code in CsScore
+
+::
+
+    >>> range(4)
+    [0, 1, 2, 3]
+
+Though a small change, range is a function that you will use repeatedly in Python.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_range.csd
     :language: python
@@ -447,4 +463,4 @@ Form With Functions
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
-
+.. [#snozberry] Snozberry
