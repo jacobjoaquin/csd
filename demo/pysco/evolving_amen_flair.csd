@@ -122,7 +122,7 @@ p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
 score('t 0 170')
 
-for m in range(1, 16, 4):
+for m in range(1, 17, 4):
     with measure(m):
         with measure(1): drum_pattern()
         with measure(2): drum_pattern_flair(0.25)

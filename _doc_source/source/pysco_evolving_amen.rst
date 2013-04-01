@@ -12,6 +12,14 @@ Evolving Amen Tutorial
 
     Note. 4 spaces, not tabs. Indentation sensitve
 
+************
+Introduction
+************
+
+Python Score, also sometimes called Pysco, is a modular score environment. 
+
+The reality is, Python Score is just Python.
+
 The Sampler Instrument
 ======================
 
@@ -25,6 +33,38 @@ The sampler uses the famous Amen break. [#amen]_ It supports 3 custom pfield inp
 
 The output has a very trashy [#trashy]_ quality to it, and sounds like it was produced with a tracker [#tracker]_ such as Fast Tracker II.
 
+The Python Interpretor
+======================
+
+The Python interpretor is an extremely convienient tool for tinkering with parts of the language you may not be familiar with. With it, you can safely test parts of the language.
+
+Typically, the Python interpretor is used in the terminal, which is invoked by typing "python"::
+
+    Quorra ~ $ python
+
+This will starts an interactive Python session in which users can start entering various commands.
+
+::
+
+    >>> print 'hello world'
+    hello world
+    >>> 440 * 2 ** (7 / 12.0)
+    659.2551138257398
+    >>> range(10)
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In addition to the terminal, you can use CsoundQt comes with a Python Console built-in. There's also IPython which supercharges the Python Interpretor with a lot of great features for Python beginners and veterans alike.
+
+************************
+From Classical To Modern
+************************
+
+Some words here.
+
+* Start with a classical score
+* Port the score to Python
+* Refactor classical score introducing Python score idioms one at a time
+* End with a full conversion with identical output
 
 Classical Csound Score
 ======================
@@ -69,6 +109,12 @@ The # symbol denotes a Python comment, and works similarly to the ; symbol in th
 * single quotes for score
 * The # comment
 
+Even in situations in which the timing of events are deeply nested with a complex algorithm, the structure of when things happen is far more transparent since time is factored out and exists as its own entity.
+
+Instead of entering time-based events in absolute terms of the score, they are entered to relative to the position of the cue() object. For example, if the cumulative postion of the cue is 60 beats, entering an event at time 0 is actually 60, and a time of 4 would be 64.
+
+Realative instead of absolute.
+
 .. literalinclude:: ../../demo/pysco/evolving_amen_cue.csd
     :language: python
     :start-after: <CsScore
@@ -97,17 +143,26 @@ Since function itself is called measure, the "# Measure" comments are factored o
     :start-after: <CsScore
     :end-before: </CsScore>
 
+::
+
+    >>> def measure_math(t):
+    ...     return (t - 1) * 4
+    ...
+    >>> measure_math(1)
+    0
+    >>> measure_math(4)
+    12
+
 Generating Instrument Events with event_i()
 ===========================================
 
-A second method for entering score data exists in Python Score.
+A second method for entering score data exists in Python Score::
 
     event_i(1, 0, 1, 0.707, 8.00)
 
-will generate this line of score code:
+will generate this line of score code::
 
     i 1 0 1 0.707 8.00
-
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
     :language: python
@@ -144,8 +199,17 @@ Pause For A Moment
 * Even if you don't know python, this is fundamentally more readable
 * Definitely read on, but practice the preceeding examples
 
-Moving Forward
---------------
+
+*************
+The New Style
+*************
+
+*"Sometimes you have to run before you learn how to walk."* - Tony Stark
+
+* Remeber, it's Python
+* Aggresive with introducing Python concepts
+* Continue doing 1 idiom at a time
+* Excerpts as examples. Make sure you take the time to read them
 
 For the rest of the tutorial, concepts will be introduced through making changes to the music.
 
@@ -212,7 +276,20 @@ Hats
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
     :language: python
-    :start-after: <CsScore
+    :pyobject: hat
+
+New pattern. Musical phrases defined as functions can be embedded into other phrase functions.
+
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :pyobject: drum_pattern_8th_hats
+
+One thing worth mentioning is to create the 8th note rhythms, the foor loop iterates through the values 0 through 7, and then each value is divided by 2.0 as the argument for cue().
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :start-after: score(
     :end-before: </CsScore>
 
 Post Processing with pmap()
@@ -225,7 +302,13 @@ Post Processing with pmap()
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
     :language: python
-    :start-after: <CsScore
+    :pyobject: multiply
+
+The pmap() function only works on data already in the score. For this simple reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+    :language: python
+    :start-after: with cue(t / 2.0):
     :end-before: </CsScore>
 
 Pre-processing Events with p_callback()
@@ -238,8 +321,15 @@ Pre-processing Events with p_callback()
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :start-after: with cue(t / 2.0)
+    :end-before:  score(
+
+Where these callbacks are placed matter. Typically speak, good practice involves placing the p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
+    :language: python
+    :start-after: with cue(t / 2.0)
+    :end-before:  </CsScore
 
 Transpose
 =========
@@ -249,8 +339,12 @@ Transpose
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :pyobject: transpose
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+    :language: python
+    :start-after: with cue(t / 2
+    :end-before: score(
 
 Default Def Values
 ==================
@@ -262,8 +356,24 @@ Default Def Values
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :pyobject: kick
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+    :language: python
+    :pyobject: snare
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+    :language: python
+    :pyobject: hat
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+    :language: python
+    :pyobject: drum_pattern_2
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+    :language: python
+    :start-after: score(
+    :end-before: pmap
 
 Swell
 =====
@@ -275,8 +385,7 @@ Swell
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :pyobject: intro
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
     :language: python
@@ -290,8 +399,8 @@ Algorithmic Flair Drum Pattern
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :start-after: score(
+    :end-before: pmap
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
     :language: python
@@ -302,8 +411,8 @@ Form With Functions
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :start-after: score(
+    :end-before: pmap
 
 .. rubric:: Footnotes
 

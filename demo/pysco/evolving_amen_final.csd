@@ -118,7 +118,7 @@ def intro():
         swell(snare, 4, 1, 16, 0.05, 0.7, transpose(7))
 
 def section_a():
-    for m in range(1, 16, 4):
+    for m in range(1, 17, 4):
         with measure(m):
             with measure(1): drum_pattern()
             with measure(2): drum_pattern_flair(0.25)

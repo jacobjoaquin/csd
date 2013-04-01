@@ -1,5 +1,6 @@
 a {
-    color: #1F71B3;
+/*    color: #1F71B3; */
+    color: rgb(179, 31, 3);
 }
 
 body {
@@ -8,6 +9,10 @@ body {
 }
 
 div.related ul li a {
-    #D64B3A
+    color: #D64B3A
+}
+
+pre {
+    font-size: 12px;
 }
 
