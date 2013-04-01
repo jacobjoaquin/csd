@@ -272,7 +272,7 @@ The for statement is used to loop through each value in the specified list. As t
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_list.csd
     :language: python
-    :start-after: <CsScore
+    :start-after: score(
     :end-before: </CsScore>
 
 Now that much of the score code has been consolidated into a function and a foor loop, this score is now 2 lines shorter than the original Csound classical score in the first example.
@@ -280,15 +280,16 @@ Now that much of the score code has been consolidated into a function and a foor
 Range
 =====
 
-* Adding 4 more measures would require a single change, from 5 to 9
-* If 5 to 9, more events generated than there are lines of code in CsScore
+The Python range() generates lists of integers automatically. It's a very commonly used function in Python, and one you should learn sooner rather than later.
 
 ::
 
-    >>> range(4)
-    [0, 1, 2, 3]
+    >>> range(10)
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    >>> range(1, 5)
+    [1, 2, 3, 4]
 
-Though a small change, range is a function that you will use repeatedly in Python.
+The score substitues range(1, 5) for [1, 2, 3, 4]. 
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_range.csd
     :language: python
@@ -298,24 +299,33 @@ Though a small change, range is a function that you will use repeatedly in Pytho
 Sample Variation with Choice
 ============================
 
-New Audio File
+So far, all the functions we've used come either built-in or built by hand with a function. Python has an easy process for importing existing functions from various libraries. Python itself comes with a bunch of useful libraries that can be used within the context of a compositional environment. And then there are a bunch of a third party libraries that can be used as well. In fact, Pysco itself is a Python library.
 
-* Import from library
-* choice
+To add a little variation to our kick() and snare() score instruments, the choice() function is imported and used to randomly select from different positions within the Amen break.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_choice.csd
+Changes are made to the kick() and snare() functions.
+
+The choice() function is really simple to use. Pass a list of data to choice, and it randomly selects one of the values. Using the kick() score instrument as an example, choice selects from 4 different possible start positions in the Amen break where a kick is.
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :pyobject: kick
+
+The snare() works the same way, with the only difference being the start positions.
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :pyobject: snare
 
 Hats
 ====
 
+
+
+The reaffirms the concept of single a instrument with multiple score-based interfaces.
+
 * Reinforce one instrument, multiple score interfaces
 * Include phrases within new phrases
-* Samples out of range
-
-     number of samples out of range:       25       25
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
     :language: python
@@ -337,29 +347,34 @@ One thing worth mentioning is to create the 8th note rhythms, the foor loop iter
 Post Processing with pmap()
 ===========================
 
-* pmap post processing
-* Usually comes at end
-* custom function for multiplying
-* The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
+Playing back the last example will sometimes lead to samples out range. Not everytime because of the random nature of our kick(), snare(), and hat() score instruments. There are many approaches one could take to fix this problem, with one using the Python Score pmap() function for post processing of pfield data.
+
+To avoid samples being played out of range, we need to change all the amplitudes uniformly in the score. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
     :language: python
     :pyobject: multiply
 
-The pmap() function only works on data already in the score. For this simple reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
+The pmap() function takes the following input::
+
+    pmap(event_type, instr, pfield, function, *args, **kwargs)
+
+
+The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
     :language: python
     :start-after: with cue(t / 2.0):
     :end-before: </CsScore>
 
+The pmap() function only works on data already in the score. For this reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
+
 Pre-processing Events with p_callback()
 =======================================
 
-* What is p_callback. Pre-processor version.
-* Should be placed for the events to be processed
-* math for pefect 5th
-* Increasing the pitch by a 5th requires the duration to be reduced by the inverse of the perfect 5th
+The p_callback() function is the pre-processing equivalent of pmap(). There are a few differences. First, the p_callback() registers a function to use against a specific pfield for a specific instrument ebefore data is entered into the score. When score data is entered, any events that match the selector of p_callback(), the data is then transformed before being entered into the score.
+
+As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used to tuning an instrument. Since this changing the pitch affects the length of the sample played back, causing to bleed into the next drum sample in the loop, a second p_callback() modifies the duration by the inverse of the perfect 5th.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
     :language: python
@@ -376,65 +391,73 @@ Where these callbacks are placed matter. Typically speak, good practice involves
 Transpose
 =========
 
-* That code might be useful, so let's wrap it into a function
-* Requires 1 arg, 1 optional
+The perfect 5th ratio was hard coded into the last example, but transposing data is something that is useful enough, especially in music, that it's worth taking the time to creating a function from it so that it may be used again and again.
+
+The createdtranpose() function accepts two args, one which is required and one with a default value. The first arg is the value in halfsteps in which to transpose. Without a second arg, it gives the ratio of the transposition. If a second arg is supplied it will be applied absolutely.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
     :language: python
     :pyobject: transpose
+
+The transpose() function is then used to refactor the p_callback()s.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
     :language: python
     :start-after: with cue(t / 2
     :end-before: score(
 
-Default Def Values
-==================
+Upgrading Score Instruments with Defaults
+=========================================
 
-* def with default value
-* used in order from left to right
-* or calling them by name
-* user input is for all 3 args is designed to accept ratios
+Earlier in the tutorial when score instruments were created for kick() and snare(), the ability to modify duration, amplitude, postion, and sampling tunig was factored out. We're going to factor everything except for the position argument back into these score instruments using keyword default values. The keywords for all three instruments are: dur, amp, and tune.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
-    :language: python
-    :pyobject: kick
+Since these are being refactored back in as keyword default args, all our existing calls to these score instruments will continue to work as is, and we're gaining the ability to use these args if we choose to use them.
+
+Here is what the three score instruments look like now they all have default args:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
     :language: python
-    :pyobject: snare
+    :start-after: return value * 2 **
+    :end-before: drum_pattern
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
-    :language: python
-    :pyobject: hat
+Now that they're in, a test drum pattern is in order. This pattern just plays four kicks on the beat, transposed down a perfect 4th.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
     :language: python
     :pyobject: drum_pattern_2
+
+The score and audio:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
     :language: python
     :start-after: score(
     :end-before: pmap
 
-Swell
-=====
+Player Instruments
+==================
 
-* Gesture
-* Possible because kick, snare, hat have identical interfaces
-* Describe parameters
-* A pattern is emerging, and Python objects could be used, but that's the subject of another tutorial
+Functions can also be used to generate gestures. In a sense these are another for of score instruments. The implemented in this example takes as its first argument the function in which we want to play.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
-    :language: python
-    :pyobject: intro
+Since kick(), snare(), and hat() all have identical signatures for their argument inputs, creating a player instrument that can treat them equally is iis easy.
+
+For the argument, we can pass kick, snare, or hat. The duration of the phrase is passed in as the second arg. The duration of the indivual notes is arg 3. The number of beats to play through the lifespan of the instrument if arg 4. The start_amp and end_amp args do a linear envelop from the first and last nights, which is similiar to the classical score ramp function. And then there is one optional keyword arg for consistant tuning for all samples played by swell().
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
     :language: python
     :pyobject: swell
 
+Wrapping this up into a reuasable phrase:
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+    :language: python
+    :pyobject: intro
+
+Invocation and audio:
+
 Algorithmic Flair Drum Pattern
 ==============================
+
+
 
 * import random
 * for each point in time, if event is generated, play a random instrument with a random amplitude

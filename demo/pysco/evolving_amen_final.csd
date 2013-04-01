@@ -43,6 +43,7 @@ def transpose(halfstep, value=1):
 def kick(dur=1, amp=1, tune=1):
     dur = dur * 0.5
     amp = amp * 0.707
+    dur = dur * (1 / tune)
 
     sample = choice([0, 0.5, 4, 4.5])
     event_i(1, 0, dur, amp, sample, tune)
@@ -50,6 +51,7 @@ def kick(dur=1, amp=1, tune=1):
 def snare(dur=1, amp=1, tune=1):
     dur = dur * 0.5
     amp = amp * 0.707
+    dur = dur * (1 / tune)
 
     sample = choice([1, 3, 5, 7])
     event_i(1, 0, dur, amp, sample, tune)
@@ -57,6 +59,7 @@ def snare(dur=1, amp=1, tune=1):
 def hat(dur=1, amp=1, tune=1):
     dur = dur * 0.35
     amp = amp * 0.707
+    dur = dur * (1 / tune)
 
     sample = choice([1.5, 2, 2.5, 6.5, 7.5])
     event_i(1, 0, dur, amp, sample, tune)
