@@ -122,8 +122,18 @@ i103        b3           A5
 end
 '''
 
-score(csbeats(csbeats_score))
+# Convert CsBeats score to classical Csound score and insert into score
+converted_score = csbeats(csbeats_score)
+score(converted_score)
 
+# Add converted score again offset by 0.3 beats with amplitude
+# reduced by 10 dB
+with cue(0.3):
+    p_callback('i', [101, 102, 103], 5, lambda x: x - 10)
+    score(converted_score)
+
+# Reduce volume by 6 dB
+pmap('i', [101, 102, 103], 5, lambda x: x - 6)
 
 </CsScore>
 </CsoundSynthesizer>
