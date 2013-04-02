@@ -2,9 +2,6 @@
 Evolving Amen Tutorial
 ######################
 
-*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
-
-
 ..
     TODO: Update orchesta. Envelope was added in variation example.
     TODO: hat() before evolving_amen_default_args.csd need updating
@@ -51,11 +48,10 @@ Typically, the Python interpretor is used in the terminal, which is invoked by t
 This will starts an interactive Python session in which users can start entering various commands.
 
 ::
-
     >>> print 'hello world'
     hello world
-    >>> 440 * 2 ** (7 / 12.0)
-    659.2551138257398
+    >>> 440 * 2 ** (-9 / 12.0)
+    261.6255653005986
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -232,8 +228,6 @@ The score we're left with is fundamentally more readable than the original Csoun
 *************************
 Developing a Python Score
 *************************
-
-*"Sometimes you have to run before you learn how to walk."* - Tony Stark
 
 Since Python is an open-ended environment, there are many ways in which to develop a personalized score environment for a piece. In this section, we'll build new features into our environment one by one. Many of these concepts may be used in other pieces either together, or individually.
 
@@ -487,16 +481,24 @@ The end result is something common in many drum and bass tracks in which is soun
 Form With Functions
 ===================
 
+And finally, a musical example with all the pieces put together. Looking at this code, what do you think the form of the compostion is? 
+
 .. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
     :language: python
     :start-after: score(
     :end-before: pmap
 
+**********
+Conclusion
+**********
+
+So yeah, that's it.
+
+
 .. rubric:: Footnotes
 
-.. [#michaeljnelson] Link to funny tweet
 .. [#amen] Amen break description
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
-.. [#snozberry] Snozberry
+.. [#snozberry] Who's every heard of a snozberry?
