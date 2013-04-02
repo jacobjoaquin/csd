@@ -122,7 +122,7 @@ i103        b3           A5
 end
 '''
 
-# Convert CsBeats score to classical Csound score and insert into score
+# Convert CsBeats score to classical Csound score and insert into Python Score
 converted_score = csbeats(csbeats_score)
 score(converted_score)
 
