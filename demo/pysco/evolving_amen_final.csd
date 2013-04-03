@@ -43,7 +43,7 @@ def transpose(halfstep, value=1):
 def kick(dur=1, amp=1, tune=1):
     dur = dur * 0.5
     amp = amp * 0.707
-    dur = dur * (1 / tune)
+    dur = dur * (1 / float(tune))
 
     sample = choice([0, 0.5, 4, 4.5])
     event_i(1, 0, dur, amp, sample, tune)
@@ -51,7 +51,7 @@ def kick(dur=1, amp=1, tune=1):
 def snare(dur=1, amp=1, tune=1):
     dur = dur * 0.5
     amp = amp * 0.707
-    dur = dur * (1 / tune)
+    dur = dur * (1 / float(tune))
 
     sample = choice([1, 3, 5, 7])
     event_i(1, 0, dur, amp, sample, tune)
@@ -59,7 +59,7 @@ def snare(dur=1, amp=1, tune=1):
 def hat(dur=1, amp=1, tune=1):
     dur = dur * 0.35
     amp = amp * 0.707
-    dur = dur * (1 / tune)
+    dur = dur * (1 / float(tune))
 
     sample = choice([1.5, 2, 2.5, 6.5, 7.5])
     event_i(1, 0, dur, amp, sample, tune)
@@ -121,16 +121,22 @@ def intro():
         swell(snare, 4, 1, 16, 0.05, 0.7, transpose(7))
 
 def section_a():
-    for m in range(1, 17, 4):
+    for m in range(1, 13, 4):
         with measure(m):
             with measure(1): drum_pattern()
             with measure(2): drum_pattern_flair(0.25)
             with measure(3): drum_pattern_8th_hats()
             with measure(4): drum_pattern_flair(1)
 
+    with measure(13): drum_pattern()
+    with measure(14): drum_pattern_flair(0.25)
+    with measure(15): drum_pattern_8th_hats()
+    with measure(16): drum_pattern_2()
+
 def section_b():
-    for m in range(1, 17):
+    for m in range(1, 16):
         with measure(m): drum_pattern_flair(1)
+    with measure(16): drum_pattern_2()
 
     with measure(9): swell(snare, 16, 1, 64, 0.2, 0.1, transpose(7))
     with measure(13): swell(snare, 12, 1, 48, 0.1, 0.2, transpose(7))
@@ -153,6 +159,8 @@ def outro():
             hat(tune=transpose(-3) * (1 / offset))
             kick(tune=transpose(-3) * (1 / offset))
             offset = offset + 0.03
+
+    with cue(8 * offset): snare(dur=4, tune=transpose(-24))
 
 p_callback('i', 1, 6, multiply, transpose(7))
 p_callback('i', 1, 3, multiply, 1 / transpose(7))
