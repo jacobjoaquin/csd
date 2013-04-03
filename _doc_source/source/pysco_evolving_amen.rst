@@ -2,16 +2,12 @@
 The Evolving Amen Python Score Tutorial
 #######################################
 
-By Jacob Joaquin
-
-jacobjoaquin@gmail.com
+By Jacob Joaquin jacobjoaquin@gmail.com
 
 ..
     TODO: Update orchesta. Envelope was added in variation example.
     TODO: hat() before evolving_amen_default_args.csd need updating
     TODO: drum_pattern_2 isn't in everything
-
-    Note. 4 spaces, not tabs. Indentation sensitve
 
 ************
 Introduction
@@ -91,13 +87,18 @@ to 4/4 drumming music, as this is far from the truth.*
 The Python Interpretor
 ======================
 
-The Python interpretor is an extremely convienient tool for tinkering with parts of the language you may not be familiar with. With it, you can safely test parts of the language.
+Before moving into the tutorial, an introduction the the Python
+Interpretor is in order as it a wonderful tool for quickly testing
+various aspects of the Python language. This tutorial will occasionaly
+use this as well.
 
-Typically, the Python interpretor is used in the terminal, which is invoked by typing "python"::
+Typically, the Python interpretor is used in the terminal, which
+is invoked by typing "python"::
 
     Quorra ~ $ python
 
-This will starts an interactive Python session in which users can start entering various commands.
+This will starts an interactive Python session in which users can
+start entering various commands.
 
 ::
 
@@ -108,59 +109,56 @@ This will starts an interactive Python session in which users can start entering
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-In addition to the terminal, you can use CsoundQt comes with a Python Console built-in. There's also `IPython <http://ipython.org/>`_ which supercharges the Python Interpretor with a lot of great features for Python beginners and veterans alike.
+The `CsoundQt <http://qutecsound.sourceforge.net/>`_ graphical front
+end comes equimed with a Python console. There's also `IPython
+<http://ipython.org/>`_ which supercharges the Python Interpretor
+with a lot of great features for Python beginners and veterans
+alike.
 
-::
+Seeing the Generated Classical Score
+====================================
 
-    In [53]: range?
-    Type:       builtin_function_or_method
-    String Form:<built-in function range>
-    Namespace:  Python builtin
-    Docstring:
-    range([start,] stop[, step]) -> list of integers
+Python Score writes a copy of the generated score to a fild called
+_pysco.sco. This is good to know in case you want to see exactly
+what Python Score is doing, or need to debug an issues that arises.
 
-    Return a list containing an arithmetic progression of integers.
-    range(i, j) returns [i, i+1, i+2, ..., j-1]; start (!) defaults to 0.
-    When step is given, it specifies the increment (or decrement).
-    For example, range(4) returns [0, 1, 2, 3].  The end point is omitted!
-    These are exactly the valid indices for a list of 4 elements.
+****************************************
+From the Classical Score to Python Score
+****************************************
 
-Seeing the Output
-=================
-
-Python Score writes a copy of the generated score to a fild called _pysco.sco. This is good to know in case you want to see exactly what Python Score is doing, or need to debug an issues that arises.
-
-************************
-From Classical To Modern
-************************
-
-Some words here.
-
-* Start with a classical score
-* Port the score to Python
-* Refactor classical score introducing Python score idioms one at a time
-* End with a full conversion with identical output
-
-Classical Csound Score
-======================
-
-The first phase of this tutorial starts with a classical Csound score. Over the course of several steps, the score is transformed into Python Score with new features slowly added and explained. The following is a four identical measures that plays the standard drum'n'bass beat. [#dnb]_
+In this section, the will walk you through some the more basic
+features of Python Score. The tutorial starts with a classical
+Csound score, and adds new Python Score idioums one by one until
+the score as been fully translated. The end result is the new Python
+score.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Porting the Classical Score to Python
-=====================================
+The score code produces 4 measures of the same drum pattern. The
+pattern itself is the classical drum and bass. [#dnb]_
 
-Porting a classical Csound score to Python Score is a straight forward process. First, the Csound Unified bin feature is specified to active pysco.bin. Second, the Csound score code is passed into the score() function as multiline string. Any and all Csound score code will work,
+AUDIO HERE
+
+Python Score
+============
+
+Porting a classical score into the Python Score environment requires
+only two changes. First, one needs to set the argument of the CsScore
+bin utility to "python pysco.py". Second, the classical score code
+needs to be passed as a string to the score() object. These changes
+result in the followin Python Score code:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_ported.csd
     :language: python
     :start-after: </CsInstruments>
     :end-before: </CsoundSynthesizers>
 
-In Python, triple quotes allow for multi-line strings.
+If you are worried that you would have to throw out everything you
+know about the classic Csound score, fear not because you can still
+use it here virtually untouched, or in combination with available
+Python features.
 
 The Movable Cue() Object
 ========================
