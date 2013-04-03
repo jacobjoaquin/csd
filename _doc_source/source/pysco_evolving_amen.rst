@@ -2,8 +2,9 @@
 The Evolving Amen Python Score Tutorial
 #######################################
 
-*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
+By Jacob Joaquin
 
+jacobjoaquin@gmail.com
 
 ..
     TODO: Update orchesta. Envelope was added in variation example.
@@ -18,7 +19,7 @@ Introduction
 
 Python Score, or Pysco for short, is a fully modular score environment
 for the Csound unified CSD file. Unlike other alternative text-based
-score environements, Pysco is non-invasive and does its best to get
+score environements, Pysco is non-imposing and does its best to get
 out of the way rather than to impose a strict set of rules for
 composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
@@ -55,6 +56,8 @@ document, and be updated to keep up with any changes. Send questions,
 comments, and bugs to jacobjoaquin@gmail.com, or write to the Csound
 Mailing List.
 
+*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
+
 The Orchestra
 =============
 
@@ -78,6 +81,12 @@ intruments can be enhanced using the newly available score functions.
 The output of this device has a very trashy [#trashy]_ quality to
 it, and sounds like it was produced with a tracker [#tracker]_ such
 as Fast Tracker II.
+
+There's also a reason for using a drum loop as an example. The
+ability to express time and occurances in time is a defining attribute
+of Python score, and percussion-based events are great for honing
+in on timing. *Do not be mislead into thinking Python Score caters
+to 4/4 drumming music, as this is far from the truth.*
 
 The Python Interpretor
 ======================
@@ -115,6 +124,11 @@ In addition to the terminal, you can use CsoundQt comes with a Python Console bu
     When step is given, it specifies the increment (or decrement).
     For example, range(4) returns [0, 1, 2, 3].  The end point is omitted!
     These are exactly the valid indices for a list of 4 elements.
+
+Seeing the Output
+=================
+
+Python Score writes a copy of the generated score to a fild called _pysco.sco. This is good to know in case you want to see exactly what Python Score is doing, or need to debug an issues that arises.
 
 ************************
 From Classical To Modern
