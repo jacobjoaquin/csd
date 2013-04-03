@@ -141,8 +141,8 @@ pattern itself is the classical drum and bass. [#dnb]_
 
 AUDIO HERE
 
-Python Score
-============
+Score Conversion
+================
 
 Porting a classical score into the Python Score environment requires
 only two changes. First, one needs to set the argument of the CsScore
@@ -157,76 +157,79 @@ result in the followin Python Score code:
 
 If you are worried that you would have to throw out everything you
 know about the classic Csound score, fear not because you can still
-use it here virtually untouched, or in combination with available
-Python features.
+use it with the score() object  virtually untouched, or in combination
+with other Python features as you learn them.
 
-The Movable Cue() Object
-========================
+Time is Relative in Python Score
+================================
 
 *"It's what makes time travel possible."* - Dr. Emmett Lathrop Brown
+[#fluxcapacitor]_
 
-The “cue” is a bit like a flux capacitor, as it makes time travel possible. It allows the composer to move to any point in time in the score, treat the current time if it's time zero, and then move to somewhere else. 
+For the most part, when events are entered into a classical Csound
+score, the start times are in global beats. Python Score changes
+with by introducing the cue() object, which is a Python context
+manager for moving the current postion in time in the score. All
+events entered into Python Score are relative the current positional
+value of the cue().
 
+::
 
-All events entered are entered relative to the cue(). If the cue is at 33, then events placed at 0 and 4 will be placed into the score at 33 and 37.
+    with cue(12):
+        score('i 1 0 0.5 0.707 0 0')
 
-The Python Score cue object is a device for moving the start pointer. The pfield 2 valu
+While the start time value in pfield 2 is 0, this event will start
+at 12 beats into the piece. This is because start time events are
+process to reflect the current position of the cue(). The output
+looks like this:
 
-The unit of time for cue is in beats, which is the same as the classical Csound score. Unless a tempo is specified, the default value is 60 beats per minute, which is the same as time in seconds.
+::
 
-The # symbol denotes a Python comment, and works similarly to the ; symbol in the Csound score.
+    i 1 12 0.5 0.707 0 0
 
-* What is the cue?
-* In beats
-* pfield 2
-* single quotes for score
-* The # comment
-
-Even in situations in which the timing of events are deeply nested with a complex algorithm, the structure of when things happen is far more transparent since time is factored out and exists as its own entity.
-
-Instead of entering time-based events in absolute terms of the score, they are entered to relative to the position of the cue() object. For example, if the cumulative postion of the cue is 60 beats, entering an event at time 0 is actually 60, and a time of 4 would be 64.
-
-Realative instead of absolute.
-
-It is the assertion of this author that this feature, and this feature alone, makes transitioning to Python Score worthwhile. 
+As for translating the drum and bass parts, each measure has been
+split into its own chuck of events. The first event in measure 2
+has been changed to 0.0, and the same goes for measures 3 and 4.
+The cue() object allows the composer to think of time local to the
+current measure, rather than manually calculate the global time.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_cue.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Beats to Measures
-=================
+There are of course many more benefits. For example, moving entire
+sections of code is a fairly trivial process in Pysco. Doing the
+same in the classical score could require translating start times
+down a long pfield 2 column. It is the assertion of the author that
+this feature, and this feature alone, makes transitioning to Python
+Score more than worthwhile.
 
-Python is a highly extensible language and allows composers to shape their score environment by defining new features on the fly as functions. See `Defining Functions <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
+Measures
+========
 
-In the case the music we're dealing with is standard 4/4. Working in measures makes more sense than working in global beats. 
-
-
-In this instance, the cue object is transformed from beats to measures. This is accomplished by this two line function:
+The drum and bass score is in 4/4. While the cue() object allows us to treat beats local to the current measure, the arguments for the cue() are in absolute global time in the previous section. Out of the box, Python Score does not support measures. However, Python lets you roll your own. Implementing 4/4 measures is done by `defining a new function <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
     :language: python
     :pyobject: measure
 
-Users pass in the measure they want to create events for, the math translates the from measure to beats, and then returns the cue object with the time set accordingly.
+This two line custom function takes the measure number as its sole argument and translates measure time to beat time, and returns an instance of cue().
 
-Since function itself is called measure, the "# Measure" comments are factored out.
+Let's focus little on the math. The global score starts at 0, but measures start at 1. The is overcome with an offset of -1. In 4/4, there are four beats per measure, which requires the offset value to be multplied by 4. Testing the math in the Python Interpretor with inputting 4::
+
+    >>> def test_my_math(t):
+    ...     return (t - 1) * 4.0
+    ...
+    >>> test_my_math(4)
+    12.0
+
+The value returned is 12, which is the starting time of the first event in measure 4 in the original classical score. Applying measure() to the Python score, were left with the following. Notice that the comments have been factored out now that the code itself clearly indicates where each measure is:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
-
-::
-
-    >>> def measure_math(t):
-    ...     return (t - 1) * 4
-    ...
-    >>> measure_math(1)
-    0
-    >>> measure_math(4)
-    12
 
 Generating Instrument Events
 ============================
@@ -568,4 +571,5 @@ Form With Functions
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
+.. [#fluxcapacitor] BTTF
 .. [#snozberry] Snozberry
