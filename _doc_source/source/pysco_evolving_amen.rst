@@ -1,6 +1,6 @@
-######################
-Evolving Amen Tutorial
-######################
+#######################################
+The Evolving Amen Python Score Tutorial
+#######################################
 
 *"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
 
@@ -16,28 +16,68 @@ Evolving Amen Tutorial
 Introduction
 ************
 
-Python Score, also sometimes called Pysco, is a modular score environment. 
+Python Score, or Pysco for short, is a fully modular score environment
+for the Csound unified CSD file. Unlike other alternative text-based
+score environements, Pysco is non-invasive and does its best to get
+out of the way rather than to impose a strict set of rules for
+composition. Classical Csound score is fully supported, all of
+Python 2.7 is available, and composers can pick and choose their
+score tools A La Carte as the see fit.
 
-The reality is, Python Score is just Python.
+This purpose of this tutorial is to try and prove the merits of
+using the Python language in favor of the classical Csound score.
+The classical score is a fixed system while Python is a very mature
+and highly extensible language with a vast collection of first and
+third party modules. Despite being a general purpose language that
+wasn't designed for music, Python is particularly well suited for
+compostion.
 
-Despite being a general purpose language that never had music in mind during it's inception and development, Python is particularly well suited for compostion.
+It should be noted that Python Score is not meant as a full replacement
+of the classical Csound score, but as an enhancement. Any and all
+existing classical score commands still work, and Python Score
+itself outputs classical score code. Perhaps Python Score should
+be thought as a user-friendly higher level abstraction of the classic
+score, as is the case with Processing and Java.
 
-The tutorial is based on an early example, which took surprisingly little time to make, clocking in around at around a few hours.
+Python Score is still early in development, though the library of
+use cases and examples are rapidly growing, and all from a single
+developer. The secondary purpose of this tutorial is to attract a
+small group of people to start experimenting with this alternative
+Csound score environment, to find out what works, what's easy and
+what's not, and to collect new ideas for future upgrades. It is
+also the belief of the author that once people have some hands-on
+experience, many of the advantages of working with Python Score
+will become obvious. Until then, it's just the ramblings of one
+person's perspective.
 
-Pysco is also under development, and there will be changes made through its early life. And thus, any changes made to Pysco will be reflected in this tutorial. Consider this a living document.
+Since Pysco is under development, consider this tutorial a living
+document, and be updated to keep up with any changes. Send questions,
+comments, and bugs to jacobjoaquin@gmail.com, or write to the Csound
+Mailing List.
 
-The Sampler Instrument
-======================
+The Orchestra
+=============
 
-A simple stereo sampler instrument is used for the entirety of this tutorial. This is ensure that the focus solely on the techniques afforded by Python.
-
-The sampler uses the famous Amen break. [#amen]_ It supports 3 custom pfield inputs for determining amplitude, the start position in beats of the sample, and an option for tuning the pitch of the sample.
+In order to bring focus to the enhanced set of features and
+compositional techniques Python and the Pysco module brings to the
+score, every example uses the exact same orchestra throughout the
+entirety of this tutorial. Let's quickly review:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
     :start-after: <CsInstruments
     :end-before: </CsInstruments
 
-The output has a very trashy [#trashy]_ quality to it, and sounds like it was produced with a tracker [#tracker]_ such as Fast Tracker II.
+The orchestra contains only a single instrument, a basic sampler
+with the Amen Break [#amen]_ as its only audio source. The instrument
+includes support for three custom pfield insputs for amplitude, the
+starting position in the sample (in beats), and for tuning the
+sample. The fact that this is only a very basic instrument is on
+purpose, as techniques discusse will include that even very simple
+intruments can be enhanced using the newly available score functions.
+
+The output of this device has a very trashy [#trashy]_ quality to
+it, and sounds like it was produced with a tracker [#tracker]_ such
+as Fast Tracker II.
 
 The Python Interpretor
 ======================
@@ -54,12 +94,27 @@ This will starts an interactive Python session in which users can start entering
 
     >>> print 'hello world'
     hello world
-    >>> 440 * 2 ** (7 / 12.0)
-    659.2551138257398
+    >>> 440 * 2 ** (-9 / 12.0)
+    261.6255653005986
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 In addition to the terminal, you can use CsoundQt comes with a Python Console built-in. There's also `IPython <http://ipython.org/>`_ which supercharges the Python Interpretor with a lot of great features for Python beginners and veterans alike.
+
+::
+
+    In [53]: range?
+    Type:       builtin_function_or_method
+    String Form:<built-in function range>
+    Namespace:  Python builtin
+    Docstring:
+    range([start,] stop[, step]) -> list of integers
+
+    Return a list containing an arithmetic progression of integers.
+    range(i, j) returns [i, i+1, i+2, ..., j-1]; start (!) defaults to 0.
+    When step is given, it specifies the increment (or decrement).
+    For example, range(4) returns [0, 1, 2, 3].  The end point is omitted!
+    These are exactly the valid indices for a list of 4 elements.
 
 ************************
 From Classical To Modern
@@ -120,6 +175,8 @@ Even in situations in which the timing of events are deeply nested with a comple
 Instead of entering time-based events in absolute terms of the score, they are entered to relative to the position of the cue() object. For example, if the cumulative postion of the cue is 60 beats, entering an event at time 0 is actually 60, and a time of 4 would be 64.
 
 Realative instead of absolute.
+
+It is the assertion of this author that this feature, and this feature alone, makes transitioning to Python Score worthwhile. 
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_cue.csd
     :language: python
