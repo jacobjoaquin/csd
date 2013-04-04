@@ -15,3 +15,21 @@
 {% endblock %}
 
 {% set css_files = css_files + ["_static/custom.css"] %}
+
+{% block sidebarlogo %}
+{% endblock %}
+
+{% block sidebar1 %}
+{{ sidebar() }}
+{% endblock %}
+
+{% block sidebar2 %}
+{% endblock %}
+
+{% block relbar1 %}
+
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+<a href="{{ pathto('index') }}">THIS IS WHERE THE IMAGE GOES</a>
+</div>
+{{ super() }}
+{% endblock %}
