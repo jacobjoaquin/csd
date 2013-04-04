@@ -8,6 +8,7 @@ By Jacob Joaquin jacobjoaquin@gmail.com
     TODO: Update orchesta. Envelope was added in variation example.
     TODO: hat() before evolving_amen_default_args.csd need updating
     TODO: drum_pattern_2 isn't in everything
+    TODO: (1 / tune) should be float(tune). In many files near the end me thinks
 
 ************
 Introduction
@@ -208,15 +209,27 @@ Score more than worthwhile.
 Measures
 ========
 
-The drum and bass score is in 4/4. While the cue() object allows us to treat beats local to the current measure, the arguments for the cue() are in absolute global time in the previous section. Out of the box, Python Score does not support measures. However, Python lets you roll your own. Implementing 4/4 measures is done by `defining a new function <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
+The drum and bass score is in 4/4. While the cue() object allows
+us to treat beats local to the current measure, the arguments for
+the cue() are in absolute global time in the previous section. Out
+of the box, Python Score does not support measures. However, Python
+lets you *roll your own*. Implementing 4/4 measures is done by
+`defining a new function
+<http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
     :language: python
     :pyobject: measure
 
-This two line custom function takes the measure number as its sole argument and translates measure time to beat time, and returns an instance of cue().
+This two line custom function takes the measure number as its sole
+argument and translates measure time to beat time, and returns an
+instance of cue().
 
-Let's focus little on the math. The global score starts at 0, but measures start at 1. The is overcome with an offset of -1. In 4/4, there are four beats per measure, which requires the offset value to be multplied by 4. Testing the math in the Python Interpretor with inputting 4::
+Let's focus little on the math. The global score starts at 0, but
+measures start at 1. The is overcome with an offset of -1. In 4/4,
+there are four beats per measure, which requires the offset value
+to be multplied by 4. Testing the math in the Python Interpretor
+with inputting 4::
 
     >>> def test_my_math(t):
     ...     return (t - 1) * 4.0
@@ -224,7 +237,11 @@ Let's focus little on the math. The global score starts at 0, but measures start
     >>> test_my_math(4)
     12.0
 
-The value returned is 12, which is the starting time of the first event in measure 4 in the original classical score. Applying measure() to the Python score, were left with the following. Notice that the comments have been factored out now that the code itself clearly indicates where each measure is:
+The value returned is 12, which is the starting time of the first
+event in measure 4 in the original classical score. Applying measure()
+to the Python score, were left with the following. Notice that the
+comments have been factored out now that the code itself clearly
+indicates what a measure is:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
     :language: python
