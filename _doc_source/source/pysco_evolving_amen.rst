@@ -82,7 +82,7 @@ as Fast Tracker II.
 There's also a reason for using a drum loop as an example. The
 ability to express time and occurances in time is a defining attribute
 of Python score, and percussion-based events are great for honing
-in on timing. *Do not be mislead into thinking Python Score caters
+in on timing. *Do not get the wrong impressiong that Python Score caters
 to 4/4 drumming music, as this is far from the truth.*
 
 The Python Interpretor
@@ -102,6 +102,7 @@ This will starts an interactive Python session in which users can
 start entering various commands.
 
 ::
+
     >>> print 'hello world'
     hello world
     >>> 440 * 2 ** (-9 / 12.0)
@@ -224,6 +225,8 @@ This two line custom function takes the measure number as its sole
 argument and translates measure time to beat time, and returns an
 instance of cue().
 
+*"Mathematical!"* - Jake the Human [#adventuretime]_
+
 Let's focus little on the math. The global score starts at 0, but
 measures start at 1. The is overcome with an offset of -1. In 4/4,
 there are four beats per measure, which requires the offset value
@@ -247,28 +250,31 @@ indicates what a measure is:
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Generating Instrument Events
-============================
+Instrument Event
+================
 
-A second method for entering score data exists in Python Score::
+The event_i() function is another way for entering in data into the
+score. Instead of a string, it accepts any number of arguments and
+constructs a valid classical score event string. For example::
 
     event_i(1, 0, 1, 0.707, 8.00)
 
-will generate this line of score code::
+Outputs::
 
     i 1 0 1 0.707 8.00
 
-In this iteration of the score, the instrument events that were previously entered through the score() function have been converted using event_i().
+Replacing the calls to score() with event_i in the Amen score, the
+updated code looks like this:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Nested Cues
-===========
+Nesting Time
+============
 
-The cue() object is designed to support multiple levels of nesting
+
 
 ::
 
@@ -277,7 +283,7 @@ The cue() object is designed to support multiple levels of nesting
             with cue(1):
                 event_i(1, 0, 1)
 
-Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue hierarchy.
+Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue nesting hierarchy.
 
 * Start times are separated from event
 
@@ -589,10 +595,11 @@ So yeah, that's it.
 
 .. rubric:: Footnotes
 
+.. [#michaeljnelson] The MST3K guy
 .. [#amen] Amen break description
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
 .. [#snozberry] Who's every heard of a snozberry?
 .. [#fluxcapacitor] BTTF
-.. [#snozberry] Snozberry
+.. [#adventuretime] Episode 3 Season 1
