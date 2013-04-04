@@ -6,6 +6,9 @@ a {
 body {
     background-color: #328fca;
     font-family: Avenir, "Helvetica Neue", Helvetica, 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+	min-width: 740px;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 div.related ul li a {
