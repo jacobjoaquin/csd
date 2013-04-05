@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import inspect
+import sys
 from sys import argv
 from itertools import imap
 from itertools import chain
@@ -59,6 +60,11 @@ class Slipmat():
                                              function(*deez_args, **kwargs))
 
         return sco.merge(data, selection)
+
+    def end_score(self):
+        # TODO: This shouldn't run under certain circumstances
+    	with open(argv[1], 'w') as f:
+    		f.write("\n".join(self.score_data))
 
     def event_i(self, *args):
         self.score(' '.join(chain('i', imap(str, args)))) 
@@ -121,6 +127,20 @@ score = slipmat.score
 pmap = slipmat.pmap
 p_callback = slipmat.p_callback
 event_i = slipmat.event_i
+end = slipmat.end_score
+
+def begin():
+    global slipmat
+    f = sys._current_frames().values()[0]
+    name = f.f_back.f_globals['__name__']
+    m = sys.modules[name]
+    setattr(m, 'score', slipmat.score)
+    setattr(m, 'score_data', slipmat.score_data)
+    setattr(m, 'cue', slipmat.slipcue)
+    setattr(m, 'pmap', slipmat.pmap)
+    setattr(m, 'p_callback', slipmat.p_callback)
+    setattr(m, 'event_i', slipmat.event_i)
+    setattr(m, 'end', slipmat.end_score)
 
 def main():
     # Execute CsScore
