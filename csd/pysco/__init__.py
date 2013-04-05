@@ -39,10 +39,10 @@ class PCallback():
         self.kwargs = kwargs
         
 
-class Slipmat():
+class Pysco():
 
     def __init__(self):
-        self.slipcue = Slipcue(self)
+        self.cue = Cue(self)
         self.score_data = []
         self.p_callbacks = [[]]
 
@@ -107,11 +107,11 @@ class Slipmat():
         # Apply time stack
         selected = sco.select(data, {0: 'i'})
         op = sco.selection.operate_numeric(selected, 2,
-                                           lambda x: x + self.slipcue.now())
+                                           lambda x: x + self.cue.now())
         self.score_data.append(sco.merge(data, op))
 
 
-class Slipcue(object):
+class Cue(object):
 
     def __init__(self, parent):
         self.stack = []
@@ -134,13 +134,14 @@ class Slipcue(object):
     def now(self):
         return sum(self.stack)
 
-
-def debug(m, v=''):
-    print m + ': ' + str(v) + "\n",
-
 def begin():
-    global slipmat
-    slipmat = Slipmat()
+    '''Loads Python Score elements. Only use within <CsScore>.
+
+    These functions become availabe: score, cue, pmap, p_callback,
+    event_i.'''
+
+    global p
+    p = Pysco()
 
     # Get calling module. Should be __main__
     f = sys._current_frames().values()[0]
@@ -148,14 +149,12 @@ def begin():
     m = sys.modules[name]
 
     # Register Globals
-    setattr(m, 'score', slipmat.score)
-    setattr(m, 'score_data', slipmat.score_data)
-    setattr(m, 'cue', slipmat.slipcue)
-    setattr(m, 'pmap', slipmat.pmap)
-    setattr(m, 'p_callback', slipmat.p_callback)
-    setattr(m, 'event_i', slipmat.event_i)
-    setattr(m, 'end', slipmat.end_score)
+    setattr(m, 'score', p.score)
+    setattr(m, 'cue', p.cue)
+    setattr(m, 'pmap', p.pmap)
+    setattr(m, 'p_callback', p.p_callback)
+    setattr(m, 'event_i', p.event_i)
 
     # End score
-    atexit.register(slipmat.end_score)
+    atexit.register(p.end_score)
 
