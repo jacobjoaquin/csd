@@ -129,6 +129,14 @@ p_callback = slipmat.p_callback
 event_i = slipmat.event_i
 end = slipmat.end_score
 
+import atexit
+
+def my_exit():
+    end()
+
+if __name__ != '__main__':
+    atexit.register(my_exit)
+
 def begin():
     global slipmat
     f = sys._current_frames().values()[0]

@@ -25,6 +25,8 @@ import pysco
 
 pysco.begin()
 
+import csd.pysco.inline
+
 score('''
 f 1 0 8192 10 1
 t 0 189
@@ -38,8 +40,6 @@ i 1 + .   .     8.09
 i 1 + .   .     8.11
 i 1 + .   .     8.07
 ''')
-
-pysco.end()
 
 </CsScore>
 </CsoundSynthesizer>
