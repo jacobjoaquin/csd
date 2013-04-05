@@ -25,8 +25,6 @@ import pysco
 
 pysco.begin()
 
-import csd.pysco.inline
-
 score('''
 f 1 0 8192 10 1
 t 0 189

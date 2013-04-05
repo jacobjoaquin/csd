@@ -7,6 +7,6 @@ setup(name='csd',
       author_email='jacobjoaquin@gmail.com',
       url='http://www.thumbuki.com/',
       packages=['csd', 'csd.orc', 'csd.sco', 'csd.sco.element',
-                'csd.sco.event', 'csd.sco.selection'],
+                'csd.sco.event', 'csd.sco.selection', 'csd.pysco'],
       )
 
