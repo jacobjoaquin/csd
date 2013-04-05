@@ -250,8 +250,8 @@ indicates what a measure is:
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Instrument Event
-================
+Instrument Event Function
+=========================
 
 The event_i() function is another way for entering in data into the
 score. Instead of a string, it accepts any number of arguments and
@@ -274,46 +274,83 @@ updated code looks like this:
 Nesting Time
 ============
 
-
-
-::
+The cue() object allows a composer to create events realitve to the
+current postion of the cue() object. Though what happens when a
+"with cue(x)" statement is nested within a "with cue(y)" statement?
+The cue(x) sets the time postion relative to cue(y). For example::
 
     with cue(32):
         with cue(4):
-            with cue(1):
                 event_i(1, 0, 1)
 
-Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue nesting hierarchy.
+Though the start time of the event is written as 0, the actual start
+time of the event is 36 which is the cumulation of all the args in
+the cue nesting hierarchy.
 
-* Start times are separated from event
-
-In the score, all the start times are set to 0, giving the responsibility of when things happen to the cue().  
+Thus, it's possible to factor out start times from events and
+delegating this responsibility to the cue(). Utilizing the cue in
+this manner means that start times no longer have to be buried
+within score statements, and they can exist as separate entities
+within the code, which can at times help providate clarity to when
+things happen.
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_nested.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
+The code right is a little messy, but this will be cleaned up.
+
 Score Instruments
 =================
 
-A orchestra instrument has only one interface, though it is possible to define multiple new interfaces in Python, which in a sense creates a new category of instruments.
+An orchestra instrument has only one interface. Python allows the creation of multiple new inferfaces inside of the score, which creates a new category of instruments: Score Instrumets.
 
-The sampler instrument in the orchestra, even with the fixed Amen break, is designed to be non-specific in terms of what is played; It knows the position in the audio table to begin playing, but has no knowledge of what is being played.
+The sampler instrument in the orchestra is fairly simple and generic in design. While the Amen Break loop is fixed, the instrument itself has no knowledge of kicks or hats. It only accesses the part of the sample denoted by the positional value passed in through pfield 5.
 
-Defining new interfaces to the sampler brings context to the score. In this case, the kick() and snare() functions are created.
+Looking at the Python Score code from the last example, there are only two unique calls to event_i(), one for a kick and one for snare::
 
-This also being clarity to the score. In the clasical score, a composer is required to scan the positional numbers in the pfield 6 column to see what was being played, and they'd need to also know what these numbers meant.
+	event_i(1, 0, 0.5, 0.707, 0, 1)
+	event_i(1, 0, 0.5, 0.707, 1, 1)
 
-In the Python score, if you play a kick() it sounds like a kick. Play a snare() it sounds like a snare. Play a snozberry() it sounds like a snozberry(). [#snozberry]_
+Avoiding these unnecessarily long statements involves defining new functions for kick and snare by placing the calls event_i() into their respective functions. Where we had a generic orchestra sampler before, we now have two very specific score instruments:
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
+    :language: python
+    :start-after: return cue(
+    :end-before: score(
+
+An equally important benefit to this approach is that with proper names, this techinique creates code that is self documenting, making the score easier to read. If you type kick() it plays a kick. Type snare() it plays a snare. Type snozberry() it plays a snozberry(). [#snozberry]_
+
+Tidying up the score, we get this:
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Pause For A Moment (Interlude)
-==============================
+Drum Pattern
+============
+
+The score contains four measures that contain identical content. Functions can store musical phrases, everything from a single note to complete works of Beethoven if necessary. In this case, we have a simple 4 notes drum and bass pattern.
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+    :language: python
+    :pyobject: drum_pattern
+
+These events will not be generated until the function is accessed. For each measure, four lines of score instruments is replaced with drum_pattern().
+
+.. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
+    :language: python
+    :start-after: <CsScore
+    :end-before: </CsScore>
+
+Later when it's time to start arranging, clips like these can be more or less dropped into measure() blocks. It's worth pointing out that this version of the score is now shorter than the original classical Csound score we started with.
+
+Interlude
+=========
+
+This is a good moment to pause and take a close look at the concepts introduced.
 
 * Data to structure
 * fundamentally more expressive (which is a good thing with music)
@@ -323,8 +360,11 @@ Pause For A Moment (Interlude)
 
 The score we're left with is fundamentally more readable than the original Csound score. The fact that drums are being played is much more obvious than in the original classical score.
 
+Starting with the next section
+
+
 *************************
-Developing a Python Score
+Further Score Development
 *************************
 
 Since Python is an open-ended environment, there are many ways in which to develop a personalized score environment for a piece. In this section, we'll build new features into our environment one by one. Many of these concepts may be used in other pieces either together, or individually.
@@ -334,26 +374,6 @@ The goal of this section is to introduce concepts that are readily available, wh
 Each new Python Score idiom is distilled to a stand alone example. Entire scores are phased out to only the code added with each new example.
 
 The orchestra will remain unchanged, though the score and audio examples will change through out.
-
-Drum Pattern
-============
-
-We've seen function defintions for our custom measure-based cue() oobject and for defining score-based instrument interfaces. Python functions can also be used to consolidate snippets of score code into reusable musical phrases.
-
-The four measures in the piece are identical, which makes it perfect for consolidating it into a single measure phrase.
-
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
-    :language: python
-    :pyobject: drum_pattern
-
-Events that exist inside a function are not added into the score until the function is called. The updates to the score code does this once for each measure:
-
-.. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
-    :language: python
-    :start-after: score(
-    :end-before: </CsScore>
-
-It's worth noting that functions aren't limited to measures. Notes, licks, phrases, bars, sections, entire scores, can all be placed inside a function. We'll see more of this as we continue along.
 
 Looping Through Lists
 =====================
