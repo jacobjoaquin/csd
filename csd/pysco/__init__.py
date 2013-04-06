@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Python Score'''
+'''Python Score. Currently unstable.'''
 
 
 #!/usr/bin/python
@@ -39,12 +39,15 @@ class PCallback():
         self.kwargs = kwargs
         
 
-class Pysco():
+class PythonScore():
 
     def __init__(self):
         self.cue = Cue(self)
         self.score_data = []
         self.p_callbacks = [[]]
+        self.i = self.event_i
+        self.write = self.score
+        self.end = self.end_score
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
@@ -141,7 +144,7 @@ def begin():
     event_i.'''
 
     global p
-    p = Pysco()
+    p = PythonScore()
 
     # Get calling module. Should be __main__
     f = sys._current_frames().values()[0]
