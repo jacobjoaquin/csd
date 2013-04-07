@@ -278,7 +278,7 @@ updated code looks like this:
 Nesting Time
 ============
 
-
+A ``with cue()`` statement can be placed inside a heiarchy of other ``with cue()`` statements. This allows composers to reset the relative positional time to 0 regardless of the current scope of time by writing another ``with cue()`` statement: For example, this is possible:
 
 ::
 
@@ -287,11 +287,10 @@ Nesting Time
             with cue(1):
                 event_i(1, 0, 1)
 
-Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue nesting hierarchy.
+Though the start time of the event is written as 0, the actual start time of the event is 37, which is the cumulation of all the args in the cue nesting hierarchy plus pfield 2: ``32 + 4 + 1 + 0``
 
-* Start times are separated from event
 
-In the score, all the start times are set to 0, giving the responsibility of when things happen to the cue().  
+The greater implication is that time can be completely decoupled from the event within the code. In this version of the score the start times are moved from the pfield 2 column to the the ``cue()``, and then set to 0.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_nest.csd
     :language: python
@@ -301,7 +300,7 @@ In the score, all the start times are set to 0, giving the responsibility of whe
 Score Instruments
 =================
 
-A orchestra instrument has only one interface, though it is possible to define multiple new interfaces in Python, which in a sense creates a new category of instruments.
+An orchestra instrument has but one interface, though it is possible to define multiple new interfaces in Python, which in a sense creates a new category of instruments.
 
 The sampler instrument in the orchestra, even with the fixed Amen break, is designed to be non-specific in terms of what is played; It knows the position in the audio table to begin playing, but has no knowledge of what is being played.
 
