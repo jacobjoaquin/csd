@@ -219,7 +219,7 @@ lets you *roll your own*. Implementing 4/4 measures is done by
 `defining a new function
 <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
     :pyobject: measure
 
@@ -247,7 +247,7 @@ to the Python score, were left with the following. Notice that the
 comments have been factored out now that the code itself clearly
 indicates what a measure is:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -259,7 +259,7 @@ The event_i() function is another way for entering in data into the
 score. Instead of a string, it accepts any number of arguments and
 constructs a valid classical score event string. For example::
 
-    event_i(1, 0, 1, 0.707, 8.00)
+    score.i(1, 0, 1, 0.707, 8.00)
 
 Outputs::
 
@@ -268,7 +268,7 @@ Outputs::
 Replacing the calls to score() with event_i in the Amen score, the
 updated code looks like this:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_i.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -291,7 +291,7 @@ Though the start time of the event is written as 0, the actual start time of the
 
 In the score, all the start times are set to 0, giving the responsibility of when things happen to the cue().  
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_nested.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_nest.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -309,7 +309,7 @@ This also being clarity to the score. In the clasical score, a composer is requi
 
 In the Python score, if you play a kick() it sounds like a kick. Play a snare() it sounds like a snare. Play a snozberry() it sounds like a snozberry(). [#snozberry]_
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -344,15 +344,15 @@ We've seen function defintions for our custom measure-based cue() oobject and fo
 
 The four measures in the piece are identical, which makes it perfect for consolidating it into a single measure phrase.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
     :pyobject: drum_pattern
 
 Events that exist inside a function are not added into the score until the function is called. The updates to the score code does this once for each measure:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
-    :start-after: score(
+    :start-after: score.write(
     :end-before: </CsScore>
 
 It's worth noting that functions aren't limited to measures. Notes, licks, phrases, bars, sections, entire scores, can all be placed inside a function. We'll see more of this as we continue along.
@@ -364,9 +364,9 @@ A list is a Python container for storing various data, which may include numbers
 
 The for statement is used to loop through each value in the specified list. As the program loops through the list, the m variable becomes the value of the current value in the list. Thus, calling drum_pattern() for measures 1, 2, 3, and 4.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_list.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_list.csd
     :language: python
-    :start-after: score(
+    :start-after: score.write(
     :end-before: </CsScore>
 
 Now that much of the score code has been consolidated into a function and a foor loop, this score is now 2 lines shorter than the original Csound classical score in the first example.
@@ -385,7 +385,7 @@ The Python range() generates lists of integers automatically. It's a very common
 
 The score substitues range(1, 5) for [1, 2, 3, 4]. 
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_range.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_range.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
