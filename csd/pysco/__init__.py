@@ -1,13 +1,31 @@
+# Copyright (C) 2009 Jacob Joaquin
+#
+# This file is part of csd.
+# 
+# csd is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# csd is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public License
+# along with csd.  If not, see <http://www.gnu.org/licenses/>.
+
+'''Python Score. Currently unstable.'''
+
+
 #!/usr/bin/python
-import inspect
 import sys
 from sys import argv
 from itertools import imap
 from itertools import chain
-from convert import *
 import csd
 from csd import sco
-
+import atexit
 
 class PCallback():
 
@@ -21,12 +39,15 @@ class PCallback():
         self.kwargs = kwargs
         
 
-class Slipmat():
+class PythonScore():
 
     def __init__(self):
-        self.slipcue = Slipcue(self)
+        self.cue = Cue(self)
         self.score_data = []
         self.p_callbacks = [[]]
+        self.i = self.event_i
+        self.write = self.score
+        self.end = self.end_score
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
@@ -63,8 +84,8 @@ class Slipmat():
 
     def end_score(self):
         # TODO: This shouldn't run under certain circumstances
-    	with open(argv[1], 'w') as f:
-    		f.write("\n".join(self.score_data))
+        with open(argv[1], 'w') as f:
+        	f.write("\n".join(self.score_data))
 
     def event_i(self, *args):
         self.score(' '.join(chain('i', imap(str, args)))) 
@@ -89,11 +110,11 @@ class Slipmat():
         # Apply time stack
         selected = sco.select(data, {0: 'i'})
         op = sco.selection.operate_numeric(selected, 2,
-                                           lambda x: x + self.slipcue.now())
+                                           lambda x: x + self.cue.now())
         self.score_data.append(sco.merge(data, op))
 
 
-class Slipcue(object):
+class Cue(object):
 
     def __init__(self, parent):
         self.stack = []
@@ -116,54 +137,27 @@ class Slipcue(object):
     def now(self):
         return sum(self.stack)
 
-
-def debug(m, v=''):
-    print m + ': ' + str(v) + "\n",
-
-# Globals
-slipmat = Slipmat()
-cue = slipmat.slipcue
-score = slipmat.score
-pmap = slipmat.pmap
-p_callback = slipmat.p_callback
-event_i = slipmat.event_i
-end = slipmat.end_score
-
-import atexit
-
-def my_exit():
-    end()
-
-if __name__ != '__main__':
-    atexit.register(my_exit)
-
 def begin():
-    global slipmat
+    '''Loads Python Score elements. Only use within <CsScore>.
+
+    These functions become availabe: score, cue, pmap, p_callback,
+    event_i.'''
+
+    global p
+    p = PythonScore()
+
+    # Get calling module. Should be __main__
     f = sys._current_frames().values()[0]
     name = f.f_back.f_globals['__name__']
     m = sys.modules[name]
-    setattr(m, 'score', slipmat.score)
-    setattr(m, 'score_data', slipmat.score_data)
-    setattr(m, 'cue', slipmat.slipcue)
-    setattr(m, 'pmap', slipmat.pmap)
-    setattr(m, 'p_callback', slipmat.p_callback)
-    setattr(m, 'event_i', slipmat.event_i)
-    setattr(m, 'end', slipmat.end_score)
 
-def main():
-    # Execute CsScore
-    execfile(argv[1], globals())
+    # Register Globals
+    setattr(m, 'score', p.score)
+    setattr(m, 'cue', p.cue)
+    setattr(m, 'pmap', p.pmap)
+    setattr(m, 'p_callback', p.p_callback)
+    setattr(m, 'event_i', p.event_i)
 
-    # Create score string
-    sco_output = "\n".join(slipmat.score_data)
+    # End score
+    atexit.register(p.end_score)
 
-    # Write score used by Csound
-    with open(argv[2], 'w') as f:
-        f.write(sco_output)
-
-    # Additional file for development testing
-    with open('_pysco.sco', 'w') as f:
-        f.write(sco_output)
-
-if __name__ == '__main__':
-    main()

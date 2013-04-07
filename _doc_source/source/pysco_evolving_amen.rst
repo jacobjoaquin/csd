@@ -1,6 +1,6 @@
-#######################################
-The Evolving Amen Python Score Tutorial
-#######################################
+#############################
+The Amen Break Scorc Tutorial
+#############################
 
 By Jacob Joaquin jacobjoaquin@gmail.com
 
@@ -9,6 +9,8 @@ By Jacob Joaquin jacobjoaquin@gmail.com
     TODO: hat() before evolving_amen_default_args.csd need updating
     TODO: drum_pattern_2 isn't in everything
     TODO: (1 / tune) should be float(tune). In many files near the end me thinks
+
+scorc
 
 ************
 Introduction
@@ -63,7 +65,7 @@ compositional techniques Python and the Pysco module brings to the
 score, every example uses the exact same orchestra throughout the
 entirety of this tutorial. Let's quickly review:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsInstruments
     :end-before: </CsInstruments
 
@@ -133,7 +135,7 @@ Csound score, and adds new Python Score idioums one by one until
 the score as been fully translated. The end result is the new Python
 score.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsScore
     :end-before: </CsScore>
 
@@ -142,8 +144,10 @@ pattern itself is the classical drum and bass. [#dnb]_
 
 AUDIO HERE
 
-Score Conversion
-================
+Upgrade
+=======
+
+
 
 Porting a classical score into the Python Score environment requires
 only two changes. First, one needs to set the argument of the CsScore
@@ -151,7 +155,7 @@ bin utility to "python pysco.py". Second, the classical score code
 needs to be passed as a string to the score() object. These changes
 result in the followin Python Score code:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_ported.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_upgrade.csd
     :language: python
     :start-after: </CsInstruments>
     :end-before: </CsoundSynthesizers>
@@ -161,8 +165,8 @@ know about the classic Csound score, fear not because you can still
 use it with the score() object  virtually untouched, or in combination
 with other Python features as you learn them.
 
-Time is Relative in Python Score
-================================
+Time is Relative
+================
 
 *"It's what makes time travel possible."* - Dr. Emmett Lathrop Brown
 [#fluxcapacitor]_
@@ -194,7 +198,7 @@ has been changed to 0.0, and the same goes for measures 3 and 4.
 The cue() object allows the composer to think of time local to the
 current measure, rather than manually calculate the global time.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_cue.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_cue.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -217,7 +221,7 @@ lets you *roll your own*. Implementing 4/4 measures is done by
 `defining a new function
 <http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
     :pyobject: measure
 
@@ -245,7 +249,7 @@ to the Python score, were left with the following. Notice that the
 comments have been factored out now that the code itself clearly
 indicates what a measure is:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_measure.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -257,7 +261,7 @@ The event_i() function is another way for entering in data into the
 score. Instead of a string, it accepts any number of arguments and
 constructs a valid classical score event string. For example::
 
-    event_i(1, 0, 1, 0.707, 8.00)
+    score.i(1, 0, 1, 0.707, 8.00)
 
 Outputs::
 
@@ -266,7 +270,7 @@ Outputs::
 Replacing the calls to score() with event_i in the Amen score, the
 updated code looks like this:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_event_i.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_i.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -274,27 +278,26 @@ updated code looks like this:
 Nesting Time
 ============
 
-The cue() object allows a composer to create events realitve to the
-current postion of the cue() object. Though what happens when a
-"with cue(x)" statement is nested within a "with cue(y)" statement?
-The cue(x) sets the time postion relative to cue(y). For example::
+A ``with cue()`` statement can be placed inside a heiarchy of other
+``with cue()`` statements. This allows composers to reset the
+relative positional time to 0 regardless of the current scope of
+time by writing another ``with cue()`` statement: For example, this
+is possible::
 
     with cue(32):
         with cue(4):
                 event_i(1, 0, 1)
 
 Though the start time of the event is written as 0, the actual start
-time of the event is 36 which is the cumulation of all the args in
-the cue nesting hierarchy.
+time of the event is 37, which is the cumulation of all the args
+in the cue nesting hierarchy plus pfield 2: ``32 + 4 + 1 + 0``
 
-Thus, it's possible to factor out start times from events and
-delegating this responsibility to the cue(). Utilizing the cue in
-this manner means that start times no longer have to be buried
-within score statements, and they can exist as separate entities
-within the code, which can at times help providate clarity to when
-things happen.
+The greater implication is that time can be completely decoupled
+from the event within the code. In this version of the score the
+start times are moved from the pfield 2 column to the the ``cue()``,
+and then set to 0.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_nested.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_nest.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -324,7 +327,7 @@ An equally important benefit to this approach is that with proper names, this te
 
 Tidying up the score, we get this:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -334,7 +337,7 @@ Drum Pattern
 
 The score contains four measures that contain identical content. Functions can store musical phrases, everything from a single note to complete works of Beethoven if necessary. In this case, we have a simple 4 notes drum and bass pattern.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
     :pyobject: drum_pattern
 
@@ -344,6 +347,8 @@ These events will not be generated until the function is accessed. For each meas
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+It's worth noting that functions aren't limited to measures. Notes, licks, phrases, bars, sections, entire scores, can all be placed inside a function. We'll see more of this as we continue along.
 
 Later when it's time to start arranging, clips like these can be more or less dropped into measure() blocks. It's worth pointing out that this version of the score is now shorter than the original classical Csound score we started with.
 
@@ -361,7 +366,6 @@ This is a good moment to pause and take a close look at the concepts introduced.
 The score we're left with is fundamentally more readable than the original Csound score. The fact that drums are being played is much more obvious than in the original classical score.
 
 Starting with the next section
-
 
 *************************
 Further Score Development
@@ -382,9 +386,9 @@ A list is a Python container for storing various data, which may include numbers
 
 The for statement is used to loop through each value in the specified list. As the program loops through the list, the m variable becomes the value of the current value in the list. Thus, calling drum_pattern() for measures 1, 2, 3, and 4.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_list.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_list.csd
     :language: python
-    :start-after: score(
+    :start-after: score.write(
     :end-before: </CsScore>
 
 Now that much of the score code has been consolidated into a function and a foor loop, this score is now 2 lines shorter than the original Csound classical score in the first example.
@@ -403,13 +407,13 @@ The Python range() generates lists of integers automatically. It's a very common
 
 The score substitues range(1, 5) for [1, 2, 3, 4]. 
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_range.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_range.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Sample Variation with Choice
-============================
+Choice Variation
+================
 
 So far, all the functions we've used come either built-in or built by hand with a function. Python has an easy process for importing existing functions from various libraries. Python itself comes with a bunch of useful libraries that can be used within the context of a compositional environment. And then there are a bunch of a third party libraries that can be used as well. In fact, Pysco itself is a Python library.
 
@@ -419,42 +423,40 @@ Changes are made to the kick() and snare() functions.
 
 The choice() function is really simple to use. Pass a list of data to choice, and it randomly selects one of the values. Using the kick() score instrument as an example, choice selects from 4 different possible start positions in the Amen break where a kick is.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: kick
 
 The snare() works the same way, with the only difference being the start positions.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: snare
 
 Hats
 ====
 
-
-
 The reaffirms the concept of single a instrument with multiple score-based interfaces.
 
 * Reinforce one instrument, multiple score interfaces
 * Include phrases within new phrases
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: hat
 
 New pattern. Musical phrases defined as functions can be embedded into other phrase functions.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: drum_pattern_8th_hats
 
 One thing worth mentioning is to create the 8th note rhythms, the foor loop iterates through the values 0 through 7, and then each value is divided by 2.0 as the argument for cue().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
-    :start-after: score(
-    :end-before: </CsScore>
+    :start-after: score.write(
+    :end-before: score.end()
 
 Post Processing with pmap()
 ===========================
@@ -463,7 +465,7 @@ Playing back the last example will sometimes lead to samples out range. Not ever
 
 To avoid samples being played out of range, we need to change all the amplitudes uniformly in the score. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
     :language: python
     :pyobject: multiply
 
@@ -474,9 +476,9 @@ The pmap() function takes the following input::
 
 The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0):
+    :start-after: cue = score.cue
     :end-before: </CsScore>
 
 The pmap() function only works on data already in the score. For this reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
@@ -488,16 +490,16 @@ The p_callback() function is the pre-processing equivalent of pmap(). There are 
 
 As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used to tuning an instrument. Since this changing the pitch affects the length of the sample played back, causing to bleed into the next drum sample in the loop, a second p_callback() modifies the duration by the inverse of the perfect 5th.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0)
-    :end-before:  score(
+    :start-after: cue = score.cue
+    :end-before:  score.write(
 
 Where these callbacks are placed matter. Typically speak, good practice involves placing the p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0)
+    :start-after: cue = score.cue
     :end-before:  </CsScore
 
 Transpose
@@ -507,19 +509,19 @@ The perfect 5th ratio was hard coded into the last example, but transposing data
 
 The createdtranpose() function accepts two args, one which is required and one with a default value. The first arg is the value in halfsteps in which to transpose. Without a second arg, it gives the ratio of the transposition. If a second arg is supplied it will be applied absolutely.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
     :pyobject: transpose
 
 The transpose() function is then used to refactor the p_callback()s.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
-    :start-after: with cue(t / 2
-    :end-before: score(
+    :start-after: cue = score.cue
+    :end-before: score.write(
 
-Upgrading Score Instruments with Defaults
-=========================================
+Default Values for Score Instruments
+====================================
 
 Earlier in the tutorial when score instruments were created for kick() and snare(), the ability to modify duration, amplitude, postion, and sampling tunig was factored out. We're going to factor everything except for the position argument back into these score instruments using keyword default values. The keywords for all three instruments are: dur, amp, and tune.
 
@@ -527,23 +529,23 @@ Since these are being refactored back in as keyword default args, all our existi
 
 Here is what the three score instruments look like now they all have default args:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :start-after: return value * 2 **
     :end-before: drum_pattern
 
 Now that they're in, a test drum pattern is in order. This pattern just plays four kicks on the beat, transposed down a perfect 4th.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :pyobject: drum_pattern_2
 
 The score and audio:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 Player Instruments
 ==================
@@ -554,13 +556,13 @@ Since kick(), snare(), and hat() all have identical signatures for their argumen
 
 For the argument, we can pass kick, snare, or hat. The duration of the phrase is passed in as the second arg. The duration of the indivual notes is arg 3. The number of beats to play through the lifespan of the instrument if arg 4. The start_amp and end_amp args do a linear envelop from the first and last nights, which is similiar to the classical score ramp function. And then there is one optional keyword arg for consistant tuning for all samples played by swell().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: swell
 
 Wrapping this up into a reuasable phrase:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: intro
 
@@ -577,7 +579,7 @@ For this pattern, we're going to use the random function from Python's random li
 
 The pattern is defiend as:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
     :pyobject: drum_pattern_flair
 
@@ -591,20 +593,20 @@ The cue() object is set to the current value of variable time. The choice() func
 
 The end result is something common in many drum and bass tracks in which is sounds as if percussional elements were generated at random, but still has the familiar kick and snare pattern.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 Form With Functions
 ===================
 
 And finally, a musical example with all the pieces put together. Looking at this code, what do you think the form of the compostion is? 
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_form.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 **********
 Conclusion
@@ -616,7 +618,7 @@ So yeah, that's it.
 .. rubric:: Footnotes
 
 .. [#michaeljnelson] The MST3K guy
-.. [#amen] Amen break description
+.. [#amen] Amen break description. Everything from N.W.A. to the Power Puff Girls
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
