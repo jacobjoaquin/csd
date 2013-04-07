@@ -1,6 +1,6 @@
-#######################################
-The Evolving Amen Python Score Tutorial
-#######################################
+#############################
+The Amen Break Scorc Tutorial
+#############################
 
 By Jacob Joaquin jacobjoaquin@gmail.com
 
@@ -9,6 +9,8 @@ By Jacob Joaquin jacobjoaquin@gmail.com
     TODO: hat() before evolving_amen_default_args.csd need updating
     TODO: drum_pattern_2 isn't in everything
     TODO: (1 / tune) should be float(tune). In many files near the end me thinks
+
+scorc
 
 ************
 Introduction
@@ -388,8 +390,8 @@ The score substitues range(1, 5) for [1, 2, 3, 4].
     :start-after: <CsScore
     :end-before: </CsScore>
 
-Sample Variation with Choice
-============================
+Choice Variation
+================
 
 So far, all the functions we've used come either built-in or built by hand with a function. Python has an easy process for importing existing functions from various libraries. Python itself comes with a bunch of useful libraries that can be used within the context of a compositional environment. And then there are a bunch of a third party libraries that can be used as well. In fact, Pysco itself is a Python library.
 
@@ -399,42 +401,40 @@ Changes are made to the kick() and snare() functions.
 
 The choice() function is really simple to use. Pass a list of data to choice, and it randomly selects one of the values. Using the kick() score instrument as an example, choice selects from 4 different possible start positions in the Amen break where a kick is.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: kick
 
 The snare() works the same way, with the only difference being the start positions.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: snare
 
 Hats
 ====
 
-
-
 The reaffirms the concept of single a instrument with multiple score-based interfaces.
 
 * Reinforce one instrument, multiple score interfaces
 * Include phrases within new phrases
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: hat
 
 New pattern. Musical phrases defined as functions can be embedded into other phrase functions.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: drum_pattern_8th_hats
 
 One thing worth mentioning is to create the 8th note rhythms, the foor loop iterates through the values 0 through 7, and then each value is divided by 2.0 as the argument for cue().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_hats.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
-    :start-after: score(
-    :end-before: </CsScore>
+    :start-after: score.write(
+    :end-before: score.end()
 
 Post Processing with pmap()
 ===========================
@@ -443,7 +443,7 @@ Playing back the last example will sometimes lead to samples out range. Not ever
 
 To avoid samples being played out of range, we need to change all the amplitudes uniformly in the score. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
     :language: python
     :pyobject: multiply
 
@@ -454,9 +454,9 @@ The pmap() function takes the following input::
 
 The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pmap.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0):
+    :start-after: cue = score.cue
     :end-before: </CsScore>
 
 The pmap() function only works on data already in the score. For this reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
@@ -468,16 +468,16 @@ The p_callback() function is the pre-processing equivalent of pmap(). There are 
 
 As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used to tuning an instrument. Since this changing the pitch affects the length of the sample played back, causing to bleed into the next drum sample in the loop, a second p_callback() modifies the duration by the inverse of the perfect 5th.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0)
-    :end-before:  score(
+    :start-after: cue = score.cue
+    :end-before:  score.write(
 
 Where these callbacks are placed matter. Typically speak, good practice involves placing the p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_p_callback.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
-    :start-after: with cue(t / 2.0)
+    :start-after: cue = score.cue
     :end-before:  </CsScore
 
 Transpose
@@ -487,19 +487,19 @@ The perfect 5th ratio was hard coded into the last example, but transposing data
 
 The createdtranpose() function accepts two args, one which is required and one with a default value. The first arg is the value in halfsteps in which to transpose. Without a second arg, it gives the ratio of the transposition. If a second arg is supplied it will be applied absolutely.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
     :pyobject: transpose
 
 The transpose() function is then used to refactor the p_callback()s.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_transpose.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
-    :start-after: with cue(t / 2
-    :end-before: score(
+    :start-after: cue = score.cue
+    :end-before: score.write(
 
-Upgrading Score Instruments with Defaults
-=========================================
+Default Values for Score Instruments
+====================================
 
 Earlier in the tutorial when score instruments were created for kick() and snare(), the ability to modify duration, amplitude, postion, and sampling tunig was factored out. We're going to factor everything except for the position argument back into these score instruments using keyword default values. The keywords for all three instruments are: dur, amp, and tune.
 
@@ -507,23 +507,23 @@ Since these are being refactored back in as keyword default args, all our existi
 
 Here is what the three score instruments look like now they all have default args:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :start-after: return value * 2 **
     :end-before: drum_pattern
 
 Now that they're in, a test drum pattern is in order. This pattern just plays four kicks on the beat, transposed down a perfect 4th.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :pyobject: drum_pattern_2
 
 The score and audio:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_default_args.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 Player Instruments
 ==================
@@ -534,13 +534,13 @@ Since kick(), snare(), and hat() all have identical signatures for their argumen
 
 For the argument, we can pass kick, snare, or hat. The duration of the phrase is passed in as the second arg. The duration of the indivual notes is arg 3. The number of beats to play through the lifespan of the instrument if arg 4. The start_amp and end_amp args do a linear envelop from the first and last nights, which is similiar to the classical score ramp function. And then there is one optional keyword arg for consistant tuning for all samples played by swell().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: swell
 
 Wrapping this up into a reuasable phrase:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_swell.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: intro
 
@@ -557,7 +557,7 @@ For this pattern, we're going to use the random function from Python's random li
 
 The pattern is defiend as:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
     :pyobject: drum_pattern_flair
 
@@ -571,20 +571,20 @@ The cue() object is set to the current value of variable time. The choice() func
 
 The end result is something common in many drum and bass tracks in which is sounds as if percussional elements were generated at random, but still has the familiar kick and snare pattern.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_flair.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 Form With Functions
 ===================
 
 And finally, a musical example with all the pieces put together. Looking at this code, what do you think the form of the compostion is? 
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_final.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_form.csd
     :language: python
-    :start-after: score(
-    :end-before: pmap
+    :start-after: score.write(
+    :end-before: score.pmap
 
 **********
 Conclusion
@@ -596,7 +596,7 @@ So yeah, that's it.
 .. rubric:: Footnotes
 
 .. [#michaeljnelson] The MST3K guy
-.. [#amen] Amen break description
+.. [#amen] Amen break description. Everything from N.W.A. to the Power Puff Girls
 .. [#trashy] Trashy is a good thing in the right context.
 .. [#tracker] Trackers are the bee's knees
 .. [#dnb] Drum'n'bass beat
