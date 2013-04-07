@@ -140,7 +140,7 @@ score.
     :end-before: </CsScore>
 
 The score code produces 4 measures of the same drum pattern. The
-pattern itself is the classical drum and bass. [#dnb]_
+pattern itself is the classical drum 'n' bass. [#dnb]_
 
 AUDIO HERE
 
@@ -192,7 +192,7 @@ looks like this:
 
     i 1 12 0.5 0.707 0 0
 
-As for translating the drum and bass parts, each measure has been
+As for translating the drum 'n' bass parts, each measure has been
 split into its own chuck of events. The first event in measure 2
 has been changed to 0.0, and the same goes for measures 3 and 4.
 The cue() object allows the composer to think of time local to the
@@ -213,7 +213,7 @@ Score more than worthwhile.
 Measures
 ========
 
-The drum and bass score is in 4/4. While the cue() object allows
+The drum 'n' bass score is in 4/4. While the cue() object allows
 us to treat beats local to the current measure, the arguments for
 the cue() are in absolute global time in the previous section. Out
 of the box, Python Score does not support measures. However, Python
@@ -307,25 +307,42 @@ The code right is a little messy, but this will be cleaned up.
 Score Instruments
 =================
 
-An orchestra instrument has only one interface. Python allows the creation of multiple new inferfaces inside of the score, which creates a new category of instruments: Score Instrumets.
+Composers can create named Python functions that call their
+corresponding orchestra instruments. Furthermore, multiple functions
+can be created to the same instrument, but with more specific intent
+as to the resulting behavoir of the intruments.
 
-The sampler instrument in the orchestra is fairly simple and generic in design. While the Amen Break loop is fixed, the instrument itself has no knowledge of kicks or hats. It only accesses the part of the sample denoted by the positional value passed in through pfield 5.
+The sampler instrument in the orchestra is fairly simple and generic
+in design. While the Amen Break loop is fixed, the instrument itself
+has no knowledge of kicks or hats. It only accesses the part of the
+sample denoted by the positional value passed in through pfield-5.
 
-Looking at the Python Score code from the last example, there are only two unique calls to event_i(), one for a kick and one for snare::
+Looking at the Python Score code from the last example, there are
+only two unique calls to score.i(), and even then all the arguments
+are identical except for pfield-5::
 
-	event_i(1, 0, 0.5, 0.707, 0, 1)
-	event_i(1, 0, 0.5, 0.707, 1, 1)
+	score.i(1, 0, 0.5, 0.707, 0, 1)
+	score.i(1, 0, 0.5, 0.707, 1, 1)
 
-Avoiding these unnecessarily long statements involves defining new functions for kick and snare by placing the calls event_i() into their respective functions. Where we had a generic orchestra sampler before, we now have two very specific score instruments:
+The former plays a kick drum while the latter plays a snare. Though
+looking at the code you might not know which is which and who is
+who. [#darksideofthemoon]_ This is because the difference is just
+the data used in pfield 5.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_instr_interface.csd
+These statements are also unnecessirly long in Python and are ripe
+to for consolidation. Defining functions for the kick and snare
+avoids the extra overhead by factoring out all the args. Something
+is made possible by the ``cue()`` object.
+
+.. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
     :start-after: return cue(
-    :end-before: score(
+    :end-before: score =
 
-An equally important benefit to this approach is that with proper names, this techinique creates code that is self documenting, making the score easier to read. If you type kick() it plays a kick. Type snare() it plays a snare. Type snozberry() it plays a snozberry(). [#snozberry]_
-
-Tidying up the score, we get this:
+An equally important benefit to this approach is that with proper
+names, this techinique creates code that is self documenting and
+easier to read. If you type kick() it plays a kick. Type snare()
+it plays a snare. Type snozberry() it plays a snozberry(). [#snozberry]_
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
@@ -335,22 +352,28 @@ Tidying up the score, we get this:
 Drum Pattern
 ============
 
-The score contains four measures that contain identical content. Functions can store musical phrases, everything from a single note to complete works of Beethoven if necessary. In this case, we have a simple 4 notes drum and bass pattern.
+The score contains four measures that contain identical content.
+Functions can store musical phrases, everything from a single note
+to complete works of Beethoven if necessary. In this case, we have
+a simple 4 notes drum 'n' bass pattern.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
     :pyobject: drum_pattern
 
-These events will not be generated until the function is accessed. For each measure, four lines of score instruments is replaced with drum_pattern().
+These events will not be generated until the function is accessed.
+For each measure, four lines of score instruments is replaced with
+drum_pattern().
 
 .. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
 
-It's worth noting that functions aren't limited to measures. Notes, licks, phrases, bars, sections, entire scores, can all be placed inside a function. We'll see more of this as we continue along.
-
-Later when it's time to start arranging, clips like these can be more or less dropped into measure() blocks. It's worth pointing out that this version of the score is now shorter than the original classical Csound score we started with.
+Functions aren't limited to storing measures of data. Notes, licks,
+phrases, bars, sections, entire scores, can all be placed inside a
+function. Later when it's time to start arranging, musical patterns
+like these can be more or less dropped into ``measure()`` blocks.
 
 Interlude
 =========
@@ -591,7 +614,7 @@ It then iterates through the times list. For each of these predeterimined potent
 
 The cue() object is set to the current value of variable time. The choice() functions chooses either kick, snare, hat, hat, or hat. Then the event is created, with a random amplitude in the range os 0.125 and 0.875.
 
-The end result is something common in many drum and bass tracks in which is sounds as if percussional elements were generated at random, but still has the familiar kick and snare pattern.
+The end result is something common in many drum 'n' bass tracks in which is sounds as if percussional elements were generated at random, but still has the familiar kick and snare pattern.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
@@ -625,3 +648,4 @@ So yeah, that's it.
 .. [#snozberry] Who's every heard of a snozberry?
 .. [#fluxcapacitor] BTTF
 .. [#adventuretime] Episode 3 Season 1
+.. [#darksideofthemoon] Which is which
