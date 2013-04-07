@@ -65,7 +65,7 @@ compositional techniques Python and the Pysco module brings to the
 score, every example uses the exact same orchestra throughout the
 entirety of this tutorial. Let's quickly review:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsInstruments
     :end-before: </CsInstruments
 
@@ -135,7 +135,7 @@ Csound score, and adds new Python Score idioums one by one until
 the score as been fully translated. The end result is the new Python
 score.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_1.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsScore
     :end-before: </CsScore>
 
@@ -144,8 +144,10 @@ pattern itself is the classical drum and bass. [#dnb]_
 
 AUDIO HERE
 
-Score Conversion
-================
+Upgrade
+=======
+
+
 
 Porting a classical score into the Python Score environment requires
 only two changes. First, one needs to set the argument of the CsScore
@@ -153,7 +155,7 @@ bin utility to "python pysco.py". Second, the classical score code
 needs to be passed as a string to the score() object. These changes
 result in the followin Python Score code:
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_ported.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_upgrade.csd
     :language: python
     :start-after: </CsInstruments>
     :end-before: </CsoundSynthesizers>
@@ -163,8 +165,8 @@ know about the classic Csound score, fear not because you can still
 use it with the score() object  virtually untouched, or in combination
 with other Python features as you learn them.
 
-Time is Relative in Python Score
-================================
+Time is Relative
+================
 
 *"It's what makes time travel possible."* - Dr. Emmett Lathrop Brown
 [#fluxcapacitor]_
@@ -196,7 +198,7 @@ has been changed to 0.0, and the same goes for measures 3 and 4.
 The cue() object allows the composer to think of time local to the
 current measure, rather than manually calculate the global time.
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_cue.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_cue.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
