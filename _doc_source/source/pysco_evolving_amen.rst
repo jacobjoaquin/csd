@@ -500,7 +500,7 @@ let's create a function that take two arguments, and returns the
 product.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
-   :language: python
+    :language: python
     :pyobject: multiply
 
 The value of the pfield is passed in as the first arg, x, and 0.707
@@ -591,7 +591,7 @@ Now that they're in, a test drum pattern is in order. This pattern just plays fo
     :language: python
     :pyobject: drum_pattern_2
 
-The score and audio:
+Here's the resulting changes to the score:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
