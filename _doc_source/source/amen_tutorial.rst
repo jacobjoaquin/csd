@@ -48,6 +48,13 @@ living document, as it will be updated to keep up with any future
 changes. Send questions, comments, and bugs to jacobjoaquin@gmail.com,
 or write to the Csound Mailing List.
 
+Files
+=====
+
+The Csound CSD files and amen break sample ship with the csd module in::
+
+    /examples/tutorials/amen/
+
 The Orchestra
 =============
 
