@@ -137,6 +137,10 @@ score.
 
 **Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
 
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990916"></iframe>
+
 The score code produces four measures of the same drum pattern. The
 pattern itself is the classical `drum 'n' bass <http://en.wikipedia.org/wiki/Drum_and_bass>`_.
 
@@ -490,6 +494,10 @@ The ``snare()`` functions chooses from positions 1, 3, 5, and 7:
 
 **Source:** :download:`amen_choice.csd <../../examples/tutorials/amen/amen_choice.csd>`
 
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990915"></iframe>
+
 Hats
 ====
 
@@ -516,6 +524,10 @@ Both patterns are played side by side in the updated score:
     :end-before: score.end()
 
 **Source:** :download:`amen_hats.csd <../../examples/tutorials/amen/amen_hats.csd>`
+
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990921"></iframe>
 
 Post-Processing Score Data
 ==========================
@@ -549,6 +561,10 @@ function
     :end-before: </CsScore>
 
 **Source:** :download:`amen_postprocess.csd <../../examples/tutorials/amen/amen_postprocess.csd>`
+
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990923"></iframe>
 
 The `pmap()` function only works on data already in the score. For
 this reason, the best place for most cases will be either after the
@@ -586,6 +602,10 @@ to the first write to the ``score()``.
     :end-before:  </CsScore
 
 **Source:** :download:`amen_preprocess.csd <../../examples/tutorials/amen/amen_preprocess.csd>`
+
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990924"></iframe>
 
 Transpose
 =========
@@ -647,6 +667,10 @@ patterns:
 
 **Source:** :download:`amen_default_args.csd <../../examples/tutorials/amen/amen_default_args.csd>`
 
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990917"></iframe>
+
 Player Instruments
 ==================
 
@@ -680,6 +704,10 @@ Here is a new pattern that utilizes the new player instrument:
     :pyobject: intro
 
 **Source:** :download:`amen_player.csd <../../examples/tutorials/amen/amen_player.csd>`
+
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990922"></iframe>
 
 Algorithmic Flair
 =================
@@ -732,6 +760,10 @@ notes, maybe.
 
 **Source:** :download:`amen_flair.csd <../../examples/tutorials/amen/amen_flair.csd>`
 
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990918"></iframe>
+
 Form With Functions
 ===================
 
@@ -745,6 +777,10 @@ final score and see if you can figure out the form?
     :end-before: score.pmap
 
 **Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`
+
+.. raw:: html
+
+    <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990919"></iframe>
 
 Granted, not all scores are built the same, and Python definitely
 allows the creation of some horrendous code. Though the code can
