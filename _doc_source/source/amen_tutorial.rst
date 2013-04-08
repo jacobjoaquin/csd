@@ -594,16 +594,17 @@ transposing data is something that is useful enough that it's worth
 taking the time to consolidate it into a reusable function.
 
 The ``tranpose()`` function accepts two args, one which is required
-and a second default value. The first arg is the value in halfsteps
-in which to transpose. Without a second arg, it outputs a transposition
-ratio. If the second arg is supplied, then it will apply the
-transposition ratio to this and return the output.
+and a second optional default argument. The first arg is the value
+in halfsteps in which to transpose. Without a second arg, it outputs
+the ratio of transposition.  If the second arg is supplied, then
+it will apply the transposition ratio to this before returning the
+output.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
     :pyobject: transpose
 
-The ``score.p_callback()`` calls are refectored using this new funtion.
+The ``score.p_callback()`` calls are refactored using this new funtion.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
@@ -616,8 +617,8 @@ Default Arguments
 =================
 
 Earlier in the tutorial when ``kick()``, ``snare()``, and ``hat()``
-were created the instr number, start time, duration, amplitude,
-sample position offset, and tuning were factored out of the interface.
+were created, the instr number, start time, duration, amplitude,
+beat positional offset, and tuning were factored out of the interface.
 Three of these are put back in as optional arguments: duration,
 amplitude, and tuning. Since these are optional arguments, we can
 continue using the existing short form. Here are the updated score
@@ -628,8 +629,8 @@ instruments:
     :start-after: return value * 2 **
     :end-before: drum_pattern
 
-A new pattern is created that simple plays four kicks on the beat
-transposed down a perfect fourth.
+A new pattern is created that plays four kicks on the beat transposed
+down a perfect fourth.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
@@ -650,13 +651,15 @@ Player Instruments
 
 Python functions can accept other functions as arguments. This is
 taken advantage of in this example as we create a generic player
-instrument that accepts either ``kick()``, ``snare()``, or ``hat()``
-as its first argument, then plays the passed score instrument based
+instrument that accepts either ``kick``, ``snare``, or ``hat`` as
+the first argument, then plays the passed score instrument based
 on the the proceeding arguments. This is possible since our score
-instruments have identical interfaces.
+instruments have identical interfaces/signatures.
 
-In addition to the instrument to play, here is a description of the
-rest of the args in order:
+The player instrument is named ``swell()`` as it was originally
+envisioned as way to play instruments with ramped amplitudes. Here
+is a description of the rest of the arguments in order in which
+they appear:
 
     * The duration of that phrase in beats.
     * The duration of the individual instrument events.
@@ -664,9 +667,6 @@ rest of the args in order:
     * The amplitude of the first note.
     * The amplitude of the target last note.
     * Optional arg for tuning.
-
-The player instrument is named ``swell()`` as it was originally
-envisioned as way to play instruments with ramped amplitudes:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
@@ -688,8 +688,9 @@ Algorithmic Flair
 For the last drum pattern of this tutorial, we're going to create
 one that has a bit of an algorithmic flair for randomly generating
 kicks, snares, and hats. For this pattern, we're going to use the
-random function from Python's random module, which is imported near
-the top of the score::
+`random function
+<http://docs.python.org/2/library/random.html#random.random>`_ from
+Python's random module, which is imported near the top of the score::
 
     from random import random
 
@@ -701,29 +702,29 @@ this:
     :pyobject: drum_pattern_flair
 
 The pattern excepts an optional argument ``r`` that determines the
-odds of a note being randomly generated. If ``r`` is 0, then there
+odds of an event being randomly generated. If ``r`` is 0, then there
 is no chance that extra notes will be played. When ``r`` is set to
-1, the it'll generate an event every chance it gets.
+1, it'll generate an event every chance it gets.
 
 The pattern uses the original ``drum_pattern()`` created earlier,
 and then continues with some programming logic to add a bit of
 algorithmic flair to it. A list is created with eight different
 start times (in beats). A second list containing a list of score
-instruments are created. Only one kick and snare are added, but
+instruments is created; Only one kick and snare are added, but
 includes hat three times to increase the odds that this will be
 chosen.
 
 Using the ``for`` loop, the program iterates through each value in
 list ``times``. It does a comparison to a randomly generated number
-for each. If the random number is less than ``r``, then score
+for each. If the random number is less than ``r``, then a score
 instrument is generated for the current value of ``time``. The
 ``cue()`` is set to the current value of variable ``time``. The
 ``choice()`` functions then chooses either kick, snare, hat, hat,
 or hat. Then the event is created, with a random amplitude in the
 range os 0.125 and 0.875.
 
-The end result is the drum 'n' bass pattern as its foundatin, but
-with a random extra samples.
+The end result is the original drum pattern plus some extra random
+notes, maybe.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
@@ -744,11 +745,11 @@ final score and see if you can figure out the form?
     :start-after: score.write(
     :end-before: score.pmap
 
+**Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`
+
 Granted, not all scores are built the same, and Python definitely
 allows the creation of some horrendous code. Though the code can
 also be used to bring greater clarity to the score.
-
-**Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`
 
 .. rubric:: Footnotes
 
