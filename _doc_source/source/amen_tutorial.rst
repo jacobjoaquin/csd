@@ -12,9 +12,9 @@ Introduction
 
 *"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
 
-PythonScore is a fully modular score environment
-for the Csound unified CSD file. Unlike other alternative text-based
-score environements, PythonScore is non-imposing and does its best to get
+PythonScore is a fully modular score environment for the Csound
+unified CSD file. Unlike other alternative text-based score
+environements, PythonScore is non-imposing and does its best to get
 out of the way rather than to impose a strict set of rules for
 composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
@@ -28,36 +28,35 @@ third party modules. Despite being a general purpose language that
 wasn't designed for music, Python is particularly well suited for
 compostion.
 
-It should be noted that PythonScore is not meant as a full replacement
-of the classical Csound score, but as an enhancement. Any and all
-existing classical score commands still work, and PythonScore
-itself outputs classical score code. Perhaps PythonScore should
-be thought as a user-friendly higher level abstraction of the classic
-score, as is the case with Processing and Java.
+PythonScore is not meant as a full replacement of the classical
+Csound score, but as an enhancement. Any and all existing classical
+score commands still work, and PythonScore itself outputs classical
+score code. Perhaps PythonScore should be thought as a user-friendly
+higher level abstraction of the classic score.
 
 PythonScore is still early in development, though the library of
-use cases and examples are rapidly growing, and all from a single
-developer. The secondary purpose of this tutorial is to attract a
-small group of people to start experimenting with this alternative
-Csound score environment, to find out what works, what's easy and
-what's not, and to collect new ideas for future upgrades. It is
-also the belief of the author that once people have some hands-on
-experience, many of the advantages of working with PythonScore
-will become obvious. Until then, it's just the ramblings of one
-person's perspective.
+use cases and examples is rapidly growing. And all from a single
+developer, which will hopefully change soon. The secondary purpose
+of this tutorial is to attract a small group of people to start
+experimenting with this alternative Csound score environment, to
+find out what works, what's easy and what's not, and to collect new
+ideas for future upgrades. It is also the belief of the author that
+once people have some hands-on experience, many of the advantages
+of working with PythonScore will become obvious. Until then, it's
+just the ramblings of one person's perspective.
 
-Since PythonScore is under development, consider this tutorial a living
-document, and be updated to keep up with any changes. Send questions,
-comments, and bugs to jacobjoaquin@gmail.com, or write to the Csound
-Mailing List.
+Since PythonScore is under development, consider this tutorial a
+living document, as it will be updated to keep up with any future
+changes. Send questions, comments, and bugs to jacobjoaquin@gmail.com,
+or write to the Csound Mailing List.
 
 The Orchestra
 =============
 
 In order to bring focus to the enhanced set of features and
-compositional techniques Python and the PythonScore module brings to the
-score, every example uses the exact same orchestra throughout the
-entirety of this tutorial. Let's quickly review:
+compositional techniques Python with the PythonScore module brings
+to the score environment, every example uses the exact same orchestra
+throughout the entirety of this tutorial. Let's take a look:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsInstruments
@@ -67,37 +66,39 @@ entirety of this tutorial. Let's quickly review:
 
 The orchestra contains only a single instrument, a basic sampler
 with the Amen Break [#amen]_ as its only audio source. The instrument
-includes support for three custom pfield insputs for amplitude, the
-starting position in the sample (in beats), and for tuning the
-sample. The fact that this is only a very basic instrument is on
-purpose, as techniques discusse will include that even very simple
-intruments can be enhanced using the newly available score functions.
+includes support for three custom pfield inputs for amplitude, the
+beat positional sample offset, and for tuning the sample. The fact
+that this is only a very basic instrument is purposful as techniques
+discussed in this tutorial will demonstrate that even simple
+instruments can be greatly enhanced with using some of the new
+techniques afforded by Python.
 
-The output of this device has a very trashy [#trashy]_ quality to
+The output of this sampler has a very trashy [#trashy]_ quality to
 it, and sounds like it was produced with a tracker [#tracker]_ such
-as Fast Tracker II.
+as Fast Tracker II. [#ft2]_
 
-There's also a reason for using a drum loop as an example. The
-ability to express time and occurances in time is a defining attribute
-of PythonScore, and percussion-based events are great for honing
-in on timing. *Do not get the wrong impressiong that PythonScore caters
-to 4/4 drumming music, as this is far from the truth.*
+The use of a drum loop is chosen for a very specific reason. The
+ability to express occurances in time is a defining attribute of
+PythonScore, and percussion-based events are great for honing in
+on timing. *Do not get the wrong impression that PythonScore caters
+to 4/4 drumm music, as this is far from the truth.*
 
-The Python Interpretor
+The Python Interpreter
 ======================
 
-Before moving into the tutorial, an introduction the the Python
-Interpretor is in order as it a wonderful tool for quickly testing
-various aspects of the Python language. This tutorial will occasionaly
-use this as well.
+Before diving into the tutorial, an introduction the the `Python
+Interpreter <http://docs.python.org/2/tutorial/interpreter.html>`_
+is in order as it a wonderful tool for quickly testing various
+aspects of the Python language. This tutorial will occasionaly embed
+examples using it as well.
 
-Typically, the Python interpretor is used in the terminal, which
+Typically, the Python interpreter is used in the terminal, which
 is invoked by typing "python"::
 
     Quorra ~ $ python
 
-This will starts an interactive Python session in which users can
-start entering various commands.
+This starts an interactive Python session in which users can begin
+entering various commands.
 
 ::
 
@@ -109,17 +110,17 @@ start entering various commands.
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 The `CsoundQt <http://qutecsound.sourceforge.net/>`_ graphical front
-end comes equimed with a Python console. There's also `IPython
-<http://ipython.org/>`_ which supercharges the Python Interpretor
+end comes equipped with a Python console. There's also `IPython
+<http://ipython.org/>`_ which supercharges the Python Interpreter
 with a lot of great features for Python beginners and veterans
 alike.
 
-****************************************
-From the Classical Score to PythonScore
-****************************************
+******************************
+Classical Score to PythonScore
+******************************
 
-In this section, the will walk you through some the more basic
-features of PythonScore. The tutorial starts with a classical
+In this section, we'll walk you through some the basic
+features of Python and PythonScore. The tutorial starts with a classical
 Csound score, and adds new PythonScore idioums one by one until
 the score as been fully translated. The end result is the new Python
 score.
@@ -130,19 +131,26 @@ score.
 
 **Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
 
-The score code produces 4 measures of the same drum pattern. The
+The score code produces four measures of the same drum pattern. The
 pattern itself is the classical drum 'n' bass. [#dnb]_
-
-AUDIO HERE
 
 Upgrade
 =======
 
-Porting a classical score into the PythonScore environment requires
-only two changes. First, one needs to set the argument of the CsScore
-bin utility to "python pysco.py". Second, the classical score code
-needs to be passed as a string to the score() object. These changes
-result in the followin PythonScore code:
+Porting a classical score into the Python requires a few lines of
+code to set up. First, set the argument of the CsScore bin utility
+to "python". Then import PythonScore::
+
+	from pysco import PythonScore
+
+An object called ``score`` is instantiated from the ``PythonScore()``
+class. Additionally, variable ``cue`` is created and points to the
+``score.cue`` context manager. We'll go into details later as to
+why. Classical Csound source code is entered into the ``score()``
+object via the ``write()`` method. And last, add ``score.end()``
+as the last statement in the score to tell PythonScore that it's
+ready to generate the classical Csound score code and pass it to
+Csound. The result is this new score::
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_upgrade.csd
     :language: python
@@ -151,10 +159,10 @@ result in the followin PythonScore code:
 
 **Source:** :download:`amen_upgrade.csd <../../examples/tutorials/amen/amen_upgrade.csd>`
 
-If you are worried that you would have to throw out everything you
-know about the classic Csound score, fear not because you can still
-use it with the score() object  virtually untouched, or in combination
-with other Python features as you learn them.
+If this worries you that you'll be required to throw out everything
+you know about the classic Csound score, fear not as you can still
+use it with the ``score()`` object virtually untouched, or in
+combination with other Python features as you learn them.
 
 Time is Relative
 ================
@@ -164,30 +172,37 @@ Time is Relative
 
 For the most part, when events are entered into a classical Csound
 score, the start times are in global beats. PythonScore changes
-with by introducing the cue() object, which is a Python context
-manager for moving the current postion in time in the score. All
-events entered into PythonScore are relative the current positional
-value of the cue().
+this with by introduction of the ``cue()`` object, a Python `context
+manager
+<http://docs.python.org/2/library/stdtypes.html#typecontextmanager>`_ for
+moving the current postion time in the score. Like a needle on a
+recored. All events entered into PythonScore are relative the current
+positional value of ``cue()``.
 
 ::
 
     with cue(12):
         score('i 1 0 0.5 0.707 0 0')
 
-While the start time value in pfield 2 is 0, this event will start
+While the start time value in pfield-2 is 0, this event will start
 at 12 beats into the piece. This is because start time events are
-process to reflect the current position of the cue(). The output
+processed to reflect the current position of the cue(). The output
 looks like this:
 
 ::
 
     i 1 12 0.5 0.707 0 0
 
+Remember when we set ``cue = score.cue`` earlier? This was done to
+create a shorthand version to eliminate having to specify the full
+score object and method.
+
 As for translating the drum 'n' bass parts, each measure has been
 split into its own chuck of events. The first event in measure 2
 has been changed to 0.0, and the same goes for measures 3 and 4.
-The cue() object allows the composer to think of time local to the
-current measure, rather than manually calculate the global time.
+The ``cue()`` object allows the composer locally to the current
+measure, rather than manually calculating the global time at all
+times.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_cue.csd
     :language: python
@@ -197,11 +212,11 @@ current measure, rather than manually calculate the global time.
 **Source:** :download:`amen_cue.csd <../../examples/tutorials/amen/amen_cue.csd>`
 
 There are of course many more benefits. For example, moving entire
-sections of code is a fairly trivial process in PythonScore. Doing the
-same in the classical score could require translating start times
-down a long pfield 2 column. It is the assertion of the author that
-this feature, and this feature alone, makes transitioning to Python
-Score more than worthwhile.
+sections of code is a fairly trivial process in PythonScore. Doing
+the same in the classical score could require translating start
+times down a long pfield-2 column. It is the assertion of the author
+that this feature, and this feature alone, makes transitioning to
+PythonScore more than worthwhile.
 
 Measures
 ========
@@ -227,7 +242,7 @@ instance of cue().
 Let's focus little on the math. The global score starts at 0, but
 measures start at 1. The is overcome with an offset of -1. In 4/4,
 there are four beats per measure, which requires the offset value
-to be multplied by 4. Testing the math in the Python Interpretor
+to be multplied by 4. Testing the math in the Python Interpreter
 with inputting 4::
 
     >>> def test_my_math(t):
