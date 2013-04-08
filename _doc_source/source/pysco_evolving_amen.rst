@@ -539,8 +539,8 @@ perfect 5th.
 
 Where these callbacks are placed matter. Typically it is good
 practice to place p_callback() functions before any events are
-placed in the score. In this example, these are places just prior
-to score().
+placed in the score. In this example, these are placed just prior
+to the first write to the ``score()``.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
@@ -571,27 +571,31 @@ The ``score.p_callback()`` calls are refectored using this new funtion.
     :start-after: cue = score.cue
     :end-before: score.write(
 
-Default Values for Score Instruments
-====================================
+Default Arguments
+=================
 
-Earlier in the tutorial when score instruments were created for kick() and snare(), the ability to modify duration, amplitude, postion, and sampling tunig was factored out. We're going to factor everything except for the position argument back into these score instruments using keyword default values. The keywords for all three instruments are: dur, amp, and tune.
-
-Since these are being refactored back in as keyword default args, all our existing calls to these score instruments will continue to work as is, and we're gaining the ability to use these args if we choose to use them.
-
-Here is what the three score instruments look like now they all have default args:
+Earlier in the tutorial when ``kick()``, ``snare()``, and ``hat()``
+were created the instr number, start time, duration, amplitude,
+sample position offset, and tuning were factored out of the interface.
+Three of these are put back in as optional arguments: duration,
+amplitude, and tuning. Since these are optional arguments, we can
+continue using the existing short form. Here are the updated score
+instruments:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :start-after: return value * 2 **
     :end-before: drum_pattern
 
-Now that they're in, a test drum pattern is in order. This pattern just plays four kicks on the beat, transposed down a perfect 4th.
+A new pattern is created that simple plays four kicks on the beat
+transposed down a perfect fourth.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :pyobject: drum_pattern_2
 
-Here's the resulting changes to the score:
+Here is ``drum_pattern_2()`` tested in context with two other
+patterns:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
@@ -601,34 +605,44 @@ Here's the resulting changes to the score:
 Player Instruments
 ==================
 
-Functions can also be used to generate gestures. In a sense these are another for of score instruments. The implemented in this example takes as its first argument the function in which we want to play.
+Python functions can accept other functions as arguments. This is
+taken advantage of in this example as we create a generic player
+instrument that accepts either ``kick()``, ``snare()``, or ``hat()``
+as its first argument, then plays the passed score instrument based
+on the the proceeding arguments. This is possible since our score
+instruments have identical interfaces.
 
-Since kick(), snare(), and hat() all have identical signatures for their argument inputs, creating a player instrument that can treat them equally is iis easy.
+In addition to the instrument to play, here is a description of the
+rest of the args in order:
 
-For the argument, we can pass kick, snare, or hat. The duration of the phrase is passed in as the second arg. The duration of the indivual notes is arg 3. The number of beats to play through the lifespan of the instrument if arg 4. The start_amp and end_amp args do a linear envelop from the first and last nights, which is similiar to the classical score ramp function. And then there is one optional keyword arg for consistant tuning for all samples played by swell().
+	* The duration of that phrase in beats.
+	* The duration of the individual instrument events.
+	* The number of beats to play through the lifespan of the player.
+	* The amplitude of the first note.
+	* The amplitude of the target last note.
+	* Optional arg for tuning.
+
+The player instrument is named ``swell()`` as it was originally
+envisioned as way to play instruments with ramped amplitudes:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: swell
 
-Wrapping this up into a reuasable phrase:
+Here is a new pattern that utilizes the new player instrument:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: intro
 
-Invocation and audio:
+Algorithmic Flair
+=================
 
-Algorithmic Flair Drum Pattern
-==============================
-
-For the last drum pattern of this tutorial, we're going to create one that has a bit of an algorithmic flair for randomly generating kicks, snares, and hats.
-
-For this pattern, we're going to use the random function from Python's random library, which needs to be imported::
+For the last drum pattern of this tutorial, we're going to create one that has a bit of an algorithmic flair for randomly generating kicks, snares, and hats. For this pattern, we're going to use the random function from Python's random module, which is imported near the top of the score:: 
 
     from random import random
 
-The pattern is defiend as:
+Then 
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
