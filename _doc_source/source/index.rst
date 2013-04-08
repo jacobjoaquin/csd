@@ -5,7 +5,7 @@ Csound csd Python Package
 .. toctree::
     :maxdepth: 2
 
-    Installing csd<install.rst>
+    Installing csd <install.rst>
     CSD Modules <csd_sco_event.rst>
     PythonScore <pysco.rst>
     Demo Scripts <demo/index.rst>
