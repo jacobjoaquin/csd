@@ -1,5 +1,3 @@
-`View On GitHub <https://github.com/jacobjoaquin/csd>`_
-
 %%%%%%%%%%%%%%%%%%%%%%%%%
 Csound csd Python Package
 %%%%%%%%%%%%%%%%%%%%%%%%%
