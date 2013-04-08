@@ -141,7 +141,7 @@ Porting a classical score into the Python requires a few lines of
 code to set up. First, set the argument of the CsScore bin utility
 to "python". Then import PythonScore::
 
-	from pysco import PythonScore
+    from pysco import PythonScore
 
 An object called ``score`` is instantiated from the ``PythonScore()``
 class. Additionally, variable ``cue`` is created and points to the
@@ -221,13 +221,13 @@ PythonScore more than worthwhile.
 Measures
 ========
 
-The drum 'n' bass score is in 4/4. While the cue() object allows
-us to treat beats local to the current measure, the arguments for
-the cue() are in absolute global time in the previous section. Out
-of the box, PythonScore does not support measures. However, Python
+The drum 'n' bass score is in 4/4. While ``cue()`` allows us to
+treat beats local to the current measure, the arguments for the
+cue() are still in absolute global time. Out of the box, PythonScore
+does not support measures. However, Python is highly extensible and
 lets you *roll your own*. Implementing 4/4 measures is done by
 `defining a new function
-<http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_.
+<http://docs.python.org/2/tutorial/controlflow.html#defining-functions>`_:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
@@ -245,17 +245,17 @@ there are four beats per measure, which requires the offset value
 to be multplied by 4. Testing the math in the Python Interpreter
 with inputting 4::
 
-    >>> def test_my_math(t):
+    >>> def test_measure(t):
     ...     return (t - 1) * 4.0
     ...
-    >>> test_my_math(4)
+    >>> test_measure(4)
     12.0
 
-The value returned is 12, which is the starting time of the first
-event in measure 4 in the original classical score. Applying measure()
-to the PythonScore, were left with the following. Notice that the
-comments have been factored out now that the code itself clearly
-indicates what a measure is:
+Inputting 4 into our test the value returned is 12, which is the
+starting time of the first event in measure 4 in the original
+classical score. Applying ``measure()`` to the PythonScore, were
+left with the following. Notice that the comments have been factored
+out now that the code itself clearly indicates what a measure is:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_measure.csd
     :language: python
@@ -267,9 +267,9 @@ indicates what a measure is:
 Instrument Event Function
 =========================
 
-The event_i() function is another way for entering in data into the
-score. Instead of a string, it accepts any number of arguments and
-constructs a valid classical score event string. For example::
+The ``score.i()`` method is another way for entering in data into
+the score. Instead of a string, it accepts any number of arguments
+and constructs a valid classical score event string. For example::
 
     score.i(1, 0, 1, 0.707, 8.00)
 
@@ -277,7 +277,7 @@ Outputs::
 
     i 1 0 1 0.707 8.00
 
-Replacing the calls to score() with event_i in the Amen score, the
+Replacing the calls to ``score.write()`` with the ``i()`` method in the Amen score, the
 updated code looks like this:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_i.csd
@@ -292,22 +292,22 @@ Nesting Time
 
 A ``with cue()`` statement can be placed inside a heiarchy of other
 ``with cue()`` statements. This allows composers to reset the
-relative positional time to 0 regardless of the current scope of
+relative positional time to zero regardless of the current scope of
 time by writing another ``with cue()`` statement: For example, this
 is possible::
 
     with cue(32):
         with cue(4):
-                event_i(1, 0, 1)
+            with cue(1):
+                score.i(1, 0, 1, 0.707, 0, 1)
 
 Though the start time of the event is written as 0, the actual start
 time of the event is 37, which is the cumulation of all the args
-in the cue nesting hierarchy plus pfield 2: ``32 + 4 + 1 + 0``
+in the cue nesting hierarchy plus pfield-2: ``32 + 4 + 1 + 0``
 
 The greater implication is that time can be completely decoupled
-from the event within the code. In this version of the score the
-start times are moved from the pfield 2 column to the the ``cue()``,
-and then set to 0.
+from events. In this version of the score the start times are moved
+from the pfield-2 column to the the ``cue()``, and then set to 0.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_nest.csd
     :language: python
@@ -316,37 +316,37 @@ and then set to 0.
 
 **Source:** :download:`amen_nest.csd <../../examples/tutorials/amen/amen_nest.csd>`
 
-The code right is a little messy, but this will be cleaned up.
-
 Score Instruments
 =================
 
 Composers can create named Python functions that call their
 corresponding orchestra instruments. Furthermore, multiple functions
-can be created to the same instrument, but with more specific intent
-as to the resulting behavoir of the intruments.
+can be created for the same instrument, but with more specific
+intent as to what the resultant behavior of the instrument is, like
+a patch.
 
 The sampler instrument in the orchestra is fairly simple and generic
 in design. While the Amen Break loop is fixed, the instrument itself
-has no knowledge of kicks or hats. It only accesses the part of the
-sample denoted by the positional value passed in through pfield-5.
+has no knowledge of kicks or snares. It only accesses the part of
+the sample denoted by the beat positional offset passed into pfield-5.
 
 Looking at the PythonScore code from the last example, there are
-only two unique calls to score.i(), and even then all the arguments
-are identical except for pfield-5::
+only two unique calls to ``score.i()``, and even then all the
+arguments are identical except for pfield-5::
 
-	score.i(1, 0, 0.5, 0.707, 0, 1)
-	score.i(1, 0, 0.5, 0.707, 1, 1)
+    score.i(1, 0, 0.5, 0.707, 0, 1)
+    score.i(1, 0, 0.5, 0.707, 1, 1)
 
 The former plays a kick drum while the latter plays a snare. Though
 looking at the code you might not know which is which and who is
-who. [#darksideofthemoon]_ This is because the difference is just
-the data used in pfield 5.
+who. [#darksideofthemoon]_ This is because the classic Csound events
+are more or less just data, and don't naturally signify what's
+behind the data.
 
-These statements are also unnecessirly long in Python and are ripe
-to for consolidation. Defining functions for the kick and snare
-avoids the extra overhead by factoring out all the args. Something
-is made possible by the ``cue()`` object.
+These statements are also unnecessirly long in Python, which makes
+them ripe to for consolidation. Defining functions for the kick and
+snare avoids the extra overhead by factoring out all the args.
+Something is made possible by the ``cue()`` object.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
@@ -355,8 +355,9 @@ is made possible by the ``cue()`` object.
 
 An equally important benefit to this approach is that with proper
 names, this techinique creates code that is self documenting and
-easier to read. If you type kick() it plays a kick. Type snare()
-it plays a snare. Type snozberry() it plays a snozberry(). [#snozberry]_
+easier to read. If you type ``kick()`` it plays a kick. Type
+``snare()`` it plays a snare. Type ``snozberry()`` it plays a
+snozberry(). [#snozberry]_
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_instr.csd
     :language: python
@@ -371,15 +372,15 @@ Drum Pattern
 The score contains four measures that contain identical content.
 Functions can store musical phrases, everything from a single note
 to complete works of Beethoven if necessary. In this case, we have
-a simple 4 notes drum 'n' bass pattern.
+a simple four notes drum 'n' bass pattern.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
     :pyobject: drum_pattern
 
-These events will not be generated until the function is accessed.
+These events will not be generated until the function is called.
 For each measure, four lines of score instruments is replaced with
-drum_pattern().
+``drum_pattern()``.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
@@ -389,9 +390,9 @@ drum_pattern().
 **Source:** :download:`amen_pattern.csd <../../examples/tutorials/amen/amen_pattern.csd>`
 
 Functions aren't limited to storing measures of data. Notes, licks,
-phrases, bars, sections, entire scores, can all be placed inside a
-function. Later when it's time to start arranging, musical patterns
-like these can be more or less dropped into ``measure()`` blocks.
+phrases, bars, sections, scores, can all be placed inside a function.
+Later when it's time to start arranging, musical patterns like these
+can be more or less dropped into ``measure()`` blocks.
 
 Interlude
 =========
@@ -657,12 +658,12 @@ instruments have identical interfaces.
 In addition to the instrument to play, here is a description of the
 rest of the args in order:
 
-	* The duration of that phrase in beats.
-	* The duration of the individual instrument events.
-	* The number of beats to play through the lifespan of the player.
-	* The amplitude of the first note.
-	* The amplitude of the target last note.
-	* Optional arg for tuning.
+    * The duration of that phrase in beats.
+    * The duration of the individual instrument events.
+    * The number of beats to play through the lifespan of the player.
+    * The amplitude of the first note.
+    * The amplitude of the target last note.
+    * Optional arg for tuning.
 
 The player instrument is named ``swell()`` as it was originally
 envisioned as way to play instruments with ramped amplitudes:
