@@ -4,17 +4,11 @@ The Amen Break Scorc Tutorial
 
 By Jacob Joaquin jacobjoaquin@gmail.com
 
-..
-    TODO: Update orchesta. Envelope was added in variation example.
-    TODO: hat() before evolving_amen_default_args.csd need updating
-    TODO: drum_pattern_2 isn't in everything
-    TODO: (1 / tune) should be float(tune). In many files near the end me thinks
-
-scorc
-
 ************
 Introduction
 ************
+
+*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
 
 Python Score, or Pysco for short, is a fully modular score environment
 for the Csound unified CSD file. Unlike other alternative text-based
@@ -54,8 +48,6 @@ Since Pysco is under development, consider this tutorial a living
 document, and be updated to keep up with any changes. Send questions,
 comments, and bugs to jacobjoaquin@gmail.com, or write to the Csound
 Mailing List.
-
-*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
 
 The Orchestra
 =============
@@ -365,7 +357,7 @@ These events will not be generated until the function is accessed.
 For each measure, four lines of score instruments is replaced with
 drum_pattern().
 
-.. literalinclude:: ../../demo/pysco/evolving_amen_pattern.csd
+.. literalinclude:: ../../examples/tutorials/amen/amen_pattern.csd
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
@@ -394,63 +386,57 @@ Starting with the next section
 Further Score Development
 *************************
 
-Since Python is an open-ended environment, there are many ways in which to develop a personalized score environment for a piece. In this section, we'll build new features into our environment one by one. Many of these concepts may be used in other pieces either together, or individually.
-
-The goal of this section is to introduce concepts that are readily available, while at the same time trying to make aware how much Python has to offer. The approach maybe a little aggressive at times, but at the same time none of the concepts introduced here are necessariy for your scores.
-
-Each new Python Score idiom is distilled to a stand alone example. Entire scores are phased out to only the code added with each new example.
-
-The orchestra will remain unchanged, though the score and audio examples will change through out.
+Python is an open-ended highly extensible language which allows
+many new ways to developer a highly personalized score environment.
+In the examples to come, new features and musical phrases are built
+on top of the existing work covered in the previous examples. The
+orchestra will remain unchanged, though the music will.
 
 Looping Through Lists
 =====================
 
-A list is a Python container for storing various data, which may include numbers, strings, other lists, functions, etc. And they make a wonderful additional to the score environment. They're highly versatile, capable of evertything from saving time for the composer through automation, to generating granular synthesis events, to algorithmic composition.
+A list is a Python container for storing various data, which may include numbers, strings, other lists, functions, etc. And they make a wonderful additional to the score environment. They're highly versatile and time saving. This example is a list of integers::
 
-The for statement is used to loop through each value in the specified list. As the program loops through the list, the m variable becomes the value of the current value in the list. Thus, calling drum_pattern() for measures 1, 2, 3, and 4.
+    [1, 2, 3, 4]
+
+A loop is created from a list with the ``for`` statment, as it will iterate through each value. In the score as the ``for`` loop iterates through the list, the ``m`` variable assumes the the value of the current list item. This is shorthand for calling ``drum_pattern()`` for measures 1 through 4:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_list.csd
     :language: python
     :start-after: score.write(
-    :end-before: </CsScore>
-
-Now that much of the score code has been consolidated into a function and a foor loop, this score is now 2 lines shorter than the original Csound classical score in the first example.
+    :end-before: score.end
 
 Range
 =====
 
-The Python range() generates lists of integers automatically. It's a very commonly used function in Python, and one you should learn sooner rather than later.
-
-::
+The Python ``range()`` generates lists of integers automatically and is useful in a range of different contexts. Here are three examples of lists generated with ``range()``::
 
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    >>> range(1, 5)
-    [1, 2, 3, 4]
+    >>> range(4, 8)
+    [4, 5, 6, 7]
+    >>> range(0, 32, 4)
+    [0, 4, 8, 12, 16, 20, 24, 28]
 
-The score substitues range(1, 5) for [1, 2, 3, 4]. 
+Substituting that manually created list with ``range()`` leaves us with this update to the loop in the score.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_range.csd
     :language: python
-    :start-after: <CsScore
-    :end-before: </CsScore>
+    :start-after: score.write
+    :end-before: score.end
 
 Choice Variation
 ================
 
-So far, all the functions we've used come either built-in or built by hand with a function. Python has an easy process for importing existing functions from various libraries. Python itself comes with a bunch of useful libraries that can be used within the context of a compositional environment. And then there are a bunch of a third party libraries that can be used as well. In fact, Pysco itself is a Python library.
+Python comes with the random module which includes the ``choice()`` function that returns a random value from a list. Prior to this example, all kick and snare events use the sample from the Amen break. Applied to the ``kick()`` and ``snare()`` score instruments, these functions randomly choose samples from a fixed list of positions in the drum loop.
 
-To add a little variation to our kick() and snare() score instruments, the choice() function is imported and used to randomly select from different positions within the Amen break.
-
-Changes are made to the kick() and snare() functions.
-
-The choice() function is really simple to use. Pass a list of data to choice, and it randomly selects one of the values. Using the kick() score instrument as an example, choice selects from 4 different possible start positions in the Amen break where a kick is.
+The ``kick()`` function chooses from positions 0, 0.5, 4, and 4.5:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: kick
 
-The snare() works the same way, with the only difference being the start positions.
+The ``snare()`` functions chooses from positions 1, 3, 5, and 7:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
@@ -459,22 +445,19 @@ The snare() works the same way, with the only difference being the start positio
 Hats
 ====
 
-The reaffirms the concept of single a instrument with multiple score-based interfaces.
-
-* Reinforce one instrument, multiple score interfaces
-* Include phrases within new phrases
+Once again, a new score instrument is created from a function by repurposing the code used in ``kick()`` and ``snare()`` for a hihat:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: hat
 
-New pattern. Musical phrases defined as functions can be embedded into other phrase functions.
+A second drum pattern called ``drum_pattern_8th_hats()`` is created, a variation on the original drum pattern. In fact, ``drum_pattern()`` is called right in this new function.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: drum_pattern_8th_hats
 
-One thing worth mentioning is to create the 8th note rhythms, the foor loop iterates through the values 0 through 7, and then each value is divided by 2.0 as the argument for cue().
+Both patterns are played side by side in the updated score:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
@@ -484,18 +467,15 @@ One thing worth mentioning is to create the 8th note rhythms, the foor loop iter
 Post Processing with pmap()
 ===========================
 
-Playing back the last example will sometimes lead to samples out range. Not everytime because of the random nature of our kick(), snare(), and hat() score instruments. There are many approaches one could take to fix this problem, with one using the Python Score pmap() function for post processing of pfield data.
-
-To avoid samples being played out of range, we need to change all the amplitudes uniformly in the score. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
-
-.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
-    :language: python
-    :pyobject: multiply
-
-The pmap() function takes the following input::
+Any data entered into the ``score()`` object via the ``PythonScore`` ``write()`` or ``i()`` methods can be treated as data and post-processed with ``pmap()``. If you ran the last example multiple times, you might have noticed the "samples out of range" warning. This can be solved on fell swoop. The pmap() function takes the following input::
 
     pmap(event_type, instr, pfield, function, *args, **kwargs)
 
+To avoid samples being played out of range, all the amplitudes in the score must be lowered. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
+
+.. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
+   :language: python
+    :pyobject: multiply
 
 The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
 
@@ -509,16 +489,16 @@ The pmap() function only works on data already in the score. For this reason, th
 Pre-processing Events with p_callback()
 =======================================
 
-The p_callback() function is the pre-processing equivalent of pmap(). There are a few differences. First, the p_callback() registers a function to use against a specific pfield for a specific instrument ebefore data is entered into the score. When score data is entered, any events that match the selector of p_callback(), the data is then transformed before being entered into the score.
+The p_callback() method is the pre-processing equivalent of pmap(). The p_callback() registers a function to use with a specific pfield for a specific instrument, and manipulates data as it is entered into the score. 
 
-As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used to tuning an instrument. Since this changing the pitch affects the length of the sample played back, causing to bleed into the next drum sample in the loop, a second p_callback() modifies the duration by the inverse of the perfect 5th.
+As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used for tuning the samples. Since changing the pitch also affects the length of the sample, which in turn can cause the more of the sample to bleed into the portion being played, a second p_callback() modifies the duration by the inverse of the perfect 5th.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
     :start-after: cue = score.cue
     :end-before:  score.write(
 
-Where these callbacks are placed matter. Typically speak, good practice involves placing the p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
+Where these callbacks are placed matter. Typically it is good practice to place p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
