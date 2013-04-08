@@ -2,15 +2,13 @@
 Amen Break PythonScore Tutorial
 ###############################
 
-By Jacob Joaquin
+By Jacob Joaquin <jacobjoaquin@gmail.com>
 
-jacobjoaquin@gmail.com
+*Updated April 8th, 2013*
 
 ************
 Introduction
 ************
-
-*"Y'all ready for this?"* - Michael J. Nelson [#michaeljnelson]_
 
 PythonScore is a fully modular score environment for the Csound
 unified CSD file. Unlike other alternative text-based score
@@ -65,23 +63,24 @@ throughout the entirety of this tutorial. Let's take a look:
 **Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
 
 The orchestra contains only a single instrument, a basic sampler
-with the Amen Break [#amen]_ as its only audio source. The instrument
-includes support for three custom pfield inputs for amplitude, the
-beat positional sample offset, and for tuning the sample. The fact
-that this is only a very basic instrument is purposful as techniques
-discussed in this tutorial will demonstrate that even simple
-instruments can be greatly enhanced with using some of the new
-techniques afforded by Python.
+with the `Amen Break <http://en.wikipedia.org/wiki/Amen_break>`_
+as its only audio source. The instrument includes support for three
+custom pfield inputs for amplitude, the beat positional sample
+offset, and for tuning the sample. The fact that this is only a
+very basic instrument is purposful as techniques discussed in this
+tutorial will demonstrate that even simple instruments can be greatly
+enhanced with using some of the new techniques afforded by Python.
 
-The output of this sampler has a very trashy [#trashy]_ quality to
-it, and sounds like it was produced with a tracker [#tracker]_ such
-as Fast Tracker II. [#ft2]_
+The output of this sampler has a very trashy quality to it, and
+sounds like it was produced with a `tracker
+<http://en.wikipedia.org/wiki/Music_tracker>`_ such as `Fast Tracker
+II <http://en.wikipedia.org/wiki/FastTracker_2>`_.
 
 The use of a drum loop is chosen for a very specific reason. The
 ability to express occurances in time is a defining attribute of
 PythonScore, and percussion-based events are great for honing in
 on timing. *Do not get the wrong impression that PythonScore caters
-to 4/4 drumm music, as this is far from the truth.*
+to 4/4 drum music, as this is far from the truth.*
 
 The Python Interpreter
 ======================
@@ -132,7 +131,7 @@ score.
 **Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
 
 The score code produces four measures of the same drum pattern. The
-pattern itself is the classical drum 'n' bass. [#dnb]_
+pattern itself is the classical `drum 'n' bass <http://en.wikipedia.org/wiki/Drum_and_bass>`_.
 
 Upgrade
 =======
@@ -150,7 +149,7 @@ why. Classical Csound source code is entered into the ``score()``
 object via the ``write()`` method. And last, add ``score.end()``
 as the last statement in the score to tell PythonScore that it's
 ready to generate the classical Csound score code and pass it to
-Csound. The result is this new score::
+Csound. The result is this new score:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_upgrade.csd
     :language: python
@@ -166,9 +165,6 @@ combination with other Python features as you learn them.
 
 Time is Relative
 ================
-
-*"It's what makes time travel possible."* - Dr. Emmett Lathrop Brown
-[#fluxcapacitor]_
 
 For the most part, when events are entered into a classical Csound
 score, the start times are in global beats. PythonScore changes
@@ -236,8 +232,6 @@ lets you *roll your own*. Implementing 4/4 measures is done by
 This two line custom function takes the measure number as its sole
 argument and translates measure time to beat time, and returns an
 instance of cue().
-
-*"Mathematical!"* - Jake the Human [#adventuretime]_
 
 Let's focus little on the math. The global score starts at 0, but
 measures start at 1. The is overcome with an offset of -1. In 4/4,
@@ -338,8 +332,8 @@ arguments are identical except for pfield-5::
     score.i(1, 0, 0.5, 0.707, 1, 1)
 
 The former plays a kick drum while the latter plays a snare. Though
-looking at the code you might not know which is which and who is
-who. [#darksideofthemoon]_ This is because the classic Csound events
+looking at the code *who knows which is which and who is
+who*. [#darksideofthemoon]_ This is because the classic Csound events
 are more or less just data, and don't naturally signify what's
 behind the data.
 
@@ -683,8 +677,6 @@ Here is a new pattern that utilizes the new player instrument:
 Algorithmic Flair
 =================
 
-*"All right? There's my flair! Okay? And this is me expressing myself, okay?"* - Joanna, Office Space [#officespace]_
-
 For the last drum pattern of this tutorial, we're going to create
 one that has a bit of an algorithmic flair for randomly generating
 kicks, snares, and hats. For this pattern, we're going to use the
@@ -753,13 +745,5 @@ also be used to bring greater clarity to the score.
 
 .. rubric:: Footnotes
 
-.. [#michaeljnelson] The MST3K guy
-.. [#amen] Amen break description. Everything from N.W.A. to the Power Puff Girls
-.. [#trashy] Trashy is a good thing in the right context.
-.. [#tracker] Trackers are the bee's knees
-.. [#dnb] Drum'n'bass beat
-.. [#snozberry] Who's every heard of a snozberry?
-.. [#fluxcapacitor] BTTF
-.. [#adventuretime] Episode 3 Season 1
-.. [#darksideofthemoon] Which is which
-.. [#officespace] Flair
+.. [#darksideofthemoon] Pink Floyd, "Us and Them", The Dark Side of the Moon, 1973
+.. [#snozberry] Willy Wonka and the Chocolate Factory, movie, 1971
