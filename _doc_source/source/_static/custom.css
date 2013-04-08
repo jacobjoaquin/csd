@@ -1,13 +1,52 @@
 a {
-    color: #1F71B3;
+    color: rgb(179, 31, 3);
 }
 
 body {
     background-color: #328fca;
     font-family: Avenir, "Helvetica Neue", Helvetica, 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+	min-width: 740px;
+	max-width: 800px;
+	margin: 0 auto;
 }
 
 div.related ul li a {
-    #D64B3A
+    color: #D64B3A
 }
 
+pre {
+    font-size: 12px;
+}
+
+div.sphinxsidebarwrapper #downloadrepo a:link {
+    color: #330000;
+}
+
+div.sphinxsidebarwrapper #downloadrepo a:visited {
+    color: #330000;
+}
+
+div.sphinxsidebarwrapper #downloadrepo a:hover {
+    color: #330000;
+    text-decoration: underline;
+}
+
+div.sphinxsidebarwrapper #downloadrepo a:active {
+    color: #330000;
+}
+
+
+div.sphinxsidebarwrapper h3 {
+    background-color: #800;
+    border-color: #600;
+}
+
+div.sphinxsidebarwrapper h4 {
+    background-color: #800;
+    border-color: #600;
+}
+
+div.sphinxsidebarwrapper #downloadrepo {
+    width: 100%;
+    text-align: center;
+}

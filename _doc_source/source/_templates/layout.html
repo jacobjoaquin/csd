@@ -15,3 +15,20 @@
 {% endblock %}
 
 {% set css_files = css_files + ["_static/custom.css"] %}
+
+{% block sidebarlogo %}
+<h3>Get CSD</h3>
+<ul id="downloadrepo">
+    <li><a href="https://github.com/jacobjoaquin/csd/zipball/master">Download <strong>ZIP File</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
+</ul>
+{% endblock %}
+
+{% block sidebar1 %}
+{{ sidebar() }}
+{% endblock %}
+
+{% block sidebar2 %}
+{% endblock %}
+
