@@ -63,6 +63,8 @@ entirety of this tutorial. Let's quickly review:
     :start-after: <CsInstruments
     :end-before: </CsInstruments
 
+**Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
+
 The orchestra contains only a single instrument, a basic sampler
 with the Amen Break [#amen]_ as its only audio source. The instrument
 includes support for three custom pfield insputs for amplitude, the
@@ -126,6 +128,8 @@ score.
     :start-after: <CsScore
     :end-before: </CsScore>
 
+**Source:** :download:`amen_classic.csd <../../examples/tutorials/amen/amen_classic.csd>`
+
 The score code produces 4 measures of the same drum pattern. The
 pattern itself is the classical drum 'n' bass. [#dnb]_
 
@@ -144,6 +148,8 @@ result in the followin PythonScore code:
     :language: python
     :start-after: </CsInstruments>
     :end-before: </CsoundSynthesizers>
+
+**Source:** :download:`amen_upgrade.csd <../../examples/tutorials/amen/amen_upgrade.csd>`
 
 If you are worried that you would have to throw out everything you
 know about the classic Csound score, fear not because you can still
@@ -187,6 +193,8 @@ current measure, rather than manually calculate the global time.
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+**Source:** :download:`amen_cue.csd <../../examples/tutorials/amen/amen_cue.csd>`
 
 There are of course many more benefits. For example, moving entire
 sections of code is a fairly trivial process in PythonScore. Doing the
@@ -239,6 +247,8 @@ indicates what a measure is:
     :start-after: <CsScore
     :end-before: </CsScore>
 
+**Source:** :download:`amen_measure.csd <../../examples/tutorials/amen/amen_measure.csd>`
+
 Instrument Event Function
 =========================
 
@@ -259,6 +269,8 @@ updated code looks like this:
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+**Source:** :download:`amen_i.csd <../../examples/tutorials/amen/amen_i.csd>`
 
 Nesting Time
 ============
@@ -286,6 +298,8 @@ and then set to 0.
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+**Source:** :download:`amen_nest.csd <../../examples/tutorials/amen/amen_nest.csd>`
 
 The code right is a little messy, but this will be cleaned up.
 
@@ -334,6 +348,8 @@ it plays a snare. Type snozberry() it plays a snozberry(). [#snozberry]_
     :start-after: <CsScore
     :end-before: </CsScore>
 
+**Source:** :download:`amen_instr.csd <../../examples/tutorials/amen/amen_instr.csd>`
+
 Drum Pattern
 ============
 
@@ -354,6 +370,8 @@ drum_pattern().
     :language: python
     :start-after: <CsScore
     :end-before: </CsScore>
+
+**Source:** :download:`amen_pattern.csd <../../examples/tutorials/amen/amen_pattern.csd>`
 
 Functions aren't limited to storing measures of data. Notes, licks,
 phrases, bars, sections, entire scores, can all be placed inside a
@@ -406,6 +424,8 @@ for measures 1 through 4:
     :start-after: score.write(
     :end-before: score.end
 
+**Source:** :download:`amen_list.csd <../../examples/tutorials/amen/amen_list.csd>`
+
 Range
 =====
 
@@ -428,6 +448,8 @@ with this update to the loop in the score.
     :start-after: score.write
     :end-before: score.end
 
+**Source:** :download:`amen_range.csd <../../examples/tutorials/amen/amen_range.csd>`
+
 Choice Variation
 ================
 
@@ -449,6 +471,8 @@ The ``snare()`` functions chooses from positions 1, 3, 5, and 7:
 .. literalinclude:: ../../examples/tutorials/amen/amen_choice.csd
     :language: python
     :pyobject: snare
+
+**Source:** :download:`amen_choice.csd <../../examples/tutorials/amen/amen_choice.csd>`
 
 Hats
 ====
@@ -474,6 +498,8 @@ Both patterns are played side by side in the updated score:
     :language: python
     :start-after: score.write(
     :end-before: score.end()
+
+**Source:** :download:`amen_hats.csd <../../examples/tutorials/amen/amen_hats.csd>`
 
 Post Processing with pmap()
 ===========================
@@ -504,6 +530,8 @@ function
     :language: python
     :start-after: cue = score.cue
     :end-before: </CsScore>
+
+**Source:** :download:`amen_postprocess.csd <../../examples/tutorials/amen/amen_postprocess.csd>`
 
 The pmap() function only works on data already in the score. For
 this reason, the best place for most cases will be either after the
@@ -540,6 +568,8 @@ to the first write to the ``score()``.
     :start-after: cue = score.cue
     :end-before:  </CsScore
 
+**Source:** :download:`amen_preprocess.csd <../../examples/tutorials/amen/amen_preprocess.csd>`
+
 Transpose
 =========
 
@@ -563,6 +593,8 @@ The ``score.p_callback()`` calls are refectored using this new funtion.
     :language: python
     :start-after: cue = score.cue
     :end-before: score.write(
+
+**Source:** :download:`amen_transpose.csd <../../examples/tutorials/amen/amen_transpose.csd>`
 
 Default Arguments
 =================
@@ -594,6 +626,8 @@ patterns:
     :language: python
     :start-after: score.write(
     :end-before: score.pmap
+
+**Source:** :download:`amen_default_args.csd <../../examples/tutorials/amen/amen_default_args.csd>`
 
 Player Instruments
 ==================
@@ -627,6 +661,8 @@ Here is a new pattern that utilizes the new player instrument:
 .. literalinclude:: ../../examples/tutorials/amen/amen_player.csd
     :language: python
     :pyobject: intro
+
+**Source:** :download:`amen_player.csd <../../examples/tutorials/amen/amen_player.csd>`
 
 Algorithmic Flair
 =================
@@ -678,6 +714,8 @@ with a random extra samples.
     :start-after: score.write(
     :end-before: score.pmap
 
+**Source:** :download:`amen_flair.csd <../../examples/tutorials/amen/amen_flair.csd>`
+
 Form With Functions
 ===================
 
@@ -693,6 +731,8 @@ final score and see if you can figure out the form?
 Granted, not all scores are built the same, and Python definitely
 allows the creation of some horrendous code. Though the code can
 also be used to bring greater clarity to the score.
+
+**Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`
 
 .. rubric:: Footnotes
 
