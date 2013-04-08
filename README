@@ -13,16 +13,23 @@ Mission Statement
 *"Enable users to process and generate Csound orchestras and scores
 quickly, easily and efficiently."*
 
+Download CSD
+------------
+
+ZIP: https://github.com/jacobjoaquin/csd/zipball/master
+TAR Ball: https://github.com/jacobjoaquin/csd/tarball/master
+Clone from Github: $ git clone git://github.com/jacobjoaquin/csd.git
 
 Quick Installation Instructions
 -------------------------------
 
-To install, clone from git and run setup.
+In a terminal window, cd to the csd folder and type:
 
-	$ git clone git://github.com/jacobjoaquin/csd.git
-	$ cd csd
-	$ python setup.py install
+	python setup.py install
 
+On Linux, Unix, and OS X, you may need to sudo it:
+
+	sudo python setup.py install
 
 About
 -----
