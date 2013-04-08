@@ -12,11 +12,11 @@ Introduction
 
 PythonScore is a fully modular score environment for the Csound
 unified CSD file. Unlike other alternative text-based score
-environements, PythonScore is non-imposing and does its best to get
+environments, PythonScore is non-imposing and does its best to get
 out of the way rather than to impose a strict set of rules for
 composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
-score tools A La Carte as the see fit.
+score tools *à la carte* as the see fit.
 
 This purpose of this tutorial is to try and prove the merits of
 using the Python language in favor of the classical Csound score.
@@ -24,7 +24,7 @@ The classical score is a fixed system while Python is a very mature
 and highly extensible language with a vast collection of first and
 third party modules. Despite being a general purpose language that
 wasn't designed for music, Python is particularly well suited for
-compostion.
+composition.
 
 PythonScore is not meant as a full replacement of the classical
 Csound score, but as an enhancement. Any and all existing classical
@@ -67,7 +67,7 @@ with the `Amen Break <http://en.wikipedia.org/wiki/Amen_break>`_
 as its only audio source. The instrument includes support for three
 custom pfield inputs for amplitude, the beat positional sample
 offset, and for tuning the sample. The fact that this is only a
-very basic instrument is purposful as techniques discussed in this
+very basic instrument is purposeful as techniques discussed in this
 tutorial will demonstrate that even simple instruments can be greatly
 enhanced with using some of the new techniques afforded by Python.
 
@@ -77,7 +77,7 @@ sounds like it was produced with a `tracker
 II <http://en.wikipedia.org/wiki/FastTracker_2>`_.
 
 The use of a drum loop is chosen for a very specific reason. The
-ability to express occurances in time is a defining attribute of
+ability to express occurences in time is a defining attribute of
 PythonScore, and percussion-based events are great for honing in
 on timing. *Do not get the wrong impression that PythonScore caters
 to 4/4 drum music, as this is far from the truth.*
@@ -88,7 +88,7 @@ The Python Interpreter
 Before diving into the tutorial, an introduction the the `Python
 Interpreter <http://docs.python.org/2/tutorial/interpreter.html>`_
 is in order as it a wonderful tool for quickly testing various
-aspects of the Python language. This tutorial will occasionaly embed
+aspects of the Python language. This tutorial will occasionally embed
 examples using it as well.
 
 Typically, the Python interpreter is used in the terminal, which
@@ -120,7 +120,7 @@ Classical Score to PythonScore
 
 In this section, we'll walk you through some the basic
 features of Python and PythonScore. The tutorial starts with a classical
-Csound score, and adds new PythonScore idioums one by one until
+Csound score, and adds new PythonScore idioms one by one until
 the score as been fully translated. The end result is the new Python
 score.
 
@@ -171,8 +171,8 @@ score, the start times are in global beats. PythonScore changes
 this with by introduction of the ``cue()`` object, a Python `context
 manager
 <http://docs.python.org/2/library/stdtypes.html#typecontextmanager>`_ for
-moving the current postion time in the score. Like a needle on a
-recored. All events entered into PythonScore are relative the current
+moving the current position time in the score. Like a needle on a
+record. All events entered into PythonScore are relative the current
 positional value of ``cue()``.
 
 ::
@@ -236,7 +236,7 @@ instance of cue().
 Let's focus little on the math. The global score starts at 0, but
 measures start at 1. The is overcome with an offset of -1. In 4/4,
 there are four beats per measure, which requires the offset value
-to be multplied by 4. Testing the math in the Python Interpreter
+to be multiplied by 4. Testing the math in the Python Interpreter
 with inputting 4::
 
     >>> def test_measure(t):
@@ -284,7 +284,7 @@ updated code looks like this:
 Nesting Time
 ============
 
-A ``with cue()`` statement can be placed inside a heiarchy of other
+A ``with cue()`` statement can be placed inside a hierarchy of other
 ``with cue()`` statements. This allows composers to reset the
 relative positional time to zero regardless of the current scope of
 time by writing another ``with cue()`` statement: For example, this
@@ -296,7 +296,7 @@ is possible::
                 score.i(1, 0, 1, 0.707, 0, 1)
 
 Though the start time of the event is written as 0, the actual start
-time of the event is 37, which is the cumulation of all the args
+time of the event is 37, which is the accumulation of all the args
 in the cue nesting hierarchy plus pfield-2: ``32 + 4 + 1 + 0``
 
 The greater implication is that time can be completely decoupled
@@ -337,7 +337,7 @@ who*. [#darksideofthemoon]_ This is because the classic Csound events
 are more or less just data, and don't naturally signify what's
 behind the data.
 
-These statements are also unnecessirly long in Python, which makes
+These statements are also unnecessarily long in Python, which makes
 them ripe to for consolidation. Defining functions for the kick and
 snare avoids the extra overhead by factoring out all the args.
 Something is made possible by the ``cue()`` object.
@@ -348,7 +348,7 @@ Something is made possible by the ``cue()`` object.
     :end-before: score =
 
 An equally important benefit to this approach is that with proper
-names, this techinique creates code that is self documenting and
+names, this technique creates code that is self documenting and
 easier to read. If you type ``kick()`` it plays a kick. Type
 ``snare()`` it plays a snare. Type ``snozberry()`` it plays a
 snozberry(). [#snozberry]_
@@ -400,7 +400,7 @@ the score is divided into measures.
 In the examples to come, new features and musical phrases are built
 on top of the existing work covered in the previous examples. The
 orchestra will remain unchanged, though the music will. Some of
-these new idioums are more complex, so it worth playing with what
+these new idioms are more complex, so it worth playing with what
 has be presented thus far. Though do read on even if you just skim
 that material to get a sense as to what other compositional advantages
 that Python brings to composing with code.
@@ -419,7 +419,7 @@ time saving. This example is a list of integers::
 
 A loop is created from a list with the `for
 <http://docs.python.org/2/tutorial/controlflow.html#for-statements>`_
-statment, as it will iterate through each value. In the score as
+statement, as it will iterate through each value. In the score as
 the ``for`` loop iterates through the list, the ``m`` variable
 assumes the the value of the current list item. This is shorthand
 for calling ``drum_pattern()`` for measures 1 through 4:
@@ -487,7 +487,7 @@ Hats
 ====
 
 Once again, a new score instrument is created from a function by
-repurposing the code used in ``kick()`` and ``snare()`` for a hihat:
+re purposing the code used in ``kick()`` and ``snare()`` for a hihat:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
@@ -533,7 +533,7 @@ two numbers:
     :pyobject: multiply
 
 The value of the pfield is passed in as the first arg `x` and 0.707
-as `y`. Pfield-4 is replaced with the value returned by the `multipy()`
+as `y`. Pfield-4 is replaced with the value returned by the `multiply()`
 function
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
@@ -587,9 +587,9 @@ The perfect 5th ratio was hard coded into the last example, but
 transposing data is something that is useful enough that it's worth
 taking the time to consolidate it into a reusable function.
 
-The ``tranpose()`` function accepts two args, one which is required
+The ``transpose()`` function accepts two args, one which is required
 and a second optional default argument. The first arg is the value
-in halfsteps in which to transpose. Without a second arg, it outputs
+in half steps in which to transpose. Without a second arg, it outputs
 the ratio of transposition.  If the second arg is supplied, then
 it will apply the transposition ratio to this before returning the
 output.
@@ -598,7 +598,7 @@ output.
     :language: python
     :pyobject: transpose
 
-The ``score.p_callback()`` calls are refactored using this new funtion.
+The ``score.p_callback()`` calls are refactored using this new function.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
@@ -713,7 +713,7 @@ instrument is generated for the current value of ``time``. The
 ``cue()`` is set to the current value of variable ``time``. The
 ``choice()`` functions then chooses either kick, snare, hat, hat,
 or hat. Then the event is created, with a random amplitude in the
-range os 0.125 and 0.875.
+range of 0.125 and 0.875.
 
 The end result is the original drum pattern plus some extra random
 notes, maybe.
