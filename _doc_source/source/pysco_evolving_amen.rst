@@ -134,8 +134,6 @@ AUDIO HERE
 Upgrade
 =======
 
-
-
 Porting a classical score into the PythonScore environment requires
 only two changes. First, one needs to set the argument of the CsScore
 bin utility to "python pysco.py". Second, the classical score code
