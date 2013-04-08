@@ -395,11 +395,18 @@ orchestra will remain unchanged, though the music will.
 Looping Through Lists
 =====================
 
-A list is a Python container for storing various data, which may include numbers, strings, other lists, functions, etc. And they make a wonderful additional to the score environment. They're highly versatile and time saving. This example is a list of integers::
+A list is a Python container for storing various data, which may
+include numbers, strings, other lists, functions, etc. And they
+make a wonderful additional to the score environment. They're highly
+versatile and time saving. This example is a list of integers::
 
     [1, 2, 3, 4]
 
-A loop is created from a list with the ``for`` statment, as it will iterate through each value. In the score as the ``for`` loop iterates through the list, the ``m`` variable assumes the the value of the current list item. This is shorthand for calling ``drum_pattern()`` for measures 1 through 4:
+A loop is created from a list with the ``for`` statment, as it will
+iterate through each value. In the score as the ``for`` loop iterates
+through the list, the ``m`` variable assumes the the value of the
+current list item. This is shorthand for calling ``drum_pattern()``
+for measures 1 through 4:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_list.csd
     :language: python
@@ -409,7 +416,9 @@ A loop is created from a list with the ``for`` statment, as it will iterate thro
 Range
 =====
 
-The Python ``range()`` generates lists of integers automatically and is useful in a range of different contexts. Here are three examples of lists generated with ``range()``::
+The Python ``range()`` generates lists of integers automatically
+and is useful in a range of different contexts. Here are three
+examples of lists generated with ``range()``::
 
     >>> range(10)
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -418,7 +427,8 @@ The Python ``range()`` generates lists of integers automatically and is useful i
     >>> range(0, 32, 4)
     [0, 4, 8, 12, 16, 20, 24, 28]
 
-Substituting that manually created list with ``range()`` leaves us with this update to the loop in the score.
+Substituting that manually created list with ``range()`` leaves us
+with this update to the loop in the score.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_range.csd
     :language: python
@@ -428,7 +438,12 @@ Substituting that manually created list with ``range()`` leaves us with this upd
 Choice Variation
 ================
 
-Python comes with the random module which includes the ``choice()`` function that returns a random value from a list. Prior to this example, all kick and snare events use the sample from the Amen break. Applied to the ``kick()`` and ``snare()`` score instruments, these functions randomly choose samples from a fixed list of positions in the drum loop.
+Python comes with the random module which includes the ``choice()``
+function that returns a random value from a list. Prior to this
+example, all kick and snare events use the sample from the Amen
+break. Applied to the ``kick()`` and ``snare()`` score instruments,
+these functions randomly choose samples from a fixed list of positions
+in the drum loop.
 
 The ``kick()`` function chooses from positions 0, 0.5, 4, and 4.5:
 
@@ -445,13 +460,16 @@ The ``snare()`` functions chooses from positions 1, 3, 5, and 7:
 Hats
 ====
 
-Once again, a new score instrument is created from a function by repurposing the code used in ``kick()`` and ``snare()`` for a hihat:
+Once again, a new score instrument is created from a function by
+repurposing the code used in ``kick()`` and ``snare()`` for a hihat:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
     :pyobject: hat
 
-A second drum pattern called ``drum_pattern_8th_hats()`` is created, a variation on the original drum pattern. In fact, ``drum_pattern()`` is called right in this new function.
+A second drum pattern called ``drum_pattern_8th_hats()`` is created,
+a variation on the original drum pattern. In fact, ``drum_pattern()``
+is called right in this new function.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
@@ -467,38 +485,62 @@ Both patterns are played side by side in the updated score:
 Post Processing with pmap()
 ===========================
 
-Any data entered into the ``score()`` object via the ``PythonScore`` ``write()`` or ``i()`` methods can be treated as data and post-processed with ``pmap()``. If you ran the last example multiple times, you might have noticed the "samples out of range" warning. This can be solved on fell swoop. The pmap() function takes the following input::
+Any data entered into the ``score()`` object via the ``PythonScore``
+``write()`` or ``i()`` methods can be treated as data and post-processed
+with ``pmap()``. If you ran the last example multiple times, you
+might have noticed the "samples out of range" warning. This can be
+solved on fell swoop. The pmap() function takes the following input::
 
     pmap(event_type, instr, pfield, function, *args, **kwargs)
 
-To avoid samples being played out of range, all the amplitudes in the score must be lowered. Multiplying each pfield 4, the amplitude input for the sampler, with a constant value will do this. First, let's create a function that take two arguments, and returns the product.
+To avoid samples being played out of range, all the amplitudes in
+the score must be lowered. Multiplying each pfield 4, the amplitude
+input for the sampler, with a constant value will do this. First,
+let's create a function that take two arguments, and returns the
+product.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
    :language: python
     :pyobject: multiply
 
-The value of the pfield is passed in as the first arg, x, and 0.707 as y. Pfield 4 is replaced with the value returned by the multipy function
+The value of the pfield is passed in as the first arg, x, and 0.707
+as y. Pfield 4 is replaced with the value returned by the multipy
+function
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_postprocess.csd
     :language: python
     :start-after: cue = score.cue
     :end-before: </CsScore>
 
-The pmap() function only works on data already in the score. For this reason, the best place for most cases will be either after the last even is created and/or at the very end of the score.
+The pmap() function only works on data already in the score. For
+this reason, the best place for most cases will be either after the
+last even is created and/or at the very end of the score.
 
 Pre-processing Events with p_callback()
 =======================================
 
-The p_callback() method is the pre-processing equivalent of pmap(). The p_callback() registers a function to use with a specific pfield for a specific instrument, and manipulates data as it is entered into the score. 
+The p_callback() method is the pre-processing equivalent of pmap().
+The p_callback() registers a function to use with a specific pfield
+for a specific instrument, and manipulates data as it is entered
+into the score.
 
-As an example, two related set of p_callback()'s are created. The first tunes all the drum events up a perfect 5th by altering the pfield 6 column used for tuning the samples. Since changing the pitch also affects the length of the sample, which in turn can cause the more of the sample to bleed into the portion being played, a second p_callback() modifies the duration by the inverse of the perfect 5th.
+As an example, two related set of p_callback()'s are created. The
+first tunes all the drum events up a perfect 5th by altering the
+pfield 6 column used for tuning the samples. Since changing the
+pitch also affects the length of the sample, which in turn can cause
+the more of the sample to bleed into the portion being played, a
+second p_callback() modifies the duration by the inverse of the
+perfect 5th.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
     :start-after: cue = score.cue
     :end-before:  score.write(
 
-Where these callbacks are placed matter. Typically it is good practice to place p_callback() functions before any events are placed in the score. In this example, these are places just prior to score().
+Where these callbacks are placed matter. Typically it is good
+practice to place p_callback() functions before any events are
+placed in the score. In this example, these are places just prior
+to score().
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
@@ -508,15 +550,21 @@ Where these callbacks are placed matter. Typically it is good practice to place 
 Transpose
 =========
 
-The perfect 5th ratio was hard coded into the last example, but transposing data is something that is useful enough, especially in music, that it's worth taking the time to creating a function from it so that it may be used again and again.
+The perfect 5th ratio was hard coded into the last example, but
+transposing data is something that is useful enough that it's worth
+taking the time to consolidate it into a reusable function.
 
-The createdtranpose() function accepts two args, one which is required and one with a default value. The first arg is the value in halfsteps in which to transpose. Without a second arg, it gives the ratio of the transposition. If a second arg is supplied it will be applied absolutely.
+The ``tranpose()`` function accepts two args, one which is required
+and a second default value. The first arg is the value in halfsteps
+in which to transpose. Without a second arg, it outputs a transposition
+ratio. If the second arg is supplied, then it will apply the
+transposition ratio to this and return the output.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
     :pyobject: transpose
 
-The transpose() function is then used to refactor the p_callback()s.
+The ``score.p_callback()`` calls are refectored using this new funtion.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
