@@ -16,7 +16,7 @@ environments, PythonScore is non-imposing and does its best to get
 out of the way rather than to impose a strict set of rules for
 composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
-score tools *à la carte* as the see fit.
+score tools *à la carte* as they see fit.
 
 This purpose of this tutorial is to try and prove the merits of
 using the Python language in favor of the classical Csound score.
