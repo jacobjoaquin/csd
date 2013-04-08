@@ -8,10 +8,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Pysco &mdash; csd 0.0.5 alpha documentation</title>
+    <title>PythonScore &mdash; CSD</title>
     
     <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -25,8 +26,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="csd 0.0.5 alpha documentation" href="index.html" />
-    <link rel="next" title="Demos" href="demo/index.html" />
+    <link rel="top" title="CSD" href="index.html" />
+    <link rel="next" title="Amen Break PythonScore Tutorial" href="amen_tutorial.html" />
     <link rel="prev" title="The csd Package" href="csd_sco_event.html" /> 
   </head>
   <body>
@@ -40,20 +41,28 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="demo/index.html" title="Demos"
+          <a href="amen_tutorial.html" title="Amen Break PythonScore Tutorial"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="csd_sco_event.html" title="The csd Package"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">csd 0.0.5 alpha documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD</a> &raquo;</li> 
       </ul>
     </div>
+
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+<h3>Get CSD</h3>
+<ul id="downloadrepo">
+    <li><a href="https://github.com/jacobjoaquin/csd/zipball/master">Download <strong>ZIP File</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
+</ul>
+
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Pysco</a><ul>
-<li><a class="reference internal" href="#what-is-pysco">What is Pysco?</a></li>
+<li><a class="reference internal" href="#">PythonScore</a><ul>
+<li><a class="reference internal" href="#what-is-pythonscore">What is PythonScore?</a></li>
 </ul>
 </li>
 </ul>
@@ -62,8 +71,8 @@
   <p class="topless"><a href="csd_sco_event.html"
                         title="previous chapter">The csd Package</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="demo/index.html"
-                        title="next chapter">Demos</a></p>
+  <p class="topless"><a href="amen_tutorial.html"
+                        title="next chapter">Amen Break PythonScore Tutorial</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/pysco.txt"
@@ -85,117 +94,54 @@
         </div>
       </div>
 
+
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="pysco">
-<h1>Pysco<a class="headerlink" href="#pysco" title="Permalink to this headline">¶</a></h1>
-<p><em>&#8220;All composers should be as lazy as possible when writing scores.&#8221;</em> - Max V. Mathews</p>
-<div class="section" id="what-is-pysco">
-<h2>What is Pysco?<a class="headerlink" href="#what-is-pysco" title="Permalink to this headline">¶</a></h2>
-<p>Pysco is a modular Csound score environment for event generation, event processing, and the fashioning musical structures in time.</p>
-<p>The details documentation is still being worked out. In the meantime, check out this algorithmic Amen loop generator:</p>
-<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F42750779"></iframe><div class="highlight-python"><pre>&lt;CsoundSynthesizer&gt;
-&lt;CsInstruments&gt;
-sr = 44100
-kr = 44100
-ksmps = 1
-nchnls = 2
-0dbfs = 1.0
-
-; Uses one of the millions of Amen loops by the Winstons. Originally, that is.
-gS_loop = "samples/Amenbreak.aif"
-gisr filesr gS_loop
-gilength filelen gS_loop
-gibeats = 64 
-
-instr 1
-    p3 = 0.13
-    iamp = p4
-    ibeat = p5
-    ipos = ((ibeat / gibeats) * gilength)
-
-    aenv linseg iamp, p3 * 0.85, iamp, p3 * 0.15, 0
-    a1, a2 diskin2 gS_loop, 1.5, ipos
-    out a1 * aenv, a2 * aenv
-endin
-
-&lt;/CsInstruments&gt;
-&lt;CsScore bin="python pysco.py"&gt;
-
-# Import choice from python library
-from random import choice
-from random import random
-
-# Create wrapper functions for instruments.
-def kick(amp=1):
-    event_i(1, 0, 1, amp, choice([0, 0.5, 4, 8, 16]))
-
-def snare(amp=1):
-    event_i(1, 0, 1, amp, choice([1, 5, 9, 11.5]))
-
-def hat(amp=1):
-    event_i(1, 0, 1, amp, choice([3.5, 7.5, 10, 11, 19.5]))
-
-score('t 0 170')
-
-def pattern(r=0):
-    '''pattern plus extra random notes'''
-    
-    with cue(0): kick()
-    with cue(1): snare()
-    with cue(2.5): kick()
-    with cue(3): snare()
-
-    times = [0.5, 0.75, 1.5, 2, 2.75, 3.5, 3.75]
-    instrs = [kick, snare, hat, hat, hat]
-
-    for time in times:
-        if random() &lt; r:
-            with cue(time):
-                instr = choice(instrs)
-                instr(random() * 0.75 + 0.125)
-
-def section_a():
-    with cue(0): pattern()
-    with cue(4): pattern(0.25)
-    with cue(8): pattern()
-    with cue(12): pattern(0.95)
-
-def section_b():
-    with cue(0): pattern(1.0)
-    with cue(4): pattern(1.0)
-    with cue(8): pattern(1.0)
-    with cue(12): pattern(1.0)
-
-with cue(0):
-    for t in xrange(4):
-        with cue(t * 16):
-            section_a()
-
-with cue(64):
-    for t in xrange(4):
-        with cue(t * 16):
-            section_b()
-
-with cue(128):
-    for t in xrange(4):
-        with cue(t * 16):
-            section_a()
-
-with cue(192):
-    for t in xrange(4):
-        with cue(t * 16):
-            section_b()
-
-pmap('i', 1, 4, lambda x: x * 0.707)
-
-&lt;/CsScore&gt;
-&lt;/CsoundSynthesizer&gt;
-</pre>
+  <div class="section" id="pythonscore">
+<h1>PythonScore<a class="headerlink" href="#pythonscore" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="amen_tutorial.html">Amen Break PythonScore Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="amen_tutorial.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#files">Files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#the-orchestra">The Orchestra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#the-python-interpreter">The Python Interpreter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="amen_tutorial.html#classical-score-to-pythonscore">Classical Score to PythonScore</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#upgrade">Upgrade</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#time-is-relative">Time is Relative</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#measures">Measures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#instrument-event-function">Instrument Event Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#nesting-time">Nesting Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#score-instruments">Score Instruments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#drum-pattern">Drum Pattern</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#interlude">Interlude</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#looping-through-lists">Looping Through Lists</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#range">Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#choice-variation">Choice Variation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#hats">Hats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#post-processing-score-data">Post-Processing Score Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#pre-processing-score-data">Pre-Processing Score Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#transpose">Transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#default-arguments">Default Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#player-instruments">Player Instruments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#algorithmic-flair">Algorithmic Flair</a></li>
+<li class="toctree-l3"><a class="reference internal" href="amen_tutorial.html#form-with-functions">Form With Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
+<div class="section" id="what-is-pythonscore">
+<h2>What is PythonScore?<a class="headerlink" href="#what-is-pythonscore" title="Permalink to this headline">¶</a></h2>
+<p><em>&#8220;All composers should be as lazy as possible when writing scores.&#8221;</em> - Max V. Mathews</p>
+<p>PythonScore is a modular Csound score environment for event generation, event processing, and the fashioning musical structures in time.</p>
+<p>The details documentation is still being worked out. In the mean time, checkout the <a class="reference internal" href="amen_tutorial.html"><em>Amen Break PythonScore Tutorial</em></a>.</p>
 </div>
 </div>
 
@@ -203,6 +149,7 @@ pmap('i', 1, 4, lambda x: x * 0.707)
           </div>
         </div>
       </div>
+
       <div class="clearer"></div>
     </div>
     <div class="related">
@@ -215,12 +162,12 @@ pmap('i', 1, 4, lambda x: x * 0.707)
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="demo/index.html" title="Demos"
+          <a href="amen_tutorial.html" title="Amen Break PythonScore Tutorial"
              >next</a> |</li>
         <li class="right" >
           <a href="csd_sco_event.html" title="The csd Package"
              >previous</a> |</li>
-        <li><a href="index.html">csd 0.0.5 alpha documentation</a> &raquo;</li> 
+        <li><a href="index.html">CSD</a> &raquo;</li> 
       </ul>
     </div>
 
