@@ -18,7 +18,7 @@ composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
 score tools *à la carte* as they see fit.
 
-This purpose of this tutorial is to try and prove the merits of
+The purpose of this tutorial is to try and prove the merits of
 using the Python language in favor of the classical Csound score.
 The classical score is a fixed system while Python is a very mature
 and highly extensible language with a vast collection of first and
