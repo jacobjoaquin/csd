@@ -3,7 +3,11 @@ a {
 }
 
 body {
+/*
 	background-color: rgb(171, 183, 190);
+*/
+
+	background: rgb(171, 183, 190) url(back_pattern.png) repeat-x;
 
 	border-color: rgb(92, 92, 92);
 	border-top: none;
