@@ -1,7 +1,9 @@
 #!/usr/bin/python
 import inspect
+import sys
 from sys import argv
-
+from itertools import imap
+from itertools import chain
 from convert import *
 import csd
 from csd import sco
@@ -55,17 +57,17 @@ class Slipmat():
 
                 deez_args = (element,) + args
                 selection[k] = sco.event.set(v, p,
-                        function(*deez_args, **kwargs))
+                                             function(*deez_args, **kwargs))
 
         return sco.merge(data, selection)
 
+    def end_score(self):
+        # TODO: This shouldn't run under certain circumstances
+    	with open(argv[1], 'w') as f:
+    		f.write("\n".join(self.score_data))
+
     def event_i(self, *args):
-        output = ['i']
-
-        for arg in args:
-            output.append(str(arg))
-
-        self.score(' '.join(output))
+        self.score(' '.join(chain('i', imap(str, args)))) 
 
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
         self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
@@ -125,6 +127,28 @@ score = slipmat.score
 pmap = slipmat.pmap
 p_callback = slipmat.p_callback
 event_i = slipmat.event_i
+end = slipmat.end_score
+
+import atexit
+
+def my_exit():
+    end()
+
+if __name__ != '__main__':
+    atexit.register(my_exit)
+
+def begin():
+    global slipmat
+    f = sys._current_frames().values()[0]
+    name = f.f_back.f_globals['__name__']
+    m = sys.modules[name]
+    setattr(m, 'score', slipmat.score)
+    setattr(m, 'score_data', slipmat.score_data)
+    setattr(m, 'cue', slipmat.slipcue)
+    setattr(m, 'pmap', slipmat.pmap)
+    setattr(m, 'p_callback', slipmat.p_callback)
+    setattr(m, 'event_i', slipmat.event_i)
+    setattr(m, 'end', slipmat.end_score)
 
 def main():
     # Execute CsScore

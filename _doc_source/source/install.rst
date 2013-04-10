@@ -11,18 +11,27 @@ For complete instructions on installing python packages, refer to
 `Installing Python Modules <http://docs.python.org/install/>`_ in the
 Python on-line docs.
 
-Quick Instructions
-------------------
+Download
+--------
 
-After downloading the csd tar file, you can install csd in using the
-following command-lines in a terminal window::
+`Download as Zip <https://github.com/jacobjoaquin/csd/zipball/master>`_
 
-    gunzip -c csd-x.x.x.tar | tar xf -
-    cd csd-x.x.x
-    python setup.py install
+`Download as TAR ball <https://github.com/jacobjoaquin/csd/tarball/master>`_
 
-.. note:: Some systems, including OS X, allow you to unpack the contents
-    of the tar files by double clicking on the file in the Finder.
+Clone from Github::
+
+    git clone git://github.com/jacobjoaquin/csd.git
+
+Install
+-------
+
+In a terminal window, cd to the csd folder and type::
+
+	python setup.py install
+
+On Linux, Unix, and OS X, you may need to sudo it::
+
+	sudo python setup.py install
 
 Test
 ----
@@ -38,12 +47,12 @@ go.
 Supported Systems
 -----------------
 
-The only system in which csd is tested on is OS X Leopard running
-Python 2.5.1.  At this time, compatibility among the various
-platforms is unknown. This includes installation issues.  Whether
-you manage to install successfully, or if you run into issues,
-please email me your results so I can make improvements in future
-releases: jacobjoaquin@gmail.com
+The only system in which csd is tested on is OS X 10.8 running
+Python 2.7.  At this time, compatibility among the various platforms
+is unknown. This includes installation issues.  Whether you manage
+to install successfully, or if you run into issues, please email
+me your results so I can make improvements in future releases:
+jacobjoaquin@gmail.com
 
 
 

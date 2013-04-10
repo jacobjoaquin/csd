@@ -37,14 +37,11 @@ def cycle(values):
         pos = (pos + 1) % len(values)  
 
 def swing(values):
+    values += values[-2:0:-1]
     pos = 0
-    direction = 1;
     while True:
         yield values[pos]
-        pos = pos + direction
-        if pos == len(values) or pos < 0:
-            direction = direction * -1
-            pos = pos + direction * 2
+        pos = (pos + 1) % len(values)  
 
 def heap(values):
     current = list(values)

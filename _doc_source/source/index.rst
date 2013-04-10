@@ -3,14 +3,18 @@ Csound csd Python Package
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 .. toctree::
-   :maxdepth: 2
+    :maxdepth: 2
 
-   Installing csd<install.rst>
-   CSD Modules <csd_sco_event.rst>
-   Demo Scripts <demo/index.rst>
-   Command-Line <commandline.rst>
-   bugs.rst
-   glossary.rst
+    Installing csd <install.rst>
+    CSD Modules <csd_sco_event.rst>
+    PythonScore <pysco.rst>
+    Demo Scripts <demo/index.rst>
+    Command-Line <commandline.rst>
+    bugs.rst
+    glossary.rst
+
+..
+    A Pysco Score TOOTorial <pysco_toot.rst>
 
 Mission Statement
 -----------------
@@ -21,7 +25,9 @@ quickly, easily and efficiently."*
 Download
 --------
 
-`csd-0.0.4.tar.gz <http://www.thumbuki.com/csd/release/csd-0.0.4.tar.gz>`_
+`Download Latest as Zip <https://github.com/jacobjoaquin/csd/zipball/master>`_
+
+`Download Latest as TAR Ball <https://github.com/jacobjoaquin/csd/tarball/master>`_
 
 About
 -----
@@ -54,12 +60,7 @@ just looking to extend the capabilities of your favorites text editor,
 let me know so we can start the process of figuring out our respective
 needs to make this happen. I'm open to any and all ideas from anyone.
 
-This package is currently still very early in the development cycle,
-though quickly approaching a beta release.  The scripts have been tested
-primarily with Apple's Python 2.5.1.
-
-.. warning::  Use these at your own risk. CSD should be considered
-    experimental.
+Csd is requires Python 2.7. And maybe Python 2.6.
 
 Information
 -----------
@@ -69,10 +70,6 @@ Csound csd Python Package
 By Jacob Joaquin
 
 jacobjoaquin@gmail.com
-
-http://www.thumbuki.com/
-
-http://jacobjoaquin.tumblr.com/
 
 http://twitter.com/JacobJoaquin
 

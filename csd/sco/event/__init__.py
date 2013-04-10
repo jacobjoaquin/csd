@@ -41,7 +41,7 @@ def get(event, pfield_index):
 
     event_list = get_pfield_list(event)
 
-    if pfield_index in range(len(event_list)):
+    if pfield_index < len(event_list) and pfield_index >= 0:
         return event_list[pfield_index]
     else:
         return None
@@ -106,7 +106,7 @@ def insert(event, pfield_index, fill='.'):
     # Fill must be a string. This allows numbers to be passed to function.
     fill = str(fill)
     
-    if pfield_index in range(number_of_pfields(event)):
+    if pfield_index in xrange(number_of_pfields(event)):
         pf = get(event, pfield_index)
         new = [fill, ' ', pf]
         event = set(event, pfield_index, ''.join(new))  
@@ -225,7 +225,7 @@ def remove(event, pfield_index):
     # An emptry string is preferable than None for the return    
     pf = ''
     
-    if pfield_index in range(number_of_pfields(event)):
+    if pfield_index in xrange(number_of_pfields(event)):
         pf = get(event, pfield_index)
         event = set(event, pfield_index, '')
     
@@ -280,11 +280,10 @@ def set(event, pfield_index, value):
     pfield_index = int(pfield_index)
     
     # Skip if pfield is out of range
-    if pfield_index not in range(number_of_pfields(event)):
+    if pfield_index not in xrange(number_of_pfields(event)):
         return event
     
     tokens = tokenize(event)
-    
     pf_index = -1
     for i, t in enumerate(tokens):
         if pf_index == -1:

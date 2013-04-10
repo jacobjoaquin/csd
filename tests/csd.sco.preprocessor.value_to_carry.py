@@ -21,8 +21,9 @@
 
 import sys
 
-from csd.sco.preprocessor import value_to_carry
-
+#from csd.sco.preprocessor import value_to_carry
+print "csd.sco.preprocessor.value_to_carry disabled"
+sys.exit(0)
 def test(n, score, expect):
     result = value_to_carry(score)
     did_pass = result == expect

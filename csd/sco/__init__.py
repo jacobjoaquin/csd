@@ -32,11 +32,11 @@ def __flatten_list(parent_list):
     this_list = []
     child_list = []
 
-    if type(parent_list) is not list:
+    if not isinstance(parent_list, list):
         return [parent_list]
         
     for i in parent_list:
-        if type(i) is list:
+        if isinstance(i, list):
             child_list = __flatten_list(i)
             for j in child_list:
                 this_list.append(j)
@@ -68,7 +68,7 @@ def merge(score, selection):
     s_list = score.splitlines()
 
     # Merge flattened selection with the score list    
-    for k, v in selection.items():
+    for k, v in selection.iteritems():
         s_list[k] = '\n'.join(__flatten_list(v))
 
     output = '\n'.join(s_list)
@@ -76,7 +76,7 @@ def merge(score, selection):
     # Appends an empty event in case of newline
     if score.endswith('\n'):
         output = output + '\n'
-    
+
     return output      
     
 def map_(score, pattern, pfield_index_list, pfunction, *args):

@@ -6,6 +6,7 @@ csd/sco/__init__.py
 csd/sco/element/__init__.py
 csd/sco/event/__init__.py
 csd/sco/selection/__init__.py
+csd/pysco/__init__.py
 demo/arpeggiator.py
 demo/arpeggiator.sco
 demo/carry.py
