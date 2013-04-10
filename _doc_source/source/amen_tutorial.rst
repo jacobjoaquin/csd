@@ -4,7 +4,7 @@ Amen Break PythonScore Tutorial
 
 By Jacob Joaquin <jacobjoaquin@gmail.com>
 
-*Updated April 8th, 2013*
+*Updated April 10th, 2013*
 
 ************
 Introduction
