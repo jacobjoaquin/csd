@@ -141,9 +141,9 @@ environments, PythonScore is non-imposing and does its best to get
 out of the way rather than to impose a strict set of rules for
 composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
-score tools <em>à la carte</em> as they see fit.</p>
+score tools <em>à la carte</em>.</p>
 <p>The purpose of this tutorial is to try and prove the merits of
-using the Python language in favor of the classical Csound score.
+using the Python language in favor over the classical Csound score.
 The classical score is a fixed system while Python is a very mature
 and highly extensible language with a vast collection of first and
 third party modules. Despite being a general purpose language that
@@ -165,21 +165,21 @@ once people have some hands-on experience, many of the advantages
 of working with PythonScore will become obvious. Until then, it&#8217;s
 just the ramblings of one person&#8217;s perspective.</p>
 <p>Since PythonScore is under development, consider this tutorial a
-living document, as it will be updated to keep up with any future
-changes. Send questions, comments, and bugs to <a class="reference external" href="mailto:jacobjoaquin&#37;&#52;&#48;gmail&#46;com">jacobjoaquin<span>&#64;</span>gmail<span>&#46;</span>com</a>,
-or write to the Csound Mailing List.</p>
+living document, as it will be continually updated to keep up with
+any future changes. Send questions, comments, and bugs to
+<a class="reference external" href="mailto:jacobjoaquin&#37;&#52;&#48;gmail&#46;com">jacobjoaquin<span>&#64;</span>gmail<span>&#46;</span>com</a>, or write to the Csound Mailing List.</p>
 <div class="section" id="files">
 <h3>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
-<p>The Csound CSD files and amen break sample ship with the csd module in:</p>
+<p>The Csound CSD files and the amen_break.wav sample ship with the csd module and can be found in the following folder:</p>
 <div class="highlight-python"><pre>/examples/tutorials/amen/</pre>
 </div>
 </div>
 <div class="section" id="the-orchestra">
 <h3>The Orchestra<a class="headerlink" href="#the-orchestra" title="Permalink to this headline">¶</a></h3>
 <p>In order to bring focus to the enhanced set of features and
-compositional techniques Python with the PythonScore module brings
-to the score environment, every example uses the exact same orchestra
-throughout the entirety of this tutorial. Let&#8217;s take a look:</p>
+compositional techniques Python brings to the score environment,
+every example uses the exact same orchestra throughout the entirety
+of this tutorial. Let&#8217;s take a look:</p>
 <div class="highlight-python"><pre>
 sr = 44100
 kr = 44100
@@ -220,10 +220,10 @@ enhanced with using some of the new techniques afforded by Python.</p>
 sounds like it was produced with a <a class="reference external" href="http://en.wikipedia.org/wiki/Music_tracker">tracker</a> such as <a class="reference external" href="http://en.wikipedia.org/wiki/FastTracker_2">Fast Tracker
 II</a>.</p>
 <p>The use of a drum loop is chosen for a very specific reason. The
-ability to express occurences in time is a defining attribute of
-PythonScore, and percussion-based events are great for honing in
-on timing. <em>Do not get the wrong impression that PythonScore caters
-to 4/4 drum music, as this is far from the truth.</em></p>
+ability to express events in time is a defining attribute of
+PythonScore, and rhythm-based music is particullary well suited for
+this purpose.  <em>Do not leave with the wrong impression that PythonScore
+caters to 4/4 drum music, as this is far from the truth.</em></p>
 </div>
 <div class="section" id="the-python-interpreter">
 <h3>The Python Interpreter<a class="headerlink" href="#the-python-interpreter" title="Permalink to this headline">¶</a></h3>
@@ -237,7 +237,7 @@ is invoked by typing &#8220;python&#8221;:</p>
 <div class="highlight-python"><pre>Quorra ~ $ python</pre>
 </div>
 <p>This starts an interactive Python session in which users can begin
-entering various commands.</p>
+entering various statements:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="s">&#39;hello world&#39;</span>
 <span class="go">hello world</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="mi">440</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">9</span> <span class="o">/</span> <span class="mf">12.0</span><span class="p">)</span>
@@ -254,10 +254,10 @@ alike.</p>
 </div>
 <div class="section" id="classical-score-to-pythonscore">
 <h2>Classical Score to PythonScore<a class="headerlink" href="#classical-score-to-pythonscore" title="Permalink to this headline">¶</a></h2>
-<p>In this section, we&#8217;ll walk you through some the basic
-features of Python and PythonScore. The tutorial starts with a classical
-Csound score, and adds new PythonScore idioms one by one until
-the score as been fully translated. The end result is the new Python
+<p>In this section, we&#8217;ll walk you through some of the basic features
+of Python and PythonScore. The tutorial starts with a classical
+Csound score, and adds new PythonScore idioms one by one until the
+score as been fully translated. The end result is the new Python
 score.</p>
 <div class="highlight-python"><pre>
 t 0 170
@@ -293,9 +293,9 @@ i 1 15.0 0.5 0.707 1 1
 pattern itself is the classical <a class="reference external" href="http://en.wikipedia.org/wiki/Drum_and_bass">drum &#8216;n&#8217; bass</a>.</p>
 <div class="section" id="upgrade">
 <h3>Upgrade<a class="headerlink" href="#upgrade" title="Permalink to this headline">¶</a></h3>
-<p>Porting a classical score into the Python requires a few lines of
-code to set up. First, set the argument of the CsScore bin utility
-to &#8220;python&#8221;. Then import PythonScore:</p>
+<p>Porting a classical score into Python requires a few lines of code
+to set up. First, set the argument of the CsScore bin utility to
+&#8220;python&#8221;. Then import PythonScore:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pysco</span> <span class="kn">import</span> <span class="n">PythonScore</span>
 </pre></div>
 </div>
@@ -350,8 +350,8 @@ Csound. The result is this new score:</p>
 </pre></div>
 </div>
 <p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_upgrade.csd"><tt class="xref download docutils literal"><span class="pre">amen_upgrade.csd</span></tt></a></p>
-<p>If this worries you that you&#8217;ll be required to throw out everything
-you know about the classic Csound score, fear not as you can still
+<p>If you are worried that you&#8217;ll be required to throw out everything
+you know about the classic Csound score, fear not, as you can still
 use it with the <tt class="docutils literal"><span class="pre">score()</span></tt> object virtually untouched, or in
 combination with other Python features as you learn them.</p>
 </div>
@@ -359,19 +359,18 @@ combination with other Python features as you learn them.</p>
 <h3>Time is Relative<a class="headerlink" href="#time-is-relative" title="Permalink to this headline">¶</a></h3>
 <p>For the most part, when events are entered into a classical Csound
 score, the start times are in global beats. PythonScore changes
-this with by introduction of the <tt class="docutils literal"><span class="pre">cue()</span></tt> object, a Python <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#typecontextmanager">context
+this with the introduction of the <tt class="docutils literal"><span class="pre">cue()</span></tt> object, a Python <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#typecontextmanager">context
 manager</a> for
-moving the current position time in the score. Like a needle on a
-record. All events entered into PythonScore are relative the current
-positional value of <tt class="docutils literal"><span class="pre">cue()</span></tt>.</p>
+moving the current position time in the score, like a needle on a
+record player. All events entered into PythonScore are relative the
+current positional value of <tt class="docutils literal"><span class="pre">cue()</span></tt>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
     <span class="n">score</span><span class="p">(</span><span class="s">&#39;i 1 0 0.5 0.707 0 0&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>While the start time value in pfield-2 is 0, this event will start
-at 12 beats into the piece. This is because start time events are
-processed to reflect the current position of the cue(). The output
-looks like this:</p>
+at 12 beats into the piece; Start times are translated to reflect
+the current position of the cue(). The output looks like this:</p>
 <div class="highlight-python"><pre>i 1 12 0.5 0.707 0 0</pre>
 </div>
 <p>Remember when we set <tt class="docutils literal"><span class="pre">cue</span> <span class="pre">=</span> <span class="pre">score.cue</span></tt> earlier? This was done to
@@ -1214,5 +1213,4 @@ also be used to bring greater clarity to the score.</p>
 </script>
 
   </body>
-</html>/body>
 </html>
