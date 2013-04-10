@@ -14,9 +14,9 @@ instr 1
 
     kenv adsr 0.01, 0.125, 0.5, 1
     a1 vco2 kenv, ipch * 2, 0 
-    a2 vco2 kenv, ipch, 2, 0.3  ; Triangle wave
+    a2 vco2 kenv, ipch, 2, 0.2  ; Triangle wave
 
-    afilter moogladder a1 * 0.4 + a2 * 0.6, 15000, 0.4
+    afilter moogladder a1 * 0.6 + a2 * 0.4, 15000, 0.4
     outs afilter, afilter
 
     chnmix afilter, "h_out"
@@ -47,214 +47,87 @@ def measure(t):
 def harpsichord(dur, pitch):
     score.i(1, 0, dur, 0.5, pitch)
 
-score.write('t 0 160')
+treble = harpsichord
+bass = harpsichord
+score.write('t 0 90')
 
-score.i(2, 0, 60)
+score.i(2, 0, 10)
 
 with measure(1):
-    with cue(0.5): harpsichord(0.5, 8.00)
-    with cue(1.0): harpsichord(0.5, 8.02)
-    with cue(1.5): harpsichord(0.5, 8.04)
-    with cue(2.0): harpsichord(0.5, 8.05)
-    with cue(2.5): harpsichord(0.5, 8.02)
-    with cue(3.0): harpsichord(0.5, 8.04)
-    with cue(3.5): harpsichord(0.5, 8.00)
+    with cue(0.25): treble(0.25, 8.00)
+    with cue(0.50): treble(0.25, 8.02)
+    with cue(0.75): treble(0.25, 8.04)
+    with cue(1.00): treble(0.25, 8.05)
+    with cue(1.25): treble(0.25, 8.02)
+    with cue(1.50): treble(0.25, 8.04)
+    with cue(1.75): treble(0.25, 8.00)
+    with cue(2.00): treble(0.5, 8.07)
+    with cue(2.50): treble(0.5, 9.00)
+    with cue(3.00): treble(0.125, 8.11)
+    with cue(3.125): treble(0.125, 8.09)
+    with cue(3.25): treble(0.25, 8.11)
+    with cue(3.50): treble(0.5, 9.00)
+
+    with cue(2.25): bass(0.25, 7.00)
+    with cue(2.50): bass(0.25, 7.02)
+    with cue(2.75): bass(0.25, 7.04)
+    with cue(3.00): bass(0.25, 7.05)
+    with cue(3.25): bass(0.25, 7.02)
+    with cue(3.50): bass(0.25, 7.04)
+    with cue(3.75): bass(0.25, 7.00)
 
 with measure(2):
-    score.write('''
-    i 1 0 1    0.5 8.07
-    i 1 + .    .   9.00
-    i 1 + 0.25 .   8.11
-    i 1 + 0.25 .   8.09
-    i 1 + 0.5  .   8.11
-    i 1 + .    .   9.00
+    with cue(0.00): treble(0.25, 9.02)
+    with cue(0.25): treble(0.25, 8.07)
+    with cue(0.50): treble(0.25, 8.09)
+    with cue(0.75): treble(0.25, 8.11)
+    with cue(1.00): treble(0.25, 9.00)
+    with cue(1.25): treble(0.25, 8.09)
+    with cue(1.50): treble(0.25, 8.11)
+    with cue(1.75): treble(0.25, 8.07)
+    with cue(2.00): treble(0.5, 9.02)
+    with cue(2.50): treble(0.5, 9.07)
+    with cue(3.00): treble(0.125, 9.05)
+    with cue(3.125): treble(0.125, 9.04)
+    with cue(3.25): treble(0.25, 9.05)
+    with cue(3.50): treble(0.5, 9.07)
 
-    i 1 0.5 0.5 0.5 7.00
-    i 1 +   .   .   7.02
-    i 1 +   .   .   7.04
-    i 1 +   .   .   7.05
-    i 1 +   .   .   7.02
-    i 1 +   .   .   7.04
-    i 1 +   .   .   7.00
-    ''')
+    with cue(0.00): bass(0.5, 7.07)
+    with cue(0.50): bass(0.5, 6.07)
+    with cue(2.25): bass(0.25, 7.07)
+    with cue(2.50): bass(0.25, 7.09)
+    with cue(2.75): bass(0.25, 7.11)
+    with cue(3.00): bass(0.25, 8.00)
+    with cue(3.25): bass(0.25, 7.09)
+    with cue(3.50): bass(0.25, 7.11)
+    with cue(3.75): bass(0.25, 7.07)
 
 with measure(3):
-    score.write('''
-    i 1 0 0.5 0.5 9.02
-    i 1 + .   .   8.07
-    i 1 + .   .   8.09
-    i 1 + .   .   8.11
-    i 1 + .   .   9.00
-    i 1 + .   .   8.09
-    i 1 + .   .   8.11
-    i 1 + .   .   8.07
+    with cue(0.00): treble(0.25, 9.04)
+    with cue(0.25): treble(0.25, 9.09)
+    with cue(0.50): treble(0.25, 9.07)
+    with cue(0.75): treble(0.25, 9.05)
+    with cue(1.00): treble(0.25, 9.04)
+    with cue(1.25): treble(0.25, 9.07)
+    with cue(1.50): treble(0.25, 9.05)
+    with cue(1.75): treble(0.25, 9.09)
+    with cue(2.00): treble(0.25, 9.07)
+    with cue(2.25): treble(0.25, 9.05)
+    with cue(2.50): treble(0.25, 9.04)
+    with cue(2.75): treble(0.25, 9.02)
+    with cue(3.00): treble(0.25, 9.00)
+    with cue(3.25): treble(0.25, 9.04)
+    with cue(3.50): treble(0.25, 9.02)
+    with cue(3.75): treble(0.25, 9.05)
 
-    i 1 0 1 0.5 7.07
-    i 1 + . 0.5 6.07
-    ''')
-
-with measure(4):
-    score.write('''
-    i 1 0 1    0.5 9.02
-    i 1 + .    .   9.07
-    i 1 + 0.25 .   9.05
-    i 1 + 0.25 .   9.04
-    i 1 + 0.5  .   9.05
-    i 1 + .    .   9.07
-
-    i 1 0.5 0.5 0.5 7.07
-    i 1 +   .   .   7.09
-    i 1 +   .   .   7.11
-    i 1 +   .   .   8.00
-    i 1 +   .   .   7.09
-    i 1 +   .   .   7.11
-    i 1 +   .   .   7.07
-    ''')
-
-with measure(5):
-    score.write('''
-    i 1 0 0.5 0.5 9.04
-    i 1 + .   .   9.09
-    i 1 + .   .   9.07
-    i 1 + .   .   9.05
-    i 1 + .   .   9.04
-    i 1 + .   .   9.07
-    i 1 + .   .   9.05
-    i 1 + .   .   9.09
-
-    i 1 0 1 0.5 8.00
-    i 1 + . .   7.11
-    i 1 + . .   8.00
-    i 1 + . .   8.02
-    ''')
-
-with measure(6):
-    score.write('''
-    i 1 0 0.5 0.5 9.07
-    i 1 + .   .   9.05
-    i 1 + .   .   9.04
-    i 1 + .   .   9.02
-    i 1 + .   .   9.00
-    i 1 + .   .   9.04
-    i 1 + .   .   9.02
-    i 1 + .   .   9.05
-
-    i 1 0 1 0.5 8.04
-    i 1 + . .   7.07
-    i 1 + . .   7.09
-    i 1 + . .   7.11
-    ''')
-
-with measure(7):
-    score.write('''
-    i 1 0 0.5 0.5 9.04
-    i 1 + .   .   9.02
-    i 1 + .   .   9.00
-    i 1 + .   .   8.11
-    i 1 + .   .   8.09
-    i 1 + .   .   9.00
-    i 1 + .   .   8.11
-    i 1 + .   .   9.02
-
-    i 1 0 1 0.5 8.00
-    i 1 + . .   7.04
-    i 1 + . .   7.06
-    i 1 + . .   7.07
-    ''')
-
-with measure(8):
-    score.write('''
-    i 1 0 0.5 0.5 9.00
-    i 1 + .   .   8.11
-    i 1 + .   .   8.09
-    i 1 + .   .   8.07
-    i 1 + .   .   8.06
-    i 1 + .   .   8.09
-    i 1 + .   .   8.07
-    i 1 + .   .   8.11
-
-    i 1 0 0.5   0.5 7.09
-    i 1 1 .   .   7.11
-    i 1 2 2.5 .   8.00
-    ''')
-
-with measure(9):
-    score.write('''
-    i 1 0 1    0.5 8.09
-    i 1 + .    .   8.02
-    i 1 + 0.25 .   9.00
-    i 1 + 0.25 .   8.11
-    i 1 + 1    .   9.00
-    i 1 + 0.5  .   9.02
-
-    i 1 0.5 0.5 0.5 7.02
-    i 1 +   .   .   7.04
-    i 1 +   .   .   7.06
-    i 1 +   .   .   7.07
-    i 1 +   .   .   7.04
-    i 1 +   .   .   7.06
-    i 1 +   .   .   7.02
-    ''')
-
-with measure(10):
-    score.write('''
-    i 1 0 0.5 0.5 8.11
-    i 1 + .   .   8.09
-    i 1 + .   .   8.07
-    i 1 + .   .   8.06
-    i 1 + .   .   8.04
-    i 1 + .   .   8.07
-    i 1 + .   .   8.06
-    i 1 + .   .   8.09
-
-    i 1 0 1 0.5 7.07
-    i 1 + . .   6.11
-    i 1 + . .   7.00
-    i 1 + . .   7.02
-    ''')
-
-with measure(11):
-    score.write('''
-    i 1 0 0.5 0.5 8.07
-    i 1 + .   .   8.11
-    i 1 + .   .   8.09
-    i 1 + .   .   9.00
-    i 1 + .   .   8.11
-    i 1 + .   .   9.02
-    i 1 + .   .   9.00
-    i 1 + .   .   9.04
-
-    i 1 0 1 0.5 7.04
-    i 1 + . .   7.06
-    i 1 + . .   7.07
-    i 1 + . .   7.04
-    ''')
-
-with measure(12):
-    score.write('''
-    i 1 0 0.5  0.5 9.02
-    i 1 + 0.25 .   8.11
-    i 1 + .    .   9.00
-    i 1 + 0.5  .   9.02
-    i 1 + .    .   9.07
-    i 1 + 0.25 .   8.11
-    i 1 + .    .   9.00
-    i 1 + 0.5  .   8.11
-    i 1 + .    .   8.09
-    i 1 + .    .   8.07
-
-    i 1 0 1.5 0.5 7.11
-    i 1 + 0.5 .   8.00
-    i 1 + 1   .   8.02
-    i 1 + .   .   7.02
-    ''')
-
-with measure(13):
-    score.write('''
-    i 1 0 1 0.5 8.07
-
-    i 1 0 1 0.5 7.07
-    ''')
+    with cue(0.00): bass(0.5, 8.00)
+    with cue(0.50): bass(0.5, 7.11)
+    with cue(1.00): bass(0.5, 8.00)
+    with cue(1.50): bass(0.5, 8.02)
+    with cue(2.00): bass(0.5, 8.04)
+    with cue(2.50): bass(0.5, 7.07)
+    with cue(3.00): bass(0.5, 7.09)
+    with cue(3.50): bass(0.5, 7.11)
 
 score.end()
 
