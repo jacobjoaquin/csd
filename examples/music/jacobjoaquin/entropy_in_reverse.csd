@@ -17,7 +17,7 @@ instr 1
     ifreq = p5
     ipan = p6
 
-    aenv linseg    0, idur * 0.125, iamp, idur * 0.875, 0
+    aenv linseg 0, idur * 0.125, iamp, idur * 0.875, 0
     aosc oscils 1, ifreq, 0
     aosc = aosc * aenv
     outs aosc * sqrt(1 - ipan), aosc * sqrt(ipan)
