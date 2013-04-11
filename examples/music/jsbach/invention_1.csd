@@ -81,7 +81,17 @@ def well_temper(p):
 treble = harpsichord
 bass = harpsichord
 
-score.write('t 0 90')
+#score.write('t 0 90')
+
+# Broke Baroque Tempp
+L = []
+counter = 0
+while counter < 60:
+    L.append(str(counter))
+    L.append(str(85 + (random() * 2.0 - 1.0) * 5)) 
+    counter += random() * 3.0 + 1.0
+
+score.write("t" + " ".join(L))
 
 with measure(1):
     with cue(0.25): treble(0.25, 8.00)
@@ -290,7 +300,7 @@ with measure(8):
     with cue(3.50): bass(0.5, 8.02)
 
 with measure(9):
-    with cue(0.00): treble(0.25, 8.11)
+    with cue(0.00): treble(0.5, 8.11)
     with cue(2.25): treble(0.25, 9.02)
     with cue(2.50): treble(0.25, 9.00)
     with cue(2.75): treble(0.25, 8.11)
@@ -313,7 +323,7 @@ with measure(9):
     with cue(3.50): bass(0.5, 8.02)
 
 with measure(10):
-    with cue(0.00): treble(0.25, 9.00)
+    with cue(0.00): treble(0.5, 9.00)
     with cue(2.25): treble(0.25, 9.04)
     with cue(2.50): treble(0.25, 9.02)
     with cue(2.75): treble(0.25, 9.00)
@@ -362,8 +372,118 @@ with measure(11):
     with cue(3.50): bass(0.25, 8.04)
     with cue(3.75): bass(0.25, 8.07)
 
-#score.write('a 0 0 36')
-score.i(2, 0, 50)
+with measure(12):
+    with cue(0.00): treble(0.5, 9.02)
+    with cue(0.50): treble(0.5, 8.06)
+    with cue(1.00): treble(0.5, 8.08)
+    with cue(1.50): treble(0.5, 8.09)
+    with cue(2.00): treble(0.5, 8.11)
+    with cue(2.50): treble(0.5, 9.00)
+    with cue(3.00): treble(1.25, 9.02)
+
+    with cue(0.00): bass(0.25, 8.05)
+    with cue(0.25): bass(0.25, 8.04)
+    with cue(0.50): bass(0.25, 8.02)
+    with cue(0.75): bass(0.25, 8.00)
+    with cue(1.00): bass(0.25, 7.11)
+    with cue(1.25): bass(0.25, 8.02)
+    with cue(1.50): bass(0.25, 8.00)
+    with cue(1.75): bass(0.25, 8.04)
+    with cue(2.00): bass(0.25, 8.02)
+    with cue(2.25): bass(0.25, 8.00)
+    with cue(2.50): bass(0.25, 7.11)
+    with cue(2.75): bass(0.25, 7.09)
+    with cue(3.00): bass(0.25, 7.08)
+    with cue(3.25): bass(0.25, 7.11)
+    with cue(3.50): bass(0.25, 7.09)
+    with cue(3.75): bass(0.25, 8.00)
+
+with measure(13):
+    with cue(0.25): treble(0.25, 8.04)
+    with cue(0.50): treble(0.25, 8.06)
+    with cue(0.75): treble(0.25, 8.08)
+    with cue(1.00): treble(0.25, 8.09)
+    with cue(1.25): treble(0.25, 8.06)
+    with cue(1.50): treble(0.25, 8.08)
+    with cue(1.75): treble(0.25, 8.04)
+    with cue(2.00): treble(0.25, 9.04)
+    with cue(2.25): treble(0.25, 9.02)
+    with cue(2.50): treble(0.25, 9.00)
+    with cue(2.75): treble(0.25, 9.04)
+    with cue(3.00): treble(0.25, 9.02)
+    with cue(3.25): treble(0.25, 9.00)
+    with cue(3.50): treble(0.25, 8.11)
+    with cue(3.75): treble(0.25, 9.02)
+   
+    with cue(0.00): bass(0.5, 7.11)
+    with cue(0.50): bass(0.5, 7.04)
+    with cue(1.00): bass(0.125, 8.02)
+    with cue(1.125): bass(0.125, 8.04)
+    with cue(1.25): bass(0.5, 8.02)
+    with cue(1.75): bass(0.25, 8.04)
+    with cue(2.00): bass(0.25, 8.00)
+    with cue(2.25): bass(0.25, 7.11)
+    with cue(2.50): bass(0.25, 7.09)
+    with cue(2.75): bass(0.25, 7.07)
+    with cue(3.00): bass(0.25, 7.06)
+    with cue(3.25): bass(0.25, 7.09)
+    with cue(3.50): bass(0.25, 7.08)
+    with cue(3.75): bass(0.25, 7.11)
+
+with measure(14):
+    with cue(0.00): treble(0.25, 9.00)
+    with cue(0.25): treble(0.25, 9.09)
+    with cue(0.50): treble(0.25, 9.08)
+    with cue(0.75): treble(0.25, 9.11)
+    with cue(1.00): treble(0.25, 9.09)
+    with cue(1.25): treble(0.25, 9.04)
+    with cue(1.50): treble(0.25, 9.05)
+    with cue(1.75): treble(0.25, 9.02)
+    with cue(2.00): treble(0.25, 8.08)
+    with cue(2.25): treble(0.25, 9.05)
+    with cue(2.50): treble(0.25, 9.04)
+    with cue(2.75): treble(0.25, 9.02)
+    with cue(3.00): treble(0.5, 9.00)
+    with cue(3.50): treble(0.25, 8.11)
+    with cue(3.75): treble(0.25, 8.09)
+
+    with cue(0.00): bass(0.25, 7.09)
+    with cue(0.25): bass(0.25, 8.00)
+    with cue(0.50): bass(0.25, 7.11)
+    with cue(0.75): bass(0.25, 8.02)
+    with cue(1.00): bass(0.25, 8.00)
+    with cue(1.25): bass(0.25, 8.04)
+    with cue(1.50): bass(0.25, 8.02)
+    with cue(1.75): bass(0.25, 8.05)
+    with cue(2.00): bass(0.5, 8.04)
+    with cue(2.50): bass(0.5, 7.09)
+    with cue(3.00): bass(0.5, 8.04)
+    with cue(3.50): bass(0.5, 7.04)
+
+with measure(15):
+    with cue(0.00): treble(0.25, 8.09)
+    with cue(0.25): treble(0.25, 9.09)
+    with cue(0.50): treble(0.25, 9.07)
+    with cue(0.75): treble(0.25, 9.05)
+    with cue(1.00): treble(0.25, 9.04)
+    with cue(1.25): treble(0.25, 9.07)
+    with cue(1.50): treble(0.25, 9.05)
+    with cue(1.75): treble(0.25, 9.09)
+    with cue(2.00): treble(2.25, 9.07)
+
+    with cue(0.00): bass(0.5, 7.09)
+    with cue(0.50): bass(0.5, 6.09)
+    with cue(2.25): bass(0.25, 8.04)
+    with cue(2.50): bass(0.25, 8.02)
+    with cue(2.75): bass(0.25, 8.00)
+    with cue(3.00): bass(0.25, 7.11)
+    with cue(3.25): bass(0.25, 8.02)
+    with cue(3.50): bass(0.25, 8.01)
+    with cue(3.75): bass(0.25, 8.04)
+
+with measure(14): score.write("a 0 0 {0}".format(cue.now()))
+
+score.i(2, 0, 60)
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
