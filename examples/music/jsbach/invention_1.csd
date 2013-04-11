@@ -13,6 +13,8 @@ instr 1
     ifreq = p5
 
     kenv adsr 0.11, 0.125, 0.4, 1
+    ;kenv adsr 0.05, 0.05, 0.2, 1
+    ;kenv linseg 1, 0.1, 0.4, idur - (0.1 + 0.125), 0.2, 0.125, 0, 0, 0
     a1 vco2 1, ifreq * 2, 0 
     a2 vco2 1, ifreq, 2, 0.6 + birnd(0.1)
 
@@ -491,9 +493,82 @@ with measure(16):
     with cue(1.75): treble(0.25, 9.04)
     with cue(2.00): treble(2.25, 9.05)
 
-with measure(14): score.write("a 0 0 {0}".format(cue.now()))
+    with cue(0.00): bass(2.25, 8.02)
+    with cue(2.25): bass(0.25, 7.09)
+    with cue(2.50): bass(0.25, 7.11)
+    with cue(2.75): bass(0.25, 8.00)
+    with cue(3.00): bass(0.25, 8.02)
+    with cue(3.25): bass(0.25, 7.11)
+    with cue(3.50): bass(0.25, 8.00)
+    with cue(3.75): bass(0.25, 7.09)
 
-score.i(2, 0, 60)
+with measure(17):
+    with cue(0.25): treble(0.25, 9.07)
+    with cue(0.50): treble(0.25, 9.05)
+    with cue(0.75): treble(0.25, 9.04)
+    with cue(1.00): treble(0.25, 9.02)
+    with cue(1.25): treble(0.25, 9.05)
+    with cue(1.50): treble(0.25, 9.04)
+    with cue(1.75): treble(0.25, 9.07)
+    with cue(2.00): treble(2.25, 9.05)
+
+    with cue(0.00): bass(2.25, 7.11)
+    with cue(2.25): bass(0.25, 8.02)
+    with cue(2.50): bass(0.25, 8.00)
+    with cue(2.75): bass(0.25, 7.11)
+    with cue(3.00): bass(0.25, 7.09)
+    with cue(3.25): bass(0.25, 8.00)
+    with cue(3.50): bass(0.25, 7.11)
+    with cue(3.75): bass(0.25, 8.02)
+
+with measure(18):
+    with cue(0.25): treble(0.25, 9.02)
+    with cue(0.50): treble(0.25, 9.04)
+    with cue(0.75): treble(0.25, 9.05)
+    with cue(1.00): treble(0.25, 9.07)
+    with cue(1.25): treble(0.25, 9.04)
+    with cue(1.50): treble(0.25, 9.05)
+    with cue(1.75): treble(0.25, 9.02)
+    with cue(2.00): treble(2.25, 9.04)
+
+    with cue(0.00): bass(2.25, 8.00)
+    with cue(2.25): bass(0.25, 7.07)
+    with cue(2.50): bass(0.25, 7.09)
+    with cue(2.75): bass(0.25, 7.10)
+    with cue(3.00): bass(0.25, 8.00)
+    with cue(3.25): bass(0.25, 7.09)
+    with cue(3.50): bass(0.25, 7.10)
+    with cue(3.75): bass(0.25, 7.07)
+
+with measure(19):
+    with cue(0.25): treble(0.25, 9.00)
+    with cue(0.50): treble(0.25, 9.02)
+    with cue(0.75): treble(0.25, 9.04)
+    with cue(1.00): treble(0.25, 9.05)
+    with cue(1.25): treble(0.25, 9.02)
+    with cue(1.50): treble(0.25, 9.04)
+    with cue(1.75): treble(0.25, 9.00)
+    with cue(2.00): treble(0.25, 9.02)
+    with cue(2.25): treble(0.25, 9.04)
+    with cue(2.50): treble(0.25, 9.05)
+    with cue(2.75): treble(0.25, 9.07)
+    with cue(3.00): treble(0.25, 9.09)
+    with cue(3.25): treble(0.25, 9.05)
+    with cue(3.50): treble(0.25, 9.07)
+    with cue(3.75): treble(0.25, 9.04)
+
+    with cue(0.00): bass(0.5, 7.09)
+    with cue(0.50): bass(0.5, 7.10)
+    with cue(1.00): bass(0.5, 7.09)
+    with cue(1.50): bass(0.5, 7.07)
+    with cue(2.00): bass(0.5, 7.05)
+    with cue(2.50): bass(0.5, 8.02)
+    with cue(3.00): bass(0.5, 8.00)
+    with cue(3.50): bass(0.5, 7.10)
+
+with measure(19): score.write("a 0 0 {0}".format(cue.now()))
+
+score.i(2, 0, 90)
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
