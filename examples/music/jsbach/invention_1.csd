@@ -12,22 +12,25 @@ instr 1
     iamp = p4
     ifreq = p5
 
-    kenv adsr 0.11, 0.125, 0.4, 1
-    ;kenv adsr 0.05, 0.05, 0.2, 1
-    ;kenv linseg 1, 0.1, 0.4, idur - (0.1 + 0.125), 0.2, 0.125, 0, 0, 0
+    kenv linseg 0, 0.001, 1, 0.25, 0.4, 2, 0.1, 0, 0.1
+    kenvgate linseg, 1, idur - 0.125, 1, 0.125, 0, 0, 0
+    kenv = kenv * kenvgate
+
     a1 vco2 1, ifreq * 2, 0 
     a2 vco2 1, ifreq, 2, 0.6 + birnd(0.1)
 
-    kenv2 expseg 16000 + rnd(2000), idur, 8000 + rnd(3000)
-    kenv3 expseg 15000 + rnd(2000), idur, 8000 + rnd(3000)
+    ival1 = 7000 + rnd(3000)
+    ival2 = 7000 + rnd(3000)
+    kenv2 expseg 16000 + rnd(2000), 2, ival1, 4, 2000, 0, 2000
+    kenv3 expseg 15000 + rnd(2000), 2, ival1, 4, 2000, 0, 2000
 
     amix = a1 * 0.4 + a2 + 0.6
     amix = amix * kenv * iamp
 
-    ;afilter1 moogladder amix, kenv2, 0.4 + rnd(0.1)
-    ;afilter2 moogladder amix, kenv3, 0.4 + rnd(0.1)
-    afilter1 moogvcf2 amix, kenv2, 0.5 + rnd(0.1)
-    afilter2 moogvcf2 amix, kenv3, 0.5 + rnd(0.1)
+    afilter1 moogladder amix, kenv2, 0.4 + rnd(0.1)
+    afilter2 moogladder amix, kenv3, 0.4 + rnd(0.1)
+    ;afilter1 moogvcf2 amix, kenv2, 0.5 + rnd(0.1)
+    ;afilter2 moogvcf2 amix, kenv3, 0.5 + rnd(0.1)
 
     outs afilter1, afilter2
 
@@ -36,7 +39,7 @@ instr 1
 endin
 
 instr 2
-    imix = 2.5
+    imix = 2.333
     a1 chnget "left"
     a2 chnget "right"
 
@@ -90,10 +93,13 @@ L = []
 counter = 0
 while counter < 60:
     L.append(str(counter))
-    L.append(str(85 + (random() * 2.0 - 1.0) * 5)) 
+    L.append(str(85 + (random() * 2.0 - 1.0) * 1)) 
     counter += random() * 3.0 + 1.0
 
 score.write("t" + " ".join(L))
+
+#with measure(15): score.write("a 0 0 {0}".format(cue.now()))
+score.i(2, 0, 90)
 
 with measure(1):
     with cue(0.25): treble(0.25, 8.00)
@@ -566,13 +572,74 @@ with measure(19):
     with cue(3.00): bass(0.5, 8.00)
     with cue(3.50): bass(0.5, 7.10)
 
-with measure(19): score.write("a 0 0 {0}".format(cue.now()))
+with measure(20):
+    with cue(0.00): treble(0.25, 9.05)
+    with cue(0.25): treble(0.25, 9.07)
+    with cue(0.50): treble(0.25, 9.09)
+    with cue(0.75): treble(0.25, 9.11)
+    with cue(1.00): treble(0.25, 10.00)
+    with cue(1.25): treble(0.25, 9.09)
+    with cue(1.50): treble(0.25, 9.11)
+    with cue(1.75): treble(0.25, 9.07)
+    with cue(2.00): treble(0.5, 10.00)
+    with cue(2.50): treble(0.5, 9.07)
+    with cue(3.00): treble(0.5, 9.04)
+    with cue(3.50): treble(0.25, 9.02)
+    with cue(3.75): treble(0.25, 9.00)
 
-score.i(2, 0, 90)
+    with cue(0.00): bass(0.5, 7.09)
+    with cue(0.50): bass(0.5, 8.05)
+    with cue(1.00): bass(0.5, 8.04)
+    with cue(1.50): bass(0.5, 8.02)
+    with cue(2.00): bass(0.25, 8.04)
+    with cue(2.25): bass(0.25, 8.02)
+    with cue(2.50): bass(0.25, 8.04)
+    with cue(2.75): bass(0.25, 8.05)
+    with cue(3.00): bass(0.25, 8.07)
+    with cue(3.25): bass(0.25, 8.04)
+    with cue(3.50): bass(0.25, 8.05)
+    with cue(3.75): bass(0.25, 8.02)
+
+with measure(21):
+    with cue(0.00): treble(0.25, 9.00)
+    with cue(0.25): treble(0.25, 8.10)
+    with cue(0.50): treble(0.25, 8.09)
+    with cue(0.75): treble(0.25, 8.07)
+    with cue(1.00): treble(0.25, 8.05)
+    with cue(1.25): treble(0.25, 8.09)
+    with cue(1.50): treble(0.25, 8.07)
+    with cue(1.75): treble(0.25, 8.10)
+    with cue(2.00): treble(0.25, 8.09)
+    with cue(2.25): treble(0.25, 8.11)
+    with cue(2.50): treble(0.25, 9.00)
+    with cue(2.75): treble(0.25, 8.04)
+    with cue(3.00): treble(0.25, 8.02)
+    with cue(3.25): treble(0.25, 9.00)
+    with cue(3.50): treble(0.25, 8.05)
+    with cue(3.75): treble(0.25, 8.11)
+
+    with cue(0.00): bass(0.5, 7.04)
+    with cue(0.50): bass(0.5, 7.00)
+    with cue(1.00): bass(0.5, 7.02)
+    with cue(1.50): bass(0.5, 7.04)
+    with cue(2.00): bass(0.25, 7.05)
+    with cue(2.25): bass(0.25, 7.02)
+    with cue(2.50): bass(0.25, 7.04)
+    with cue(2.75): bass(0.25, 7.05)
+    with cue(3.00): bass(0.5, 7.07)
+    with cue(3.50): bass(0.5, 6.07)
+
+with measure(22):
+    treble(0.25, 9.00)
+    treble(0.25, 8.07)
+    treble(0.25, 8.04)
+    bass(0.25, 7.00)
+    bass(0.25, 6.00)
+
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
-score.pmap('i', 1, 4, lambda x: x * 0.5)
+score.pmap('i', 1, 4, lambda x: x * 0.25)
 score.end()
 
 </CsScore>
