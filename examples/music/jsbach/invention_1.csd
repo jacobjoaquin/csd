@@ -481,6 +481,16 @@ with measure(15):
     with cue(3.50): bass(0.25, 8.01)
     with cue(3.75): bass(0.25, 8.04)
 
+with measure(16):
+    with cue(0.25): treble(0.25, 9.04)
+    with cue(0.50): treble(0.25, 9.05)
+    with cue(0.75): treble(0.25, 9.07)
+    with cue(1.00): treble(0.25, 9.09)
+    with cue(1.25): treble(0.25, 9.05)
+    with cue(1.50): treble(0.25, 9.07)
+    with cue(1.75): treble(0.25, 9.04)
+    with cue(2.00): treble(2.25, 9.05)
+
 with measure(14): score.write("a 0 0 {0}".format(cue.now()))
 
 score.i(2, 0, 60)
