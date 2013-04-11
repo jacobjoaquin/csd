@@ -16,7 +16,7 @@ instr 1
     a1 vco2 kenv, ipch * 2, 0 
     a2 vco2 kenv, ipch, 2, 0.3 + birnd(0.1)
 
-    kenv2 expseg 16000, idur, 12000
+    kenv2 expseg 16000, idur, 9000
     afilter moogladder a1 * 0.4 + a2 * 0.6, kenv2, 0.4
     outs afilter, afilter
 
