@@ -12,15 +12,21 @@ instr 1
     iamp = p4
     ifreq = p5
 
-    kenv adsr 0.05, 0.125, 0.4, 1
-    a1 vco2 kenv, ifreq * 2, 0 
-    a2 vco2 kenv, ifreq, 2, 0.3 + birnd(0.1)
+    kenv adsr 0.11, 0.125, 0.4, 1
+    a1 vco2 1, ifreq * 2, 0 
+    a2 vco2 1, ifreq, 2, 0.6 + birnd(0.1)
 
     kenv2 expseg 16000 + rnd(2000), idur, 8000 + rnd(3000)
     kenv3 expseg 15000 + rnd(2000), idur, 8000 + rnd(3000)
 
-    afilter1 moogladder a1 * 0.4 + a2 * 0.6, kenv2, 0.4 + rnd(0.1)
-    afilter2 moogladder a1 * 0.4 + a2 * 0.6, kenv3, 0.4 + rnd(0.1)
+    amix = a1 * 0.4 + a2 + 0.6
+    amix = amix * kenv * iamp
+
+    ;afilter1 moogladder amix, kenv2, 0.4 + rnd(0.1)
+    ;afilter2 moogladder amix, kenv3, 0.4 + rnd(0.1)
+    afilter1 moogvcf2 amix, kenv2, 0.5 + rnd(0.1)
+    afilter2 moogvcf2 amix, kenv3, 0.5 + rnd(0.1)
+
     outs afilter1, afilter2
 
     chnmix afilter1, "left"
@@ -286,6 +292,7 @@ with measure(8):
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
+score.pmap('i', 1, 4, lambda x: x * 0.5)
 score.end()
 
 </CsScore>
