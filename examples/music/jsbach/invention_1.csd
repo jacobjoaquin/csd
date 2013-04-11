@@ -362,7 +362,7 @@ with measure(11):
     with cue(3.50): bass(0.25, 8.04)
     with cue(3.75): bass(0.25, 8.07)
 
-score.write('a 0 0 36')
+#score.write('a 0 0 36')
 score.i(2, 0, 50)
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
