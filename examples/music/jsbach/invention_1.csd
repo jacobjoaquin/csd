@@ -10,26 +10,36 @@ instr 1
     p3 = p3 + 0.125
     idur = p3
     iamp = p4
-    ipch = cpspch(p5)
+    ipch = p5
 
     kenv adsr 0.05, 0.125, 0.4, 1
     a1 vco2 kenv, ipch * 2, 0 
     a2 vco2 kenv, ipch, 2, 0.3 + birnd(0.1)
 
-    kenv2 expseg 16000, idur, 9000
-    afilter moogladder a1 * 0.4 + a2 * 0.6, kenv2, 0.4
-    outs afilter, afilter
+    kenv2 expseg 16000 + rnd(2000), idur, 8000 + rnd(3000)
+    kenv3 expseg 15000 + rnd(2000), idur, 8000 + rnd(3000)
 
-    chnmix afilter, "h_out"
+    afilter1 moogladder a1 * 0.4 + a2 * 0.6, kenv2, 0.4 + rnd(0.1)
+    afilter2 moogladder a1 * 0.4 + a2 * 0.6, kenv3, 0.4 + rnd(0.1)
+    outs afilter1, afilter2
+
+    chnmix afilter1, "left"
+    chnmix afilter2, "right"
 endin
 
 instr 2
     imix = 2.5
-    a1 chnget "h_out"
+    a1 chnget "left"
+    a2 chnget "right"
+
     a1 delay a1, 0.0233
-    a1, a2 freeverb a1, a1, 0.4, 0.3
+    a2 delay a2, 0.0231
+
+    a1, a2 freeverb a2, a1, 0.4, 0.3
     outs a1 * imix, a2 * imix
-    chnclear "h_out"
+
+    chnclear "left"
+    chnclear "right"
 endin
 
 </CsInstruments>
@@ -47,12 +57,25 @@ def measure(t):
     return cue((t - 1) * 4.0)
 
 def harpsichord(dur, pitch):
-    score.i(1, 0, dur, 0.5, pitch)
+    score.i(1, 0, dur, 0.5, well_temper(pitch))
+
+def well_temper(p):
+    '''Well Tempered
+
+    # http://www.larips.com/
+    '''
+
+    well_tempered = [5.9, 3.9, 2, 3.9, -2, 7.8, 2, 3.9, 3.9, 0, 3.9, 0]
+    octave, note = divmod(p, 1)
+    note *= 100
+    et = 432 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
+    et *= 2 ** ((well_tempered[int(note)]) / 1200.0)
+    return et
 
 treble = harpsichord
 bass = harpsichord
-score.write('t 0 90')
 
+score.write('t 0 90')
 score.i(2, 0, 27)
 
 with measure(1):
@@ -214,8 +237,8 @@ with measure(6):
     with cue(3.00): bass(0.5, 7.02)
     with cue(3.50): bass(0.5, 6.02)    
 
-score.pmap('i', 1, 2, lambda x: x + random() * 0.04)
-score.pmap('i', 1, 3, lambda x: x + random() * 0.04)
+score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
+score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
 score.end()
 
 </CsScore>
