@@ -10,11 +10,11 @@ instr 1
     p3 = p3 + 0.125
     idur = p3
     iamp = p4
-    ipch = p5
+    ifreq = p5
 
     kenv adsr 0.05, 0.125, 0.4, 1
-    a1 vco2 kenv, ipch * 2, 0 
-    a2 vco2 kenv, ipch, 2, 0.3 + birnd(0.1)
+    a1 vco2 kenv, ifreq * 2, 0 
+    a2 vco2 kenv, ifreq, 2, 0.3 + birnd(0.1)
 
     kenv2 expseg 16000 + rnd(2000), idur, 8000 + rnd(3000)
     kenv3 expseg 15000 + rnd(2000), idur, 8000 + rnd(3000)
@@ -76,7 +76,7 @@ treble = harpsichord
 bass = harpsichord
 
 score.write('t 0 90')
-score.i(2, 0, 27)
+score.i(2, 0, 42)
 
 with measure(1):
     with cue(0.25): treble(0.25, 8.00)
@@ -236,6 +236,53 @@ with measure(6):
     with cue(2.75): bass(0.25, 7.00)
     with cue(3.00): bass(0.5, 7.02)
     with cue(3.50): bass(0.5, 6.02)    
+
+with measure(7):
+    with cue(0.00): treble(0.5, 8.07)
+    with cue(2.25): treble(0.25, 8.07)
+    with cue(2.50): treble(0.25, 8.09)
+    with cue(2.75): treble(0.25, 8.11)
+    with cue(3.00): treble(0.25, 9.00)
+    with cue(3.25): treble(0.25, 8.09)
+    with cue(3.50): treble(0.25, 8.11)
+    with cue(3.75): treble(0.25, 8.07)
+
+    with cue(0.25): bass(0.25, 6.07)
+    with cue(0.50): bass(0.25, 6.09)
+    with cue(0.75): bass(0.25, 6.11)
+    with cue(1.00): bass(0.25, 7.00)
+    with cue(1.25): bass(0.25, 6.09)
+    with cue(1.50): bass(0.25, 6.11)
+    with cue(1.75): bass(0.25, 6.07)
+    with cue(2.00): bass(0.5, 7.02)
+    with cue(2.50): bass(0.5, 7.07)
+    with cue(3.00): bass(0.5, 7.06)
+    with cue(3.50): bass(0.5, 7.07)
+
+with measure(8):
+    with cue(0.00): treble(0.125, 8.06)
+    with cue(0.125): treble(0.125, 8.04)
+    with cue(0.25): treble(0.25, 8.06)
+    with cue(2.25): treble(0.25, 8.09)
+    with cue(2.50): treble(0.25, 8.11)
+    with cue(2.75): treble(0.25, 9.00)
+    with cue(3.00): treble(0.25, 9.02)
+    with cue(3.25): treble(0.25, 8.11)
+    with cue(3.50): treble(0.25, 9.00)
+    with cue(3.75): treble(0.25, 8.09)
+
+    with cue(0.00): bass(0.25, 7.09)
+    with cue(0.25): bass(0.25, 7.02)
+    with cue(0.50): bass(0.25, 7.04)
+    with cue(0.75): bass(0.25, 7.06)
+    with cue(1.00): bass(0.25, 7.07)
+    with cue(1.25): bass(0.25, 7.04)
+    with cue(1.50): bass(0.25, 7.06)
+    with cue(1.75): bass(0.25, 7.02)
+    with cue(2.00): bass(0.5, 7.09)
+    with cue(2.50): bass(0.5, 8.02)
+    with cue(3.00): bass(0.5, 8.00)
+    with cue(3.50): bass(0.5, 8.02)
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
