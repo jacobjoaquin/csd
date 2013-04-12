@@ -22,7 +22,7 @@ instr 1
     ival1 = 7000 + rnd(3000)
     ival2 = 7000 + rnd(3000)
     kenv2 expseg 16000 + rnd(2000), 2, ival1, 4, 2000, 0, 2000
-    kenv3 expseg 15000 + rnd(2000), 2, ival1, 4, 2000, 0, 2000
+    kenv3 expseg 16000 + rnd(2000), 2, ival2, 4, 2000, 0, 2000
 
     amix = a1 * 0.4 + a2 + 0.6
     amix = amix * kenv * iamp
