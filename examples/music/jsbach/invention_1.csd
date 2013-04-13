@@ -39,15 +39,20 @@ instr 1
 endin
 
 instr 2
-    imix = 2.333
+    iamp = p4
+    idelay_left = p5
+    idelay_right = p6
+    iroom_size = p7
+    iHFDamp = p8
+
     a1 chnget "left"
     a2 chnget "right"
 
-    a1 delay a1, 0.0233
-    a2 delay a2, 0.0231
+    a1 delay a1, idelay_left
+    a2 delay a2, idelay_right
 
-    a1, a2 freeverb a2, a1, 0.4, 0.3
-    outs a1 * imix, a2 * imix
+    a1, a2 freeverb a2, a1, iroom_size, iHFDamp
+    outs a1 * iamp, a2 * iamp
 
     chnclear "left"
     chnclear "right"
@@ -86,6 +91,12 @@ def random_tempo(minimum, maximum):
         counter += random() * 3.0 + 1.0
     score.write(" ".join(L))
 
+def arpeggiate(inc=0.06):
+    offset = 0;
+    while True:
+        yield offset
+        offset += inc
+
 def harpsichord(dur, pitch):
     score.i(1, 0, dur, 0.5, well_temper(pitch))
 
@@ -101,6 +112,9 @@ def well_temperament(p):
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
+def reverb(dur, amp, delay_left, delay_right, room_size, damp):
+    score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
+
 def top(dur, pitch):
     score.i(1, 0, dur, 0.5, well_temperament(pitch))
 
@@ -108,7 +122,7 @@ def bottom(dur, pitch):
     score.i(1, 0, dur, 0.5, well_temperament(pitch))
 
 random_tempo(80, 85)
-score.i(2, 0, 90)
+reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
 
 with measure(1):
     with cue(0.25): top(0.25, 8.00)
@@ -638,33 +652,15 @@ with measure(21):
     with cue(3.00): bottom(0.5, 7.07)
     with cue(3.50): bottom(0.5, 6.07)
 
-
-def chord():
-    yield (bottom, 0.5, 6.00)
-    yield (bottom, 0.5, 7.00)
-    yield (top, 0.5, 8.04)
-    yield (top, 0.5, 8.07)
-    yield (top, 0.5, 9.00)
-
-#with measure(20): score.write("a 0 0 {0}".format(cue.now()))
-
 with measure(22):
-    offset = 0
-    c = chord()
-
-    for instr, dur, pch in c:
-        with cue(offset):
-            instr(dur, pch)
-            offset += 0.05
-
-if False:
-    with measure(22):
-        top(0.25, 9.00)
-        top(0.25, 8.07)
-        top(0.25, 8.04)
-        bottom(0.25, 7.00)
-        bottom(0.25, 6.00)
-
+    arp = arpeggiate()
+    score.p_callback('i', 1, 2, lambda x: arp.next())
+    bottom(0.25, 6.00)
+    bottom(0.25, 7.00)
+    top(0.25, 8.04)
+    top(0.25, 8.07)
+    top(0.25, 9.00)
+    del arp
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
