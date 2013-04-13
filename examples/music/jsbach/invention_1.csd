@@ -83,8 +83,15 @@ def well_temper(p):
     et *= 2 ** ((well_tempered[int(note)]) / 1200.0)
     return et
 
-treble = harpsichord
-bass = harpsichord
+def top(dur, pitch):
+    with cue(0.05):
+        score.i(1, 0, dur, 0.5, well_temper(pitch))
+
+def bottom(dur, pitch):
+    score.i(1, 0, dur, 0.5, well_temper(pitch))
+
+treble = top
+bass = bottom
 
 #score.write('t 0 90')
 
@@ -657,8 +664,8 @@ if False:
         bass(0.25, 6.00)
 
 
-score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
-score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
+#score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
+#score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
 score.pmap('i', 1, 4, lambda x: x * 0.25)
 score.end()
 
