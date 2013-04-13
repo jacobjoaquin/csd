@@ -629,12 +629,32 @@ with measure(21):
     with cue(3.00): bass(0.5, 7.07)
     with cue(3.50): bass(0.5, 6.07)
 
+
+def chord():
+    yield (bass, 0.5, 6.00)
+    yield (bass, 0.5, 7.00)
+    yield (treble, 0.5, 8.04)
+    yield (treble, 0.5, 8.07)
+    yield (treble, 0.5, 9.00)
+
+#with measure(20): score.write("a 0 0 {0}".format(cue.now()))
+
 with measure(22):
-    treble(0.25, 9.00)
-    treble(0.25, 8.07)
-    treble(0.25, 8.04)
-    bass(0.25, 7.00)
-    bass(0.25, 6.00)
+    offset = 0
+    c = chord()
+
+    for instr, dur, pch in c:
+        with cue(offset):
+            instr(dur, pch)
+            offset += 0.05
+
+if False:
+    with measure(22):
+        treble(0.25, 9.00)
+        treble(0.25, 8.07)
+        treble(0.25, 8.04)
+        bass(0.25, 7.00)
+        bass(0.25, 6.00)
 
 
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
