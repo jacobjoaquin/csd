@@ -69,9 +69,6 @@ endin
 from csd.pysco import PythonScore
 from random import random
 
-score = PythonScore()
-cue = score.cue
-
 def advance(m):
     with measure(m): score.write("a 0 0 {0}".format(cue.now()))
 
@@ -97,9 +94,6 @@ def arpeggiate(inc=0.06):
         yield offset
         offset += inc
 
-def harpsichord(dur, pitch):
-    score.i(1, 0, dur, 0.5, well_temper(pitch))
-
 def well_temperament(p):
     '''Well Tempered
 
@@ -112,15 +106,17 @@ def well_temperament(p):
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
-def reverb(dur, amp, delay_left, delay_right, room_size, damp):
-    score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
-
 def top(dur, pitch):
     score.i(1, 0, dur, 0.5, well_temperament(pitch))
 
 def bottom(dur, pitch):
     score.i(1, 0, dur, 0.5, well_temperament(pitch))
 
+def reverb(dur, amp, delay_left, delay_right, room_size, damp):
+    score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
+
+score = PythonScore()
+cue = score.cue
 random_tempo(80, 85)
 reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
 
