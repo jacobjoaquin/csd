@@ -106,7 +106,6 @@ def well_temperament(p):
 
     ratios = [5.9, 3.9, 2, 3.9, -2, 7.8, 2, 3.9, 3.9, 0, 3.9, 0]
     octave, note = pch_split(p)
-    #print octave, p, note
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
@@ -124,19 +123,17 @@ top = harpsichord
 bottom = harpsichord
 
 def transpose_cpspch(p, halfstep):
-    return p
-    halfstep = 12
+    halfstep = -12
     octave, note = pch_split(p) 
-    print p, octave, note
     note += halfstep
 
     if note < 0:
-        octave -= 1
+        octave = octave - abs(int(note + 1)) / 12 - 1
     else:
         octave += int(note / 12.0)
 
     note = int(note) % 12
-    return octave + note * 0.01
+    return octave + note * 0.01 + 1
     
 
 def mordant(halfstep, instr, dur, pch):
