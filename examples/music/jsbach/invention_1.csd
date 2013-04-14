@@ -135,10 +135,8 @@ def transpose_cpspch(p, halfstep):
     note = int(note) % 12
     return octave + note * 0.01 + 1
     
-
-def mordant(halfstep, instr, dur, pch):
-    with cue(0.0): instr(dur * 0.25, pch)
-    
+def mordant(halfstep, instr, start, dur, pch):
+    instr(start, dur * 0.25, pch)
 
 with measure(1):
     top(0.25, 0.25, 8.00)
@@ -150,9 +148,10 @@ with measure(1):
     top(1.75, 0.25, 8.00)
     top(2.00, 0.5, 8.07)
     top(2.50, 0.5, 9.00)
-    top(3.00, 0.125, 8.11)
-    top(3.125, 0.125, 8.09)
-    top(3.25, 0.25, 8.11)
+    mordant(-2, top, 3.00, 0.125, 8.11)
+    #top(3.00, 0.125, 8.11)
+    #top(3.125, 0.125, 8.09)
+    #top(3.25, 0.25, 8.11)
     top(3.50, 0.5, 9.00)
 
     bottom(2.25, 0.25, 7.00)
