@@ -73,7 +73,8 @@ def advance(m):
     with measure(m): score.write("a 0 0 {0}".format(cue.now()))
 
 def pch_split(pch):
-    return [int(c) for c in str(pch).split('.')]
+    octave, note = "{0:.2f}".format(pch).split('.')
+    return int(octave), int(note.zfill(2))
     
 def measure(t):
     beats = (t - 1) * 4.0
@@ -105,6 +106,7 @@ def well_temperament(p):
 
     ratios = [5.9, 3.9, 2, 3.9, -2, 7.8, 2, 3.9, 3.9, 0, 3.9, 0]
     octave, note = pch_split(p)
+    #print octave, p, note
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
@@ -617,11 +619,11 @@ with measure(20):
     top(0.25, 0.25, 9.07)
     top(0.50, 0.25, 9.09)
     top(0.75, 0.25, 9.11)
-    top(1.00, 0.25, 0.00)
+    top(1.00, 0.25, 10.00)
     top(1.25, 0.25, 9.09)
     top(1.50, 0.25, 9.11)
     top(1.75, 0.25, 9.07)
-    top(2.00, 0.5, 0.00)
+    top(2.00, 0.5, 10.00)
     top(2.50, 0.5, 9.07)
     top(3.00, 0.5, 9.04)
     top(3.50, 0.25, 9.02)
