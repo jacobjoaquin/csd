@@ -72,6 +72,9 @@ from random import random
 def advance(m):
     with measure(m): score.write("a 0 0 {0}".format(cue.now()))
 
+def pch_split(pch):
+    return [int(c) for c in str(pch).split('.')]
+    
 def measure(t):
     beats = (t - 1) * 4.0
     score.i(3, beats, 1, t)
@@ -101,13 +104,12 @@ def well_temperament(p):
     '''
 
     ratios = [5.9, 3.9, 2, 3.9, -2, 7.8, 2, 3.9, 3.9, 0, 3.9, 0]
-    octave, note = divmod(p, 1)
-    note *= 100
+    octave, note = pch_split(p)
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
 def harpsichord(dur, pitch):
-    score.i(1, 0, dur, 0.5, well_temperament(pitch))
+    score.i(1, 0, dur, 0.5, well_temperament(transpose_cpspch(pitch, -1)))
 
 def reverb(dur, amp, delay_left, delay_right, room_size, damp):
     score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
@@ -118,6 +120,26 @@ random_tempo(80, 85)
 reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
 top = harpsichord
 bottom = harpsichord
+
+def transpose_cpspch(p, halfstep):
+    return p
+    halfstep = 12
+    octave, note = pch_split(p) 
+    print p, octave, note
+    note += halfstep
+
+    if note < 0:
+        octave -= 1
+    else:
+        octave += int(note / 12.0)
+
+    note = int(note) % 12
+    return octave + note * 0.01
+    
+
+def mordant(halfstep, instr, dur, pch):
+    with cue(0.0): instr(dur * 0.25, pch)
+    
 
 with measure(1):
     with cue(0.25): top(0.25, 8.00)
