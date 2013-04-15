@@ -65,23 +65,30 @@ endin
 
 </CsInstruments>
 <CsScore bin="python">
-"""Invention No. 1 by Johann Sebastian Bach (1685-1750) BWV772
+"""Invention No. 1 by Johann Sebastian Bach (1685-1750) BWV 772
 
-Translated from:
+Source:
 http://www.mutopiaproject.org/cgibin/piece-info.cgi?id=40
 
-Sheet music from www.MutopiaProject.org: Free to download, with the
-freedom to distribute, modify and perform.  Typeset using
+Sheet music from www.MutopiaProject.org * Free to download, with
+the freedom to distribute, modify and perform.  Typeset using
 www.LilyPond.org by Jeff Covey. Copyright (C) 2008.  Reference:
 Mutopia-2008/06/15-40.
 
 Licensed under the Creative Commons Attribution-ShareAlike 3.0
 (Unported) License, for details see:
 http://creativecommons.org/licenses/by-sa/3.0/
-"""
+
+Ported to Csound PythonScore by Jacob Joaquin 2013. See:
+http://jacobjoaquin.github.io/csd/pysco.html"""
 
 from csd.pysco import PythonScore
 from random import random
+
+def info():
+    print '=' * 72
+    print __doc__
+    print '=' * 72
 
 def advance(m):
     with measure(m): score.write("a 0 0 {0}".format(cue.now()))
@@ -153,6 +160,8 @@ def harpsichord(start, dur, pitch):
 
 def reverb(dur, amp, delay_left, delay_right, room_size, damp):
     score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
+
+info()
 
 score = PythonScore()
 cue = score.cue
