@@ -79,8 +79,9 @@ Licensed under the Creative Commons Attribution-ShareAlike 3.0
 (Unported) License, for details see:
 http://creativecommons.org/licenses/by-sa/3.0/
 
-Ported to Csound PythonScore by Jacob Joaquin 2013. See:
-http://jacobjoaquin.github.io/csd/pysco.html"""
+Ported to Csound PythonScore by Jacob Joaquin 2013.
+
+"""
 
 from csd.pysco import PythonScore
 from random import random
@@ -90,15 +91,16 @@ def info():
     print __doc__
     print '=' * 72
 
-def advance(m):
-    with measure(m): score.write("a 0 0 {0}".format(cue.now()))
-
 def pch_split(pch):
+    '''Splits a pitch-class value into an octave and pitch.'''
+
     octave, note = "{0:.2f}".format(pch).split('.')
     return int(octave), int(note.zfill(2))
     
-def transpose_cpspch(p, halfstep):
-    octave, note = pch_split(p) 
+def transpose_pch(pch, halfstep):
+    '''Transposes a pitch-class value by halfsteps.'''
+
+    octave, note = pch_split(pch)
     note += halfstep
 
     if note < 0:
@@ -110,25 +112,64 @@ def transpose_cpspch(p, halfstep):
     return octave + note * 0.01
     
 def mordent(halfstep, instr, start, dur, pch):
+    '''Ornaments a note with a mordent.
+
+    Generates multiple score instrument events using a baroque
+    style mordent.
+
+    Args:
+        halfstep: Half steps away from root note.
+        instr: Score instrument to play
+        start: Start time.
+        dur: Duration.
+        pch: Pitch of root note in pitch-class notation.
+
+    '''
+
     d = dur * 0.125
     instr(start, d, pch)
-    instr(start + d, d, transpose_cpspch(pch, halfstep))
+    instr(start + d, d, transpose_pch(pch, halfstep))
     instr(start + d * 2, dur * 0.75, pch)
 
 def trill(halfstep, div, instr, start, dur, pch):
+    '''Ornaments a note with a trill.
+
+    Generates multiple score instrument events using a trill.
+
+    Args:
+        halfstep: Half steps away from root note.
+        div: Number of divisions of the written note duration.
+        instr: Score instrument to play
+        start: Start time.
+        dur: Duration.
+        pch: Pitch of root note in pitch-class notation.
+
+    '''
+
     d = dur / float(div)
     for i in xrange(0, div, 2):
-        with cue(start):
-            instr(d * i, d, transpose_cpspch(pch, halfstep))
+        with score.cue(start):
+            instr(d * i, d, transpose_pch(pch, halfstep))
             instr(d * (i + 1), d, pch)
 
 def measure(t):
+    '''Allows PythonScore to use 4/4 time in measures.'''
+
     beats = (t - 1) * 4.0
     score.i(3, beats, 1, t)
-    return cue(beats)
+    return score.cue(beats)
 
-def random_tempo(minimum, maximum):
-    '''Change tempo randomly over time'''
+def varied_tempo_map(minimum, maximum):
+    '''Generates a varied tempo map.
+
+    This creates a tempo "t" score event with randomly changing tempos
+    specified by minimum and maximum.
+
+    Args:
+        minimum: Minimum tempo BPM.
+        maximum: Maximum tempo in BPM.
+
+    '''
 
     L = ["t"]
     counter = 0
@@ -138,37 +179,43 @@ def random_tempo(minimum, maximum):
         counter += random() * 3.0 + 1.0
     score.write(" ".join(L))
 
-def arpeggiate(inc=0.06):
+def increment(inc=0.06):
+    '''Floating point increment generator.'''
+
     offset = 0;
     while True:
         yield offset
         offset += inc
 
-def well_temperament(p):
-    '''Well Tempered
+def wellpch(pch):
+    '''Well-tempered pitch-class to frequency converter.'
 
-    # http://www.larips.com/
+    The source of the ratios:
+        http://www.larips.com/
+
     '''
 
     ratios = [5.9, 3.9, 2, 3.9, -2, 7.8, 2, 3.9, 3.9, 0, 3.9, 0]
-    octave, note = pch_split(p)
+    octave, note = pch_split(pch)
     pitch = 415 * 2 ** (((octave - 8) * 12 + (note - 9)) / 12.0)
-    return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
+    return pitch * 2 ** (ratios[int(note)] / 1200.0)
 
 def harpsichord(start, dur, pitch):
-    score.i(1, start, dur, 0.5, well_temperament(pitch))
+    '''Interface for Csound orchestra harpsichord instrument.'''
+
+    score.i(1, start, dur, 0.5, wellpch(pitch))
 
 def reverb(dur, amp, delay_left, delay_right, room_size, damp):
+    '''Interface for Csound orchesta reverb instrument.'''
+
     score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
 
 info()
-
 score = PythonScore()
-cue = score.cue
-random_tempo(80, 85)
 top = harpsichord
 bottom = harpsichord
 reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
+varied_tempo_map(80, 85)
 
 with measure(1):
     top(0.25, 0.25, 8.00)
@@ -687,7 +734,7 @@ with measure(21):
     bottom(3.50, 0.5, 6.07)
 
 with measure(22):
-    arp = arpeggiate()
+    arp = increment()
     score.p_callback('i', 1, 2, lambda x: arp.next())
     bottom(0, 0.5, 6.00)
     bottom(0, 0.5, 7.00)
