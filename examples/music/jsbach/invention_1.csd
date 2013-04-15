@@ -7,13 +7,14 @@ nchnls = 2
 0dbfs = 1.0
 
 instr 1
-    p3 = p3 + 0.125
+    itail = 0.01
+    p3 = p3 + itail
     idur = p3
     iamp = p4
     ifreq = p5
 
     kenv linseg 0, 0.001, 1, 0.25, 0.4, 2, 0.1, 0, 0.1
-    kenvgate linseg, 1, idur - 0.125, 1, 0.125, 0, 0, 0
+    kenvgate linseg, 1, idur - itail, 1, itail, 0, 0, 0
     kenv = kenv * kenvgate
 
     a1 vco2 1, ifreq * 2, 0 
@@ -64,7 +65,20 @@ endin
 
 </CsInstruments>
 <CsScore bin="python">
-'''Invention No. 1 by J.S. Bach'''
+"""Invention No. 1 by Johann Sebastian Bach (1685-1750) BWV772
+
+Translated from:
+http://www.mutopiaproject.org/cgibin/piece-info.cgi?id=40
+
+Sheet music from www.MutopiaProject.org: Free to download, with the
+freedom to distribute, modify and perform.  Typeset using
+www.LilyPond.org by Jeff Covey. Copyright (C) 2008.  Reference:
+Mutopia-2008/06/15-40.
+
+Licensed under the Creative Commons Attribution-ShareAlike 3.0
+(Unported) License, for details see:
+http://creativecommons.org/licenses/by-sa/3.0/
+"""
 
 from csd.pysco import PythonScore
 from random import random
@@ -76,6 +90,31 @@ def pch_split(pch):
     octave, note = "{0:.2f}".format(pch).split('.')
     return int(octave), int(note.zfill(2))
     
+def transpose_cpspch(p, halfstep):
+    octave, note = pch_split(p) 
+    note += halfstep
+
+    if note < 0:
+        octave = octave - abs(int(note + 1)) / 12 - 1
+    else:
+        octave += int(note / 12.0)
+
+    note = int(note) % 12
+    return octave + note * 0.01
+    
+def mordent(halfstep, instr, start, dur, pch):
+    d = dur * 0.125
+    instr(start, d, pch)
+    instr(start + d, d, transpose_cpspch(pch, halfstep))
+    instr(start + d * 2, dur * 0.75, pch)
+
+def trill(halfstep, div, instr, start, dur, pch):
+    d = dur / float(div)
+    for i in xrange(0, div, 2):
+        with cue(start):
+            instr(d * i, d, transpose_cpspch(pch, halfstep))
+            instr(d * (i + 1), d, pch)
+
 def measure(t):
     beats = (t - 1) * 4.0
     score.i(3, beats, 1, t)
@@ -110,7 +149,7 @@ def well_temperament(p):
     return pitch * 2 ** ((ratios[int(note)]) / 1200.0)
 
 def harpsichord(start, dur, pitch):
-    score.i(1, start, dur, 0.5, well_temperament(transpose_cpspch(pitch, -1)))
+    score.i(1, start, dur, 0.5, well_temperament(pitch))
 
 def reverb(dur, amp, delay_left, delay_right, room_size, damp):
     score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
@@ -118,27 +157,9 @@ def reverb(dur, amp, delay_left, delay_right, room_size, damp):
 score = PythonScore()
 cue = score.cue
 random_tempo(80, 85)
-reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
 top = harpsichord
 bottom = harpsichord
-
-def transpose_cpspch(p, halfstep):
-    octave, note = pch_split(p) 
-    note += halfstep
-
-    if note < 0:
-        octave = octave - abs(int(note + 1)) / 12 - 1
-    else:
-        octave += int(note / 12.0)
-
-    note = int(note) % 12
-    return octave + note * 0.01
-    
-def mordant(halfstep, instr, start, dur, pch):
-    d = dur * 0.125
-    instr(start, d, pch)
-    instr(start + d, d, transpose_cpspch(pch, halfstep))
-    instr(start + d * 2, dur * 0.75, pch)
+reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
 
 with measure(1):
     top(0.25, 0.25, 8.00)
@@ -150,7 +171,7 @@ with measure(1):
     top(1.75, 0.25, 8.00)
     top(2.00, 0.5, 8.07)
     top(2.50, 0.5, 9.00)
-    mordant(-2, top, 3.00, 0.5, 8.11)
+    mordent(-2, top, 3.00, 0.5, 8.11)
     top(3.50, 0.5, 9.00)
 
     bottom(2.25, 0.25, 7.00)
@@ -172,9 +193,7 @@ with measure(2):
     top(1.75, 0.25, 8.07)
     top(2.00, 0.5, 9.02)
     top(2.50, 0.5, 9.07)
-    top(3.00, 0.125, 9.05)
-    top(3.125, 0.125, 9.04)
-    top(3.25, 0.25, 9.05)
+    mordent(-1, top, 3.00, 0.5, 9.05)
     top(3.50, 0.5, 9.07)
 
     bottom(0.00, 0.5, 7.07)
@@ -243,9 +262,7 @@ with measure(4):
 with measure(5):
     top(0.00, 0.5, 8.09)
     top(0.50, 0.5, 8.02)
-    top(1.00, 0.125, 9.00)
-    top(1.125, 0.125, 8.11)
-    top(1.25, 0.5, 9.00)
+    trill(2, 10, top, 1.00, 0.75, 9.00)
     top(1.75, 0.25, 9.02)
     top(2.00, 0.25, 8.11)
     top(2.25, 0.25, 8.09)
@@ -282,9 +299,7 @@ with measure(6):
     top(2.375, 0.125, 9.00)
     top(2.50, 0.25, 9.02)
     top(2.75, 0.25, 9.07)
-    top(3.00, 0.125, 8.11)
-    top(3.125, 0.125, 8.09)
-    top(3.25, 0.25, 8.11)
+    mordent(-2, top, 3.00, 0.5, 8.11)
     top(3.50, 0.25, 8.09)
     top(3.75, 0.25, 8.07)
 
@@ -320,9 +335,7 @@ with measure(7):
     bottom(3.50, 0.5, 7.07)
 
 with measure(8):
-    top(0.00, 0.125, 8.06)
-    top(0.125, 0.125, 8.04)
-    top(0.25, 0.25, 8.06)
+    mordent(-2, top, 0.00, 0.5, 8.06)
     top(2.25, 0.25, 8.09)
     top(2.50, 0.25, 8.11)
     top(2.75, 0.25, 9.00)
@@ -462,9 +475,7 @@ with measure(13):
    
     bottom(0.00, 0.5, 7.11)
     bottom(0.50, 0.5, 7.04)
-    bottom(1.00, 0.125, 8.02)
-    bottom(1.125, 0.125, 8.04)
-    bottom(1.25, 0.5, 8.02)
+    trill(2, 8, bottom, 1.00, 0.75, 8.02)
     bottom(1.75, 0.25, 8.04)
     bottom(2.00, 0.25, 8.00)
     bottom(2.25, 0.25, 7.11)
@@ -669,16 +680,15 @@ with measure(21):
 with measure(22):
     arp = arpeggiate()
     score.p_callback('i', 1, 2, lambda x: arp.next())
-    bottom(0, 0.25, 6.00)
-    bottom(0, 0.25, 7.00)
-    top(0, 0.25, 8.04)
-    top(0, 0.25, 8.07)
-    top(0, 0.25, 9.00)
-    del arp
+    bottom(0, 0.5, 6.00)
+    bottom(0, 0.5, 7.00)
+    top(0, 0.5, 8.04)
+    top(0, 0.5, 8.07)
+    top(0, 0.5, 9.00)
 
-score.pmap('i', 1, 2, lambda x: x + random() * 0.05)
-score.pmap('i', 1, 3, lambda x: x + random() * 0.05)
-score.pmap('i', 1, 4, lambda x: x * 0.25)
+score.pmap('i', 1, 2, lambda x: x + random() * 0.05)  # Randomize start time
+score.pmap('i', 1, 3, lambda x: x + random() * 0.05)  # Randomize duration
+score.pmap('i', 1, 4, lambda x: x * 0.4)              # Lower amplitude
 score.end()
 
 </CsScore>
