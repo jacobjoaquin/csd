@@ -87,9 +87,9 @@ from csd.pysco import PythonScore
 from random import random
 
 def info():
-    print '=' * 72
+    print "\033[0;31m" + ('=' * 72) + "\033[1;33m"
     print __doc__
-    print '=' * 72
+    print "\033[0;31m" + ('=' * 72) + "\033[0m"
 
 def pch_split(pch):
     '''Splits a pitch-class value into an octave and pitch.'''
