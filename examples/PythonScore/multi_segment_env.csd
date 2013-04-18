@@ -41,7 +41,7 @@ class LinearTableEnvelope:
                 env_data[index] = int(round(size * value))
 
         table_index = self.table_cycler.next()
-        L = ["f", table_index, score.cue.now(), size, 7] + env_data
+        L = ["f", table_index, score.cue.now(), size, -7] + env_data
         score.write(" ".join(str(i) for i in L))
 
         return table_index
