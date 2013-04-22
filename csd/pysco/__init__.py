@@ -79,6 +79,9 @@ class PythonScore(object):
 
         return sco.merge(data, selection)
 
+    def f(self, *args):
+        self.write(' '.join(chain('f', imap(str, args)))) 
+
     def i(self, *args):
         self.write(' '.join(chain('i', imap(str, args)))) 
 
