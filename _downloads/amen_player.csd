@@ -28,7 +28,7 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 
 def measure(t):
@@ -108,18 +108,17 @@ def intro():
         with cue(2.0): swell(hat, 2, 1, 4, 0.5, 1.0)
         swell(snare, 4, 1, 16, 0.05, 0.7, transpose(7))
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
 score.p_callback('i', 1, 6, multiply, transpose(7))
 score.p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
-score.write('t 0 170')
+score.t(170)
 
 intro()
 
 score.pmap('i', 1, 4, multiply, 0.707)
-score.end();
-
+ 
 </CsScore>
 </CsoundSynthesizer>

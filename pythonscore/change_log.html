@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PythonScore Change Log &mdash; CSD</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.5 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="CSD" href="../index.html" />
+    <link rel="up" title="PythonScore" href="../pysco.html" />
+    <link rel="next" title="Demos" href="../demo/index.html" />
+    <link rel="prev" title="Amen Break PythonScore Tutorial" href="../amen_tutorial.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../demo/index.html" title="Demos"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../amen_tutorial.html" title="Amen Break PythonScore Tutorial"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">CSD</a> &raquo;</li>
+          <li><a href="../pysco.html" accesskey="U">PythonScore</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<h3>Get CSD</h3>
+<ul id="downloadrepo">
+    <li><a href="https://github.com/jacobjoaquin/csd/zipball/master">Download <strong>ZIP File</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
+    <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
+</ul>
+
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PythonScore Change Log</a><ul>
+<li><a class="reference internal" href="#update-2013-4-22">Update 2013/4/22</a></li>
+<li><a class="reference internal" href="#prior-to-2013-4-22">Prior to 2013/4/22</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../amen_tutorial.html"
+                        title="previous chapter">Amen Break PythonScore Tutorial</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../demo/index.html"
+                        title="next chapter">Demos</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/pythonscore/change_log.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pythonscore-change-log">
+<h1>PythonScore Change Log<a class="headerlink" href="#pythonscore-change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="update-2013-4-22">
+<h2>Update 2013/4/22<a class="headerlink" href="#update-2013-4-22" title="Permalink to this headline">¶</a></h2>
+<p>Change Log created 2013/4/22</p>
+<p>Added <tt class="docutils literal"><span class="pre">PythonScore.f()</span></tt> for creating Csound f-tables.</p>
+<p>Added <tt class="docutils literal"><span class="pre">PythonScore.t()</span></tt> for creating Csound tempo events.</p>
+<p>Use PythonScoreBin instead of PythonScore in CSD files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
+
+<span class="n">score</span> <span class="o">=</span> <span class="n">PythonScoreBin</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Removed <tt class="docutils literal"><span class="pre">PythonScore.end()</span></tt> method. This is now automagically handled in <tt class="docutils literal"><span class="pre">PythonScoreBin</span></tt>.</p>
+</div>
+<div class="section" id="prior-to-2013-4-22">
+<h2>Prior to 2013/4/22<a class="headerlink" href="#prior-to-2013-4-22" title="Permalink to this headline">¶</a></h2>
+<p>Prior to this change log, PythonScore used to be called Pysco, and was an individual script that would be run by the bin CsScore option. It has since beem converted into a proper Python module, and many of the original functions are now methods of the PythonScore class and subclasses and have been renamed.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../demo/index.html" title="Demos"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../amen_tutorial.html" title="Amen Break PythonScore Tutorial"
+             >previous</a> |</li>
+        <li><a href="../index.html">CSD</a> &raquo;</li>
+          <li><a href="../pysco.html" >PythonScore</a> &raquo;</li> 
+      </ul>
+    </div>
+
+    <div class="footer">
+        &copy; Copyright 2009, Jacob Joaquin.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-39733073-1', 'github.io');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

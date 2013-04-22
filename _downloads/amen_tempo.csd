@@ -34,9 +34,9 @@ from random import choice
 score = PythonScoreBin()
 cue = score.cue
 
-score.write('''
-t 0 170
+score.t(170)
 
+score.write('''
 ; Measure 1
 i 1 0.0 0.5 0.707 0 1
 i 1 1.0 0.5 0.707 1 1
