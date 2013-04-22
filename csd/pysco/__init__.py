@@ -39,7 +39,7 @@ class PCallback():
         self.kwargs = kwargs
         
 
-class PythonScore():
+class PythonScore(object):
 
     def __init__(self):
         self.cue = Cue(self)
@@ -137,27 +137,38 @@ class Cue(object):
     def now(self):
         return sum(self.stack)
 
-def begin():
-    '''Loads Python Score elements. Only use within <CsScore>.
 
-    These functions become availabe: score, cue, pmap, p_callback,
-    event_i.'''
+class PythonScoreBin(PythonScore):
+    def __init__(self):
+        super(PythonScoreBin, self).__init__()   
+        atexit.register(self.bin_end_score)
 
-    global p
-    p = PythonScore()
+    def bin_end_score(self):
+        # TODO: This shouldn't run under certain circumstances
+        with open(argv[1], 'w') as f:
+        	f.write("\n".join(self.score_data))
 
-    # Get calling module. Should be __main__
-    f = sys._current_frames().values()[0]
-    name = f.f_back.f_globals['__name__']
-    m = sys.modules[name]
-
-    # Register Globals
-    setattr(m, 'score', p.score)
-    setattr(m, 'cue', p.cue)
-    setattr(m, 'pmap', p.pmap)
-    setattr(m, 'p_callback', p.p_callback)
-    setattr(m, 'event_i', p.event_i)
-
-    # End score
-    atexit.register(p.end_score)
+#def begin():
+#    '''Loads Python Score elements. Only use within <CsScore>.
+#
+#    These functions become availabe: score, cue, pmap, p_callback,
+#    event_i.'''
+#
+#    global p
+#    p = PythonScore()
+#
+#    # Get calling module. Should be __main__
+#    f = sys._current_frames().values()[0]
+#    name = f.f_back.f_globals['__name__']
+#    m = sys.modules[name]
+#
+#    # Register Globals
+#    setattr(m, 'score', p.score)
+#    setattr(m, 'cue', p.cue)
+#    setattr(m, 'pmap', p.pmap)
+#    setattr(m, 'p_callback', p.p_callback)
+#    setattr(m, 'event_i', p.event_i)
+#
+#    # End score
+#    atexit.register(p.end_score)
 
