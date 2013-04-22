@@ -28,10 +28,10 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
 score.write('''
@@ -62,7 +62,6 @@ i 1 14.5 0.5 0.707 0 1
 i 1 15.0 0.5 0.707 1 1
 ''')
 
-score.end();
-
+ 
 </CsScore>
 </CsoundSynthesizer>

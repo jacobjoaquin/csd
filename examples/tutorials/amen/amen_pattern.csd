@@ -28,7 +28,7 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 
 def measure(t):
@@ -46,17 +46,16 @@ def drum_pattern():
     with cue(2.5): kick()
     with cue(3.0): snare()
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
-score.write('t 0 170')
+score.t(170)
 
 with measure(1): drum_pattern()
 with measure(2): drum_pattern()
 with measure(3): drum_pattern()
 with measure(4): drum_pattern()
 
-score.end();
-
+ 
 </CsScore>
 </CsoundSynthesizer>

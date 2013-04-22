@@ -28,7 +28,7 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 from random import random
 
@@ -163,13 +163,13 @@ def outro():
 
     with cue(8 * offset): snare(dur=4, tune=transpose(-24))
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
 score.p_callback('i', 1, 6, multiply, transpose(7))
 score.p_callback('i', 1, 3, multiply, 1 / transpose(7))
 
-score.write('t 0 170')
+score.t(170)
 
 with measure(1): intro()
 with measure(5): section_a()
@@ -181,7 +181,6 @@ with measure(77): section_b()
 with measure(93): outro()
 
 score.pmap('i', 1, 4, multiply, 0.707)
-score.end();
-
+ 
 </CsScore>
 </CsoundSynthesizer>
