@@ -26,7 +26,7 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from itertools import cycle
 from random import randrange
 
@@ -41,7 +41,7 @@ def harmonic_bend(start, inc):
         yield start
         start += inc
 
-score = PythonScore()
+score = PythonScoreBin()
 n_clusters = 1000
 harmbend = harmonic_bend(1, 1.0 / n_clusters)
 pan = cycle(p / 15.0 for p in xrange(16))
@@ -59,8 +59,6 @@ for time in xrange(n_clusters):
 
             if not 20 < freq < 22050:
                 break
-
-score.end()
 
 </CsScore>
 </CsoundSynthesizer>
