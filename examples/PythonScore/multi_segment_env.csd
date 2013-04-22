@@ -36,12 +36,15 @@ class LinearTableEnvelope:
         if not size:
             size = self.table_size
 
+        table_index = self.table_cycler.next()
+        ftable = [table_index, score.cue.now(), size, -7]
+
         for index, value in enumerate(env_data):
             if index % 2:
-                env_data[index] = int(round(size * value))
+                value = int(round(size * value))
 
-        table_index = self.table_cycler.next()
-        ftable = [table_index, score.cue.now(), size, -7] + env_data
+            ftable.append(value)
+            
         score.f(*ftable) 
         return table_index
 
