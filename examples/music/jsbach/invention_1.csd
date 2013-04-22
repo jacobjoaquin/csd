@@ -171,13 +171,13 @@ def varied_tempo_map(minimum, maximum):
 
     '''
 
-    L = ["t"]
+    L = [minimum + random() * (maximum - minimum)]
     counter = 0
     while counter < 88:
-        L.append(str(counter))
-        L.append(str(minimum + random() * (maximum - minimum))) 
+        L.append(counter)
+        L.append(minimum + random() * (maximum - minimum)) 
         counter += random() * 3.0 + 1.0
-    score.write(" ".join(L))
+    score.t(*L)
 
 def increment(inc=0.06):
     '''Floating point increment generator.'''

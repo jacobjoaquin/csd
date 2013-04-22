@@ -27,7 +27,7 @@ import csd
 from csd import sco
 import atexit
 
-class PCallback():
+class PCallback(object):
 
     def __init__(self, statement, identifier, pfield, function, *args,
                  **kwargs):
@@ -45,9 +45,6 @@ class PythonScore(object):
         self.cue = Cue(self)
         self.score_data = []
         self.p_callbacks = [[]]
-        self.i = self.event_i
-        self.write = self.score
-        self.end = self.end_score
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
@@ -82,13 +79,11 @@ class PythonScore(object):
 
         return sco.merge(data, selection)
 
-    def end_score(self):
-        # TODO: This shouldn't run under certain circumstances
-        with open(argv[1], 'w') as f:
-        	f.write("\n".join(self.score_data))
+    def i(self, *args):
+        self.write(' '.join(chain('i', imap(str, args)))) 
 
-    def event_i(self, *args):
-        self.score(' '.join(chain('i', imap(str, args)))) 
+    def t(self, *args):
+        self.write(' '.join(chain('t 0', imap(str, args)))) 
 
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
         self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
@@ -99,7 +94,7 @@ class PythonScore(object):
         self.score_data = [self._map_process(data, statement, identifier,
                            pfield, func, *args, **kwargs)]
 
-    def score(self, data):
+    def write(self, data):
         # Apply pfield callbacks
         for L in self.p_callbacks:
             for cb in L:
@@ -139,36 +134,12 @@ class Cue(object):
 
 
 class PythonScoreBin(PythonScore):
+
     def __init__(self):
         super(PythonScoreBin, self).__init__()   
-        atexit.register(self.bin_end_score)
+        atexit.register(self._bin_end_score)
 
-    def bin_end_score(self):
+    def _bin_end_score(self):
         # TODO: This shouldn't run under certain circumstances
         with open(argv[1], 'w') as f:
         	f.write("\n".join(self.score_data))
-
-#def begin():
-#    '''Loads Python Score elements. Only use within <CsScore>.
-#
-#    These functions become availabe: score, cue, pmap, p_callback,
-#    event_i.'''
-#
-#    global p
-#    p = PythonScore()
-#
-#    # Get calling module. Should be __main__
-#    f = sys._current_frames().values()[0]
-#    name = f.f_back.f_globals['__name__']
-#    m = sys.modules[name]
-#
-#    # Register Globals
-#    setattr(m, 'score', p.score)
-#    setattr(m, 'cue', p.cue)
-#    setattr(m, 'pmap', p.pmap)
-#    setattr(m, 'p_callback', p.p_callback)
-#    setattr(m, 'event_i', p.event_i)
-#
-#    # End score
-#    atexit.register(p.end_score)
-
