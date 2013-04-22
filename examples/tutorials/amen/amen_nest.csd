@@ -62,7 +62,6 @@ with measure(4):
     with cue(1.0): score.i(1, 0, 0.5, 0.707, 1, 1)
     with cue(2.5): score.i(1, 0, 0.5, 0.707, 0, 1)
     with cue(3.0): score.i(1, 0, 0.5, 0.707, 1, 1)
-
  
 </CsScore>
 </CsoundSynthesizer>

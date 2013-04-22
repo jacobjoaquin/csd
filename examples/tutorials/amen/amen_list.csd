@@ -54,6 +54,5 @@ score.t(170)
 for m in [1, 2, 3, 4]:
     with measure(m): drum_pattern()
 
- 
 </CsScore>
 </CsoundSynthesizer>

@@ -147,18 +147,18 @@ Upgrade
 
 Porting a classical score into Python requires a few lines of code
 to set up. First, set the argument of the CsScore bin utility to
-"python". Then import PythonScore::
+"python". Then import PythonScoreBin::
 
-    from pysco import PythonScore
+    from pysco import PythonScoreBin
 
-An object called ``score`` is instantiated from the ``PythonScore()``
+``PythonScoreBin`` is a subclass of ``PythonScore`` specifically
+tailored for use inside a Csound Unified CSD file.
+
+An object called ``score`` is instantiated from the ``PythonScoreBin()``
 class. Additionally, variable ``cue`` is created and points to the
 ``score.cue`` context manager. We'll go into details later as to
 why. Classical Csound source code is entered into the ``score()``
-object via the ``write()`` method. And last, add ``score.end()``
-as the last statement in the score to tell PythonScore that it's
-ready to generate the classical Csound score code and pass it to
-Csound. The result is this new score:
+object via the ``write()`` method. The result is this new score:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_upgrade.csd
     :language: python
@@ -171,6 +171,30 @@ If you are worried that you'll be required to throw out everything
 you know about the classic Csound score, fear not, as you can still
 use it with the ``score()`` object virtually untouched, or in
 combination with other Python features as you learn them.
+
+Tempo
+=====
+
+The first item we extract from the block of classical score code
+is the tempo statement, and rewrite it like this::
+
+    score.t(170)
+
+This sets the tempo of the score to 170 beats-per-minute.The updated
+score now looks like this:
+
+.. literalinclude:: ../../examples/tutorials/amen/amen_tempo.csd
+    :language: python
+    :start-after: </CsInstruments>
+    :end-before: </CsoundSynthesizers>
+
+**Source:** :download:`amen_tempo.csd <../../examples/tutorials/amen/amen_tempo.csd>`
+
+The ``t()`` method takes additional arguments and works exactly the
+same as the ``t-statement`` in Csound with one exception. In the
+classical Csound score, the ``t-statement`` requires a zero as the
+first argument. This has been excluded from the PythonScore version
+to reduce redundancy.
 
 Time is Relative
 ================
@@ -434,8 +458,8 @@ for calling ``drum_pattern()`` for measures 1 through 4:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_list.csd
     :language: python
-    :start-after: score.write(
-    :end-before: score.end
+    :start-after: score.t(
+    :end-before: </CsScore
 
 **Source:** :download:`amen_list.csd <../../examples/tutorials/amen/amen_list.csd>`
 
@@ -460,8 +484,8 @@ with this score update.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_range.csd
     :language: python
-    :start-after: score.write
-    :end-before: score.end
+    :start-after: score.t(
+    :end-before: </CsScore
 
 **Source:** :download:`amen_range.csd <../../examples/tutorials/amen/amen_range.csd>`
 
@@ -517,8 +541,8 @@ Both patterns are played side by side in the updated score:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
-    :start-after: score.write(
-    :end-before: score.end()
+    :start-after: score.t(
+    :end-before: </CsScore
 
 **Source:** :download:`amen_hats.csd <../../examples/tutorials/amen/amen_hats.csd>`
 
@@ -586,7 +610,7 @@ by the inverse of a perfect 5th.
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
     :language: python
     :start-after: cue = score.cue
-    :end-before:  score.write(
+    :end-before:  score.t(
 
 Where these callbacks are placed matter. Typically it is good
 practice to place ``p_callback()`` functions before any events are
@@ -627,7 +651,7 @@ The ``score.p_callback()`` calls are refactored using this new function.
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
     :start-after: cue = score.cue
-    :end-before: score.write(
+    :end-before: score.t(
 
 **Source:** :download:`amen_transpose.csd <../../examples/tutorials/amen/amen_transpose.csd>`
 
@@ -659,7 +683,7 @@ patterns:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
-    :start-after: score.write(
+    :start-after: score.t(
     :end-before: score.pmap
 
 **Source:** :download:`amen_default_args.csd <../../examples/tutorials/amen/amen_default_args.csd>`
@@ -752,7 +776,7 @@ notes, maybe.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
-    :start-after: score.write(
+    :start-after: score.t(
     :end-before: score.pmap
 
 **Source:** :download:`amen_flair.csd <../../examples/tutorials/amen/amen_flair.csd>`
@@ -770,7 +794,7 @@ final score and see if you can figure out the form?
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_form.csd
     :language: python
-    :start-after: score.write(
+    :start-after: score.t(
     :end-before: score.pmap
 
 **Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`

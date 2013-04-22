@@ -76,6 +76,6 @@ with measure(3): drum_pattern()
 with measure(4): drum_pattern_8th_hats()
 
 score.pmap('i', 1, 4, multiply, 0.707)
- 
+
 </CsScore>
 </CsoundSynthesizer>

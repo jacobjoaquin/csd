@@ -69,6 +69,5 @@ with measure(4):
     with cue(2.5): kick()
     with cue(3.0): snare()
 
- 
 </CsScore>
 </CsoundSynthesizer>

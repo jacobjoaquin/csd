@@ -68,6 +68,5 @@ with measure(2): drum_pattern_8th_hats()
 with measure(3): drum_pattern()
 with measure(4): drum_pattern_8th_hats()
 
- 
 </CsScore>
 </CsoundSynthesizer>

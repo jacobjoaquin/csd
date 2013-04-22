@@ -63,6 +63,5 @@ with measure(4):
     score.i(1, 2.5, 0.5, 0.707, 0, 1)
     score.i(1, 3.0, 0.5, 0.707, 1, 1)
 
- 
 </CsScore>
 </CsoundSynthesizer>

@@ -56,6 +56,5 @@ with measure(2): drum_pattern()
 with measure(3): drum_pattern()
 with measure(4): drum_pattern()
 
- 
 </CsScore>
 </CsoundSynthesizer>
