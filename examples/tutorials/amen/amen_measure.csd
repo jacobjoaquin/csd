@@ -28,16 +28,16 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 
 def measure(t):
     return cue((t - 1) * 4.0)
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
-score.write('t 0 170')
+score.t(170)
 
 with measure(1):
     score.write('''
@@ -70,8 +70,6 @@ with measure(4):
     i 1 2.5 0.5 0.707 0 1
     i 1 3.0 0.5 0.707 1 1
     ''')
-
-score.end();
 
 </CsScore>
 </CsoundSynthesizer>

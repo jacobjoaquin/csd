@@ -83,7 +83,7 @@ Ported to Csound PythonScore by Jacob Joaquin 2013.
 
 """
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import random
 
 def info():
@@ -171,13 +171,13 @@ def varied_tempo_map(minimum, maximum):
 
     '''
 
-    L = ["t"]
+    L = [minimum + random() * (maximum - minimum)]
     counter = 0
     while counter < 88:
-        L.append(str(counter))
-        L.append(str(minimum + random() * (maximum - minimum))) 
+        L.append(counter)
+        L.append(minimum + random() * (maximum - minimum)) 
         counter += random() * 3.0 + 1.0
-    score.write(" ".join(L))
+    score.t(*L)
 
 def increment(inc=0.06):
     '''Floating point increment generator.'''
@@ -211,7 +211,7 @@ def reverb(dur, amp, delay_left, delay_right, room_size, damp):
     score.i(2, 0, dur, amp, delay_left, delay_right, room_size, damp)
 
 info()
-score = PythonScore()
+score = PythonScoreBin()
 top = harpsichord
 bottom = harpsichord
 reverb(90, 2.333, 0.0223, 0.0213, 0.4, 0.3)
@@ -745,7 +745,6 @@ with measure(22):
 score.pmap('i', 1, 2, lambda x: x + random() * 0.05)  # Randomize start time
 score.pmap('i', 1, 3, lambda x: x + random() * 0.05)  # Randomize duration
 score.pmap('i', 1, 4, lambda x: x * 0.4)              # Lower amplitude
-score.end()
 
 </CsScore>
 </CsoundSynthesizer>

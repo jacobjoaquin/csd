@@ -23,7 +23,7 @@ endin
 <CsScore bin="python">
 '''Arbitrary number of envelope segments in an instrument event.'''
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from itertools import cycle
 
 class LinearTableEnvelope:
@@ -36,30 +36,29 @@ class LinearTableEnvelope:
         if not size:
             size = self.table_size
 
+        ftable_index = self.table_cycler.next()
+        ftable = [ftable_index, score.cue.now(), size, -7]
+
         for index, value in enumerate(env_data):
             if index % 2:
-                env_data[index] = int(round(size * value))
-
-        table_index = self.table_cycler.next()
-        L = ["f", table_index, score.cue.now(), size, -7] + env_data
-        score.write(" ".join(str(i) for i in L))
-
-        return table_index
+                value = int(round(size * value))
+            ftable.append(value)
+            
+        score.f(*ftable) 
+        return ftable_index
 
 def note(dur, amp, freq, env_data):
     score.i(1, 0, dur, amp, freq, env(env_data))
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 env = LinearTableEnvelope(100, 120)
 
-score.write('t 0 120')
+score.t(120)
 with cue(0): note(2, 0.707, 220, [1, 1, 0])
 with cue(2): note(2, 0.707, 440, [0, 0.1, 1, 0.9, 0])
 with cue(4): note(2, 0.707, 660, [0, 0.1, 1, 0.2, 0.3, 0.7, 0])
 with cue(6): note(2, 0.707, 880, [0, 0.1, 1, 0.2, 0.3, 0.4, 0.3, 0.3, 0])
-
-score.end()
 
 </CsScore>
 </CsoundSynthesizer>

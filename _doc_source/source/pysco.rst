@@ -2,10 +2,6 @@
 PythonScore
 ###########
 
-.. toctree::
-
-    amen_tutorial.rst
-
 What is PythonScore?
 ====================
 
@@ -14,4 +10,12 @@ What is PythonScore?
 PythonScore is a modular Csound score environment for event generation, event processing, and the fashioning musical structures in time.
 
 The details documentation is still being worked out. In the mean time, checkout the :doc:`Amen Break PythonScore Tutorial <amen_tutorial>`.
+
+PythonScore Table of Contents
+=============================
+
+.. toctree::
+
+    amen_tutorial.rst
+    Change Log <./pythonscore/change_log.rst>
 

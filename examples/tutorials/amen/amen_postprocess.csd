@@ -28,7 +28,7 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 from random import choice
 
 def measure(t):
@@ -61,10 +61,10 @@ def drum_pattern_8th_hats():
     for t in range(8):
         with cue(t / 2.0): hat()
 
-score = PythonScore()
+score = PythonScoreBin()
 cue = score.cue
 
-score.write('t 0 170')
+score.t(170)
 
 with measure(1): drum_pattern()
 with measure(2): drum_pattern_8th_hats()
@@ -72,7 +72,6 @@ with measure(3): drum_pattern()
 with measure(4): drum_pattern_8th_hats()
 
 score.pmap('i', 1, 4, multiply, 0.707)
-score.end();
 
 </CsScore>
 </CsoundSynthesizer>
