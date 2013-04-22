@@ -15,12 +15,10 @@ endin
 </CsInstruments>
 <CsScore bin="python">
 
-from csd.pysco import PythonScore
+from csd.pysco import PythonScoreBin
 
 def tone(duration):
     score.i(1, 0, duration)
-
-score = PythonScore()
 
 quote = '''
 ALL COMPOSERS SHOULD BE AS LAZY AS POSSIBLE WHEN WRITING SCORES MAX V MATHEWS
@@ -38,10 +36,9 @@ morse = {
 last = 'none'
 time = 0
 
-score.write('''
-f 1 0 512 7 0 50 1 155 1 101 -1 155 -1 50 0)
-t 0 500
-''')
+score = PythonScoreBin()
+score.f(1, 0, 512, 7, 0, 50, 1, 155, 1, 101, -1, 155, -1, 50, 0)
+score.t(500)
 
 # Process each character in quote
 for c in quote:
@@ -59,8 +56,6 @@ for c in quote:
     # Space
     elif c == ' ':
         last = 'space'
-
-score.end()
 
 </CsScore>
 </CsoundSynthesizer>
