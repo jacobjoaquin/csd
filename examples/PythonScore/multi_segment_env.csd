@@ -36,17 +36,16 @@ class LinearTableEnvelope:
         if not size:
             size = self.table_size
 
-        table_index = self.table_cycler.next()
-        ftable = [table_index, score.cue.now(), size, -7]
+        ftable_index = self.table_cycler.next()
+        ftable = [ftable_index, score.cue.now(), size, -7]
 
         for index, value in enumerate(env_data):
             if index % 2:
                 value = int(round(size * value))
-
             ftable.append(value)
             
         score.f(*ftable) 
-        return table_index
+        return ftable_index
 
 def note(dur, amp, freq, env_data):
     score.i(1, 0, dur, amp, freq, env(env_data))
