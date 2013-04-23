@@ -44,11 +44,11 @@ def sine_pops(start, dur, amp, freq_min, freq_max, density):
     '''
 
     for i in xrange(int(density * dur)):
+        time = uniform(start, start + dur)
         amplitude = uniform(0, amp)
         freq = exprand(freq_min, freq_max)
         duration = 1 / freq
         freq *= choice([1, -1])
-        time = uniform(start, start + dur)
         pan = random()
         score.i(1, time, 1, duration, amplitude, freq, pan)
 
