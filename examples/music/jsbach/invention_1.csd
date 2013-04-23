@@ -30,8 +30,6 @@ instr 1
 
     afilter1 moogladder amix, kenv2, 0.4 + rnd(0.1)
     afilter2 moogladder amix, kenv3, 0.4 + rnd(0.1)
-    ;afilter1 moogvcf2 amix, kenv2, 0.5 + rnd(0.1)
-    ;afilter2 moogvcf2 amix, kenv3, 0.5 + rnd(0.1)
 
     outs afilter1, afilter2
 
