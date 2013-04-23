@@ -83,6 +83,7 @@ Ported to Csound PythonScore by Jacob Joaquin 2013.
 
 from csd.pysco import PythonScoreBin
 from random import random
+from random import uniform
 
 def info():
     print "\033[0;31m" + ('=' * 72) + "\033[1;33m"
@@ -169,12 +170,13 @@ def varied_tempo_map(minimum, maximum):
 
     '''
 
-    L = [minimum + random() * (maximum - minimum)]
+    L = [uniform(minimum, maximum)]
     counter = 0
     while counter < 88:
         L.append(counter)
-        L.append(minimum + random() * (maximum - minimum)) 
-        counter += random() * 3.0 + 1.0
+        L.append(uniform(minimum, maximum)) 
+        counter += uniform(1.0, 4.0)
+    print L
     score.t(*L)
 
 def increment(inc=0.06):
