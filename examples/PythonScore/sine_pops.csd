@@ -13,13 +13,15 @@ instr 1
     ipan = p7
 
     a1 oscils iamp, ifreq, 0
-    outs a1 * sqrt(ipan), a1 * sqrt(1 - ipan)
+    aleft, aright pan2 a1, ipan
+    outs aleft, aright
 endin
 
 </CsInstruments>
 <CsScore bin="python">
 
 from csd.pysco import PythonScoreBin
+from math import e
 from math import log
 from random import choice
 from random import random
@@ -29,10 +31,10 @@ def exprand(a, b):
     '''Returns a random value between a and b for
     exponential distribution.'''
 
-    return a * 2 ** (log(b / float(a)) / log(2) * random())
+    return a * e ** (log(b / float(a)) * random())
 
 def sine_pops(start, dur, amp, freq_min, freq_max, density):
-    '''Single cycle sine wave event generator.
+    '''Asynchronous single cycle sine wave event generator.
 
     Args:
         start: Start time of generator in beats.
@@ -53,7 +55,7 @@ def sine_pops(start, dur, amp, freq_min, freq_max, density):
         score.i(1, time, 1, duration, amplitude, freq, pan)
 
 score = PythonScoreBin()
-sine_pops(0, 10, 0.5, 1000, 20000, 60)
+sine_pops(0, 20, 0.5, 1000, 20000, 60)
 
 </CsScore>
 </CsoundSynthesizer>
