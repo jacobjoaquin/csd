@@ -173,10 +173,8 @@ def varied_tempo_map(minimum, maximum):
     L = [uniform(minimum, maximum)]
     counter = 0
     while counter < 88:
-        L.append(counter)
-        L.append(uniform(minimum, maximum)) 
+        L.extend([counter, uniform(minimum, maximum)]) 
         counter += uniform(1.0, 4.0)
-    print L
     score.t(*L)
 
 def increment(inc=0.06):
