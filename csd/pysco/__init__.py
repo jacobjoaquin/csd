@@ -117,6 +117,7 @@ class Cue(object):
     def __init__(self, parent):
         self.stack = []
         self.parent = parent
+        self.translation_amount = 0;
 
     def __call__(self, when):
         self.when = when
@@ -125,15 +126,17 @@ class Cue(object):
     def __enter__(self):
         self.stack.append(self.when)
         self.parent.p_callbacks.append([])
+        self.translation_amount = sum(stack)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.stack.pop()
         self.parent.p_callbacks.pop()
+        self.translation_amount = sum(stack)
         return False
 
     def now(self):
-        return sum(self.stack)
+        return self.translation_amount
 
 
 class PythonScoreBin(PythonScore):
