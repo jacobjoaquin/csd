@@ -40,6 +40,7 @@ class PCallback(object):
         
 
 class PythonScore(object):
+    score_non_floats = ('.', '+', '<', '!') 
 
     def __init__(self):
         self.cue = Cue(self)
@@ -63,7 +64,7 @@ class PythonScore(object):
 
                 # Bypass if score statement like carry
                 # TODO: ^+x, npx, ppx, etc...
-                if sco_statements_enabled and element in ['.', '+', '<', '!']:
+                if sco_statements_enabled and element in score_non_floats:
                     break
 
                 # Convert value to float
@@ -117,7 +118,7 @@ class Cue(object):
     def __init__(self, parent):
         self.stack = []
         self.parent = parent
-        self.translation_amount = 0;
+        self.translation = 0;
 
     def __call__(self, when):
         self.when = when
@@ -126,17 +127,17 @@ class Cue(object):
     def __enter__(self):
         self.stack.append(self.when)
         self.parent.p_callbacks.append([])
-        self.translation_amount = sum(stack)
+        self.translation = sum(stack)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.stack.pop()
         self.parent.p_callbacks.pop()
-        self.translation_amount = sum(stack)
+        self.translation = sum(stack)
         return False
 
     def now(self):
-        return self.translation_amount
+        return self.translation
 
 
 class PythonScoreBin(PythonScore):
