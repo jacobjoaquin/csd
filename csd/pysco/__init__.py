@@ -42,6 +42,12 @@ class PCallback(object):
 class PythonScore(object):
     score_non_floats = ('.', '+', '<', '!') 
 
+    # TODO: 
+    # Add reset()
+    # Output thus far feature
+    # score_data should be considered private
+    # p_callbacks should be considered private
+    
     def __init__(self):
         self.cue = Cue(self)
         self.score_data = []
@@ -127,13 +133,13 @@ class Cue(object):
     def __enter__(self):
         self.stack.append(self.when)
         self.parent.p_callbacks.append([])
-        self.translation = sum(stack)
+        self.translation = sum(self.stack)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.stack.pop()
         self.parent.p_callbacks.pop()
-        self.translation = sum(stack)
+        self.translation = sum(self.stack)
         return False
 
     def now(self):

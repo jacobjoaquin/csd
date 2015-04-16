@@ -136,7 +136,7 @@ def select(score, pattern):
     for i, e in enumerate(s_list):
         if event.match(e, pattern):
             selection_[i] = e
-            
+
     return selection_
 
 def select_all(score):
