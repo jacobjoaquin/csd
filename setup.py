@@ -1,5 +1,5 @@
-#from distutils.core import setup
-from setuptools import find_packages, setup
+from distutils.core import setup
+#from setuptools import find_packages, setup
 setup(name='csd',
       version='0.0.4',
       description='Csound csd Python Package',
