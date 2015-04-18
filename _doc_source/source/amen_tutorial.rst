@@ -425,7 +425,7 @@ Interlude
 
 The score we're left with is fundamentally more expressive and more
 readable than the original Csound score. Even if all the intricacies
-of Python may still a mystery, reading through the code you should
+of Python may still be a mystery, reading through the code you should
 be able to pick up on the instrumentation as well as seeing that
 the score is divided into measures.
 
@@ -523,7 +523,7 @@ Hats
 ====
 
 Once again, a new score instrument is created from a function by
-re purposing the code used in ``kick()`` and ``snare()`` for a hihat:
+repurposing the code used in ``kick()`` and ``snare()`` for a hihat:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_hats.csd
     :language: python
