@@ -70,7 +70,7 @@ class PythonScore(object):
 
                 # Bypass if score statement like carry
                 # TODO: ^+x, npx, ppx, etc...
-                if sco_statements_enabled and element in score_non_floats:
+                if sco_statements_enabled and element in self.score_non_floats:
                     break
 
                 # Convert value to float
