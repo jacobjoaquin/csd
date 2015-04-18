@@ -1,7 +1,4 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,13 +7,15 @@
     
     <title>Glossary &mdash; CSD</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.2.0/cosmo/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.5 alpha',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -26,27 +25,121 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="CSD" href="index.html" />
-    <link rel="prev" title="Bugs" href="bugs.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="bugs.html" title="Bugs"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+    <link rel="prev" title="Bugs" href="bugs.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-      <div class="sphinxsidebar">
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          CSD Docs</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.5</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Menu <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing csd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#test">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#supported-systems">Supported Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="csd_sco_event.html">CSD Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd">csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco">sco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.preprocessor">preprocessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.selection">selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysco.html">PythonScore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#what-is-pythonscore">What is PythonScore?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#pythonscore-table-of-contents">PythonScore Table of Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="demo/index.html">Demo Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#arpeggiator">arpeggiator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#carry">carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#pfunc">pfunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#s-spacer">s_spacer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#sco-align">sco_align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#score-from-csd">score_from_csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#swap-columns">swap_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command-Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pipe-chain-trick">Pipe Chain Trick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html#planned-changes">Planned Changes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Glossary</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/glossary.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3>Get CSD</h3>
 <ul id="downloadrepo">
@@ -54,37 +147,26 @@
     <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
     <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
 </ul>
+<ul>
+<li><a class="reference internal" href="#">Glossary</a></li>
+</ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="bugs.html"
-                        title="previous chapter">Bugs</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/glossary.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <li>
+    <a href="bugs.html" title="Previous Chapter: Bugs"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Bugs</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
         </div>
       </div>
 
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <div class="col-md-12">
+      
   <div class="section" id="glossary">
 <span id="id1"></span><h1>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h1>
 <dl class="glossary docutils">
@@ -99,16 +181,16 @@ contains the contents of a Csound unified file.</li>
 </ol>
 </dd>
 <dt id="term-element">element</dt>
-<dd>Any <a class="reference internal" href="#term-event"><em class="xref std std-term">event</em></a> data.  Can be numeric, an expression, macro,
+<dd>Any <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a> data.  Can be numeric, an expression, macro,
 string, comment, a continuous block of space, carry, etc.</dd>
 <dt id="term-event">event</dt>
-<dd>A single <a class="reference internal" href="#term-score"><em class="xref std std-term">score</em></a> event. e.g. <tt class="docutils literal"><span class="pre">i</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">4</span> <span class="pre">1.0</span> <span class="pre">440</span>&nbsp; <span class="pre">;</span> <span class="pre">A440</span></tt>.</dd>
+<dd>A single <a class="reference internal" href="#term-score"><span class="xref std std-term">score</span></a> event. e.g. <code class="docutils literal"><span class="pre">i</span> <span class="pre">1</span> <span class="pre">0</span> <span class="pre">4</span> <span class="pre">1.0</span> <span class="pre">440</span>&nbsp; <span class="pre">;</span> <span class="pre">A440</span></code>.</dd>
 <dt id="term-expression">expression</dt>
-<dd>A Csound score expression. e.g. <tt class="docutils literal"><span class="pre">[~</span> <span class="pre">*</span> <span class="pre">440</span> <span class="pre">+</span> <span class="pre">440]</span></tt></dd>
+<dd>A Csound score expression. e.g. <code class="docutils literal"><span class="pre">[~</span> <span class="pre">*</span> <span class="pre">440</span> <span class="pre">+</span> <span class="pre">440]</span></code></dd>
 <dt id="term-identifier">identifier</dt>
 <dd>The name or numeric value that refers to a specific instrument
-or function table, For example, <tt class="docutils literal"><span class="pre">33</span></tt> is the identifier in
-<tt class="docutils literal"><span class="pre">i</span> <span class="pre">33</span> <span class="pre">0</span> <span class="pre">11</span></tt>.</dd>
+or function table, For example, <code class="docutils literal"><span class="pre">33</span></code> is the identifier in
+<code class="docutils literal"><span class="pre">i</span> <span class="pre">33</span> <span class="pre">0</span> <span class="pre">11</span></code>.</dd>
 <dt id="term-numeric">numeric</dt>
 <dd>A number.  Csound does not distinguish between ints and
 floats.  The term <em>numeric</em> refers to both.</dd>
@@ -116,26 +198,28 @@ floats.  The term <em>numeric</em> refers to both.</dd>
 <dd>A column of pfields in a score.</dd>
 <dt id="term-pattern">pattern</dt>
 <dd><p class="first">A pattern is a python dict that has been repurposed to describe
-the conditions for matching against an <a class="reference internal" href="#term-event"><em class="xref std std-term">event</em></a>.</p>
+the conditions for matching against an <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a>.</p>
 <p>Pattern syntax:</p>
-<div class="highlight-python"><pre>{pfield_index: ((string | numeric) | [(string | numeric), ...]), ...}</pre>
+<div class="highlight-python"><div class="highlight"><pre>{pfield_index: ((string | numeric) | [(string | numeric), ...]), ...}
+</pre></div>
 </div>
 <p>The format is very precise, and must follow strict rules. The
 key is an integer that refers to the index of a pfield. The
-value is either a string, <a class="reference internal" href="#term-numeric"><em class="xref std std-term">numeric</em></a>, or a list of strings
+value is either a string, <a class="reference internal" href="#term-numeric"><span class="xref std std-term">numeric</span></a>, or a list of strings
 and numeric values. The values are used to match against a
-<a class="reference internal" href="#term-pfield-data-type"><em class="xref std std-term">pfield data type</em></a> from within an event.</p>
+<a class="reference internal" href="#term-pfield-data-type"><span class="xref std std-term">pfield data type</span></a> from within an event.</p>
 <p>This system only works with pfield data types.  Whitespace and
 comments are not recognized.  If matching against a numeric
 type, the pattern matcher does distinguish between an integer
-and a floating point number.  i.e. <tt class="docutils literal"><span class="pre">440</span></tt> is not <tt class="docutils literal"><span class="pre">440.0</span></tt>.</p>
+and a floating point number.  i.e. <code class="docutils literal"><span class="pre">440</span></code> is not <code class="docutils literal"><span class="pre">440.0</span></code>.</p>
 <p>Pattern examples:</p>
-<div class="last highlight-python"><pre>{0: 'i'}                   # All i-events
-{0: 'f'}                   # All f-tables
-{0: ['i', 'f']}            # All i-events and f-tables
-{0: 'i', 1: 33}            # All i-events for instr 33
-{0: 'i', 1: range(5, 11))  # All i-events for instrs 5 through 10
-{5: 440}                   # Events that contains 440 in pfield 5</pre>
+<div class="last highlight-python"><div class="highlight"><pre>{0: &#39;i&#39;}                   # All i-events
+{0: &#39;f&#39;}                   # All f-tables
+{0: [&#39;i&#39;, &#39;f&#39;]}            # All i-events and f-tables
+{0: &#39;i&#39;, 1: 33}            # All i-events for instr 33
+{0: &#39;i&#39;, 1: range(5, 11))  # All i-events for instrs 5 through 10
+{5: 440}                   # Events that contains 440 in pfield 5
+</pre></div>
 </div>
 </dd>
 <dt id="term-pfunction">pfunction</dt>
@@ -143,21 +227,21 @@ and a floating point number.  i.e. <tt class="docutils literal"><span class="pre
 with csd.sco.operate_numeric. or csd.sco.map_().</p>
 <p>A pfunction requires a minimum of one argument that is reserved
 for a pfield numeric value.  This argumented is denoted by an
-<tt class="docutils literal"><span class="pre">x</span></tt>.  Additional arguments are optional.</p>
+<code class="docutils literal"><span class="pre">x</span></code>.  Additional arguments are optional.</p>
 <p>Example:</p>
-<div class="last highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<div class="last highlight-python"><div class="highlight"><pre>def multiply(x, y):
+    return x * y
 
-<span class="k">print</span> <span class="n">csd</span><span class="o">.</span><span class="n">sco</span><span class="o">.</span><span class="n">map_</span><span class="p">(</span><span class="n">score</span><span class="p">,</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s">&#39;i&#39;</span><span class="p">},</span> <span class="mi">5</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+print csd.sco.map_(score, {0: &#39;i&#39;}, 5, multiply, 3.0)
 </pre></div>
 </div>
 </dd>
 <dt id="term-pfield">pfield</dt>
 <dd>A pfield, aka parameter field, refers to a particular value in
-an <a class="reference internal" href="#term-event"><em class="xref std std-term">event</em></a>.</dd>
+an <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a>.</dd>
 <dt id="term-pfield-data-type">pfield data type</dt>
-<dd>Includes: <a class="reference internal" href="#term-statement"><em class="xref std std-term">statement</em></a>, <a class="reference internal" href="#term-numeric"><em class="xref std std-term">numeric</em></a>, macro,
-<a class="reference internal" href="#term-expression"><em class="xref std std-term">expression</em></a>, string, and preprocessor symbols.</dd>
+<dd>Includes: <a class="reference internal" href="#term-statement"><span class="xref std std-term">statement</span></a>, <a class="reference internal" href="#term-numeric"><span class="xref std std-term">numeric</span></a>, macro,
+<a class="reference internal" href="#term-expression"><span class="xref std std-term">expression</span></a>, string, and preprocessor symbols.</dd>
 <dt id="term-pfield-index">pfield_index</dt>
 <dd>An integer that specifies a specific pfield in an event.</dd>
 <dt id="term-pfield-index-list">pfield_index_list</dt>
@@ -166,7 +250,7 @@ of pfield indexes.  A pfield index is always an integer, and
 refers to a specific pfield. i.e. [6] refers to pfield 6 in the
 same way p6 does in a Csound orchestra.</dd>
 <dt id="term-pfield-list">pfield_list</dt>
-<dd><p class="first">A pfield_list is either a single <a class="reference internal" href="#term-pfield"><em class="xref std std-term">pfield</em></a> or a list of
+<dd><p class="first">A pfield_list is either a single <a class="reference internal" href="#term-pfield"><span class="xref std std-term">pfield</span></a> or a list of
 pfields.</p>
 <p>i.e. pfield, [pfield], or [pfield, pfield, ...].</p>
 <p class="last">A pfield_list does not support a recursive list structure, i.e
@@ -177,14 +261,15 @@ as [value, [value]].</p>
 a pfield.  They require no arguments, but will accept optional
 arguments.</dd>
 <dt id="term-selection">selection</dt>
-<dd><p class="first">A selection is a <a class="reference internal" href="#term-score"><em class="xref std std-term">score</em></a> reformatted into a repurposed
-python dict that stores collected <a class="reference internal" href="#term-event"><em class="xref std std-term">event</em></a> strings with
+<dd><p class="first">A selection is a <a class="reference internal" href="#term-score"><span class="xref std std-term">score</span></a> reformatted into a repurposed
+python dict that stores collected <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a> strings with
 their respective indexes.</p>
 <p>Selection syntax:</p>
-<div class="highlight-python"><pre>{event_index: (event | [event, ...]), ...}</pre>
+<div class="highlight-python"><div class="highlight"><pre>{event_index: (event | [event, ...]), ...}
+</pre></div>
 </div>
 <p>The purpose of a selection is to be to pull specific events
-from a <a class="reference internal" href="#term-score"><em class="xref std std-term">score</em></a> and store for later processing.</p>
+from a <a class="reference internal" href="#term-score"><span class="xref std std-term">score</span></a> and store for later processing.</p>
 <p class="last">Selections are created with the select functions in csd.sco.
 Once they are processed, they must be recombined with the
 original score with the merge function to be converted back
@@ -200,7 +285,7 @@ score events.</li>
 </dd>
 <dt id="term-statement">statement</dt>
 <dd><p class="first">A statement is a Csound score command that begins an active
-score <a class="reference internal" href="#term-event"><em class="xref std std-term">event</em></a>.</p>
+score <a class="reference internal" href="#term-event"><span class="xref std std-term">event</span></a>.</p>
 <p>From the <a class="reference external" href="http://www.csounds.com/manual/html/ScoreStatements.html">Csound manual</a>:</p>
 <blockquote class="last">
 <div><ul class="simple">
@@ -227,32 +312,24 @@ events</li>
 </div>
 
 
-          </div>
-        </div>
-      </div>
+    </div>
+    
 
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="bugs.html" title="Bugs"
-             >previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+  </div>
+</div>
 
-    <div class="footer">
-        &copy; Copyright 2009, Jacob Joaquin.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2009, Jacob Joaquin.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

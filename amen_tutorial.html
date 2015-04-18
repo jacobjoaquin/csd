@@ -1,7 +1,4 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,13 +7,15 @@
     
     <title>Amen Break PythonScore Tutorial &mdash; CSD</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.2.0/cosmo/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.5 alpha',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -26,33 +25,123 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="CSD" href="index.html" />
     <link rel="up" title="PythonScore" href="pysco.html" />
-    <link rel="next" title="Demos" href="demo/index.html" />
-    <link rel="prev" title="PythonScore" href="pysco.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="pysco.html" title="PythonScore"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li>
-          <li><a href="pysco.html" accesskey="U">PythonScore</a> &raquo;</li> 
-      </ul>
-    </div>
+    <link rel="next" title="PythonScore Change Log" href="pythonscore/change_log.html" />
+    <link rel="prev" title="PythonScore" href="pysco.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-      <div class="sphinxsidebar">
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          CSD Docs</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.5</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Menu <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing csd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#test">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#supported-systems">Supported Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="csd_sco_event.html">CSD Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd">csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco">sco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.preprocessor">preprocessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.selection">selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="pysco.html">PythonScore</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#what-is-pythonscore">What is PythonScore?</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pysco.html#pythonscore-table-of-contents">PythonScore Table of Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="demo/index.html">Demo Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#arpeggiator">arpeggiator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#carry">carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#pfunc">pfunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#s-spacer">s_spacer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#sco-align">sco_align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#score-from-csd">score_from_csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#swap-columns">swap_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command-Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pipe-chain-trick">Pipe Chain Trick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html#planned-changes">Planned Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/amen_tutorial.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3>Get CSD</h3>
 <ul id="downloadrepo">
@@ -60,9 +149,7 @@
     <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
     <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
 </ul>
-
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+<ul>
 <li><a class="reference internal" href="#">Amen Break PythonScore Tutorial</a><ul>
 <li><a class="reference internal" href="#introduction">Introduction</a><ul>
 <li><a class="reference internal" href="#files">Files</a></li>
@@ -97,39 +184,26 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="pysco.html"
-                        title="previous chapter">PythonScore</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="demo/index.html"
-                        title="next chapter">Demos</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/amen_tutorial.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <li>
+    <a href="pysco.html" title="Previous Chapter: PythonScore"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; PythonScore</span>
+    </a>
+  </li>
+  <li>
+    <a href="pythonscore/change_log.html" title="Next Chapter: PythonScore Change Log"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">PythonScore Chan... &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
         </div>
       </div>
 
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <div class="col-md-12">
+      
   <div class="section" id="amen-break-pythonscore-tutorial">
 <h1>Amen Break PythonScore Tutorial<a class="headerlink" href="#amen-break-pythonscore-tutorial" title="Permalink to this headline">¶</a></h1>
 <p>By Jacob Joaquin &lt;<a class="reference external" href="mailto:jacobjoaquin&#37;&#52;&#48;gmail&#46;com">jacobjoaquin<span>&#64;</span>gmail<span>&#46;</span>com</a>&gt;</p>
@@ -172,7 +246,8 @@ any future changes. Send questions, comments, and bugs to
 <div class="section" id="files">
 <h3>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
 <p>The Csound CSD files and the amen_break.wav sample ship with the csd module and can be found in the following folder:</p>
-<div class="highlight-python"><pre>/examples/tutorials/amen/</pre>
+<div class="highlight-python"><div class="highlight"><pre>/examples/tutorials/amen/
+</pre></div>
 </div>
 </div>
 <div class="section" id="the-orchestra">
@@ -181,14 +256,13 @@ any future changes. Send questions, comments, and bugs to
 compositional techniques Python brings to the score environment,
 every example uses the exact same orchestra throughout the entirety
 of this tutorial. Let&#8217;s take a look:</p>
-<div class="highlight-python"><pre>
-sr = 44100
+<div class="highlight-python"><div class="highlight"><pre>sr = 44100
 kr = 44100
 ksmps = 1
 nchnls = 2
 0dbfs = 1.0
 
-gS_loop = "amen_break.wav"
+gS_loop = &quot;amen_break.wav&quot;
 gisr filesr gS_loop
 gilength filelen gS_loop
 gibeats = 16 
@@ -205,10 +279,9 @@ instr 1
     a1, a2 loscilx aenv, itune, 1, 0, 1, ipos, 0
     outs a1, a2
 endin
-
-</pre>
+</pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_classic.csd"><tt class="xref download docutils literal"><span class="pre">amen_classic.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_classic.csd"><code class="xref download docutils literal"><span class="pre">amen_classic.csd</span></code></a></p>
 <p>The orchestra contains only a single instrument, a basic sampler
 with the <a class="reference external" href="http://en.wikipedia.org/wiki/Amen_break">Amen Break</a>
 as its only audio source. The instrument includes support for three
@@ -235,7 +308,8 @@ aspects of the Python language. This tutorial will occasionally embed
 examples using it as well.</p>
 <p>Typically, the Python interpreter is used in the terminal, which
 is invoked by typing &#8220;python&#8221;:</p>
-<div class="highlight-python"><pre>Quorra ~ $ python</pre>
+<div class="highlight-python"><div class="highlight"><pre>Quorra ~ $ python
+</pre></div>
 </div>
 <p>This starts an interactive Python session in which users can begin
 entering various statements:</p>
@@ -260,8 +334,7 @@ of Python and PythonScore. The tutorial starts with a classical
 Csound score, and adds new PythonScore idioms one by one until the
 score as been fully translated. The end result is the new Python
 score.</p>
-<div class="highlight-python"><pre>
-t 0 170
+<div class="highlight-python"><div class="highlight"><pre>t 0 170
 
 ; Measure 1
 i 1 0.0 0.5 0.707 0 1
@@ -286,10 +359,9 @@ i 1 12.0 0.5 0.707 0 1
 i 1 13.0 0.5 0.707 1 1
 i 1 14.5 0.5 0.707 0 1
 i 1 15.0 0.5 0.707 1 1
-
-</pre>
+</pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_classic.csd"><tt class="xref download docutils literal"><span class="pre">amen_classic.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_classic.csd"><code class="xref download docutils literal"><span class="pre">amen_classic.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990916"></iframe><p>The score code produces four measures of the same drum pattern. The
 pattern itself is the classical <a class="reference external" href="http://en.wikipedia.org/wiki/Drum_and_bass">drum &#8216;n&#8217; bass</a>.</p>
 <div class="section" id="upgrade">
@@ -300,13 +372,13 @@ to set up. First, set the argument of the CsScore bin utility to
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">PythonScoreBin</span></tt> is a subclass of <tt class="docutils literal"><span class="pre">PythonScore</span></tt> specifically
+<p><code class="docutils literal"><span class="pre">PythonScoreBin</span></code> is a subclass of <code class="docutils literal"><span class="pre">PythonScore</span></code> specifically
 tailored for use inside a Csound Unified CSD file.</p>
-<p>An object called <tt class="docutils literal"><span class="pre">score</span></tt> is instantiated from the <tt class="docutils literal"><span class="pre">PythonScoreBin()</span></tt>
-class. Additionally, variable <tt class="docutils literal"><span class="pre">cue</span></tt> is created and points to the
-<tt class="docutils literal"><span class="pre">score.cue</span></tt> context manager. We&#8217;ll go into details later as to
-why. Classical Csound source code is entered into the <tt class="docutils literal"><span class="pre">score()</span></tt>
-object via the <tt class="docutils literal"><span class="pre">write()</span></tt> method. The result is this new score:</p>
+<p>An object called <code class="docutils literal"><span class="pre">score</span></code> is instantiated from the <code class="docutils literal"><span class="pre">PythonScoreBin()</span></code>
+class. Additionally, variable <code class="docutils literal"><span class="pre">cue</span></code> is created and points to the
+<code class="docutils literal"><span class="pre">score.cue</span></code> context manager. We&#8217;ll go into details later as to
+why. Classical Csound source code is entered into the <code class="docutils literal"><span class="pre">score()</span></code>
+object via the <code class="docutils literal"><span class="pre">write()</span></code> method. The result is this new score:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">CsScore</span> <span class="nb">bin</span><span class="o">=</span><span class="s">&quot;python&quot;</span><span class="o">&gt;</span>
 
 <span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
@@ -347,10 +419,10 @@ object via the <tt class="docutils literal"><span class="pre">write()</span></tt
 <span class="o">&lt;/</span><span class="n">CsoundSynthesizer</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_upgrade.csd"><tt class="xref download docutils literal"><span class="pre">amen_upgrade.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_upgrade.csd"><code class="xref download docutils literal"><span class="pre">amen_upgrade.csd</span></code></a></p>
 <p>If you are worried that you&#8217;ll be required to throw out everything
 you know about the classic Csound score, fear not, as you can still
-use it with the <tt class="docutils literal"><span class="pre">score()</span></tt> object virtually untouched, or in
+use it with the <code class="docutils literal"><span class="pre">score()</span></code> object virtually untouched, or in
 combination with other Python features as you learn them.</p>
 </div>
 <div class="section" id="tempo">
@@ -402,10 +474,10 @@ score now looks like this:</p>
 <span class="o">&lt;/</span><span class="n">CsoundSynthesizer</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_tempo.csd"><tt class="xref download docutils literal"><span class="pre">amen_tempo.csd</span></tt></a></p>
-<p>The <tt class="docutils literal"><span class="pre">t()</span></tt> method takes additional arguments and works exactly the
-same as the <tt class="docutils literal"><span class="pre">t-statement</span></tt> in Csound with one exception. In the
-classical Csound score, the <tt class="docutils literal"><span class="pre">t-statement</span></tt> requires a zero as the
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_tempo.csd"><code class="xref download docutils literal"><span class="pre">amen_tempo.csd</span></code></a></p>
+<p>The <code class="docutils literal"><span class="pre">t()</span></code> method takes additional arguments and works exactly the
+same as the <code class="docutils literal"><span class="pre">t-statement</span></code> in Csound with one exception. In the
+classical Csound score, the <code class="docutils literal"><span class="pre">t-statement</span></code> requires a zero as the
 first argument. This has been excluded from the PythonScore version
 to reduce redundancy.</p>
 </div>
@@ -413,11 +485,11 @@ to reduce redundancy.</p>
 <h3>Time is Relative<a class="headerlink" href="#time-is-relative" title="Permalink to this headline">¶</a></h3>
 <p>For the most part, when events are entered into a classical Csound
 score, the start times are in global beats. PythonScore changes
-this with the introduction of the <tt class="docutils literal"><span class="pre">cue()</span></tt> object, a Python <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#typecontextmanager">context
+this with the introduction of the <code class="docutils literal"><span class="pre">cue()</span></code> object, a Python <a class="reference external" href="http://docs.python.org/2/library/stdtypes.html#typecontextmanager">context
 manager</a> for
 moving the current position time in the score, like a needle on a
 record player. All events entered into PythonScore are relative the
-current positional value of <tt class="docutils literal"><span class="pre">cue()</span></tt>.</p>
+current positional value of <code class="docutils literal"><span class="pre">cue()</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
     <span class="n">score</span><span class="p">(</span><span class="s">&#39;i 1 0 0.5 0.707 0 0&#39;</span><span class="p">)</span>
 </pre></div>
@@ -425,15 +497,16 @@ current positional value of <tt class="docutils literal"><span class="pre">cue()
 <p>While the start time value in pfield-2 is 0, this event will start
 at 12 beats into the piece; Start times are translated to reflect
 the current position of the cue(). The output looks like this:</p>
-<div class="highlight-python"><pre>i 1 12 0.5 0.707 0 0</pre>
+<div class="highlight-python"><div class="highlight"><pre>i 1 12 0.5 0.707 0 0
+</pre></div>
 </div>
-<p>Remember when we set <tt class="docutils literal"><span class="pre">cue</span> <span class="pre">=</span> <span class="pre">score.cue</span></tt> earlier? This was done to
+<p>Remember when we set <code class="docutils literal"><span class="pre">cue</span> <span class="pre">=</span> <span class="pre">score.cue</span></code> earlier? This was done to
 create a shorthand version to eliminate having to specify the full
 score object and method.</p>
 <p>As for translating the drum &#8216;n&#8217; bass parts, each measure has been
 split into its own chuck of events. The first event in measure 2
 has been changed to 0.0, and the same goes for measures 3 and 4.
-The <tt class="docutils literal"><span class="pre">cue()</span></tt> object allows the composer locally to the current
+The <code class="docutils literal"><span class="pre">cue()</span></code> object allows the composer locally to the current
 measure, rather than manually calculating the global time at all
 times.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
@@ -477,7 +550,7 @@ times.</p>
 <span class="s">    &#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_cue.csd"><tt class="xref download docutils literal"><span class="pre">amen_cue.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_cue.csd"><code class="xref download docutils literal"><span class="pre">amen_cue.csd</span></code></a></p>
 <p>There are of course many more benefits. For example, moving entire
 sections of code is a fairly trivial process in PythonScore. Doing
 the same in the classical score could require translating start
@@ -487,7 +560,7 @@ PythonScore more than worthwhile.</p>
 </div>
 <div class="section" id="measures">
 <h3>Measures<a class="headerlink" href="#measures" title="Permalink to this headline">¶</a></h3>
-<p>The drum &#8216;n&#8217; bass score is in 4/4. While <tt class="docutils literal"><span class="pre">cue()</span></tt> allows us to
+<p>The drum &#8216;n&#8217; bass score is in 4/4. While <code class="docutils literal"><span class="pre">cue()</span></code> allows us to
 treat beats local to the current measure, the arguments for the
 cue() are still in absolute global time. Out of the box, PythonScore
 does not support measures. However, Python is highly extensible and
@@ -514,7 +587,7 @@ with inputting 4:</p>
 </div>
 <p>Inputting 4 into our test the value returned is 12, which is the
 starting time of the first event in measure 4 in the original
-classical score. Applying <tt class="docutils literal"><span class="pre">measure()</span></tt> to the PythonScore, were
+classical score. Applying <code class="docutils literal"><span class="pre">measure()</span></code> to the PythonScore, were
 left with the following. Notice that the comments have been factored
 out now that the code itself clearly indicates what a measure is:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
@@ -561,20 +634,21 @@ out now that the code itself clearly indicates what a measure is:</p>
 <span class="s">    &#39;&#39;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_measure.csd"><tt class="xref download docutils literal"><span class="pre">amen_measure.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_measure.csd"><code class="xref download docutils literal"><span class="pre">amen_measure.csd</span></code></a></p>
 </div>
 <div class="section" id="instrument-event-function">
 <h3>Instrument Event Function<a class="headerlink" href="#instrument-event-function" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">score.i()</span></tt> method is another way for entering in data into
+<p>The <code class="docutils literal"><span class="pre">score.i()</span></code> method is another way for entering in data into
 the score. Instead of a string, it accepts any number of arguments
 and constructs a valid classical score event string. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mf">8.00</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Outputs:</p>
-<div class="highlight-python"><pre>i 1 0 1 0.707 8.00</pre>
+<div class="highlight-python"><div class="highlight"><pre>i 1 0 1 0.707 8.00
+</pre></div>
 </div>
-<p>Replacing the calls to <tt class="docutils literal"><span class="pre">score.write()</span></tt> with the <tt class="docutils literal"><span class="pre">i()</span></tt> method in the Amen score, the
+<p>Replacing the calls to <code class="docutils literal"><span class="pre">score.write()</span></code> with the <code class="docutils literal"><span class="pre">i()</span></code> method in the Amen score, the
 updated code looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
@@ -612,14 +686,14 @@ updated code looks like this:</p>
     <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_i.csd"><tt class="xref download docutils literal"><span class="pre">amen_i.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_i.csd"><code class="xref download docutils literal"><span class="pre">amen_i.csd</span></code></a></p>
 </div>
 <div class="section" id="nesting-time">
 <h3>Nesting Time<a class="headerlink" href="#nesting-time" title="Permalink to this headline">¶</a></h3>
-<p>A <tt class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></tt> statement can be placed inside a hierarchy of other
-<tt class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></tt> statements. This allows composers to reset the
+<p>A <code class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></code> statement can be placed inside a hierarchy of other
+<code class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></code> statements. This allows composers to reset the
 relative positional time to zero regardless of the current scope of
-time by writing another <tt class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></tt> statement: For example, this
+time by writing another <code class="docutils literal"><span class="pre">with</span> <span class="pre">cue()</span></code> statement: For example, this
 is possible:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="mi">32</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
@@ -629,10 +703,10 @@ is possible:</p>
 </div>
 <p>Though the start time of the event is written as 0, the actual start
 time of the event is 37, which is the accumulation of all the args
-in the cue nesting hierarchy plus pfield-2: <tt class="docutils literal"><span class="pre">32</span> <span class="pre">+</span> <span class="pre">4</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">0</span></tt></p>
+in the cue nesting hierarchy plus pfield-2: <code class="docutils literal"><span class="pre">32</span> <span class="pre">+</span> <span class="pre">4</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">+</span> <span class="pre">0</span></code></p>
 <p>The greater implication is that time can be completely decoupled
 from events. In this version of the score the start times are moved
-from the pfield-2 column to the the <tt class="docutils literal"><span class="pre">cue()</span></tt>, and then set to 0.</p>
+from the pfield-2 column to the the <code class="docutils literal"><span class="pre">cue()</span></code>, and then set to 0.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
 
@@ -670,7 +744,7 @@ from the pfield-2 column to the the <tt class="docutils literal"><span class="pr
  
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_nest.csd"><tt class="xref download docutils literal"><span class="pre">amen_nest.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_nest.csd"><code class="xref download docutils literal"><span class="pre">amen_nest.csd</span></code></a></p>
 </div>
 <div class="section" id="score-instruments">
 <h3>Score Instruments<a class="headerlink" href="#score-instruments" title="Permalink to this headline">¶</a></h3>
@@ -684,7 +758,7 @@ in design. While the Amen Break loop is fixed, the instrument itself
 has no knowledge of kicks or snares. It only accesses the part of
 the sample denoted by the beat positional offset passed into pfield-5.</p>
 <p>Looking at the PythonScore code from the last example, there are
-only two unique calls to <tt class="docutils literal"><span class="pre">score.i()</span></tt>, and even then all the
+only two unique calls to <code class="docutils literal"><span class="pre">score.i()</span></code>, and even then all the
 arguments are identical except for pfield-5:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -698,7 +772,7 @@ behind the data.</p>
 <p>These statements are also unnecessarily long in Python, which makes
 them ripe to for consolidation. Defining functions for the kick and
 snare avoids the extra overhead by factoring out all the args.
-Something is made possible by the <tt class="docutils literal"><span class="pre">cue()</span></tt> object.</p>
+Something is made possible by the <code class="docutils literal"><span class="pre">cue()</span></code> object.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">kick</span><span class="p">():</span>
     <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
@@ -708,8 +782,8 @@ Something is made possible by the <tt class="docutils literal"><span class="pre"
 </div>
 <p>An equally important benefit to this approach is that with proper
 names, this technique creates code that is self documenting and
-easier to read. If you type <tt class="docutils literal"><span class="pre">kick()</span></tt> it plays a kick. Type
-<tt class="docutils literal"><span class="pre">snare()</span></tt> it plays a snare. Type <tt class="docutils literal"><span class="pre">snozberry()</span></tt> it plays a
+easier to read. If you type <code class="docutils literal"><span class="pre">kick()</span></code> it plays a kick. Type
+<code class="docutils literal"><span class="pre">snare()</span></code> it plays a snare. Type <code class="docutils literal"><span class="pre">snozberry()</span></code> it plays a
 snozberry(). <a class="footnote-reference" href="#snozberry" id="id2">[2]</a></p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
@@ -753,7 +827,7 @@ snozberry(). <a class="footnote-reference" href="#snozberry" id="id2">[2]</a></p
     <span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="mf">3.0</span><span class="p">):</span> <span class="n">snare</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_instr.csd"><tt class="xref download docutils literal"><span class="pre">amen_instr.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_instr.csd"><code class="xref download docutils literal"><span class="pre">amen_instr.csd</span></code></a></p>
 </div>
 <div class="section" id="drum-pattern">
 <h3>Drum Pattern<a class="headerlink" href="#drum-pattern" title="Permalink to this headline">¶</a></h3>
@@ -770,7 +844,7 @@ a simple four notes drum &#8216;n&#8217; bass pattern.</p>
 </div>
 <p>These events will not be generated until the function is called.
 For each measure, four lines of score instruments is replaced with
-<tt class="docutils literal"><span class="pre">drum_pattern()</span></tt>.</p>
+<code class="docutils literal"><span class="pre">drum_pattern()</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">csd.pysco</span> <span class="kn">import</span> <span class="n">PythonScoreBin</span>
 <span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">choice</span>
 
@@ -800,11 +874,11 @@ For each measure, four lines of score instruments is replaced with
 <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">drum_pattern</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_pattern.csd"><tt class="xref download docutils literal"><span class="pre">amen_pattern.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_pattern.csd"><code class="xref download docutils literal"><span class="pre">amen_pattern.csd</span></code></a></p>
 <p>Functions aren&#8217;t limited to storing measures of data. Notes, licks,
 phrases, bars, sections, scores, can all be placed inside a function.
 Later when it&#8217;s time to start arranging, musical patterns like these
-can be more or less dropped into <tt class="docutils literal"><span class="pre">measure()</span></tt> blocks.</p>
+can be more or less dropped into <code class="docutils literal"><span class="pre">measure()</span></code> blocks.</p>
 </div>
 <div class="section" id="interlude">
 <h3>Interlude<a class="headerlink" href="#interlude" title="Permalink to this headline">¶</a></h3>
@@ -833,21 +907,21 @@ time saving. This example is a list of integers:</p>
 </div>
 <p>A loop is created from a list with the <a class="reference external" href="http://docs.python.org/2/tutorial/controlflow.html#for-statements">for</a>
 statement, as it will iterate through each value. In the score as
-the <tt class="docutils literal"><span class="pre">for</span></tt> loop iterates through the list, the <tt class="docutils literal"><span class="pre">m</span></tt> variable
+the <code class="docutils literal"><span class="pre">for</span></code> loop iterates through the list, the <code class="docutils literal"><span class="pre">m</span></code> variable
 assumes the the value of the current list item. This is shorthand
-for calling <tt class="docutils literal"><span class="pre">drum_pattern()</span></tt> for measures 1 through 4:</p>
+for calling <code class="docutils literal"><span class="pre">drum_pattern()</span></code> for measures 1 through 4:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]:</span>
     <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="n">drum_pattern</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_list.csd"><tt class="xref download docutils literal"><span class="pre">amen_list.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_list.csd"><code class="xref download docutils literal"><span class="pre">amen_list.csd</span></code></a></p>
 </div>
 <div class="section" id="range">
 <h3>Range<a class="headerlink" href="#range" title="Permalink to this headline">¶</a></h3>
 <p>The Python <a class="reference external" href="http://docs.python.org/2/tutorial/controlflow.html#the-range-function">range()</a>
 generates lists of integers automatically and is useful in a range
 of different contexts. Here are three examples of lists generated
-with <tt class="docutils literal"><span class="pre">range()</span></tt>:</p>
+with <code class="docutils literal"><span class="pre">range()</span></code>:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 <span class="go">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
@@ -856,13 +930,13 @@ with <tt class="docutils literal"><span class="pre">range()</span></tt>:</p>
 <span class="go">[0, 4, 8, 12, 16, 20, 24, 28]</span>
 </pre></div>
 </div>
-<p>Substituting that manually created list with <tt class="docutils literal"><span class="pre">range()</span></tt> leaves us
+<p>Substituting that manually created list with <code class="docutils literal"><span class="pre">range()</span></code> leaves us
 with this score update.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
     <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="n">drum_pattern</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_range.csd"><tt class="xref download docutils literal"><span class="pre">amen_range.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_range.csd"><code class="xref download docutils literal"><span class="pre">amen_range.csd</span></code></a></p>
 </div>
 <div class="section" id="choice-variation">
 <h3>Choice Variation<a class="headerlink" href="#choice-variation" title="Permalink to this headline">¶</a></h3>
@@ -870,34 +944,34 @@ with this score update.</p>
 <a class="reference external" href="http://docs.python.org/2/library/random.html#random.choice">choice()</a>
 function that returns a random value from a list. Prior to this
 example, all kick and snare events use the same sample from the
-Amen break. Applied to the <tt class="docutils literal"><span class="pre">kick()</span></tt> and <tt class="docutils literal"><span class="pre">snare()</span></tt> score
+Amen break. Applied to the <code class="docutils literal"><span class="pre">kick()</span></code> and <code class="docutils literal"><span class="pre">snare()</span></code> score
 instruments, these functions randomly choose samples from a fixed
 list of beat positional offsets in the drum loop.</p>
-<p>The <tt class="docutils literal"><span class="pre">kick()</span></tt> function chooses from positions 0, 0.5, 4, and 4.5:</p>
+<p>The <code class="docutils literal"><span class="pre">kick()</span></code> function chooses from positions 0, 0.5, 4, and 4.5:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">kick</span><span class="p">():</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">])</span>
     <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">snare()</span></tt> functions chooses from positions 1, 3, 5, and 7:</p>
+<p>The <code class="docutils literal"><span class="pre">snare()</span></code> functions chooses from positions 1, 3, 5, and 7:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">snare</span><span class="p">():</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
     <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_choice.csd"><tt class="xref download docutils literal"><span class="pre">amen_choice.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_choice.csd"><code class="xref download docutils literal"><span class="pre">amen_choice.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990915"></iframe></div>
 <div class="section" id="hats">
 <h3>Hats<a class="headerlink" href="#hats" title="Permalink to this headline">¶</a></h3>
 <p>Once again, a new score instrument is created from a function by
-re purposing the code used in <tt class="docutils literal"><span class="pre">kick()</span></tt> and <tt class="docutils literal"><span class="pre">snare()</span></tt> for a hihat:</p>
+re purposing the code used in <code class="docutils literal"><span class="pre">kick()</span></code> and <code class="docutils literal"><span class="pre">snare()</span></code> for a hihat:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">hat</span><span class="p">():</span>
     <span class="n">sample</span> <span class="o">=</span> <span class="n">choice</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">])</span>
     <span class="n">score</span><span class="o">.</span><span class="n">i</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">,</span> <span class="n">sample</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>A second drum pattern called <tt class="docutils literal"><span class="pre">drum_pattern_8th_hats()</span></tt> is created,
-a variation on the original drum pattern. In fact, <tt class="docutils literal"><span class="pre">drum_pattern()</span></tt>
+<p>A second drum pattern called <code class="docutils literal"><span class="pre">drum_pattern_8th_hats()</span></code> is created,
+a variation on the original drum pattern. In fact, <code class="docutils literal"><span class="pre">drum_pattern()</span></code>
 is called right in this new function.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">drum_pattern_8th_hats</span><span class="p">():</span>
     <span class="n">drum_pattern</span><span class="p">()</span>
@@ -913,15 +987,15 @@ is called right in this new function.</p>
 <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">drum_pattern_8th_hats</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_hats.csd"><tt class="xref download docutils literal"><span class="pre">amen_hats.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_hats.csd"><code class="xref download docutils literal"><span class="pre">amen_hats.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990921"></iframe></div>
 <div class="section" id="post-processing-score-data">
 <h3>Post-Processing Score Data<a class="headerlink" href="#post-processing-score-data" title="Permalink to this headline">¶</a></h3>
-<p>Any data entered into the <tt class="docutils literal"><span class="pre">score()</span></tt> object via the <tt class="docutils literal"><span class="pre">PythonScore</span></tt>
-<tt class="docutils literal"><span class="pre">write()</span></tt> or <tt class="docutils literal"><span class="pre">i()</span></tt> methods can be treated as data and post-processed
-with <tt class="docutils literal"><span class="pre">pmap()</span></tt>. If you ran the last example multiple times, you
+<p>Any data entered into the <code class="docutils literal"><span class="pre">score()</span></code> object via the <code class="docutils literal"><span class="pre">PythonScore</span></code>
+<code class="docutils literal"><span class="pre">write()</span></code> or <code class="docutils literal"><span class="pre">i()</span></code> methods can be treated as data and post-processed
+with <code class="docutils literal"><span class="pre">pmap()</span></code>. If you ran the last example multiple times, you
 might have noticed the <em>&#8220;samples out of range&#8221;</em> warning. This can
-be solved in fell swoop. The <tt class="docutils literal"><span class="pre">pmap()</span></tt> method takes the following
+be solved in fell swoop. The <code class="docutils literal"><span class="pre">pmap()</span></code> method takes the following
 input:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pmap</span><span class="p">(</span><span class="n">event_type</span><span class="p">,</span> <span class="n">instr</span><span class="p">,</span> <span class="n">pfield</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
@@ -948,23 +1022,23 @@ function</p>
 <span class="n">score</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_postprocess.csd"><tt class="xref download docutils literal"><span class="pre">amen_postprocess.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_postprocess.csd"><code class="xref download docutils literal"><span class="pre">amen_postprocess.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990923"></iframe><p>The <cite>pmap()</cite> function only works on data already in the score. For
 this reason, the best place for most cases will be either after the
-last event is generated and/or just before <tt class="docutils literal"><span class="pre">score.end()</span></tt> is called.</p>
+last event is generated and/or just before <code class="docutils literal"><span class="pre">score.end()</span></code> is called.</p>
 </div>
 <div class="section" id="pre-processing-score-data">
 <h3>Pre-Processing Score Data<a class="headerlink" href="#pre-processing-score-data" title="Permalink to this headline">¶</a></h3>
-<p>The <tt class="docutils literal"><span class="pre">p_callback()</span></tt> method is the pre-processing equivalent of <tt class="docutils literal"><span class="pre">pmap()</span></tt>.
-The <tt class="docutils literal"><span class="pre">p_callback()</span></tt> method registers a function to use with a specific pfield
+<p>The <code class="docutils literal"><span class="pre">p_callback()</span></code> method is the pre-processing equivalent of <code class="docutils literal"><span class="pre">pmap()</span></code>.
+The <code class="docutils literal"><span class="pre">p_callback()</span></code> method registers a function to use with a specific pfield
 for a specific instrument, and manipulates data as it is entered
 into the score.</p>
-<p>As an example, two related set of <tt class="docutils literal"><span class="pre">p_callback()</span></tt> functions are
+<p>As an example, two related set of <code class="docutils literal"><span class="pre">p_callback()</span></code> functions are
 created. The first tunes all the drum events up a perfect 5th by
 altering the pfield-6 column used for tuning the samples. Since
 changing the pitch also affects the length of the sample, which in
 turn can cause the more of the sample to bleed into the next sample
-in the audio file, a second <tt class="docutils literal"><span class="pre">p_callback()</span></tt> modifies the duration
+in the audio file, a second <code class="docutils literal"><span class="pre">p_callback()</span></code> modifies the duration
 by the inverse of a perfect 5th.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">perfect_5th</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">7</span> <span class="o">/</span> <span class="mf">12.0</span><span class="p">)</span>
 <span class="n">score</span><span class="o">.</span><span class="n">p_callback</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">perfect_5th</span><span class="p">)</span>
@@ -972,9 +1046,9 @@ by the inverse of a perfect 5th.</p>
 </pre></div>
 </div>
 <p>Where these callbacks are placed matter. Typically it is good
-practice to place <tt class="docutils literal"><span class="pre">p_callback()</span></tt> functions before any events are
+practice to place <code class="docutils literal"><span class="pre">p_callback()</span></code> functions before any events are
 placed in the score. In this example, these are placed just prior
-to the first write to the <tt class="docutils literal"><span class="pre">score()</span></tt>.</p>
+to the first write to the <code class="docutils literal"><span class="pre">score()</span></code>.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">perfect_5th</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="mi">7</span> <span class="o">/</span> <span class="mf">12.0</span><span class="p">)</span>
 <span class="n">score</span><span class="o">.</span><span class="n">p_callback</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">perfect_5th</span><span class="p">)</span>
 <span class="n">score</span><span class="o">.</span><span class="n">p_callback</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">perfect_5th</span><span class="p">)</span>
@@ -989,14 +1063,14 @@ to the first write to the <tt class="docutils literal"><span class="pre">score()
 <span class="n">score</span><span class="o">.</span><span class="n">pmap</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mf">0.707</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_preprocess.csd"><tt class="xref download docutils literal"><span class="pre">amen_preprocess.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_preprocess.csd"><code class="xref download docutils literal"><span class="pre">amen_preprocess.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990924"></iframe></div>
 <div class="section" id="transpose">
 <h3>Transpose<a class="headerlink" href="#transpose" title="Permalink to this headline">¶</a></h3>
 <p>The perfect 5th ratio was hard coded into the last example, but
 transposing data is something that is useful enough that it&#8217;s worth
 taking the time to consolidate it into a reusable function.</p>
-<p>The <tt class="docutils literal"><span class="pre">transpose()</span></tt> function accepts two args, one which is required
+<p>The <code class="docutils literal"><span class="pre">transpose()</span></code> function accepts two args, one which is required
 and a second optional default argument. The first arg is the value
 in half steps in which to transpose. Without a second arg, it outputs
 the ratio of transposition.  If the second arg is supplied, then
@@ -1006,16 +1080,16 @@ output.</p>
     <span class="k">return</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">halfstep</span> <span class="o">/</span> <span class="mf">12.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">score.p_callback()</span></tt> calls are refactored using this new function.</p>
+<p>The <code class="docutils literal"><span class="pre">score.p_callback()</span></code> calls are refactored using this new function.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">score</span><span class="o">.</span><span class="n">p_callback</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
 <span class="n">score</span><span class="o">.</span><span class="n">p_callback</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">multiply</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">transpose</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_transpose.csd"><tt class="xref download docutils literal"><span class="pre">amen_transpose.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_transpose.csd"><code class="xref download docutils literal"><span class="pre">amen_transpose.csd</span></code></a></p>
 </div>
 <div class="section" id="default-arguments">
 <h3>Default Arguments<a class="headerlink" href="#default-arguments" title="Permalink to this headline">¶</a></h3>
-<p>Earlier in the tutorial when <tt class="docutils literal"><span class="pre">kick()</span></tt>, <tt class="docutils literal"><span class="pre">snare()</span></tt>, and <tt class="docutils literal"><span class="pre">hat()</span></tt>
+<p>Earlier in the tutorial when <code class="docutils literal"><span class="pre">kick()</span></code>, <code class="docutils literal"><span class="pre">snare()</span></code>, and <code class="docutils literal"><span class="pre">hat()</span></code>
 were created, the instr number, start time, duration, amplitude,
 beat positional offset, and tuning were factored out of the interface.
 Three of these are put back in as optional arguments: duration,
@@ -1054,7 +1128,7 @@ down a perfect fourth.</p>
         <span class="k">with</span> <span class="n">cue</span><span class="p">(</span><span class="n">t</span><span class="p">):</span> <span class="n">kick</span><span class="p">(</span><span class="n">tune</span><span class="o">=</span><span class="n">transpose</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">))</span>
 </pre></div>
 </div>
-<p>Here is <tt class="docutils literal"><span class="pre">drum_pattern_2()</span></tt> tested in context with two other
+<p>Here is <code class="docutils literal"><span class="pre">drum_pattern_2()</span></code> tested in context with two other
 patterns:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span> <span class="n">drum_pattern</span><span class="p">()</span>
 <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span> <span class="n">drum_pattern_8th_hats</span><span class="p">()</span>
@@ -1062,17 +1136,17 @@ patterns:</p>
 <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">drum_pattern_8th_hats</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_default_args.csd"><tt class="xref download docutils literal"><span class="pre">amen_default_args.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_default_args.csd"><code class="xref download docutils literal"><span class="pre">amen_default_args.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990917"></iframe></div>
 <div class="section" id="player-instruments">
 <h3>Player Instruments<a class="headerlink" href="#player-instruments" title="Permalink to this headline">¶</a></h3>
 <p>Python functions can accept other functions as arguments. This is
 taken advantage of in this example as we create a generic player
-instrument that accepts either <tt class="docutils literal"><span class="pre">kick</span></tt>, <tt class="docutils literal"><span class="pre">snare</span></tt>, or <tt class="docutils literal"><span class="pre">hat</span></tt> as
+instrument that accepts either <code class="docutils literal"><span class="pre">kick</span></code>, <code class="docutils literal"><span class="pre">snare</span></code>, or <code class="docutils literal"><span class="pre">hat</span></code> as
 the first argument, then plays the passed score instrument based
 on the the proceeding arguments. This is possible since our score
 instruments have identical interfaces/signatures.</p>
-<p>The player instrument is named <tt class="docutils literal"><span class="pre">swell()</span></tt> as it was originally
+<p>The player instrument is named <code class="docutils literal"><span class="pre">swell()</span></code> as it was originally
 envisioned as way to play instruments with ramped amplitudes. Here
 is a description of the rest of the arguments in order in which
 they appear:</p>
@@ -1117,7 +1191,7 @@ they appear:</p>
         <span class="n">swell</span><span class="p">(</span><span class="n">snare</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">,</span> <span class="n">transpose</span><span class="p">(</span><span class="mi">7</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_player.csd"><tt class="xref download docutils literal"><span class="pre">amen_player.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_player.csd"><code class="xref download docutils literal"><span class="pre">amen_player.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990922"></iframe></div>
 <div class="section" id="algorithmic-flair">
 <h3>Algorithmic Flair<a class="headerlink" href="#algorithmic-flair" title="Permalink to this headline">¶</a></h3>
@@ -1129,7 +1203,7 @@ Python&#8217;s random module, which is imported near the top of the score:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span>
 </pre></div>
 </div>
-<p>The new pattern is called <tt class="docutils literal"><span class="pre">drum_pattern_flair()</span></tt> and looks like
+<p>The new pattern is called <code class="docutils literal"><span class="pre">drum_pattern_flair()</span></code> and looks like
 this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">drum_pattern_flair</span><span class="p">(</span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="n">drum_pattern</span><span class="p">()</span>
@@ -1144,23 +1218,23 @@ this:</p>
                 <span class="n">instr</span><span class="p">(</span><span class="n">amp</span><span class="o">=</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.75</span> <span class="o">+</span> <span class="mf">0.125</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The pattern excepts an optional argument <tt class="docutils literal"><span class="pre">r</span></tt> that determines the
-odds of an event being randomly generated. If <tt class="docutils literal"><span class="pre">r</span></tt> is 0, then there
-is no chance that extra notes will be played. When <tt class="docutils literal"><span class="pre">r</span></tt> is set to
+<p>The pattern excepts an optional argument <code class="docutils literal"><span class="pre">r</span></code> that determines the
+odds of an event being randomly generated. If <code class="docutils literal"><span class="pre">r</span></code> is 0, then there
+is no chance that extra notes will be played. When <code class="docutils literal"><span class="pre">r</span></code> is set to
 1, it&#8217;ll generate an event every chance it gets.</p>
-<p>The pattern uses the original <tt class="docutils literal"><span class="pre">drum_pattern()</span></tt> created earlier,
+<p>The pattern uses the original <code class="docutils literal"><span class="pre">drum_pattern()</span></code> created earlier,
 and then continues with some programming logic to add a bit of
 algorithmic flair to it. A list is created with eight different
 start times (in beats). A second list containing a list of score
 instruments is created; Only one kick and snare are added, but
 includes hat three times to increase the odds that this will be
 chosen.</p>
-<p>Using the <tt class="docutils literal"><span class="pre">for</span></tt> loop, the program iterates through each value in
-list <tt class="docutils literal"><span class="pre">times</span></tt>. It does a comparison to a randomly generated number
-for each. If the random number is less than <tt class="docutils literal"><span class="pre">r</span></tt>, then a score
-instrument is generated for the current value of <tt class="docutils literal"><span class="pre">time</span></tt>. The
-<tt class="docutils literal"><span class="pre">cue()</span></tt> is set to the current value of variable <tt class="docutils literal"><span class="pre">time</span></tt>. The
-<tt class="docutils literal"><span class="pre">choice()</span></tt> functions then chooses either kick, snare, hat, hat,
+<p>Using the <code class="docutils literal"><span class="pre">for</span></code> loop, the program iterates through each value in
+list <code class="docutils literal"><span class="pre">times</span></code>. It does a comparison to a randomly generated number
+for each. If the random number is less than <code class="docutils literal"><span class="pre">r</span></code>, then a score
+instrument is generated for the current value of <code class="docutils literal"><span class="pre">time</span></code>. The
+<code class="docutils literal"><span class="pre">cue()</span></code> is set to the current value of variable <code class="docutils literal"><span class="pre">time</span></code>. The
+<code class="docutils literal"><span class="pre">choice()</span></code> functions then chooses either kick, snare, hat, hat,
 or hat. Then the event is created, with a random amplitude in the
 range of 0.125 and 0.875.</p>
 <p>The end result is the original drum pattern plus some extra random
@@ -1173,7 +1247,7 @@ notes, maybe.</p>
         <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span> <span class="n">drum_pattern_flair</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_flair.csd"><tt class="xref download docutils literal"><span class="pre">amen_flair.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_flair.csd"><code class="xref download docutils literal"><span class="pre">amen_flair.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990918"></iframe></div>
 <div class="section" id="form-with-functions">
 <h3>Form With Functions<a class="headerlink" href="#form-with-functions" title="Permalink to this headline">¶</a></h3>
@@ -1190,7 +1264,7 @@ final score and see if you can figure out the form?</p>
 <span class="k">with</span> <span class="n">measure</span><span class="p">(</span><span class="mi">93</span><span class="p">):</span> <span class="n">outro</span><span class="p">()</span>
 </pre></div>
 </div>
-<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_form.csd"><tt class="xref download docutils literal"><span class="pre">amen_form.csd</span></tt></a></p>
+<p><strong>Source:</strong> <a class="reference download internal" href="_downloads/amen_form.csd"><code class="xref download docutils literal"><span class="pre">amen_form.csd</span></code></a></p>
 <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990919"></iframe><p>Granted, not all scores are built the same, and Python definitely
 allows the creation of some horrendous code. Though the code can
 also be used to bring greater clarity to the score.</p>
@@ -1212,36 +1286,24 @@ also be used to bring greater clarity to the score.</p>
 </div>
 
 
-          </div>
-        </div>
-      </div>
+    </div>
+    
 
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="pysco.html" title="PythonScore"
-             >previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li>
-          <li><a href="pysco.html" >PythonScore</a> &raquo;</li> 
-      </ul>
-    </div>
+  </div>
+</div>
 
-    <div class="footer">
-        &copy; Copyright 2009, Jacob Joaquin.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2009, Jacob Joaquin.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

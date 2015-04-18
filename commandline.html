@@ -1,7 +1,4 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,13 +7,15 @@
     
     <title>Command-line Operations &mdash; CSD</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.2.0/cosmo/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.5 alpha',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -26,31 +25,122 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="CSD" href="index.html" />
     <link rel="next" title="Bugs" href="bugs.html" />
-    <link rel="prev" title="Demos" href="demo/index.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="bugs.html" title="Bugs"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+    <link rel="prev" title="Demos" href="demo/index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-      <div class="sphinxsidebar">
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          CSD Docs</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.5</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Menu <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installing csd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="install.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#test">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html#supported-systems">Supported Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="csd_sco_event.html">CSD Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd">csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco">sco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.preprocessor">preprocessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.selection">selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysco.html">PythonScore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#what-is-pythonscore">What is PythonScore?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#pythonscore-table-of-contents">PythonScore Table of Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="demo/index.html">Demo Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#arpeggiator">arpeggiator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#carry">carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#pfunc">pfunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#s-spacer">s_spacer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#sco-align">sco_align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#score-from-csd">score_from_csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#swap-columns">swap_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Command-Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pipe-chain-trick">Pipe Chain Trick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html#planned-changes">Planned Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/commandline.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3>Get CSD</h3>
 <ul id="downloadrepo">
@@ -58,9 +148,7 @@
     <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
     <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
 </ul>
-
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+<ul>
 <li><a class="reference internal" href="#">Command-line Operations</a><ul>
 <li><a class="reference internal" href="#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
 <li><a class="reference internal" href="#pipe-chain-trick">Pipe Chain Trick</a></li>
@@ -68,50 +156,38 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="demo/index.html"
-                        title="previous chapter">Demos</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="bugs.html"
-                        title="next chapter">Bugs</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/commandline.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <li>
+    <a href="demo/index.html" title="Previous Chapter: Demos"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Demos</span>
+    </a>
+  </li>
+  <li>
+    <a href="bugs.html" title="Next Chapter: Bugs"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Bugs &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
         </div>
       </div>
 
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <div class="col-md-12">
+      
   <div class="section" id="command-line-operations">
 <h1>Command-line Operations<a class="headerlink" href="#command-line-operations" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="pasteboard-trick-for-os-x">
 <h2>Pasteboard Trick (for OS X)<a class="headerlink" href="#pasteboard-trick-for-os-x" title="Permalink to this headline">¶</a></h2>
 <p>OS X comes with two commands that can easily aid in the process of
-using these demo scripts in your work flow: <tt class="docutils literal"><span class="pre">pbpaste</span></tt> and <tt class="docutils literal"><span class="pre">pbcopy</span></tt>.
+using these demo scripts in your work flow: <code class="docutils literal"><span class="pre">pbpaste</span></code> and <code class="docutils literal"><span class="pre">pbcopy</span></code>.
 These paste and copy the contents of the pasteboard in the OS X
 Terminal.</p>
 <p>To use in a workflow, highlight a section of score you want to process,
 copy the selection, type the following into the Terminal:</p>
-<div class="highlight-python"><pre>pbpaste | ./sco_align.py | pbcopy</pre>
+<div class="highlight-python"><div class="highlight"><pre>pbpaste | ./sco_align.py | pbcopy
+</pre></div>
 </div>
 <p>Go back to your text editor, and with the section of score code still
 highlighted, paste.  The highlighted test will be replaced with your
@@ -121,68 +197,60 @@ newly processed score.</p>
 <h2>Pipe Chain Trick<a class="headerlink" href="#pipe-chain-trick" title="Permalink to this headline">¶</a></h2>
 <p>You can chain multiple csd scripts in a row to do several csd processes
 in a single swoop.  The following example does three things.  First, it
-transposes pfield 5 by two octaves with <tt class="docutils literal"><span class="pre">pfunc.py</span></tt>.  Then the output
-of <tt class="docutils literal"><span class="pre">pfunc.py</span></tt> is piped into <tt class="docutils literal"><span class="pre">arpeggiator.py</span></tt>, processing that
+transposes pfield 5 by two octaves with <code class="docutils literal"><span class="pre">pfunc.py</span></code>.  Then the output
+of <code class="docutils literal"><span class="pre">pfunc.py</span></code> is piped into <code class="docutils literal"><span class="pre">arpeggiator.py</span></code>, processing that
 amplitude values in p4.  The resulting score is made neat and tidy with
-<tt class="docutils literal"><span class="pre">sco_align.py</span></tt>:</p>
-<div class="highlight-python"><pre>cat arpeggiator.sco | \
-&gt; ./pfunc.py i 1 5 'x + 2' | \
-&gt; ./arpeggiator.py i 1 4 '0.1 0.444 0.9922' | \
-&gt; ./sco_align.py</pre>
+<code class="docutils literal"><span class="pre">sco_align.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>cat arpeggiator.sco | \
+&gt; ./pfunc.py i 1 5 &#39;x + 2&#39; | \
+&gt; ./arpeggiator.py i 1 4 &#39;0.1 0.444 0.9922&#39; | \
+&gt; ./sco_align.py
+</pre></div>
 </div>
 <p>Before:</p>
-<div class="highlight-python"><pre>i 1 0 0.25 0.3 7.00
+<div class="highlight-python"><div class="highlight"><pre>i 1 0 0.25 0.3 7.00
 i 1 + .    .   .
 i 1 + .    .   .
 i 1 + .    .   .
 i 1 + .    .   .
 i 1 + .    .   .
 i 1 + .    .   .
-i 1 + .    .   .</pre>
+i 1 + .    .   .
+</pre></div>
 </div>
 <p>After:</p>
-<div class="highlight-python"><pre>i 1 0 0.25 0.1    9.0
+<div class="highlight-python"><div class="highlight"><pre>i 1 0 0.25 0.1    9.0
 i 1 + .    0.444  .
 i 1 + .    0.9922 .
 i 1 + .    0.1    .
 i 1 + .    0.444  .
 i 1 + .    0.9922 .
 i 1 + .    0.1    .
-i 1 + .    0.444  .</pre>
+i 1 + .    0.444  .
+</pre></div>
 </div>
 </div>
 </div>
 
 
-          </div>
-        </div>
-      </div>
+    </div>
+    
 
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="bugs.html" title="Bugs"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="demo/index.html" title="Demos"
-             >previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+  </div>
+</div>
 
-    <div class="footer">
-        &copy; Copyright 2009, Jacob Joaquin.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2009, Jacob Joaquin.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

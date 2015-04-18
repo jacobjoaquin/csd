@@ -1,7 +1,4 @@
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,13 +7,15 @@
     
     <title>Installing csd &mdash; CSD</title>
     
-    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.2.0/cosmo/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '',
+        URL_ROOT:    './',
         VERSION:     '0.0.5 alpha',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
@@ -26,31 +25,122 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="top" title="CSD" href="index.html" />
     <link rel="next" title="The csd Package" href="csd_sco_event.html" />
-    <link rel="prev" title="Csound csd Python Package" href="index.html" /> 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="csd_sco_event.html" title="The csd Package"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Csound csd Python Package"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+    <link rel="prev" title="Csound csd Python Package" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
 
-      <div class="sphinxsidebar">
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          CSD Docs</a>
+        <span class="navbar-text navbar-version pull-left"><b>0.0.5</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Menu <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installing csd</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install">Install</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#test">Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#supported-systems">Supported Systems</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="csd_sco_event.html">CSD Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd">csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco">sco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.element">element</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.event">event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.preprocessor">preprocessor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csd_sco_event.html#module-csd.sco.selection">selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pysco.html">PythonScore</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#what-is-pythonscore">What is PythonScore?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pysco.html#pythonscore-table-of-contents">PythonScore Table of Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="demo/index.html">Demo Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#arpeggiator">arpeggiator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#carry">carry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#pfunc">pfunc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#s-spacer">s_spacer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#sco-align">sco_align</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#score-from-csd">score_from_csd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo/index.html#swap-columns">swap_columns</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">Command-Line</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pasteboard-trick-for-os-x">Pasteboard Trick (for OS X)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commandline.html#pipe-chain-trick">Pipe Chain Trick</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Bugs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html#planned-changes">Planned Changes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="glossary.html">Glossary</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/install.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <h3>Get CSD</h3>
 <ul id="downloadrepo">
@@ -58,9 +148,7 @@
     <li><a href="https://github.com/jacobjoaquin/csd/tarball/master">Download <strong>TAR Ball</strong></a></li>
     <li><a href="https://github.com/jacobjoaquin/csd">View On <strong>GitHub</strong></a></li>
 </ul>
-
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
+<ul>
 <li><a class="reference internal" href="#">Installing csd</a><ul>
 <li><a class="reference internal" href="#download">Download</a></li>
 <li><a class="reference internal" href="#install">Install</a></li>
@@ -70,39 +158,26 @@
 </li>
 </ul>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="index.html"
-                        title="previous chapter">Csound csd Python Package</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="csd_sco_event.html"
-                        title="next chapter">The csd Package</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/install.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
+  <li>
+    <a href="index.html" title="Previous Chapter: Csound csd Python Package"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Csound csd Pytho...</span>
+    </a>
+  </li>
+  <li>
+    <a href="csd_sco_event.html" title="Next Chapter: The csd Package"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">The csd Package &raquo;</span>
+    </a>
+  </li>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
         </div>
       </div>
 
-
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+    <div class="col-md-12">
+      
   <div class="section" id="installing-csd">
 <h1>Installing csd<a class="headerlink" href="#installing-csd" title="Permalink to this headline">¶</a></h1>
 <p>The csd installer is built using the Python Distribution Utilities
@@ -117,23 +192,27 @@ Python on-line docs.</p>
 <p><a class="reference external" href="https://github.com/jacobjoaquin/csd/zipball/master">Download as Zip</a></p>
 <p><a class="reference external" href="https://github.com/jacobjoaquin/csd/tarball/master">Download as TAR ball</a></p>
 <p>Clone from Github:</p>
-<div class="highlight-python"><pre>git clone git://github.com/jacobjoaquin/csd.git</pre>
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/jacobjoaquin/csd.git
+</pre></div>
 </div>
 </div>
 <div class="section" id="install">
 <h2>Install<a class="headerlink" href="#install" title="Permalink to this headline">¶</a></h2>
 <p>In a terminal window, cd to the csd folder and type:</p>
-<div class="highlight-python"><pre>python setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install
+</pre></div>
 </div>
 <p>On Linux, Unix, and OS X, you may need to sudo it:</p>
-<div class="highlight-python"><pre>sudo python setup.py install</pre>
+<div class="highlight-python"><div class="highlight"><pre>sudo python setup.py install
+</pre></div>
 </div>
 </div>
 <div class="section" id="test">
 <h2>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h2>
 <p>You can test to see if installation was successful running the script
 test.py, found in the demo folder:</p>
-<div class="highlight-python"><pre>./test.py</pre>
+<div class="highlight-python"><div class="highlight"><pre>./test.py
+</pre></div>
 </div>
 <p>If this runs without throwing any errors, then you should be good to
 go.</p>
@@ -150,35 +229,24 @@ me your results so I can make improvements in future releases:
 </div>
 
 
-          </div>
-        </div>
-      </div>
+    </div>
+    
 
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="csd_sco_event.html" title="The csd Package"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="index.html" title="Csound csd Python Package"
-             >previous</a> |</li>
-        <li><a href="index.html">CSD</a> &raquo;</li> 
-      </ul>
-    </div>
+  </div>
+</div>
 
-    <div class="footer">
-        &copy; Copyright 2009, Jacob Joaquin.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
-    </div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2009, Jacob Joaquin.<br/>
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.1.<br/>
+    </p>
+  </div>
+</footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
