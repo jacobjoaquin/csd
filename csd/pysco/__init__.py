@@ -154,5 +154,9 @@ class PythonScoreBin(PythonScore):
 
     def _bin_end_score(self):
         # TODO: This shouldn't run under certain circumstances
+        output = "\n".join(self.score_data)
         with open(argv[1], 'w') as f:
-        	f.write("\n".join(self.score_data))
+        	f.write(output)
+        with open('.pysco_generated_score.sco', 'w') as f:
+        	f.write(output)
+
