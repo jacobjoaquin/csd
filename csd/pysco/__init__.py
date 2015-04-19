@@ -45,13 +45,11 @@ class PythonScore(object):
     # TODO: 
     # Add reset()
     # Output thus far feature
-    # score_data should be considered private
-    # p_callbacks should be considered private
     
     def __init__(self):
         self.cue = Cue(self)
-        self.score_data = []
-        self.p_callbacks = [[]]
+        self._score_data = []
+        self._p_call_backs = [[]]
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
@@ -96,17 +94,17 @@ class PythonScore(object):
         self.write(' '.join(chain('t 0', imap(str, args)))) 
 
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
-        self.p_callbacks[-1].append(PCallback(statement, identifier, pfield,
+        self._p_call_backs[-1].append(PCallback(statement, identifier, pfield,
                                     func, *args, **kwargs))
 
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
-        data = "\n".join(self.score_data)
-        self.score_data = [self._map_process(data, statement, identifier,
+        data = "\n".join(self._score_data)
+        self._score_data = [self._map_process(data, statement, identifier,
                            pfield, func, *args, **kwargs)]
 
     def write(self, data):
         # Apply pfield callbacks
-        for L in self.p_callbacks:
+        for L in self._p_call_backs:
             for cb in L:
                 data = self._map_process(data, cb.statement, cb.identifier,
                                          cb.pfield, cb.function, *cb.args,
@@ -116,13 +114,13 @@ class PythonScore(object):
         selected = sco.select(data, {0: 'i'})
         op = sco.selection.operate_numeric(selected, 2,
                                            lambda x: x + self.cue.now())
-        self.score_data.append(sco.merge(data, op))
+        self._score_data.append(sco.merge(data, op))
 
 
 class Cue(object):
 
     def __init__(self, parent):
-        self.stack = []
+        self._stack = []
         self.parent = parent
         self.translation = 0;
 
@@ -131,15 +129,15 @@ class Cue(object):
         return self
 
     def __enter__(self):
-        self.stack.append(self.when)
-        self.parent.p_callbacks.append([])
-        self.translation = sum(self.stack)
+        self._stack.append(self.when)
+        self.parent._p_call_backs.append([])
+        self.translation = sum(self._stack)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.stack.pop()
-        self.parent.p_callbacks.pop()
-        self.translation = sum(self.stack)
+        self._stack.pop()
+        self.parent._p_call_backs.pop()
+        self.translation = sum(self._stack)
         return False
 
     def now(self):
@@ -154,7 +152,7 @@ class PythonScoreBin(PythonScore):
 
     def _bin_end_score(self):
         # TODO: This shouldn't run under certain circumstances
-        output = "\n".join(self.score_data)
+        output = "\n".join(self._score_data)
         with open(argv[1], 'w') as f:
         	f.write(output)
         with open('.pysco_generated_score.sco', 'w') as f:
