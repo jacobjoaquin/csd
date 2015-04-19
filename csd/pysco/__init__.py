@@ -121,22 +121,22 @@ class Cue(object):
 
     def __init__(self, parent):
         self._stack = []
-        self.parent = parent
+        self._parent = parent
         self.translation = 0;
 
-    def __call__(self, when):
-        self.when = when
+    def __call__(self, translate=0, scale=1):
+        self._translate = translate
         return self
 
     def __enter__(self):
-        self._stack.append(self.when)
-        self.parent._p_call_backs.append([])
+        self._stack.append(self._translate)
+        self._parent._p_call_backs.append([])
         self.translation = sum(self._stack)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self._stack.pop()
-        self.parent._p_call_backs.pop()
+        self._parent._p_call_backs.pop()
         self.translation = sum(self._stack)
         return False
 
