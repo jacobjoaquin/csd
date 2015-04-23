@@ -53,7 +53,6 @@ class PythonScore(object):
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
-        convert_numeric = True
         sco_statements_enabled = True
 
         # Convert pfield to list if it isn't one
@@ -72,11 +71,10 @@ class PythonScore(object):
                     break
 
                 # Convert value to float
-                if convert_numeric:
-                    try:
-                        element = float(element)
-                    except Exception:
-                        pass
+                try:
+                    element = float(element)
+                except Exception:
+                    pass
 
                 deez_args = (element,) + args
                 selection[k] = sco.event.set(v, p,
