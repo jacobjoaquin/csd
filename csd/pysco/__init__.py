@@ -86,7 +86,17 @@ class PythonScore(object):
         self.write(' '.join(chain('f', imap(str, args)))) 
 
     def i(self, *args):
-        self.write(' '.join(chain('i', imap(str, args)))) 
+        args = list(args)
+
+        # Apply callbacks
+        for L in self._p_call_backs:
+            for cb in L:
+                if cb.identifier == args[0]:
+                    pf = cb.pfield - 1
+                    args[pf] = cb.function(args[pf], *cb.args, **cb.kwargs)
+
+        args[1] += self.cue.now()
+        self._score_data.append(' '.join(chain('i', imap(str, args))))
 
     def t(self, *args):
         self.write(' '.join(chain('t 0', imap(str, args)))) 
