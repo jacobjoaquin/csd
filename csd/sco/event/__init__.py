@@ -21,6 +21,18 @@ import re
 
 from csd.sco import element
 
+__split_pattern = '''(\".+?\"     |
+                   \{\{.+?\}\} |
+                   \[.+?\]     |
+                   \;.*        |
+                   \/\*.*?\*\/ |
+                   \S+(?=\/\*) |
+                   \S+(?=;)    |
+                   \S+)
+                   '''
+                  
+split_regex = re.compile(__split_pattern, re.VERBOSE)
+
 def get(event, pfield_index):
     '''Returns a pfield element for an event.
     
@@ -308,21 +320,7 @@ def split(event):
 
     # Separate statement from p1 if necessary
     event = statement_spacer(event, spacer=1)
-
-    # Pattern for pfields
-    pattern = '''(\".+?\"     |
-                  \{\{.+?\}\} |
-                  \[.+?\]     |
-                  \;.*        |
-                  \/\*.*?\*\/ |
-                  \S+(?=\/\*) |
-                  \S+(?=;)    |
-                  \S+)
-                  '''
-                  
-    p = re.compile(pattern, re.VERBOSE)
-
-    return p.findall(event)
+    return split_regex.findall(event)
 
 def statement_spacer(event, spacer=1):
     '''Returns a new string with the whitespace between a statement
