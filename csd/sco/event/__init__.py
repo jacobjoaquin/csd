@@ -21,6 +21,9 @@ import re
 
 from csd.sco import element
 
+_leading_space_regex = re.compile('\s+|\/\*.+?\*\/')
+_compress_space_regex = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
+_sanitize_regex = re.compile('\;.*|\/\*.*?\*\/')
 __split_pattern = '''(\".+?\"     |
                    \{\{.+?\}\} |
                    \[.+?\]     |
@@ -30,8 +33,19 @@ __split_pattern = '''(\".+?\"     |
                    \S+(?=;)    |
                    \S+)
                    '''
-                  
 split_regex = re.compile(__split_pattern, re.VERBOSE)
+_tokenize_pattern = '''(\s+        |
+                       \".+?\"     |
+                       \{\{.+?\}\} |
+                       \[.+?\]     |
+                       \;.*        |
+                       \/\*.*?\*\/ |
+                       \S+(?=\/\*) |
+                       \S+(?=;)    |
+                       \S+)
+                       '''
+_tokenize_regex = re.compile(_tokenize_pattern, re.VERBOSE)
+
 
 def get(event, pfield_index):
     '''Returns a pfield element for an event.
@@ -251,11 +265,10 @@ def sanitize(event):
     '''
 
     # Remove comments
-    p = re.compile('\;.*|\/\*.*?\*\/')
-    m = p.search(event)
+    m = _sanitize_regex.search(event)
     
     if m:
-        event = p.sub(' ', event)
+        event = _sanitize_regex.sub(' ', event)
     
     event = event.strip()
 
@@ -263,9 +276,7 @@ def sanitize(event):
     event = statement_spacer(event, spacer=1)
     
     # Compress whitespace between fields
-    p = re.compile('(\".+?\"|\{\{.+?\}\}|\[.+?\]|\S+)')
-    
-    return ' '.join(p.findall(event))
+    return ' '.join(_compress_space_regex.findall(event))
 
 def set(event, pfield_index, value):
     '''Returns a new event string with the specified pfield set with
@@ -319,7 +330,7 @@ def split(event):
     '''
 
     # Separate statement from p1 if necessary
-    event = statement_spacer(event, spacer=1)
+    event = statement_spacer(event)
     return split_regex.findall(event)
 
 def statement_spacer(event, spacer=1):
@@ -398,12 +409,10 @@ def tokenize(event):
     tokens = []
 
     # Get leading whitespace and /* comments */
-    p = re.compile('\s+|\/\*.+?\*\/')
-    
-    while p.match(event):
-        m = p.match(event)
+    while _leading_space_regex.match(event):
+        m = _leading_space_regex.match(event)
         tokens.append(m.group())
-        event = p.sub('', event, 1)
+        event = _leading_space_regex.sub('', event, 1)
         
     # Get statement
     m = element.RE_STATEMENT.match(event)
@@ -413,19 +422,7 @@ def tokenize(event):
         event = element.RE_STATEMENT.sub('', event, 1)
         
     # Tokenize the rest of the event
-    pattern = '''(\s+         |
-                  \".+?\"     |
-                  \{\{.+?\}\} |
-                  \[.+?\]     |
-                  \;.*        |
-                  \/\*.*?\*\/ |
-                  \S+(?=\/\*) |
-                  \S+(?=;)    |
-                  \S+)
-                  '''
-    
-    p = re.compile(pattern, re.VERBOSE)
-    [tokens.append(t) for t in p.findall(event)]        
+    [tokens.append(t) for t in _tokenize_regex.findall(event)]        
 
     return tokens
 
