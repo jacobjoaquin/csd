@@ -155,6 +155,5 @@ class PythonScoreBin(PythonScore):
         output = "\n".join(self._score_data)
         with open(argv[1], 'w') as f:
         	f.write(output)
-        with open('.pysco_generated_score.sco', 'w') as f:
-        	f.write(output)
-
+#        with open('.pysco_generated_score.sco', 'w') as f:
+#        	f.write(output)
