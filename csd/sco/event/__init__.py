@@ -36,15 +36,11 @@ def get(event, pfield_index):
     
     '''
 
-    # Pfield must be of type int, as it refers to an index in a list.
-    pfield_index = int(pfield_index)
-
     event_list = get_pfield_list(event)
 
-    if pfield_index < len(event_list) and pfield_index >= 0:
+    if 0 <= pfield_index < len(event_list):
         return event_list[pfield_index]
-    else:
-        return None
+    return None
 
 def get_pfield_list(event):
     '''Returns a list of all the pfield elements in a list.
@@ -134,13 +130,9 @@ def match(event, pattern):
     
     '''
  
-    # Return false if empty
-    if pattern == {}:
-        return False
-        
-    for pf, v in pattern.items():
+    for pf, v in pattern.iteritems():
         # Items in v must be of type str
-        if type(v) is list:
+        if isinstance(v, list):
             for i, item in enumerate(v):
                 v[i] = str(item)
                 
@@ -149,10 +141,10 @@ def match(event, pattern):
             v = [str(v)]
 
         # Test to see if event passes all requirements of the pattern
-        if (get(event, pf) in v) is False:
+        if get(event, pf) not in v:
             return False
 
-    return True
+    return bool(pattern)
     
 def number_of_pfields(event):
     '''Returns an int of the number of pfields that exists in a given
