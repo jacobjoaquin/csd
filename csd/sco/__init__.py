@@ -129,15 +129,8 @@ def select(score, pattern):
     # Convert score string to list    
     s_list = score.splitlines()
     
-    # Dictionary to store matched events.  {index_of_event: event}
-    selection_ = {}
-
-    # Get matched events
-    for i, e in enumerate(s_list):
-        if event.match(e, pattern):
-            selection_[i] = e
-
-    return selection_
+    # Return matched events
+    return {i: e for i, e in enumerate(s_list) if event.match(e, pattern)}
 
 def select_all(score):
     '''Returns a selection of all events in a score.
