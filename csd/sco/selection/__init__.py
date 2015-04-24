@@ -32,7 +32,6 @@ def __convert_args_to_numeric(args_tuple):
 def __pfield_index_to_list(pfield_index_list):
     '''Forces a single value to be translated into a list.'''
     
-    #if type(pfield_index_list) is not list:
     if not isinstance(pfield_index_list, list):
         pfield_index_list = [pfield_index_list]
         

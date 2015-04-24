@@ -50,6 +50,7 @@ class PythonScore(object):
         self.cue = Cue(self)
         self._score_data = []
         self._p_call_backs = [[]]
+        self._score_list = []
 
     def _map_process(self, data, statement, identifier, pfield, function,
                      *args, **kwargs):
@@ -83,7 +84,7 @@ class PythonScore(object):
         return sco.merge(data, selection)
 
     def f(self, *args):
-        self.write(' '.join(chain('f', imap(str, args)))) 
+        self._score_list.append(chain('f', args))
 
     def i(self, *args):
         args = list(args)
@@ -97,32 +98,38 @@ class PythonScore(object):
 
         args[1] += self.cue.now()
         self._score_data.append(' '.join(chain('i', imap(str, args))))
+        self._score_list.append(chain('i', args))
 
     def t(self, *args):
-        self.write(' '.join(chain('t 0', imap(str, args)))) 
+        self._score_list.append(chain('t 0', args))
 
     def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
         self._p_call_backs[-1].append(PCallback(statement, identifier, pfield,
                                     func, *args, **kwargs))
 
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
-        data = "\n".join(self._score_data)
-        self._score_data = [self._map_process(data, statement, identifier,
-                           pfield, func, *args, **kwargs)]
+#        data = "\n".join(self._score_data)
+#        self._score_data = [self._map_process(data, statement, identifier,
+#                           pfield, func, *args, **kwargs)]
+        d = self._score_list
 
-    def write(self, data):
-        # Apply pfield callbacks
-        for L in self._p_call_backs:
-            for cb in L:
-                data = self._map_process(data, cb.statement, cb.identifier,
-                                         cb.pfield, cb.function, *cb.args,
-                                         **cb.kwargs)
+        if not isinstance(statement, list):
+            statement = [statement]
 
-        # Apply time stack
-        selected = sco.select(data, {0: 'i'})
-        op = sco.selection.operate_numeric(selected, 2,
-                                           lambda x: x + self.cue.now())
-        self._score_data.append(sco.merge(data, op))
+        if not isinstance(identifier, list):
+            identifier = [identifier]
+
+        if not isinstance(pfield, list):
+            pfield = [pfield]
+
+        # Handle multiple statments, tooooo
+        for i, L in enumerate(d):
+            L = list(L)
+            if L[0] in statement and L[1] in identifier:
+                for pf in pfield:
+                    v = L[pf]
+                    L[pf] = func(v, *args, **kwargs)
+            d[i] = iter(L)
 
 
 class Cue(object):
@@ -159,8 +166,7 @@ class PythonScoreBin(PythonScore):
         atexit.register(self._bin_end_score)
 
     def _bin_end_score(self):
-        # TODO: This shouldn't run under certain circumstances
-        output = "\n".join(self._score_data)
+        output = '\n'.join([' '.join(imap(str, i)) for i in self._score_list])
         with open(argv[1], 'w') as f:
         	f.write(output)
         with open('.pysco_generated_score.sco', 'w') as f:
