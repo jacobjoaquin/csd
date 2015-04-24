@@ -24,7 +24,6 @@ from sys import argv
 from itertools import imap
 from itertools import chain
 import csd
-from csd import sco
 import atexit
 
 class PCallback(object):
@@ -40,48 +39,14 @@ class PCallback(object):
         
 
 class PythonScore(object):
-    score_non_floats = ('.', '+', '<', '!') 
-
     # TODO: 
     # Add reset()
     # Output thus far feature
     
     def __init__(self):
         self.cue = Cue(self)
-        self._score_data = []
         self._p_call_backs = [[]]
         self._score_list = []
-
-    def _map_process(self, data, statement, identifier, pfield, function,
-                     *args, **kwargs):
-        sco_statements_enabled = True
-
-        # Convert pfield to list if it isn't one
-        if not isinstance(pfield, list):
-            pfield = [pfield]
-
-        selection = sco.select(data, {0: statement, 1: identifier})
-
-        for k, v in selection.iteritems():
-            for p in pfield:
-                element = sco.event.get(v, p)
-
-                # Bypass if score statement like carry
-                # TODO: ^+x, npx, ppx, etc...
-                if sco_statements_enabled and element in self.score_non_floats:
-                    break
-
-                # Convert value to float
-                try:
-                    element = float(element)
-                except Exception:
-                    pass
-
-                deez_args = (element,) + args
-                selection[k] = sco.event.set(v, p,
-                                             function(*deez_args, **kwargs))
-
-        return sco.merge(data, selection)
 
     def f(self, *args):
         self._score_list.append(chain('f', args))
@@ -93,11 +58,11 @@ class PythonScore(object):
         for L in self._p_call_backs:
             for cb in L:
                 if cb.identifier == args[0]:
+                    # 'i' not yet added, so offset is necessary
                     pf = cb.pfield - 1
                     args[pf] = cb.function(args[pf], *cb.args, **cb.kwargs)
 
         args[1] += self.cue.now()
-        self._score_data.append(' '.join(chain('i', imap(str, args))))
         self._score_list.append(chain('i', args))
 
     def t(self, *args):
@@ -108,11 +73,6 @@ class PythonScore(object):
                                     func, *args, **kwargs))
 
     def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
-#        data = "\n".join(self._score_data)
-#        self._score_data = [self._map_process(data, statement, identifier,
-#                           pfield, func, *args, **kwargs)]
-        d = self._score_list
-
         if not isinstance(statement, list):
             statement = [statement]
 
@@ -123,14 +83,12 @@ class PythonScore(object):
             pfield = [pfield]
 
         # Handle multiple statments, tooooo
-        for i, L in enumerate(d):
-            L = list(L)
-            if L[0] in statement and L[1] in identifier:
+        for i, line in enumerate(self._score_list):
+            line = list(line)
+            if line[0] in statement and line[1] in identifier:
                 for pf in pfield:
-                    v = L[pf]
-                    L[pf] = func(v, *args, **kwargs)
-            d[i] = iter(L)
-
+                    line[pf] = func(line[pf], *args, **kwargs)
+            self._score_list[i] = line
 
 class Cue(object):
 
