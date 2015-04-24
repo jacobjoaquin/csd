@@ -15,15 +15,12 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with csd.  If not, see <http://www.gnu.org/licenses/>.
 
-'''Python Score. Currently unstable.'''
+'''Csound Python Score'''
 
 
-#!/usr/bin/python
-import sys
 from sys import argv
 from itertools import imap
 from itertools import chain
-import csd
 import atexit
 
 class PCallback(object):
@@ -68,11 +65,11 @@ class PythonScore(object):
     def t(self, *args):
         self._score_list.append(chain('t 0', args))
 
-    def p_callback(self, statement, identifier, pfield, func, *args, **kwargs):
+    def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
         self._p_call_backs[-1].append(PCallback(statement, identifier, pfield,
                                     func, *args, **kwargs))
 
-    def pmap(self, statement, identifier, pfield, func, *args, **kwargs):
+    def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
         if not isinstance(statement, list):
             statement = [statement]
 
@@ -82,7 +79,7 @@ class PythonScore(object):
         if not isinstance(pfield, list):
             pfield = [pfield]
 
-        # Handle multiple statments, tooooo
+        # TODO: Handle multiple statments, tooooo
         for i, line in enumerate(self._score_list):
             line = list(line)
             if line[0] in statement and line[1] in identifier:

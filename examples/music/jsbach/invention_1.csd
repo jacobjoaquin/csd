@@ -733,16 +733,16 @@ with measure(21):
 
 with measure(22):
     arp = increment()
-    score.p_callback('i', 1, 2, lambda x: arp.next())
+    score.prefilter('i', 1, 2, lambda x: arp.next())
     bottom(0, 0.5, 6.00)
     bottom(0, 0.5, 7.00)
     top(0, 0.5, 8.04)
     top(0, 0.5, 8.07)
     top(0, 0.5, 9.00)
 
-score.pmap('i', 1, 2, lambda x: x + random() * 0.05)  # Randomize start time
-score.pmap('i', 1, 3, lambda x: x + random() * 0.05)  # Randomize duration
-score.pmap('i', 1, 4, lambda x: x * 0.4)              # Lower amplitude
+score.postfilter('i', 1, 2, lambda x: x + random() * 0.05)  # Randomize start time
+score.postfilter('i', 1, 3, lambda x: x + random() * 0.05)  # Randomize duration
+score.postfilter('i', 1, 4, lambda x: x * 0.4)              # Lower amplitude
 
 </CsScore>
 </CsoundSynthesizer>

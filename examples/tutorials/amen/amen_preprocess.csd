@@ -65,8 +65,8 @@ score = PythonScoreBin()
 cue = score.cue
 
 perfect_5th = 2 ** (7 / 12.0)
-score.p_callback('i', 1, 6, multiply, perfect_5th)
-score.p_callback('i', 1, 3, multiply, 1 / perfect_5th)
+score.prefilter('i', 1, 6, multiply, perfect_5th)
+score.prefilter('i', 1, 3, multiply, 1 / perfect_5th)
 
 score.t(170)
 
@@ -75,7 +75,7 @@ with measure(2): drum_pattern_8th_hats()
 with measure(3): drum_pattern()
 with measure(4): drum_pattern_8th_hats()
 
-score.pmap('i', 1, 4, multiply, 0.707)
+score.postfilter('i', 1, 4, multiply, 0.707)
 
 </CsScore>
 </CsoundSynthesizer>

@@ -124,8 +124,8 @@ def intro():
 score = PythonScoreBin()
 cue = score.cue
 
-score.p_callback('i', 1, 6, multiply, transpose(7))
-score.p_callback('i', 1, 3, multiply, 1 / transpose(7))
+score.prefilter('i', 1, 6, multiply, transpose(7))
+score.prefilter('i', 1, 3, multiply, 1 / transpose(7))
 
 score.t(170)
 
@@ -136,7 +136,7 @@ for m in range(1, 17, 4):
         with measure(3): drum_pattern_8th_hats()
         with measure(4): drum_pattern_flair(1)
 
-score.pmap('i', 1, 4, multiply, 0.707)
+score.postfilter('i', 1, 4, multiply, 0.707)
  
 </CsScore>
 </CsoundSynthesizer>

@@ -67,8 +67,8 @@ def drum_pattern_8th_hats():
 score = PythonScoreBin()
 cue = score.cue
 
-score.p_callback('i', 1, 6, multiply, transpose(7))
-score.p_callback('i', 1, 3, multiply, 1 / transpose(7))
+score.prefilter('i', 1, 6, multiply, transpose(7))
+score.prefilter('i', 1, 3, multiply, 1 / transpose(7))
 
 score.t(170)
 
@@ -77,7 +77,7 @@ with measure(2): drum_pattern_8th_hats()
 with measure(3): drum_pattern()
 with measure(4): drum_pattern_8th_hats()
 
-score.pmap('i', 1, 4, multiply, 0.707)
+score.postfilter('i', 1, 4, multiply, 0.707)
  
 </CsScore>
 </CsoundSynthesizer>

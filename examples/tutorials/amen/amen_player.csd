@@ -111,14 +111,14 @@ def intro():
 score = PythonScoreBin()
 cue = score.cue
 
-score.p_callback('i', 1, 6, multiply, transpose(7))
-score.p_callback('i', 1, 3, multiply, 1 / transpose(7))
+score.prefilter('i', 1, 6, multiply, transpose(7))
+score.prefilter('i', 1, 3, multiply, 1 / transpose(7))
 
 score.t(170)
 
 intro()
 
-score.pmap('i', 1, 4, multiply, 0.707)
+score.postfilter('i', 1, 4, multiply, 0.707)
  
 </CsScore>
 </CsoundSynthesizer>
