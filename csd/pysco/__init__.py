@@ -36,24 +36,24 @@ class Filter:
         self.kwargs = kwargs
 
 
-class FilterMatrix:
+class StackMatrix:
     
     def __init__(self):
         self._block_stack = [[]]
 
-    def push_block(self):
+    def push_layer(self):
         self._block_stack.append([])
 
-    def pop_block(self):
+    def pop_layer(self):
         self._block_stack.pop()
 
-    def push_filter(self, the_filter):
+    def push(self, the_filter):
         self._block_stack[-1].append(the_filter) 
         
-    def pop_filter(self):
+    def pop(self):
         self._block_stack[-1].pop()
 
-    def flatten_list(self, parent_list):
+    def _flatten_list(self, parent_list):
         '''Returns a list with all embedded lists brought to the
         surface.'''
         
@@ -65,7 +65,7 @@ class FilterMatrix:
             
         for i in parent_list:
             if isinstance(i, list):
-                child_list = self.flatten_list(i)
+                child_list = self._flatten_list(i)
                 for j in child_list:
                     this_list.append(j)
             else:
@@ -73,24 +73,31 @@ class FilterMatrix:
 
         return this_list
 
+    # TODO: Is returning an iter necessary?
     def iterall(self):
-        L = self.flatten_list(self._block_stack)
-        return L
+        return iter(self._flatten_list(self._block_stack))
 
+    def merge_down(self):
+        pass
 
 class PythonScore(object):
     # TODO: 
     # Add reset()
     # Output thus far feature
-    
+   
+    # postfilter workings:
+    #   only applies to current score matrix block
+    #   when cue is popped, score data is merged with previous block
+
     def __init__(self):
         self.cue = Cue(self)
-        self._prefilters = [[]]
         self._score_list = []
-        self._prefilter_matrix = FilterMatrix()
+        self._prefilter_matrix = StackMatrix()
+        self._score_matrix = StackMatrix()
 
     def f(self, *args):
         self._score_list.append(chain('f', args))
+        self._score_matrix.append(chain('f', args))
 
     def i(self, *args):
         args = list(args)
@@ -109,11 +116,8 @@ class PythonScore(object):
         self._score_list.append(chain('t 0', args))
 
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
-        self._prefilter_matrix.push_filter(Filter(statement, identifier, pfield,
+        self._prefilter_matrix.push(Filter(statement, identifier, pfield,
                                                   func, *args, **kwargs))
-
-        self._prefilters[-1].append(Filter(statement, identifier, pfield,
-                                           func, *args, **kwargs))
 
     def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
         if not isinstance(statement, list):
@@ -147,16 +151,16 @@ class Cue(object):
 
     def __enter__(self):
         self._stack.append(self._translate)
-        self._parent._prefilters.append([])
         self._translation = sum(self._stack)
-        self._parent._prefilter_matrix.push_block()
+        self._parent._prefilter_matrix.push_layer()
+        self._parent._score_matrix.push_layer()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self._stack.pop()
-        self._parent._prefilters.pop()
         self._translation = sum(self._stack)
-        self._parent._prefilter_matrix.pop_block()
+        self._parent._prefilter_matrix.pop_layer()
+        self._parent._score_matrix.merge_down()
         return False
 
     def now(self):
