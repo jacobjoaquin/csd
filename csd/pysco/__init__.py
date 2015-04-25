@@ -39,19 +39,19 @@ class Filter:
 class StackMatrix:
     
     def __init__(self):
-        self._block_stack = [[]]
+        self._layers = [[]]
 
     def push_layer(self):
-        self._block_stack.append([])
+        self._layers.append([])
 
     def pop_layer(self):
-        self._block_stack.pop()
+        self._layers.pop()
 
-    def push(self, the_filter):
-        self._block_stack[-1].append(the_filter) 
+    def push(self, item):
+        self._layers[-1].append(item) 
         
     def pop(self):
-        self._block_stack[-1].pop()
+        self._layers[-1].pop()
 
     def _flatten_list(self, parent_list):
         '''Returns a list with all embedded lists brought to the
@@ -75,7 +75,7 @@ class StackMatrix:
 
     # TODO: Is returning an iter necessary?
     def iterall(self):
-        return iter(self._flatten_list(self._block_stack))
+        return iter(self._flatten_list(self._layers))
 
     def merge_down(self):
         pass
