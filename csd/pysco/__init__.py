@@ -37,6 +37,7 @@ class Filter:
 
 
 class StackMatrix:
+    '''It's a stack. It's a Matrix.  It's a stack-matrix.'''
     
     def __init__(self):
         self._layers = [[]]
@@ -45,13 +46,13 @@ class StackMatrix:
         self._layers.append([])
 
     def pop_layer(self):
-        self._layers.pop()
+        return self._layers.pop()
 
     def push(self, item):
         self._layers[-1].append(item) 
         
     def pop(self):
-        self._layers[-1].pop()
+        return self._layers[-1].pop()
 
     def _flatten_list(self, parent_list):
         '''Returns a list with all embedded lists brought to the
@@ -77,8 +78,12 @@ class StackMatrix:
     def iterall(self):
         return iter(self._flatten_list(self._layers))
 
+    def itercurrent(self):
+        return iter(self._layers[-1])
+
     def merge_down(self):
-        pass
+        layer = self.pop_layer()
+        self._layers[-1] += layer
 
 class PythonScore(object):
     # TODO: 
@@ -96,8 +101,7 @@ class PythonScore(object):
         self._score_matrix = StackMatrix()
 
     def f(self, *args):
-        self._score_list.append(chain('f', args))
-        self._score_matrix.append(chain('f', args))
+        self._score_matrix.push(chain('f', args))
 
     def i(self, *args):
         args = list(args)
@@ -110,10 +114,10 @@ class PythonScore(object):
                 args[pfield] = f.function(args[pfield], *f.args, **f.kwargs)
 
         args[1] += self.cue.now()
-        self._score_list.append(chain('i', args))
+        self._score_matrix.push(chain('i', args))
 
     def t(self, *args):
-        self._score_list.append(chain('t 0', args))
+        self._score_matrix.push(chain('t 0', args))
 
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
         self._prefilter_matrix.push(Filter(statement, identifier, pfield,
@@ -129,13 +133,15 @@ class PythonScore(object):
         if not isinstance(pfield, list):
             pfield = [pfield]
 
-        # TODO: Handle multiple statments, tooooo
-        for i, line in enumerate(self._score_list):
+        # TODO: Is there an iterable solution here?
+        this_layer = list(self._score_matrix.itercurrent())
+        for i, line in enumerate(this_layer):
             line = list(line)
             if line[0] in statement and line[1] in identifier:
                 for pf in pfield:
                     line[pf] = func(line[pf], *args, **kwargs)
-            self._score_list[i] = line
+            this_layer[i] = line
+        self._score_matrix._layers[-1] = this_layer
 
 
 class Cue(object):
@@ -174,7 +180,8 @@ class PythonScoreBin(PythonScore):
         atexit.register(self._bin_end_score)
 
     def _bin_end_score(self):
-        output = '\n'.join([' '.join(imap(str, i)) for i in self._score_list])
+        output = '\n'.join([' '.join(imap(str, i))
+                            for i in self._score_matrix.pop_layer()])
         with open(argv[1], 'w') as f:
         	f.write(output)
         with open('.pysco_generated_score.sco', 'w') as f:
