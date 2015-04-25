@@ -23,7 +23,8 @@ from itertools import imap
 from itertools import chain
 import atexit
 
-class PCallback(object):
+
+class Filter:
 
     def __init__(self, statement, identifier, pfield, function, *args,
                  **kwargs):
@@ -33,7 +34,49 @@ class PCallback(object):
         self.function = function
         self.args = args
         self.kwargs = kwargs
+
+
+class FilterMatrix:
+    
+    def __init__(self):
+        self._block_stack = [[]]
+
+    def push_block(self):
+        self._block_stack.append([])
+
+    def pop_block(self):
+        self._block_stack.pop()
+
+    def push_filter(self, the_filter):
+        self._block_stack[-1].append(the_filter) 
         
+    def pop_filter(self):
+        self._block_stack[-1].pop()
+
+    def flatten_list(self, parent_list):
+        '''Returns a list with all embedded lists brought to the
+        surface.'''
+        
+        this_list = []
+        child_list = []
+
+        if not isinstance(parent_list, list):
+            return [parent_list]
+            
+        for i in parent_list:
+            if isinstance(i, list):
+                child_list = self.flatten_list(i)
+                for j in child_list:
+                    this_list.append(j)
+            else:
+                this_list.append(i)
+
+        return this_list
+
+    def iterall(self):
+        L = self.flatten_list(self._block_stack)
+        return L
+
 
 class PythonScore(object):
     # TODO: 
@@ -42,8 +85,9 @@ class PythonScore(object):
     
     def __init__(self):
         self.cue = Cue(self)
-        self._p_call_backs = [[]]
+        self._prefilters = [[]]
         self._score_list = []
+        self._prefilter_matrix = FilterMatrix()
 
     def f(self, *args):
         self._score_list.append(chain('f', args))
@@ -51,13 +95,12 @@ class PythonScore(object):
     def i(self, *args):
         args = list(args)
 
-        # Apply callbacks
-        for L in self._p_call_backs:
-            for cb in L:
-                if cb.identifier == args[0]:
-                    # 'i' not yet added, so offset is necessary
-                    pf = cb.pfield - 1
-                    args[pf] = cb.function(args[pf], *cb.args, **cb.kwargs)
+        # Apply filters
+        for f in self._prefilter_matrix.iterall():
+            if f.identifier == args[0]:
+                # Offset necessary as 'i' not in list, yet
+                pfield = f.pfield - 1
+                args[pfield] = f.function(args[pfield], *f.args, **f.kwargs)
 
         args[1] += self.cue.now()
         self._score_list.append(chain('i', args))
@@ -66,8 +109,11 @@ class PythonScore(object):
         self._score_list.append(chain('t 0', args))
 
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
-        self._p_call_backs[-1].append(PCallback(statement, identifier, pfield,
-                                    func, *args, **kwargs))
+        self._prefilter_matrix.push_filter(Filter(statement, identifier, pfield,
+                                                  func, *args, **kwargs))
+
+        self._prefilters[-1].append(Filter(statement, identifier, pfield,
+                                           func, *args, **kwargs))
 
     def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
         if not isinstance(statement, list):
@@ -87,12 +133,13 @@ class PythonScore(object):
                     line[pf] = func(line[pf], *args, **kwargs)
             self._score_list[i] = line
 
+
 class Cue(object):
 
     def __init__(self, parent):
         self._stack = []
         self._parent = parent
-        self.translation = 0;
+        self._translation = 0;
 
     def __call__(self, translate=0, scale=1):
         self._translate = translate
@@ -100,18 +147,20 @@ class Cue(object):
 
     def __enter__(self):
         self._stack.append(self._translate)
-        self._parent._p_call_backs.append([])
-        self.translation = sum(self._stack)
+        self._parent._prefilters.append([])
+        self._translation = sum(self._stack)
+        self._parent._prefilter_matrix.push_block()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self._stack.pop()
-        self._parent._p_call_backs.pop()
-        self.translation = sum(self._stack)
+        self._parent._prefilters.pop()
+        self._translation = sum(self._stack)
+        self._parent._prefilter_matrix.pop_block()
         return False
 
     def now(self):
-        return self.translation
+        return self._translation
 
 
 class PythonScoreBin(PythonScore):
