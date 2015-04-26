@@ -18,35 +18,29 @@ composition. Classical Csound score is fully supported, all of
 Python 2.7 is available, and composers can pick and choose their
 score tools *à la carte*.
 
-The purpose of this tutorial is to try and prove the merits of
-using the Python language in favor over the classical Csound score.
-The classical score is a fixed system while Python is a very mature
-and highly extensible language with a vast collection of first and
-third party modules. Despite being a general purpose language that
-wasn't designed for music, Python is particularly well suited for
-composition.
+The purpose of this tutorial is to prove the merits of using the
+Python language in favor over the classical Csound score. The
+classical score is a fixed system while Python is a very mature and
+highly extensible language with a vast collection of first and third
+party modules. Despite being a general purpose language that wasn't
+designed for music, Python is particularly well suited for composition.
 
 PythonScore is not meant as a full replacement of the classical
-Csound score, but as an enhancement. Any and all existing classical
-score commands still work, and PythonScore itself outputs classical
-score code. Perhaps PythonScore should be thought as a user-friendly
-higher level abstraction of the classic score.
+Csound score, but as an enhancement. Existing classical score
+commands still work, and PythonScore outputs classical score code.
+PythonScore should be thought as a user-friendly higher level
+abstraction of the classic score. It is the assertion of the author
+that once composers have some hands-on experience, many of the
+advantages of working with PythonScore will become obvious.
 
-PythonScore is still early in development, though the library of
-use cases and examples is rapidly growing. And all from a single
-developer, which will hopefully change soon. The secondary purpose
-of this tutorial is to attract a small group of people to start
-experimenting with this alternative Csound score environment, to
-find out what works, what's easy and what's not, and to collect new
-ideas for future upgrades. It is also the belief of the author that
-once people have some hands-on experience, many of the advantages
-of working with PythonScore will become obvious. Until then, it's
-just the ramblings of one person's perspective.
+The secondary purpose of this tutorial is to attract a small group
+of people to start experimenting with this alternative Csound score
+environment, to find out what works, what's easy and what's not,
+and to collect new ideas for future upgrades.
 
-Since PythonScore is under development, consider this tutorial a
-living document, as it will be continually updated to keep up with
-any future changes. Send questions, comments, and bugs to
-jacobjoaquin@gmail.com, or write to the Csound Mailing List.
+This tutorial a living document, as it will be continually updated
+to keep up with any future changes. Send questions, comments, and
+bugs to jacobjoaquin@gmail.com, or write to the Csound Mailing List.
 
 Files
 =====
@@ -60,8 +54,8 @@ The Orchestra
 
 In order to bring focus to the enhanced set of features and
 compositional techniques Python brings to the score environment,
-every example uses the exact same orchestra throughout the entirety
-of this tutorial. Let's take a look:
+every example uses a single orchestra throughout the entirety
+of this tutorial:
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_classic.csd
     :start-after: <CsInstruments
@@ -71,7 +65,7 @@ of this tutorial. Let's take a look:
 
 The orchestra contains only a single instrument, a basic sampler
 with the `Amen Break <http://en.wikipedia.org/wiki/Amen_break>`_
-as its only audio source. The instrument includes support for three
+loop as the sole audio source. The instrument includes support for three
 custom pfield inputs for amplitude, the beat positional sample
 offset, and for tuning the sample. The fact that this is only a
 very basic instrument is purposeful as techniques discussed in this
@@ -101,7 +95,7 @@ examples using it as well.
 Typically, the Python interpreter is used in the terminal, which
 is invoked by typing "python"::
 
-    Quorra ~ $ python
+    $ python
 
 This starts an interactive Python session in which users can begin
 entering various statements::
@@ -116,14 +110,14 @@ entering various statements::
 The `CsoundQt <http://qutecsound.sourceforge.net/>`_ graphical front
 end comes equipped with a Python console. There's also `IPython
 <http://ipython.org/>`_ which supercharges the Python Interpreter
-with a lot of great features for Python beginners and veterans
+with additional features for Python beginners and veterans
 alike.
 
 ******************************
 Classical Score to PythonScore
 ******************************
 
-In this section, we'll walk you through some of the basic features
+In this section, we'll walk you through the basic features
 of Python and PythonScore. The tutorial starts with a classical
 Csound score, and adds new PythonScore idioms one by one until the
 score as been fully translated. The end result is the new Python

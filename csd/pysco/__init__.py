@@ -22,7 +22,7 @@ from sys import argv
 from itertools import imap
 from itertools import chain
 import atexit
-
+from csd.sco.event import get_pfield_list
 
 class Filter:
 
@@ -42,17 +42,17 @@ class StackMatrix:
     def __init__(self):
         self._layers = [[]]
 
-    def push_layer(self):
+    def push_matrix(self):
         self._layers.append([])
 
-    def pop_layer(self, append=False):
+    def pop_matrix(self, append=False):
         layer = self._layers.pop() 
         if append:
             self._layers[-1] += layer
         return layer
 
-    def replace_layer(self, the_layer):
-        self._layers[-1] = the_layer
+    def replace_layer(self, item):
+        self._layers[-1] = item
 
     def push(self, item):
         self._layers[-1].append(item) 
@@ -99,9 +99,13 @@ class PythonScore(object):
         self._score_matrix = StackMatrix()
 
     def f(self, *args):
+        '''Input an f-table function'''
+
         self._score_matrix.push(chain('f', args))
 
     def i(self, *args):
+        '''Input an i-event'''
+
         args = list(args)
 
         # Apply filters
@@ -115,13 +119,19 @@ class PythonScore(object):
         self._score_matrix.push(chain('i', args))
 
     def t(self, *args):
+        '''Input a t-event'''
+
         self._score_matrix.push(chain('t 0', args))
 
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
+        '''Push a score data function onto the current prefilter matrix'''
+
         self._prefilter_matrix.push(Filter(statement, identifier, pfield,
                                                   func, *args, **kwargs))
 
     def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
+        '''Filter the score data in the current layer of the score matrix'''
+
         if not isinstance(statement, list):
             statement = [statement]
 
@@ -142,8 +152,20 @@ class PythonScore(object):
         self._score_matrix.replace_layer(this_layer)
 
     def make_score(self):
+        '''Convert the score data into a classical Csound score'''
+
         return '\n'.join([' '.join(imap(str, i))
-                          for i in self._score_matrix.pop_layer()])
+                          for i in self._score_matrix.pop_matrix()])
+
+    def write(self, score_input):
+        '''Converts a classical Csound score string to PythonScore data'''
+
+        output = []
+        for line in [L.strip() for L in score_input.splitlines() if L.strip()]:
+            event = get_pfield_list(line)
+            if event[0] in ('i', 'f'):
+                event[2] = float(event[2]) + self.cue.now()
+            self._score_matrix.push(pf for pf in event)
 
 
 class Cue(object):
@@ -160,15 +182,15 @@ class Cue(object):
     def __enter__(self):
         self._stack.append(self._translate)
         self._translation = sum(self._stack)
-        self._parent._prefilter_matrix.push_layer()
-        self._parent._score_matrix.push_layer()
+        self._parent._prefilter_matrix.push_matrix()
+        self._parent._score_matrix.push_matrix()
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
         self._stack.pop()
         self._translation = sum(self._stack)
-        self._parent._prefilter_matrix.pop_layer()
-        self._parent._score_matrix.pop_layer(append=True)
+        self._parent._prefilter_matrix.pop_matrix()
+        self._parent._score_matrix.pop_matrix(append=True)
         return False
 
     def now(self):
