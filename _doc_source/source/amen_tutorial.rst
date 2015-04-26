@@ -555,12 +555,12 @@ Post-Processing Score Data
 
 Any data entered into the ``score()`` object via the ``PythonScore``
 ``write()`` or ``i()`` methods can be treated as data and post-processed
-with ``pmap()``. If you ran the last example multiple times, you
+with ``postfilter()``. If you ran the last example multiple times, you
 might have noticed the *"samples out of range"* warning. This can
-be solved in fell swoop. The ``pmap()`` method takes the following
+be solved in fell swoop. The ``postfilter()`` method takes the following
 input::
 
-    pmap(event_type, instr, pfield, function, *args, **kwargs)
+    postfilter(event_type, instr, pfield, function, *args, **kwargs)
 
 To avoid samples being played out of range, all the amplitudes in
 the score are lowered. Pfield-4 is designated for amplitude, and
@@ -587,24 +587,24 @@ function
 
     <iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=http%3A%2F%2Fapi.soundcloud.com%2Ftracks%2F86990923"></iframe>
 
-The `pmap()` function only works on data already in the score. For
+The `postfilter()` function only works on data already in the score. For
 this reason, the best place for most cases will be either after the
 last event is generated and/or just before ``score.end()`` is called.
 
 Pre-Processing Score Data
 =========================
 
-The ``p_callback()`` method is the pre-processing equivalent of ``pmap()``.
-The ``p_callback()`` method registers a function to use with a specific pfield
+The ``prefilter()`` method is the pre-processing equivalent of ``postfilter()``.
+The ``prefilter()`` method registers a function to use with a specific pfield
 for a specific instrument, and manipulates data as it is entered
 into the score.
 
-As an example, two related set of ``p_callback()`` functions are
+As an example, two related set of ``prefilter()`` functions are
 created. The first tunes all the drum events up a perfect 5th by
 altering the pfield-6 column used for tuning the samples. Since
 changing the pitch also affects the length of the sample, which in
 turn can cause the more of the sample to bleed into the next sample
-in the audio file, a second ``p_callback()`` modifies the duration
+in the audio file, a second ``prefilter()`` modifies the duration
 by the inverse of a perfect 5th.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_preprocess.csd
@@ -613,7 +613,7 @@ by the inverse of a perfect 5th.
     :end-before:  score.t(
 
 Where these callbacks are placed matter. Typically it is good
-practice to place ``p_callback()`` functions before any events are
+practice to place ``prefilter()`` functions before any events are
 placed in the score. In this example, these are placed just prior
 to the first write to the ``score()``.
 
@@ -646,7 +646,7 @@ output.
     :language: python
     :pyobject: transpose
 
-The ``score.p_callback()`` calls are refactored using this new function.
+The ``score.prefilter()`` calls are refactored using this new function.
 
 .. literalinclude:: ../../examples/tutorials/amen/amen_transpose.csd
     :language: python
@@ -684,7 +684,7 @@ patterns:
 .. literalinclude:: ../../examples/tutorials/amen/amen_default_args.csd
     :language: python
     :start-after: score.t(
-    :end-before: score.pmap
+    :end-before: score.postfilter
 
 **Source:** :download:`amen_default_args.csd <../../examples/tutorials/amen/amen_default_args.csd>`
 
@@ -777,7 +777,7 @@ notes, maybe.
 .. literalinclude:: ../../examples/tutorials/amen/amen_flair.csd
     :language: python
     :start-after: score.t(
-    :end-before: score.pmap
+    :end-before: score.postfilter
 
 **Source:** :download:`amen_flair.csd <../../examples/tutorials/amen/amen_flair.csd>`
 
@@ -795,7 +795,7 @@ final score and see if you can figure out the form?
 .. literalinclude:: ../../examples/tutorials/amen/amen_form.csd
     :language: python
     :start-after: score.t(
-    :end-before: score.pmap
+    :end-before: score.postfilter
 
 **Source:** :download:`amen_form.csd <../../examples/tutorials/amen/amen_form.csd>`
 

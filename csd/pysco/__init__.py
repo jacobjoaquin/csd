@@ -45,8 +45,14 @@ class StackMatrix:
     def push_layer(self):
         self._layers.append([])
 
-    def pop_layer(self):
-        return self._layers.pop()
+    def pop_layer(self, append=False):
+        layer = self._layers.pop() 
+        if append:
+            self._layers[-1] += layer
+        return layer
+
+    def replace_layer(self, the_layer):
+        self._layers[-1] = the_layer
 
     def push(self, item):
         self._layers[-1].append(item) 
@@ -81,22 +87,14 @@ class StackMatrix:
     def itercurrent(self):
         return iter(self._layers[-1])
 
-    def merge_down(self):
-        layer = self.pop_layer()
-        self._layers[-1] += layer
 
 class PythonScore(object):
     # TODO: 
     # Add reset()
     # Output thus far feature
    
-    # postfilter workings:
-    #   only applies to current score matrix block
-    #   when cue is popped, score data is merged with previous block
-
     def __init__(self):
         self.cue = Cue(self)
-        self._score_list = []
         self._prefilter_matrix = StackMatrix()
         self._score_matrix = StackMatrix()
 
@@ -141,7 +139,11 @@ class PythonScore(object):
                 for pf in pfield:
                     line[pf] = func(line[pf], *args, **kwargs)
             this_layer[i] = line
-        self._score_matrix._layers[-1] = this_layer
+        self._score_matrix.replace_layer(this_layer)
+
+    def make_score(self):
+        return '\n'.join([' '.join(imap(str, i))
+                          for i in self._score_matrix.pop_layer()])
 
 
 class Cue(object):
@@ -166,7 +168,7 @@ class Cue(object):
         self._stack.pop()
         self._translation = sum(self._stack)
         self._parent._prefilter_matrix.pop_layer()
-        self._parent._score_matrix.merge_down()
+        self._parent._score_matrix.pop_layer(append=True)
         return False
 
     def now(self):
@@ -180,8 +182,7 @@ class PythonScoreBin(PythonScore):
         atexit.register(self._bin_end_score)
 
     def _bin_end_score(self):
-        output = '\n'.join([' '.join(imap(str, i))
-                            for i in self._score_matrix.pop_layer()])
+        output = self.make_score() 
         with open(argv[1], 'w') as f:
         	f.write(output)
         with open('.pysco_generated_score.sco', 'w') as f:
