@@ -48,32 +48,20 @@ class StackMatrix:
     def pop(self):
         return self._layers[-1].pop()
 
-    def _flatten_list(self, parent_list):
-        '''Returns a list with all embedded lists brought to the
-        surface.'''
-        
-        this_list = []
-        child_list = []
-
-        if not isinstance(parent_list, list):
-            return [parent_list]
-            
-        for i in parent_list:
-            if isinstance(i, list):
-                child_list = self._flatten_list(i)
-                for j in child_list:
-                    this_list.append(j)
-            else:
-                this_list.append(i)
-
-        return this_list
-
-    # TODO: Is returning an iter necessary?
     def iterall(self):
-        return iter(self._flatten_list(self._layers))
+        return StackMatrix.__flatten(self._layers)
 
     def itercurrent(self):
-        return iter(self._layers[-1])
+        return self._layers[-1]
+
+    @staticmethod
+    def __flatten(the_list):
+        flattened = []
+        def __f(the_list):
+            for L in the_list:
+                __f(L) if isinstance(L, list) else flattened.append(L)
+        __f(the_list)
+        return flattened
 
 
 class PythonScore(object):
@@ -205,3 +193,4 @@ class PythonScoreBin(PythonScore):
 
 _Filter = namedtuple('Filter', [
     'statement', 'identifier', 'pfield', 'function', 'args', 'kwargs'])
+
