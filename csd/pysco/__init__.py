@@ -101,6 +101,8 @@ class PythonScore(object):
     def f(self, *args):
         '''Input an f-table function'''
 
+        args = list(args)
+        args[1] += self.cue.now()
         self._score_matrix.push(chain('f', args))
 
     def i(self, *args):
