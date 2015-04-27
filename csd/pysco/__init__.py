@@ -20,8 +20,6 @@
 
 import atexit
 from sys import argv
-from itertools import imap
-from itertools import chain
 from collections import namedtuple
 from csd.sco.event import get_pfield_list
 
@@ -101,13 +99,14 @@ class PythonScore(object):
     def t(self, *args):
         '''Input a t-event'''
 
-        self._score_matrix.push(chain('t 0', args))
+        self._score_matrix.push(['t', 0] + list(args))
 
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
         '''Push a score data function onto the current prefilter matrix'''
 
-        self._prefilter_matrix.push(_Filter(statement, identifier, pfield,
-                                                  func, args, kwargs))
+        self._prefilter_matrix.push(
+            _Filter(statement, identifier, pfield, func, args, kwargs)
+        )
 
     def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
         '''Filter the score data in the current layer of the score matrix'''
@@ -134,8 +133,8 @@ class PythonScore(object):
     def make_score(self):
         '''Convert the score data into a classical Csound score'''
 
-        return '\n'.join([' '.join(imap(str, i))
-                          for i in self._score_matrix.pop_matrix()])
+        return '\n'.join(' '.join(map(str, i))
+                          for i in self._score_matrix.pop_matrix())
 
     def write(self, score_input):
         '''Converts a classical Csound score string to PythonScore data'''
@@ -149,12 +148,15 @@ class PythonScore(object):
 
     def _apply_prefilter(self, statement, args):
         for f in [the_filter for the_filter in self._prefilter_matrix.iterall()
-                  if the_filter.statement == statement]:
-            args[f.pfield] = f.function(args[f.pfield], *f.args, **f.kwargs)
+                  if the_filter[0] == statement]:
+            args[f.pfield] = f[3](args[f.pfield], *f[4], **f[5])
 
     def _insert_time_event(self, statement, *args):
         pfields = [statement] + list(args)
-        self._apply_prefilter(statement, pfields)
+
+        for f in [the_filter for the_filter in self._prefilter_matrix.iterall()
+                  if the_filter[0] == statement]:
+            pfields[f.pfield] = f[3](pfields[f.pfield], *f[4], **f[5])
         pfields[2] += self.cue.now()
         self._score_matrix.push(pfields)
 
@@ -202,5 +204,5 @@ class PythonScoreBin(PythonScore):
         	f.write(output)
             
 
-_Filter = namedtuple('Filter', ['statement', 'identifier', 'pfield', 'function', 'args', 'kwargs'])
-
+_Filter = namedtuple('Filter', [
+    'statement', 'identifier', 'pfield', 'function', 'args', 'kwargs'])
