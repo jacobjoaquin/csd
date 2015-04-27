@@ -18,22 +18,12 @@
 '''Csound Python Score'''
 
 
+import atexit
 from sys import argv
 from itertools import imap
 from itertools import chain
-import atexit
+from collections import namedtuple
 from csd.sco.event import get_pfield_list
-
-class Filter:
-
-    def __init__(self, statement, identifier, pfield, function, *args,
-                 **kwargs):
-        self.statement = statement
-        self.identifier = identifier
-        self.pfield = pfield
-        self.function = function
-        self.args = args
-        self.kwargs = kwargs
 
 
 class StackMatrix:
@@ -116,8 +106,8 @@ class PythonScore(object):
     def prefilter(self, statement, identifier, pfield, func, *args, **kwargs):
         '''Push a score data function onto the current prefilter matrix'''
 
-        self._prefilter_matrix.push(Filter(statement, identifier, pfield,
-                                                  func, *args, **kwargs))
+        self._prefilter_matrix.push(_Filter(statement, identifier, pfield,
+                                                  func, args, kwargs))
 
     def postfilter(self, statement, identifier, pfield, func, *args, **kwargs):
         '''Filter the score data in the current layer of the score matrix'''
@@ -210,3 +200,7 @@ class PythonScoreBin(PythonScore):
         	f.write(output)
         with open('.pysco_generated_score.sco', 'w') as f:
         	f.write(output)
+            
+
+_Filter = namedtuple('Filter', ['statement', 'identifier', 'pfield', 'function', 'args', 'kwargs'])
+
