@@ -123,7 +123,6 @@ class PythonScore(object):
         # TODO: Is there an iterable solution here?
         this_layer = list(self._score_matrix.itercurrent())
         for i, line in enumerate(this_layer):
-            line = list(line)
             if line[0] in statement and line[1] in identifier:
                 for pf in pfield:
                     line[pf] = func(line[pf], *args, **kwargs)
