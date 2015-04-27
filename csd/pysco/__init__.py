@@ -101,24 +101,12 @@ class PythonScore(object):
     def f(self, *args):
         '''Input an f-table function'''
 
-        args = list(args)
-        self._apply_prefilter('f', args, -1)
-        args[1] += self.cue.now()
-        self._score_matrix.push(chain('f', args))
+        self._insert_time_event('f', *args)
 
     def i(self, *args):
         '''Input an i-event'''
 
-        args = list(args)
-        self._apply_prefilter('i', args, -1)
-        args[1] += self.cue.now()
-        self._score_matrix.push(chain('i', args))
-
-    def _apply_prefilter(self, statement, args, offset=0):
-        for f in [the_filter for the_filter in self._prefilter_matrix.iterall()
-                  if the_filter.statement == statement]:
-            pfield = f.pfield + offset
-            args[pfield] = f.function(args[pfield], *f.args, **f.kwargs)
+        self._insert_time_event('i', *args)
 
     def t(self, *args):
         '''Input a t-event'''
@@ -168,6 +156,17 @@ class PythonScore(object):
             if event[0] in ('i', 'f'):
                 event[2] = float(event[2]) + self.cue.now()
             self._score_matrix.push(pf for pf in event)
+
+    def _apply_prefilter(self, statement, args):
+        for f in [the_filter for the_filter in self._prefilter_matrix.iterall()
+                  if the_filter.statement == statement]:
+            args[f.pfield] = f.function(args[f.pfield], *f.args, **f.kwargs)
+
+    def _insert_time_event(self, statement, *args):
+        pfields = [statement] + list(args)
+        self._apply_prefilter(statement, pfields)
+        pfields[2] += self.cue.now()
+        self._score_matrix.push(pfields)
 
 
 class Cue(object):
